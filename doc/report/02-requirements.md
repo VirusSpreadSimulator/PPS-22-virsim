@@ -5,12 +5,9 @@
 ## Business
 
 1. Requisiti di Business
-
    + 1.1.  Simulazione della diffusione di un virus all’interno di una popolazione di individui che interagisce in un ambiente limitato
-
      + 1.1.1. generazione di diversi scenari configurabili attraverso mappe personalizzate
        + 1.1.1.2. presenza di diverse tipologie di strutture con caratteristiche personalizzabili legate al virus
-   
      + 1.1.2. definizione di una configurazione statica che riguarda diversi aspetti della simulazione, dell’ambiente e degl individui.
      + 1.1.3. interazione con la simulazione per la modifica e l’aggiunta di ulteriori parametri o vincoli.
      + 1.1.4. presenza di un tempo virtuale e di un ciclo giorno/notte.
@@ -32,7 +29,6 @@ Per essere il più vicini possibile ad una situazione agile reale, Andrea Acampo
 Alla luce di un approfondimento dell'intervista con il committente si evincono i seguenti requisiti:  
 
 2. Requisiti utente
-
    + 2.1. Configurazione delle caratteristiche iniziali della simulazione
      + 2.1.1. Durata della simulazione in termini di giorni
      + 2.1.2. Cardinalità della popolazione di individui
@@ -42,16 +38,13 @@ Alla luce di un approfondimento dell'intervista con il committente si evincono i
        + 2.1.5.1. Tasso di diffusione del virus
        + 2.1.5.2. Probabilità di sviluppo di una forma grave della malattia associata al virus
        + 2.1.5.3. Periodo medio di positività al virus
-
    + 2.2. Configurazione delle caratteristiche dell’ambiente
      + 2.2.1. Dimensione della griglia che rappresenta logicamente l’ambiente
-     
      + 2.2.2. Descrizione delle strutture presenti nell’ambiente
        + 2.2.2.1. Parametri della struttura
          + 2.2.2.1.1. Tipologia
            + 2.2.2.1.1.1. Edificio Generico: tipologia di struttura configurabile dall’utente con cui gli individui possono interagire
            + 2.2.2.1.1.2. Ospedale: tipologia di struttura dedicata alla cura degli individui
-         
          + 2.2.2.1.2. Disposizione in termini di coordinate
          + 2.2.2.1.3. Numero massimo di persone
          + 2.2.2.1.4. Raggio di visibilità della struttura espresso in numero di celle
@@ -61,7 +54,6 @@ Alla luce di un approfondimento dell'intervista con il committente si evincono i
            + 2.2.2.1.7.1. Filtro su media e deviazione standard dell’età degli individui
            + 2.2.2.1.7.2. Entrata libera (default)
            + 2.2.2.1.7.3. Entrata basata su probabilità di ingresso generica alla struttura
-     
    + 2.3. Interazione con la simulazione tramite GUI
      + 2.3.1. Comandi stop, pausa, riprendi
      + 2.3.2. Gestione della velocità di simulazione
@@ -69,11 +61,9 @@ Alla luce di un approfondimento dell'intervista con il committente si evincono i
        + 2.3.3.1. Obbligo mascherina
        + 2.3.3.2. Chiusura di una tipologia di struttura
        + 2.3.3.3. Vaccinazione esprimendo la percentuale di persone sottoposte
-   
    + 2.4. Visualizzazione dell’andamento della simulazione tramite GUI
      + 2.4.1. Evoluzione ambiente e spostamento individui
      + 2.4.2. Grafici sui dati principali della simulazione
-   
    + 2.5. Esportazione dati
      + 2.5.1. Tasso letalità
      + 2.5.2. Individui morti, malati, curati
@@ -83,47 +73,33 @@ Alla luce di un approfondimento dell'intervista con il committente si evincono i
 ## Funzionali
 
 3. Requisiti funzionali
-
    + 3.1. La simulazione è basata su un modello ad eventi discreti in cui è presente un tempo virtuale che scandisce le iterazioni.
-     
      + 3.1.1. l’avanzare del tempo virtuale e quindi delle iterazioni sancisce l’alternanza del ciclio giorno/notte simulando l’avanzamento delle giornate.
      + 3.1.2. Nel corso del giorno gli individui si muoveranno liberamente all’interno della mappa.
      + 3.1.3. Nel corso della notte in modo randomico alcuni individui saranno costretti a tornare nella propria casa.
-     
    + 3.2. L’ambiente della simulazione è rappresentato logicamente in due dimensioni attraverso una griglia che consente la disposizione delle strutture e lo spostamento degli individui tramite coordinate.
-     
      + 3.2.1. All’inizio della simulazione vengono generate un numero ottimale di case e disposte in zone esterne alla griglia.
      + 3.2.2. Ogni individuo verrà associato ad una casa da cui inizierà la giornata.
-     
    + 3.3. Ciascuna struttura occupa una cella della griglia ed ha un raggio di visibilità espresso in celle.
-   
      + 3.3.1. Le strutture sono definite dalle caratteristiche espresse dall’utente (2.2.2) e dal numero attuale di persone presenti al suo interno.
      + 3.3.2. Una volta nel raggio, ogni individuo sceglie di entrare con una probabilità che dipende dalle caratteristiche della struttura stessa.
        + 3.3.2.1. Il numero corrente di persone nella struttura deve essere inferiore al numero massimo.
        + 3.3.2.2. Assenza di un intervento dell’utente sulla chiusura della struttura (2.3.3.2).
        + 3.3.2.3. Strategia di accesso alla struttura (2.2.2.1.7).
-   
      + 3.3.3. L’individuo rimarrà all’interno della struttura per un periodo di tempo che dipende anch’esso dalle caratteristiche della struttura (2.2.2.1.5).
-     + 3.3.4. Terminato il periodo di permanenza nella struttura, l’individuo sarà posto in una delle celle esterne ed adiacenti al raggio della struttura stessa.
-   
-   
+     + 3.3.4. Terminato il periodo di permanenza nella struttura, l’individuo sarà posto in una delle celle esterne ed adiacenti al raggio della struttura stessa.   
    + 3.4. Un individuo è un’entità che occupa una posizione all’interno della griglia
-   
      + 3.4.1. Ad ogni iterazione si muove in modo casuale in una qualsiasi cella adiacente a quella corrente.
        + 3.4.1.1. Due individui possono trovarsi nella stessa posizione
-   
      + 3.4.2. La simulazione genera un insieme (2.1.2) di individui con diverse caratterstiche
-   
        + 3.4.2.1. Età, generata casualmente seguendo una distribuzione Gaussiana con parametri specificati eventualmente dall’utente (2.1.4).
        + 3.4.2.2. Stato di salute, rappresentato mediante un valore da 0 a 100.
          + 3.4.2.2.1. Il valore di partenza è influenzato dall’età dell’individuo
          + 3.4.2.2.2. Nel momento in cui il valore raggiunge lo 0 l’individuo è considerato deceduto.
          + 3.4.2.2.3. Un individuo non contagiato tende a riacquisire la propria salute.
-   
        + 3.4.2.3. Ogni individuo ha un valore che rappresenta la sua immunità al virus.
          + 3.4.2.3.1. Si incrementa in seguito di una guarigione dal virus o ad una somministrazione di un vaccino.
          + 3.4.2.3.2. Il valore viene decrementato con l’avanzare della simulazione.
-   
    + 3.5. Il contagio tra diversi individui avviene dentro e fuori dalle strutture.
      + 3.5.1. Fuori dalle strutture, il contagio si verifica per prossimità di un individuo infetto ad uno sano, con una probabilità che varia in base alla distanza tra essi.
      + 3.5.2. All’interno delle strutture, il contagio avviene con una probabilità che dipende dalla pericolosità di contagio all’interno della struttura (2.2.2.1.6) e dal numero di infetti presenti nella struttura.
@@ -131,25 +107,19 @@ Alla luce di un approfondimento dell'intervista con il committente si evincono i
      + 3.5.4. L’ individuo contrae il virus per un determinato periodo.
        + 3.5.4.1. Il periodo viene calcolato seguendo una distribuzione Gaussiana a seconda del parametro di durata media (2.1.5.3).
        + 3.5.4.2. Durante il periodo di positività al virus, lo stato di salute diminuisce in modo costante a seconda della gravità della malattia associata al virus che dipende dallo stato di salute nel momento del contagio e dal parametro probabilità di sviluppare una forma grave della malattia (2.1.5.2).
-   
    + 3.6. L’unico modo per curare un individuo dalla malattia provocata dal virus è l’ospedale.
      + 3.6.1. Nel momento in cui la vita di un individuo scende sotto a una soglia critica esso può entrare in un ospedale al fine di ristabilire la propria salute.
      + 3.6.2. Nel caso in cui nell’ambiente non siano presenti ospedali oppure abbiano raggiunto la capienza massima, l’individuo continua a spostarsi all’interno dell’ambiente.
      + 3.6.3. Nel caso in cui sia disponibile un ospedale, l’individuo viene spostato al suo interno e, per il periodo di permanenza, la cura aumenta il suo stato di salute.
-   
    + 3.7. La configurazione fornita dall’utente viene espressa mediante l’utilizzo di un DSL english-like.
-   
    + 3.8. Durante la simulazione vengono visualizzati i dati principali eventualmente tramite l’ausilio di grafici.
-   
    + 3.9. Esportazione dei dati della simulazione mediante formati standard come da requisito 2.5
 
 ## Non funzionali
 
 4. Requisiti Non Funzionali
-
    + 4.1. Mantenimento della fluidità del sistema e dell’interattività anche su dispositivi con risorse limitate.
      + 4.1.1. Requisito minimo: 4 GB di RAM, CPU Dual Core
-
    + 4.2. L’applicazione deve essere cross-platform ossia funzionare correttamente su diversi sistemi operativi: Linux, Windows, Mac OS.
    + 4.3. Estendibilità del sistema, in particolare delle tipologie di strutture e delle strategie di accesso ad esse.
 
