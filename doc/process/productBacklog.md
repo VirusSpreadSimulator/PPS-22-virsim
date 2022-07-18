@@ -16,5 +16,4 @@
 | 12       | Monitoraggio real-time della simulazione                     |         | 5                     |      |      |      |      |      |
 | 13       | Sviluppo del sistema di esportazioni dati                    |         | 5                     |      |      |      |      |      |
 | 14       | Realizzazione GUI JS-Based                                   |         | 4                     |      |      |      |      |      |
-|          |                                                              |         |                       |      |      |      |      |      |
 
