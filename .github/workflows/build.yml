@@ -19,7 +19,7 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
     - name: Run test and coverage
-      run: sbt scalafmtCheck clean coverage test coverageReport
+      run: sbt scalafmtCheck clean test jacoco
 
   SonarCloud:
       name: SonarCloud
@@ -31,5 +31,5 @@ jobs:
         - name: SonarCloud Scan
           uses: SonarSource/sonarcloud-github-action@master
           env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
