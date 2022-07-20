@@ -2,6 +2,7 @@ ThisBuild / scalaVersion := "3.1.1"
 ThisBuild / wartremoverErrors ++= Warts.all
 
 enablePlugins(GhpagesPlugin)
+enablePlugins(SiteScaladocPlugin)
 
 lazy val startupTransition: State => State = "writeHooks" :: _
 
