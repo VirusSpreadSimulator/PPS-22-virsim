@@ -71,7 +71,7 @@ Un elemento centrale dell'intero processo è stata la continua ricerca di qualit
 
 - **Scalafmt**: tool per una corretta formattazione del codice
 - **Wartremover**: utilizzato per l'analisi del codice Scala al fine di trovare potenziali problemi in esso.
-- **Scoverage**: utilizzato per calcolare e controllare la coverage del codice rispetto ai test.
+- **Jacoco**: utilizzato per calcolare e controllare la coverage del codice rispetto ai test.
 - **SonarCloud**: tool per la ricerca di code smells, bugs e vulnerabilità. Esso è utilizzato per automatizzare la code review.
 
 In generale, la code review è stata in parte automatizzata mediante il tool SonarCloud in modo da avere un controllo completo su tutto il codice e in parte eseguita attraverso meeting ad hoc per le features più importanti e per gli elementi core del sistema.
