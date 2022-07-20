@@ -59,7 +59,7 @@ I branch previsti dal workflow sono i seguenti:
 - *hotfix*: branch di supporto, utilizzato per la correzione di errori nel codice di produzione rilasciato.
 
 Inoltre, al fine di esplicitare maggiormente il significato dei commit si è scelto di utilizzare la specifica **[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)**, che ha semplificato l'utilizzo di tool automatici per il versionamento dell'applicazione. In particolare è stato adottata la specifica del **[Semantic Versioning](https://semver.org/)**.
-Al fine di controllare il rispetto della specifica *Conventional Commits* è stato utilizzato un plugin Sbt il quale genera un *hook* per git con lo scopo di analizzare il messaggio di commit ed eventualmente farlo fallire in caso di errore.
+Al fine di controllare il rispetto della specifica *Conventional Commits* è stato utilizzato un *hook* per git con lo scopo di analizzare il messaggio di commit ed eventualmente farlo fallire in caso di errore. Inoltre, è stato utilizzato un ulteriore hook pre-commit per eseguire automaticamente il pull dalla repository prima di poter effettuare qualsiasi commit in modo tale da limitare il più possibile la divergenza tra le linee di sviluppo. Per poter condividere e configurare automaticamente gli hook è stato utilizzato il plugin sbt **sbt-git-hooks** il quale al caricamento del progetto inserisce quest'ultimi all'interno della cartella *.git*.
 
 #### Build Automation
 
@@ -81,6 +81,7 @@ In generale, la code review è stata in parte automatizzata mediante il tool Son
 Per quanto riguarda lo strumento per la *Continuous Integration* è stata utilizzata la piattaforma **GitHub Actions**, la quale consente di automatizzare i flussi di lavoro dello sviluppo di software all'interno di GitHub. È possibile distribuire i flussi di lavoro nella stessa posizione in cui si archivia il codice per compilare, testare, assemblare, analizzare, rilasciare e distribuire software oltre ad automatizzare la collaborarazione tramite *issue* e *pull requests*.
 L'obiettivo è quello di verificare continuamente l'integrità del codice eseguendo nuovamente tutti i test presenti per ciascuna modifica effettuata evitando così situazioni di regressione. Un altro utilizzo del workflow di Continuous Integration è quello di mandare in esecuzione i tool per l'analisi statica del codice.
 Al fine di garantire un corretto utilizzo del software su piattaforme differenti i test verranno eseguiti su Windows, Linux e MacOs.
+Inoltre, per la gestione automatica degli aggiornamenti delle dipendenze è stato integrato all'interno dei workflow il tool **Renovate**.
 
 #### Continuous Deployment
 
