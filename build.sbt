@@ -5,3 +5,5 @@ lazy val root = (project in file("."))
   .settings(
     name := "PPS-22-virsim"
   )
+
+onLoad in Global ~= (_ andThen ("writeHooks" :: _))
