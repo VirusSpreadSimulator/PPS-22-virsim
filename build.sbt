@@ -26,4 +26,4 @@ lazy val root = (project in file("."))
     )
   )
 
-git.remoteRepo := "git@github.com:VirusSpreadSimulator/PPS-22-virsim.git"
+git.remoteRepo := "https://github.com/VirusSpreadSimulator/PPS-22-virsim.git"
