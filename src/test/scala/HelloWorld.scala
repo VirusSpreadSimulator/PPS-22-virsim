@@ -1,3 +1,1 @@
-class HelloWorld {
-
-}
+class HelloWorld {}
