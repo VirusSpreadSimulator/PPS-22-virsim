@@ -17,8 +17,8 @@ jobs:
         run: sbt makeSite
       - name: Publish site
         run: |
-          git config --global user.name "VirusSpreadSimulator"
-          git config --global user.email "gh-pages@bot.com"
+          git config --global user.name "andrea-acampora"
+          git config --global user.email "andrea.acampora@studio.unibo.it"
           sbt ghpagesPushSite
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
