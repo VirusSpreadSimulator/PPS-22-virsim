@@ -17,7 +17,7 @@ jobs:
         run: sbt makeSite
       - name: Publish site
         run: |
-          git config --global user.name "GH-PAGES BOT"
+          git config --global user.name "VirusSpreadSimulator"
           git config --global user.email "gh-pages@bot.com"
           sbt ghpagesPushSite
         env:
