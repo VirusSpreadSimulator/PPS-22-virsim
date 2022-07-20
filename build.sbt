@@ -22,7 +22,7 @@ lazy val root = (project in file("."))
       "utf-8"
     ),
     libraryDependencies ++= Seq(
-      "org.scalatest" %% "scalatest" % "3.2.11" % Test
+      "org.scalatest" %% "scalatest" % "3.2.12" % Test
     )
   )
 
