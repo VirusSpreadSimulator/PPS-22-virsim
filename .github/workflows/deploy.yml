@@ -16,9 +16,6 @@ jobs:
       - name: Make site and scala doc
         run: sbt makeSite
       - name: Publish site
-        run: |
-          git config --global user.name "${GITHUB_ACTOR}"
-          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          sbt ghpagesPushSite
+        run: sbt publishToGitHubPages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
