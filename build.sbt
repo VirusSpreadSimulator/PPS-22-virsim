@@ -1,7 +1,7 @@
 ThisBuild / scalaVersion := "3.1.1"
 ThisBuild / wartremoverErrors ++= Warts.all
 
-enablePlugins(GhpagesPlugin)
+enablePlugins(GitHubPagesPlugin)
 enablePlugins(SiteScaladocPlugin)
 
 lazy val startupTransition: State => State = "writeHooks" :: _
@@ -26,4 +26,4 @@ lazy val root = (project in file("."))
     )
   )
 
-git.remoteRepo := "https://github.com/VirusSpreadSimulator/PPS-22-virsim.git"
+gitHubPagesSiteDir := baseDirectory.value / "target/site"
