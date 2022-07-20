@@ -70,7 +70,7 @@ Come strumento per la build automation è stato utilizzato **Scala-Build Tool** 
 Un elemento centrale dell'intero processo è stata la continua ricerca di qualità nel codice sviluppato. A supporto di ciò sono stati utilizzati diversi tool automatici per l'analisi statica del codice sia a livello di plugin per l'IDE che a livello di Continuous Integration:
 
 - **Scalafmt**: tool per una corretta formattazione del codice
-- **ScalaStyle**: utilizzato per l'analisi del codice Scala al fine di trovare potenziali problemi in esso.
+- **Wartremover**: utilizzato per l'analisi del codice Scala al fine di trovare potenziali problemi in esso.
 - **Scoverage**: utilizzato per calcolare e controllare la coverage del codice rispetto ai test.
 - **SonarCloud**: tool per la ricerca di code smells, bugs e vulnerabilità. Esso è utilizzato per automatizzare la code review.
 
