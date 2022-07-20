@@ -1,10 +1,7 @@
 name: Deploy
 
 on:
-  workflow_run:
-    workflows: [ "Build" ]
-    branches: [ develop ]
-    types: [ completed ]
+  push:
 
 jobs:
   DocSite:
@@ -19,6 +16,6 @@ jobs:
       - name: Make site and scala doc
         run: sbt makeSite
       - name: Publish site
-        run: sbt publishToGitHubPages
+        run: sbt ghpagesPushSite
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
