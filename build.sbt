@@ -1,6 +1,8 @@
 ThisBuild / scalaVersion := "3.1.1"
 ThisBuild / wartremoverErrors ++= Warts.all
 
+enablePlugins(GhpagesPlugin)
+
 lazy val startupTransition: State => State = "writeHooks" :: _
 
 lazy val root = (project in file("."))
@@ -22,3 +24,5 @@ lazy val root = (project in file("."))
       "org.scalatest" %% "scalatest" % "3.2.11" % Test
     )
   )
+
+git.remoteRepo := "git@github.com:VirusSpreadSimulator/PPS-22-virsim.git"
