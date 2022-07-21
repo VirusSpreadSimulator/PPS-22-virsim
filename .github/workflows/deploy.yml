@@ -1,11 +1,15 @@
 name: Deploy
 
 on:
-  push:
+  workflow_run:
+    workflows: [Build]
+    types: [completed]
+    branches: [develop]
 
 jobs:
   DocSite:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 11
