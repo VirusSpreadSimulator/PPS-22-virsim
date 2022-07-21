@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="222px" preserveAspectRatio="none" style="width:777px;height:222px;background:#FFFFFF;" version="1.1" viewBox="0 0 777 222" width="777px" zoomAndPan="magnify"><defs/><g><!--MD5=[6cbf048fd2d5a055b0f2cbfd23391788]
+entity boundary--><path d="M125,46 L125,70 M125,58 L142,58 " fill="none" style="stroke:#454645;stroke-width:1.5;"/><ellipse cx="154" cy="58" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="65" x="113" y="86.9951">boundary</text><!--MD5=[1cacb5a8490e30b3bd5ac3ecbdc4ac78]
+entity launcher--><ellipse cx="268" cy="179" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><polygon fill="#454645" points="264,167,270,162,268,167,270,172,264,167" style="stroke:#454645;stroke-width:1.0;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60" x="238" y="207.9951">launcher</text><!--MD5=[cb028c5091c687ec367cd0cbfd70389f]
+entity engine--><ellipse cx="485" cy="23" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><polygon fill="#454645" points="481,11,487,6,485,11,487,16,481,11" style="stroke:#454645;stroke-width:1.0;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="461" y="51.9951">engine</text><!--MD5=[82baf439a90eede0fb64fe0703dd92f7]
+entity loader--><ellipse cx="379.5" cy="108" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><polygon fill="#454645" points="375.5,96,381.5,91,379.5,96,381.5,101,375.5,96" style="stroke:#454645;stroke-width:1.0;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="43" x="358" y="136.9951">loader</text><!--MD5=[cd13be72703caeb4bd49745d204d2e90]
+entity environment--><ellipse cx="612.5" cy="28" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><line style="stroke:#454645;stroke-width:1.5;" x1="600.5" x2="624.5" y1="42" y2="42"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="87" x="569" y="56.9951">environment</text><!--MD5=[1a78af00c6ca3e5688f0a2df2ad4b289]
+entity virus--><ellipse cx="612.5" cy="185" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><line style="stroke:#454645;stroke-width:1.5;" x1="600.5" x2="624.5" y1="199" y2="199"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="596.5" y="213.9951">virus</text><!--MD5=[fbcd1a1664252f7f7ddf883fed3c1e0a]
+entity entity--><ellipse cx="743" cy="108" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><line style="stroke:#454645;stroke-width:1.5;" x1="731" x2="755" y1="122" y2="122"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38" x="724" y="136.9951">entity</text><!--MD5=[aef4bbd40a79cbde1ee2c2f6983d79ff]
+entity building--><ellipse cx="743" cy="25" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><line style="stroke:#454645;stroke-width:1.5;" x1="731" x2="755" y1="39" y2="39"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="54" x="716" y="53.9951">building</text><!--MD5=[51dc34f6dea4a16405cfeb18503da005]
+entity Utente--><ellipse cx="29.5" cy="36.5" fill="#454645" rx="8" ry="8" style="stroke:#454645;stroke-width:1.5;"/><path d="M29.5,44.5 L29.5,71.5 M16.5,52.5 L42.5,52.5 M29.5,71.5 L16.5,86.5 M29.5,71.5 L42.5,86.5 " fill="none" style="stroke:#454645;stroke-width:1.5;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47" x="6" y="101.9951">Utente</text><!--MD5=[b6f37c2809b700ddc1adf389e6df02ee]
+link Utente to boundary--><path d="M53.02,66 C70.15,66 93.94,66 112.96,66 " fill="none" id="Utente-boundary" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[f3d1f238b8fcbb73305be014e6c80df6]
+link boundary to launcher--><path d="M170.6,90.2 C191.61,111.3 221.94,141.76 242.95,162.85 " fill="none" id="boundary-launcher" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[a1322fbbc09a77d71f11bc613cc4c403]
+link launcher to loader--><path d="M298.06,168.16 C316.94,155.92 341.09,140.26 357.98,129.3 " fill="none" id="launcher-loader" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[46890606563498db11f7f91241c93ba6]
+link loader to engine--><path d="M401.44,98.8 C418.69,84.63 443.12,64.57 460.93,49.95 " fill="none" id="loader-engine" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[47c55f4af74a450f8bbde560c7b139fd]
+link boundary to engine--><path d="M178.25,70.54 C245.69,70.41 401.88,53.89 460.87,40.25 " fill="none" id="boundary-engine" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[47c55f4af74a450f8bbde560c7b139fd]
+link boundary to engine--><!--MD5=[848b4729dc419230c6464289dc700f4b]
+link engine to environment--><path d="M509.02,31.92 C525.72,32.58 548.8,33.5 568.83,34.3 " fill="none" id="engine-environment" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[b51e714338d381bd4b5144837aed8edf]
+link environment to virus--><path d="M612.5,60.12 C612.5,96.34 612.5,132.56 612.5,168.78 " fill="none" id="environment-virus" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[ce4961932ae8cf3464a8b5984fea1e84]
+link environment to entity--><path d="M652.05,60 C675.86,74.82 705.3,93.15 723.87,104.71 " fill="none" id="environment-entity" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[2c0886a8096c25d509efd83d7d2fa668]
+link environment to building--><path d="M656.29,35 C676,34.54 698.76,34.01 715.87,33.61 " fill="none" id="environment-building" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[0ceb09a5b52ef174fcb9e35d55a57a2c]
+link launcher to virus--><!--MD5=[c70fcf297a3334842f3e52f81791898f]
+link loader to entity--><!--MD5=[b2eb2cd4df774f53ca31c33418ba34c8]
+link boundary to loader--><!--MD5=[fc7549264b782ccc5517cb5a84c037a1]
+@startuml
+!theme vibrant
+left to right direction
+
+ 
+
+boundary boundary 
+
+ 
+
+control launcher 
+control engine
+control loader
+
+ 
+
+entity environment      
+entity virus     
+entity entity
+entity building
+
+ 
+
+actor Utente
+
+ 
+
+Utente - - boundary
+boundary - - launcher 
+
+ 
+
+loader -up- launcher
+engine -up- loader 
+
+ 
+
+engine -left- boundary
+
+ 
+
+engine - - environment 
+environment -right- virus 
+environment - - entity 
+environment - - building
+
+ 
+
+
+'for styling reasons
+launcher -[hidden]-> virus
+loader -[hidden]-> entity
+boundary -[hidden]-> loader
+boundary -[hidden]-> engine
+
+ 
+
+@enduml
+
+@startuml
+skinparam BackgroundColor FFFFFF
+skinparam shadowing false
+skinparam RoundCorner 7
+skinparam ArrowColor 454645
+skinparam FontColor 454645
+skinparam SequenceLifeLineBorderColor 696969
+skinparam SequenceGroupHeaderFontColor 454645
+skinparam SequenceGroupFontColor 696969
+skinparam SequenceGroupBorderColor 696969
+skinparam SequenceGroupBorderThickness 1
+
+skinparam sequenceDivider {
+    BorderColor 454645
+    BorderThickness 1
+    FontColor 454645
+}
+
+skinparam participant {
+    BackgroundColor FF6347
+    BorderColor FF6F61
+    FontColor FFFFFF
+}
+
+skinparam database {
+    BackgroundColor 00FFFF
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam entity {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam note {
+    BackgroundColor 7FFFD4
+    BorderColor 7FFFD4
+    FontColor 454645
+}
+
+skinparam actor {
+    BackgroundColor 454645
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam boundary {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam control {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam collections {
+    BackgroundColor FF6347
+    BorderColor FFFFFF
+    FontColor 454645
+}
+
+skinparam queue {
+    BackgroundColor FF6347
+    BorderColor FFF
+    FontColor FFF
+    BorderThickness 1.5
+}
+left to right direction
+
+ 
+
+boundary boundary 
+
+ 
+
+control launcher 
+control engine
+control loader
+
+ 
+
+entity environment      
+entity virus     
+entity entity
+entity building
+
+ 
+
+actor Utente
+
+ 
+
+Utente - - boundary
+boundary - - launcher 
+
+ 
+
+loader -up- launcher
+engine -up- loader 
+
+ 
+
+engine -left- boundary
+
+ 
+
+engine - - environment 
+environment -right- virus 
+environment - - entity 
+environment - - building
+
+ 
+
+
+launcher -[hidden]-> virus
+loader -[hidden]-> entity
+boundary -[hidden]-> loader
+boundary -[hidden]-> engine
+
+ 
+
+@enduml
+
+PlantUML version 1.2021.13(Mon Nov 01 12:38:45 CET 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: GB
+--></g></svg>

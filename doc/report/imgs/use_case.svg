@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="931px" preserveAspectRatio="none" style="width:863px;height:931px;background:#FFFFFF;" version="1.1" viewBox="0 0 863 931" width="863px" zoomAndPan="magnify"><defs/><g><!--MD5=[2d7a3c04fe4d817c6eda23267c477f08]
+cluster VirusSpreadSimulator--><path d="M156.5,6 L326.5,6 A5.25,5.25 0 0 1 330,9.5 L337,28.2969 L852.5,28.2969 A3.5,3.5 0 0 1 856,31.7969 L856,753.5 A3.5,3.5 0 0 1 852.5,757 L156.5,757 A3.5,3.5 0 0 1 153,753.5 L153,9.5 A3.5,3.5 0 0 1 156.5,6 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="153" x2="337" y1="28.2969" y2="28.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="171" x="157" y="20.9951">VirusSpreadSimulator</text><ellipse cx="321.4278" cy="63.9856" fill="#FEFECE" rx="100.4278" ry="22.4856" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="165" x="238.9278" y="66.8322">Richiesta di simulazione</text><ellipse cx="321.4278" cy="277.9856" fill="#FEFECE" rx="100.4278" ry="22.4856" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="165" x="238.9278" y="280.8322">Configurazione del virus</text><ellipse cx="321.5602" cy="361.212" fill="#FEFECE" rx="116.5602" ry="25.712" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="200" x="221.5602" y="364.0587">Configurazione degli individui</text><ellipse cx="321.6527" cy="170.9305" fill="#FEFECE" rx="152.6527" ry="32.9305" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="276" x="183.6527" y="173.7772">Configurazione iniziale della simulazione</text><ellipse cx="321.6716" cy="454.8343" fill="#FEFECE" rx="152.1716" ry="32.8343" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="275" x="184.1716" y="457.681">Configurazione caratteristiche ambiente</text><ellipse cx="321.741" cy="550.1482" fill="#FEFECE" rx="121.241" ry="26.6482" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="210" x="216.741" y="552.9949">monitoraggio dela simulazione</text><ellipse cx="321.3027" cy="637.9605" fill="#FEFECE" rx="120.3027" ry="26.4605" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="208" x="217.3027" y="640.8072">Interazione con la simulazione</text><ellipse cx="687.3991" cy="517.0798" fill="#FEFECE" rx="135.8991" ry="29.5798" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="241" x="566.8991" y="519.9265">Gestione velocità della simulazione</text><ellipse cx="687.6527" cy="614.9305" fill="#FEFECE" rx="152.6527" ry="32.9305" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="276" x="549.6527" y="617.7772">Inserimento dinamico vincoli e parametri</text><ellipse cx="687.6232" cy="712.2246" fill="#FEFECE" rx="131.6232" ry="28.7246" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="232" x="571.6232" y="715.0713">Stop, Pausa e ripresa simulazione</text><ellipse cx="321.4431" cy="720.1886" fill="#FEFECE" rx="91.4431" ry="20.6886" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="145" x="248.9431" y="723.0353">Esportazione dei dati</text><!--MD5=[fee662a292a0353a69bd162820bae93b]
+entity User--><ellipse cx="22" cy="520.5" fill="#454645" rx="8" ry="8" style="stroke:#454645;stroke-width:1.5;"/><path d="M22,528.5 L22,555.5 M9,536.5 L35,536.5 M22,555.5 L9,570.5 M22,555.5 L35,570.5 " fill="none" style="stroke:#454645;stroke-width:1.5;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="6" y="585.9951">User</text><!--MD5=[3e2f0be034efe9e9eab40936dbefed54]
+link RIC_SIM to CONF_SIM--><path d="M321.5,86.74 C321.5,100.06 321.5,117.23 321.5,132.59 " fill="none" id="RIC_SIM-to-CONF_SIM" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="321.5,137.73,325.5,128.73,321.5,132.73,317.5,128.73,321.5,137.73" style="stroke:#454645;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="279.5" y="116.8169">«include»</text><!--MD5=[0a0d2abaae62a5151a7115266d55060b]
+link CONF_SIM to CONF_VIR--><path d="M321.5,204.22 C321.5,219 321.5,236.2 321.5,250.27 " fill="none" id="CONF_SIM-to-CONF_VIR" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="321.5,255.3,325.5,246.3,321.5,250.3,317.5,246.3,321.5,255.3" style="stroke:#454645;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="279.5" y="234.3169">«include»</text><!--MD5=[8ef89a49984033fb07c70bf1a062e0da]
+link CONF_SIM to CONF_IND--><path d="M217.8,195.39 C191.75,205.31 165.43,219.06 145,238 C90.67,288.36 89.16,301.91 111,327.5 C134.81,355.4 171.74,366.71 208.07,370.11 " fill="none" id="CONF_SIM-to-CONF_IND" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="213.42,370.55,204.7821,365.8185,208.4372,370.136,204.1197,373.791,213.42,370.55" style="stroke:#454645;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="72" y="323.5669">«include»</text><!--MD5=[a7ce2b04a6b7d3e416e841284a7de0c2]
+link CONF_ENV to CONF_SIM--><path d="M184.18,440.73 C153.63,430.49 125.23,413.71 108,386.5 C95.34,366.51 68.97,321.07 145,238 C162.01,219.41 184.72,205.94 208.17,196.2 " fill="none" id="CONF_ENV-to-CONF_SIM" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="212.87,194.3,203.0268,193.9652,208.2346,196.1742,206.0256,201.3819,212.87,194.3" style="stroke:#454645;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="67" x="69" y="382.5669">«extends»</text><!--MD5=[458ea200a2ee2cde4e0ede061f30a551]
+reverse link INT_SIM to SPEED--><path d="M420.46,612.26 C438.45,606.77 456.93,600.61 474,594 C502.17,583.07 506.93,575.17 535,564 C556.75,555.34 580.76,547.25 603.12,540.3 " fill="none" id="INT_SIM-backto-SPEED" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="none" points="422.38,619,401.22,617.95,418.41,605.57,422.38,619" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[1cf500e9e346b47f8fa5349252234621]
+reverse link INT_SIM to SPR--><path d="M430.36,659.92 C481.31,670.28 541.61,682.54 590.9,692.56 " fill="none" id="INT_SIM-backto-SPR" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="none" points="428.82,666.75,410.61,655.91,431.61,653.03,428.82,666.75" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[ee966555f1c13d53d121ba0af9473fc6]
+reverse link INT_SIM to INS_VINC--><path d="M457.64,629.46 C484.82,627.74 513.49,625.93 541,624.19 " fill="none" id="INT_SIM-backto-INS_VINC" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="none" points="458.07,636.44,437.67,630.72,457.19,622.47,458.07,636.44" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[cb729230aaac748c08e433470812ead4]
+link User to RIC_SIM--><path d="M25.43,510.74 C30.68,433.34 44.52,263.99 68,211 C89.46,162.56 100.94,149.41 145,120 C173.15,101.2 208.02,88.37 239.25,79.79 " fill="none" id="User-to-RIC_SIM" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="244.22,78.45,234.4896,76.9273,239.3919,79.7499,236.5694,84.6522,244.22,78.45" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[9d5f4511215b64f5f172f1566ec78ebc]
+link User to CONF_VIR--><path d="M24.65,510.94 C28.15,448.97 38.55,332.31 68,305 C112.54,263.68 182.3,259.02 237.21,263.53 " fill="none" id="User-to-CONF_VIR" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="242.48,263.99,233.8704,259.2072,237.4997,263.5464,233.1606,267.1757,242.48,263.99" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[6243fb2cdfb18161d16feee00c079f42]
+link User to CONF_IND--><path d="M38.11,522.11 C57.95,488.38 96.08,432.56 145,404 C166.97,391.17 192.63,382.15 217.44,375.82 " fill="none" id="User-to-CONF_IND" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="222.39,374.59,212.6874,372.899,217.5401,375.806,214.6331,380.6588,222.39,374.59" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[54169e78873a42b62ee58ad266b9389d]
+link User to CONF_SIM--><path d="M24.28,510.93 C27.33,441.24 37.24,299.27 68,262 C98.19,225.41 144.29,203.53 188.88,190.45 " fill="none" id="User-to-CONF_SIM" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="193.75,189.06,183.9985,187.6787,188.9413,190.4298,186.1902,195.3727,193.75,189.06" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[278571e8ff1877fea0cb6f46efb6ec6b]
+link User to CONF_ENV--><path d="M38.32,539.82 C46.79,534.54 57.67,528.3 68,524 C112.32,505.5 163.08,490.52 207.4,479.3 " fill="none" id="User-to-CONF_ENV" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="212.5,478.02,202.7927,476.3559,207.6535,479.2495,204.7599,484.1103,212.5,478.02" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[223b532287d56fdd459b134f1ee9ce6e]
+link User to SIM_MONIT--><path d="M38.16,550 C67.36,550 133.91,550 195.07,550 " fill="none" id="User-to-SIM_MONIT" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="200.22,550,191.22,546,195.22,550,191.22,554,200.22,550" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[fc10fb61e734b5e210b4257952630c8a]
+link User to INT_SIM--><path d="M38.24,556.05 C61.17,565.04 106.02,582.11 145,594 C173.14,602.57 204.19,610.77 232.24,617.71 " fill="none" id="User-to-INT_SIM" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="237.45,618.99,229.6721,612.9481,232.5959,617.7908,227.7533,620.7146,237.45,618.99" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[2af478a0aec35a5ec574c9a24a42b271]
+link User to SPEED--><path d="M30.5,589.19 C37.2,617.66 48.97,656.25 68,686 C93.25,725.46 101.42,740.79 145,758 C281.01,811.68 356.11,844.5 474,758 C546.87,704.52 470.97,627.78 535,564 C546.49,552.55 560.72,543.88 575.81,537.32 " fill="none" id="User-to-SPEED" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="580.52,535.35,570.6736,535.13,575.9067,537.2781,573.7586,542.5113,580.52,535.35" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[e9d1264c70b2b2ba93b523e1627102ab]
+link User to INS_VINC--><path d="M23.13,589.26 C25.03,634.53 33.69,709.57 68,763 C91.01,798.82 104.56,806.66 145,820 C283.86,865.8 353.06,902.18 474,820 C534.89,778.62 481.6,716.67 535,666 C546.12,655.44 559.5,647.07 573.65,640.42 " fill="none" id="User-to-INS_VINC" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="578.47,638.23,568.6216,638.3244,573.9206,640.3044,571.9406,645.6034,578.47,638.23" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[242976367083385243f59dcb6167f076]
+link User to ESP--><path d="M38.01,573.67 C58.42,603.79 97.83,655.11 145,682 C171.12,696.88 202.45,705.94 231.38,711.46 " fill="none" id="User-to-ESP" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="236.37,712.38,228.2378,706.8241,231.4518,711.4793,226.7967,714.6933,236.37,712.38" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[d3d65236950a1dfce38c33b9ccf82f54]
+link User to SPR--><path d="M25.59,589 C30.6,655.3 43.38,786.54 68,825 C90.27,859.77 105.51,864.91 145,877 C284.82,919.79 335.67,924.39 474,877 C550.84,850.67 621.33,783.98 658.65,743.9 " fill="none" id="User-to-SPR" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="662.16,740.11,653.11,743.9955,658.7627,743.7785,658.9796,749.4312,662.16,740.11" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[8eb47f22ae445898965a809dc03ed079]
+@startuml
+!theme vibrant
+left to right direction
+
+actor User
+
+package VirusSpreadSimulator {
+
+(Richiesta di simulazione) as RIC_SIM
+(Configurazione del virus) as CONF_VIR
+(Configurazione degli individui) as CONF_IND
+(Configurazione iniziale della simulazione) as CONF_SIM
+(Configurazione caratteristiche ambiente) as CONF_ENV
+(monitoraggio dela simulazione) as SIM_MONIT
+(Interazione con la simulazione) as INT_SIM
+(Gestione velocità della simulazione) as SPEED
+(Inserimento dinamico vincoli e parametri) as INS_VINC
+(Stop, Pausa e ripresa simulazione) as SPR
+(Esportazione dei dati) as ESP
+
+}
+
+RIC_SIM .> CONF_SIM : <<include>>
+CONF_SIM .> CONF_VIR : <<include>>
+CONF_SIM .> CONF_IND : <<include>>
+CONF_ENV .> CONF_SIM : <<extends>>
+
+INT_SIM <|- - SPEED
+INT_SIM <|- - SPR
+INT_SIM <|- - INS_VINC
+
+
+User - -> RIC_SIM
+User - -> CONF_VIR
+User - -> CONF_IND
+User - -> CONF_SIM
+User - -> CONF_ENV
+User - -> SIM_MONIT
+User - -> INT_SIM
+User - -> SPEED
+User - -> INS_VINC
+User - -> ESP
+User - -> SPR
+
+@enduml
+
+@startuml
+skinparam BackgroundColor FFFFFF
+skinparam shadowing false
+skinparam RoundCorner 7
+skinparam ArrowColor 454645
+skinparam FontColor 454645
+skinparam SequenceLifeLineBorderColor 696969
+skinparam SequenceGroupHeaderFontColor 454645
+skinparam SequenceGroupFontColor 696969
+skinparam SequenceGroupBorderColor 696969
+skinparam SequenceGroupBorderThickness 1
+
+skinparam sequenceDivider {
+    BorderColor 454645
+    BorderThickness 1
+    FontColor 454645
+}
+
+skinparam participant {
+    BackgroundColor FF6347
+    BorderColor FF6F61
+    FontColor FFFFFF
+}
+
+skinparam database {
+    BackgroundColor 00FFFF
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam entity {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam note {
+    BackgroundColor 7FFFD4
+    BorderColor 7FFFD4
+    FontColor 454645
+}
+
+skinparam actor {
+    BackgroundColor 454645
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam boundary {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam control {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam collections {
+    BackgroundColor FF6347
+    BorderColor FFFFFF
+    FontColor 454645
+}
+
+skinparam queue {
+    BackgroundColor FF6347
+    BorderColor FFF
+    FontColor FFF
+    BorderThickness 1.5
+}
+left to right direction
+
+actor User
+
+package VirusSpreadSimulator {
+
+(Richiesta di simulazione) as RIC_SIM
+(Configurazione del virus) as CONF_VIR
+(Configurazione degli individui) as CONF_IND
+(Configurazione iniziale della simulazione) as CONF_SIM
+(Configurazione caratteristiche ambiente) as CONF_ENV
+(monitoraggio dela simulazione) as SIM_MONIT
+(Interazione con la simulazione) as INT_SIM
+(Gestione velocità della simulazione) as SPEED
+(Inserimento dinamico vincoli e parametri) as INS_VINC
+(Stop, Pausa e ripresa simulazione) as SPR
+(Esportazione dei dati) as ESP
+
+}
+
+RIC_SIM .> CONF_SIM : <<include>>
+CONF_SIM .> CONF_VIR : <<include>>
+CONF_SIM .> CONF_IND : <<include>>
+CONF_ENV .> CONF_SIM : <<extends>>
+
+INT_SIM <|- - SPEED
+INT_SIM <|- - SPR
+INT_SIM <|- - INS_VINC
+
+
+User - -> RIC_SIM
+User - -> CONF_VIR
+User - -> CONF_IND
+User - -> CONF_SIM
+User - -> CONF_ENV
+User - -> SIM_MONIT
+User - -> INT_SIM
+User - -> SPEED
+User - -> INS_VINC
+User - -> ESP
+User - -> SPR
+
+@enduml
+
+PlantUML version 1.2021.13(Mon Nov 01 12:38:45 CET 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: GB
+--></g></svg>
