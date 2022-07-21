@@ -28,6 +28,7 @@ Al termine di ogni Sprint Planning, partendo dallo Sprint Backlog, i task vengon
 All'interno della Task Board sono presenti molteplici liste, ciascuna delle quali rappresenta un determinato stato nell'evoluzione del task. Le tipologie di liste presenti sono: *TO-DO, Doing, Testing, Done, Waiting, Blocked*. In questo modo ogni componente del team può avere una panoramica completa sul lavoro svolto e in esecuzione.
 Nella repository del progetto, nella sezione relativa alla documentazione di ciascuno sprint, è possibile osservare alcuni screenshot relativi all'evoluzione della Board di Trello.
 A seconda della tipologia, i task sono stati assegnati a un singolo membro del team, oppure sfruttando il *pair-programming*. Invece, i task più importanti hanno coinvolto l'intero team.
+Per ogni task assegnato è stata considerata la seguente *definition of done*: un task o, in particolare, una funzionalità è da considerarsi terminato nel momento in cui è stato adeguatamente testato e documentato, ha passato una code review (automatica o manuale a seconda dell'importanza) e soddisfa le aspettative del committente.
 
 ### Modalità di revisione in itinere dei task
 
