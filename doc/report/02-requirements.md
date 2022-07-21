@@ -70,6 +70,10 @@ Alla luce di un approfondimento dell'intervista con il committente si evincono i
      + 2.5.3. Malati gravi
      + 2.5.4. Periodo medio di ospedalizzazione
 
+Al fine di schematizzare esplicitando maggiormente i requisiti utente è stato prodotto il seguente diagramma dei casi d'uso utile anche per le fasi successive. 
+
+<img src="imgs/use_case.svg" alt="use_case_diagram" style="zoom:90%;" />
+
 ## Funzionali
 
 3. Requisiti funzionali
