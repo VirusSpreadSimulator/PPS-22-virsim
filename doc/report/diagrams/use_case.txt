@@ -1,0 +1,45 @@
+@startuml
+!theme vibrant
+left to right direction
+
+actor User
+
+package VirusSpreadSimulator {
+
+(Richiesta di simulazione) as RIC_SIM
+(Configurazione del virus) as CONF_VIR
+(Configurazione degli individui) as CONF_IND
+(Configurazione iniziale della simulazione) as CONF_SIM
+(Configurazione caratteristiche ambiente) as CONF_ENV
+(monitoraggio dela simulazione) as SIM_MONIT
+(Interazione con la simulazione) as INT_SIM
+(Gestione velocità della simulazione) as SPEED
+(Inserimento dinamico vincoli e parametri) as INS_VINC
+(Stop, Pausa e ripresa simulazione) as SPR
+(Esportazione dei dati) as ESP
+
+}
+
+RIC_SIM .> CONF_SIM : <<include>>
+CONF_SIM .> CONF_VIR : <<include>>
+CONF_SIM .> CONF_IND : <<include>>
+CONF_ENV .> CONF_SIM : <<extends>>
+
+INT_SIM <|-- SPEED
+INT_SIM <|-- SPR
+INT_SIM <|-- INS_VINC
+
+
+User --> RIC_SIM
+User --> CONF_VIR
+User --> CONF_IND
+User --> CONF_SIM
+User --> CONF_ENV
+User --> SIM_MONIT
+User --> INT_SIM
+User --> SPEED
+User --> INS_VINC
+User --> ESP
+User --> SPR
+
+@enduml

@@ -1,0 +1,58 @@
+@startuml
+!theme vibrant
+left to right direction
+
+ 
+
+boundary boundary 
+
+ 
+
+control launcher 
+control engine
+control loader
+
+ 
+
+entity environment      
+entity virus     
+entity entity
+entity building
+
+ 
+
+actor Utente
+
+ 
+
+Utente -- boundary
+boundary -- launcher 
+
+ 
+
+loader -up- launcher
+engine -up- loader 
+
+ 
+
+engine -left- boundary
+
+ 
+
+engine -- environment 
+environment -right- virus 
+environment -- entity 
+environment -- building
+
+ 
+
+
+'for styling reasons
+launcher -[hidden]-> virus
+loader -[hidden]-> entity
+boundary -[hidden]-> loader
+boundary -[hidden]-> engine
+
+ 
+
+@enduml
