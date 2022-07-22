@@ -9,6 +9,7 @@ lazy val startupTransition: State => State = "writeHooks" :: _
 lazy val root = (project in file("."))
   .settings(
     name := "PPS-22-virsim",
+    assembly / assemblyJarName := "virsim.jar",
     Global / onLoad := {
       val old = (Global / onLoad).value
       startupTransition compose old
