@@ -9,7 +9,6 @@ on:
 jobs:
   DocSite:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 11
@@ -23,3 +22,34 @@ jobs:
         run: sbt publishToGitHubPages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+  Release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 'lts/*'
+      - name: Generate Fat Jar
+        run: sbt assembly
+      - name: Merge Markdown report files
+        run: cat doc/report/*.md > doc/report.md 
+      - name: Build PDF
+        uses: baileyjm02/markdown-to-pdf@v1
+        with:
+          input_dir: doc
+          output_dir: doc/
+          images_dir: doc/imgs
+          build_html: false  
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm install
+          npx semantic-release
