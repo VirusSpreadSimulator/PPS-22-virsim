@@ -15,3 +15,6 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "1.4.1")
 
 //publish pages
 addSbtPlugin("io.kevinlee" % "sbt-github-pages" % "0.10.0")
+
+//generate FAT Jar
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.15.0")
