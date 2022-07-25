@@ -32,20 +32,17 @@ jobs:
         with:
           fetch-depth: 0
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: 'lts/*'
       - name: Generate Fat Jar
         run: sbt assembly
-      - name: Merge Markdown report files
-        run: cat doc/report/*.md > doc/report.md 
       - name: Build PDF
-        uses: baileyjm02/markdown-to-pdf@v1
+        uses: andrea-acampora/action-md2pdf@1.0.0
         with:
-          input_dir: doc
-          output_dir: doc/
-          images_dir: doc/imgs
-          build_html: false  
+          file_dir: doc/report
+          output_dir: doc
+          output_file_name: report.pdf 
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
