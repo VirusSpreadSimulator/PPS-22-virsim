@@ -36,7 +36,7 @@
     }],
     ["@semantic-release/github", {
       "assets": [
-        {"path": "target/scala-3.1.1/virsim.jar", "label": "Virsim Jar"},
+        {"path": "root/jvm/target/scala-3.1.1/virsim.jar", "label": "Virsim Jar"},
         {"path": "doc/report.pdf", "label": "PDF Report"}
       ]
     }],
