@@ -19,7 +19,7 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
     - name: Run test and coverage
-      run: sbt scalafmtCheck scalafmtCheckAll clean test jacocoAggregate
+      run: sbt scalafmtCheck scalafmtCheckAll clean test jacoco
     - name: SonarCloud
       if: runner.os == 'Linux'
       uses: SonarSource/sonarcloud-github-action@master
