@@ -20,7 +20,7 @@ addSbtPlugin("io.kevinlee" % "sbt-github-pages" % "0.10.0")
 //generate FAT Jar
 addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "1.2.0")
 
-addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.1.0")
+addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.2.0")
 
 addSbtPlugin("org.portable-scala" % "sbt-scala-native-crossproject" % "1.2.0")
 
