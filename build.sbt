@@ -1,12 +1,11 @@
 ThisBuild / scalaVersion := "3.1.1"
-ThisBuild / wartremoverErrors ++= Warts.all
-
-enablePlugins(GitHubPagesPlugin)
-enablePlugins(SiteScaladocPlugin)
+ThisBuild / wartremoverWarnings ++= Warts.all
+ThisBuild / wartremoverErrors += Wart.Nothing
 
 lazy val startupTransition: State => State = "writeHooks" :: _
 
-lazy val root = (project in file("."))
+lazy val root = crossProject(JSPlatform, NativePlatform, JVMPlatform)
+  .crossType(CrossType.Full)
   .settings(
     name := "PPS-22-virsim",
     assembly / assemblyJarName := "virsim.jar",
@@ -15,7 +14,7 @@ lazy val root = (project in file("."))
       startupTransition compose old
     },
     // add XML report for sonarcloud
-    jacocoReportSettings := JacocoReportSettings(
+    jacocoAggregateReportSettings := JacocoReportSettings(
       "Jacoco Coverage Report",
       None,
       JacocoThresholds(),
@@ -23,8 +22,27 @@ lazy val root = (project in file("."))
       "utf-8"
     ),
     libraryDependencies ++= Seq(
-      "org.scalatest" %% "scalatest" % "3.2.12" % Test
+      "org.scalatest" %%% "scalatest" % "3.2.12" % Test
     )
+  )
+  .jsSettings(
+    scalaJSUseMainModuleInitializer := true,
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.2.0"
+  )
+  .nativeSettings()
+  .jvmSettings(
+    libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0"
+  )
+
+lazy val aggregate = (project in file("."))
+  .enablePlugins(ScalaUnidocPlugin)
+  .enablePlugins(GitHubPagesPlugin)
+  .enablePlugins(SiteScaladocPlugin)
+  .aggregate(root.jvm, root.js)
+  .settings(
+    name := "PPS-22-Virsim",
+    ScalaUnidoc / siteSubdirName := "latest/api/",
+    addMappingsToSiteDir(ScalaUnidoc / packageDoc / mappings, ScalaUnidoc / siteSubdirName)
   )
 
 gitHubPagesSiteDir := baseDirectory.value / "target/site"
