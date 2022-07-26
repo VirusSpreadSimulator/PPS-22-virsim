@@ -27,11 +27,17 @@ lazy val root = crossProject(JSPlatform, NativePlatform, JVMPlatform)
   )
   .jsSettings(
     scalaJSUseMainModuleInitializer := true,
-    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.2.0"
+    libraryDependencies ++= Seq(
+      "org.scala-js" %%% "scalajs-dom" % "2.2.0",
+      "io.monix" %%% "monix" % "3.4.1"
+    )
   )
   .nativeSettings()
   .jvmSettings(
-    libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0"
+    libraryDependencies ++= Seq(
+      "org.scala-lang.modules" %% "scala-swing" % "3.0.0",
+      "io.monix" %% "monix" % "3.4.1"
+    )
   )
 
 lazy val aggregate = (project in file("."))
