@@ -14,7 +14,7 @@ lazy val root = crossProject(JSPlatform, NativePlatform, JVMPlatform)
       startupTransition compose old
     },
     // add XML report for sonarcloud
-    jacocoAggregateReportSettings := JacocoReportSettings(
+    jacocoReportSettings := JacocoReportSettings(
       "Jacoco Coverage Report",
       None,
       JacocoThresholds(),
