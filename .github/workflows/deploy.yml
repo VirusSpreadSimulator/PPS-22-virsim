@@ -36,7 +36,7 @@ jobs:
         with:
           node-version: 'lts/*'
       - name: Generate Fat Jar
-        run: sbt assembly
+        run: sbt rootJVM/assembly
       - name: Build PDF
         uses: andrea-acampora/action-md2pdf@1.0.0
         with:
