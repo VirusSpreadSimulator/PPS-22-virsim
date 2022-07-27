@@ -35,14 +35,15 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 'lts/*'
-      - name: Generate Fat Jar
-        run: sbt rootJVM/assembly
       - name: Build PDF
         uses: andrea-acampora/action-md2pdf@1.0.0
         with:
           file_dir: doc/report
           output_dir: doc
-          output_file_name: report.pdf 
+          output_file_name: report.pdf
+          config_dir: doc/config/
+      - name: Generate Fat Jar
+        run: sbt rootJVM/assembly
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
