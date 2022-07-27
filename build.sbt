@@ -22,20 +22,21 @@ lazy val root = crossProject(JSPlatform, NativePlatform, JVMPlatform)
       "utf-8"
     ),
     libraryDependencies ++= Seq(
-      "org.scalatest" %%% "scalatest" % "3.2.12" % Test,
-      "io.monix" %%% "monix" % "3.4.1"
+      "org.scalatest" %%% "scalatest" % "3.2.12" % Test
     )
   )
   .jsSettings(
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies ++= Seq(
-      "org.scala-js" %%% "scalajs-dom" % "2.2.0"
+      "org.scala-js" %%% "scalajs-dom" % "2.2.0",
+      "io.monix" %%% "monix" % "3.4.1"
     )
   )
   .nativeSettings()
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "org.scala-lang.modules" %% "scala-swing" % "3.0.0"
+      "org.scala-lang.modules" %% "scala-swing" % "3.0.0",
+      "io.monix" %% "monix" % "3.4.1"
     )
   )
 
