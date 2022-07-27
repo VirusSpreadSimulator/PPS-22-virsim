@@ -1,0 +1,86 @@
+@startuml
+!theme vibrant
+
+class Structure {
+  position
+  infectionRate
+  capacity
+  /currentNumberOfPeople
+  isOpen
+  visibilityRadius
+  averagePermanenceTime
+}
+
+class House {}
+
+class Hospital {
+  treatmentQuality
+}
+
+class GenericBuilding {}
+
+class EntranceStrategy {}
+
+class FilterBasedStrategy {}
+
+class FreeStrategy {}
+
+class ProbabilityBasedStrategy {}
+
+class Entity {
+  age
+  health
+  maxHealth
+  immunity
+  currentPosition
+  /isInfected
+}
+
+class Infection {
+  severity
+  infectionDuration
+
+}
+
+class Virus {
+  spreadRate
+  averagePositivityPeriod
+  severeDeseaseProb
+}
+
+class Environment {
+  time
+  size
+}
+
+
+Structure <|-- House
+Structure <|-- Hospital
+Structure <|-- GenericBuilding
+
+Structure -- EntranceStrategy : "has"
+
+EntranceStrategy <|-- FilterBasedStrategy
+EntranceStrategy <|-- FreeStrategy
+EntranceStrategy <|-- ProbabilityBasedStrategy
+
+Environment o-- Structure
+Environment o-- Entity
+
+Environment -- Virus : "threatened"
+
+Entity - Virus : "contracts"
+(Entity, Virus) .. Infection
+
+Entity -- House : "lives"
+Structure -- Entity : "located"
+
+Virus -[hidden]- House
+Virus -[hidden]- Infection
+Virus -[hidden]- House
+Hospital -[hidden]- GenericBuildin
+
+
+hide GenericBuildin
+
+@enduml

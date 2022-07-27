@@ -12,6 +12,8 @@
      + 1.1.3. interazione con la simulazione per la modifica e l’aggiunta di ulteriori parametri o vincoli.
      + 1.1.4. presenza di un tempo virtuale e di un ciclo giorno/notte.
      + 1.1.5. Visualizzazione, monitoraggio ed esportazione di informazioni e statistiche riguardanti l’andamento della simulazione
+   
+   
 
 ## Utente
 
@@ -25,6 +27,10 @@ Per essere il più vicini possibile ad una situazione agile reale, Andrea Acampo
 > Al fine di anticipare e simulare le decisioni prese nella gestione della pandemia è richiesta la possibliltà di interagire dinamicamente con la simulazione inserendo vincoli e parametri dinamici quali obbligo di indossare la mascherina, chiusura di strutture e introduzione di una campagna vaccinale. 
 > Vi è inoltre la necessità di monitorare costantemente l'andamento della simulazione rispetto all'evoluzione del contagio e lo spostamento degli individui mediante interfaccia grafica. Essa deve comprendere anche grafici con le principali statistiche. Quindi è sicuramente utile la possibilità di mettere in pausa e stoppare preventivamente la simulazione ed impostarne la velocità. 
 > Potendo eseguire simulazioni con parametri differenti, si rende necessario un meccanismo di esportazione dei dati a fini comparativi e di archiviazione. In particolare, i dati rilevanti sono il tasso di letalità del virus, il numero di individui morti, malati e curati, il numero totale di malati gravi e il periodo medio di ospedalizzazione."
+
+Al fine di schematizzare esplicitando maggiormente i requisiti utente è stato prodotto il seguente diagramma dei casi d'uso utile anche per le fasi successive. 
+
+<img src="imgs/use_case.svg" alt="use_case_diagram" style="zoom:90%;" />
 
 Alla luce di un approfondimento dell'intervista con il committente si evincono i seguenti requisiti:  
 
@@ -70,9 +76,9 @@ Alla luce di un approfondimento dell'intervista con il committente si evincono i
      + 2.5.3. Malati gravi
      + 2.5.4. Periodo medio di ospedalizzazione
 
-Al fine di schematizzare esplicitando maggiormente i requisiti utente è stato prodotto il seguente diagramma dei casi d'uso utile anche per le fasi successive. 
+Infine, in seguito ai requisiti utente elencati, è emerso il seguente dominio modellato attraverso il diagramma delle classi di analisi qui riportato.
 
-<img src="imgs/use_case.svg" alt="use_case_diagram" style="zoom:90%;" />
+<img src="imgs/analysis_class.svg" alt="analysis_class" style="zoom:100%;" />
 
 ## Funzionali
 
