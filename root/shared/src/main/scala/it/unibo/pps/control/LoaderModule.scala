@@ -14,7 +14,7 @@ object LoaderModule:
       override def load(configMax: Int): Task[Unit] =
         for
           _ <- Task(context.engine.init(configMax))
-          _ <- Task(context.engine.startSimulation())
+          _ <- context.engine.startSimulation()
         yield ()
   trait Interface extends Provider with Component:
     self: Requirements =>

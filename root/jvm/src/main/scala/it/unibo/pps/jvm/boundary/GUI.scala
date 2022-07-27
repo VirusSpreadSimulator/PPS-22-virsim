@@ -38,19 +38,13 @@ object GUI:
 
     override def init(): Task[Unit] =
       for
-        frame <- container.asyncBoundary(swingScheduler)
+        frame <- container.asyncBoundary(SwingConfiguration.swingScheduler)
         _ <- io(renderBtns.map(_.button).foreach(frame.add))
         _ <- io(frame.setVisible(true))
       yield ()
 
-    override def render(i: Int): Task[Unit] = Task {
-      SwingUtilities.invokeLater { () =>
-        println(s"render - $i")
-      }
-    }
-
-    //Scheduler used from shifting the task execution to the AWT thread.
-    private val swingScheduler: Scheduler = Scheduler.apply(new ExecutionContext {
-      override def execute(runnable: Runnable): Unit = SwingUtilities.invokeLater(runnable)
-      override def reportFailure(cause: Throwable): Unit = {} // todo: technical debt
-    })
+    override def render(i: Int): Task[Unit] =
+      for
+        _ <- Task.pure {}.asyncBoundary(SwingConfiguration.swingScheduler)
+        _ <- Task(println(i))
+      yield ()

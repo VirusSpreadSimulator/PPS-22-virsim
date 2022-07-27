@@ -1,5 +1,6 @@
 package it.unibo.pps.js.boundary.component
 
+import it.unibo.pps.boundary.component.EventSource
 import it.unibo.pps.boundary.component.Events.Event
 import monix.execution.Cancelable
 import monix.reactive.{Observable, OverflowStrategy}
@@ -8,8 +9,7 @@ import org.scalajs.dom.html.Button
 
 import java.awt.event.ActionEvent
 
-trait MonadButton:
-  def events: Observable[Event]
+trait MonadButton extends EventSource:
   def button: Button
 
 object MonadButton:

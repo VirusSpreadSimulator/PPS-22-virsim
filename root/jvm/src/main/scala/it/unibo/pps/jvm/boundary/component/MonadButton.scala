@@ -1,5 +1,6 @@
 package it.unibo.pps.jvm.boundary.component
 
+import it.unibo.pps.boundary.component.EventSource
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.jvm.boundary.component.MonadButton
 import monix.eval.Task
@@ -9,8 +10,7 @@ import monix.reactive.{Observable, OverflowStrategy}
 import java.awt.event.ActionEvent
 import javax.swing.JButton
 
-trait MonadButton:
-  def events: Observable[Event]
+trait MonadButton extends EventSource:
   def button: JButton
 
 object MonadButton:
