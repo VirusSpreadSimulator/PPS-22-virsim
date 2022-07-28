@@ -11,7 +11,7 @@ package VirusSpreadSimulator {
 (Configurazione degli individui) as CONF_IND
 (Configurazione iniziale della simulazione) as CONF_SIM
 (Configurazione caratteristiche ambiente) as CONF_ENV
-(monitoraggio dela simulazione) as SIM_MONIT
+(Monitoraggio della simulazione) as SIM_MONIT
 (Interazione con la simulazione) as INT_SIM
 (Gestione velocità della simulazione) as SPEED
 (Inserimento dinamico vincoli e parametri) as INS_VINC
