@@ -1,8 +1,8 @@
 # VirSim - Virus Spread Simulator
 ![workflow-develop badge](https://github.com/VirusSpreadSimulator/PPS-22-Virsim/actions/workflows/build.yml/badge.svg?branch=develop)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 <!--
-[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=VirusSpreadSimulator_PPS-22-virsim&metric=alert_status)](https://sonarcloud.io/dashboard?id=VirusSpreadSimulator_PPS-22-virsim) 
- [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=VirusSpreadSimulator_PPS-22-virsim&metric=coverage)](https://sonarcloud.io/component_measures/metric/coverage/list?id=VirusSpreadSimulator_PPS-22-virsim)
+[![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=VirusSpreadSimulator_PPS-22-virsim&metric=coverage)](https://sonarcloud.io/component_measures/metric/coverage/list?id=VirusSpreadSimulator_PPS-22-virsim)
  [![SonarCloud Bugs](https://sonarcloud.io/api/project_badges/measure?project=VirusSpreadSimulator_PPS-22-virsim&metric=bugs)](https://sonarcloud.io/component_measures/metric/reliability_rating/list?id=VirusSpreadSimulator_PPS-22-virsim)
  [![SonarCloud Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=VirusSpreadSimulator_PPS-22-virsim&metric=vulnerabilities)](https://sonarcloud.io/component_measures/metric/security_rating/list?id=VirusSpreadSimulator_PPS-22-virsim)
 -->
