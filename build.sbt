@@ -23,7 +23,6 @@ lazy val root = crossProject(JSPlatform, NativePlatform, JVMPlatform)
     ),
     libraryDependencies ++= Seq(
       "org.scalatest" %% "scalatest" % "3.2.12" % Test,
-      "org.scalatest" %%% "scalatest" % "3.2.12" % Test,
       "io.monix" %% "monix" % "3.4.1"
     )
   )
