@@ -7,17 +7,17 @@ object Entrance:
   trait EntranceStrategy:
     def canEnter(entity: Entity): Boolean
 
-  /** Base entrance strategy. It correspond to the free strategy. So everyone could possibly enter. */
+  /** Base entrance strategy. It corresponds to the free strategy. So everyone could possibly enter. */
   class BaseEntranceStrategy() extends EntranceStrategy:
     override def canEnter(entity: Entity): Boolean = true
 
-  /** Filter based entrance strategy. It decide if allow the entity to enter based on the filter function passed when
+  /** Filter based entrance strategy. It decides if allow the entity to enter based on the filter function passed when
     * mixed-in
     */
   trait FilterBasedStrategy(val filter: Entity => Boolean) extends EntranceStrategy:
     abstract override def canEnter(entity: Entity): Boolean = filter(entity) && super.canEnter(entity)
 
-  /** Probability based entrance strategy. It decide if allow the entity to enter based on the probability passed when
+  /** Probability based entrance strategy. It decides if allow the entity to enter based on the probability passed when
     * mixed-in
     */
   trait ProbabilityBasedStrategy(val probability: Double) extends EntranceStrategy:
