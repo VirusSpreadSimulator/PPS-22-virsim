@@ -1,14 +1,14 @@
-package it.unibo.pps.control
+package it.unibo.pps.control.engine
 
 import it.unibo.pps.boundary.BoundaryModule
-import it.unibo.pps.entity.{EnvModule, State}
-import monix.eval.Task
-import monix.execution.Scheduler
-import monix.reactive.{Observable, OverflowStrategy}
-import monix.catnap.ConcurrentQueue
 import it.unibo.pps.boundary.component.Events.Event
-import it.unibo.pps.boundary.component.Events.Event.*
-import it.unibo.pps.control.EngineConfiguration.SimulationConfiguration
+import it.unibo.pps.boundary.component.Events.Event.Hit
+import it.unibo.pps.control.engine.EngineConfiguration.SimulationConfiguration
+import it.unibo.pps.entity.{EnvModule, State}
+import monix.catnap.ConcurrentQueue
+import monix.eval.Task
+import monix.reactive.Observable
+
 import scala.concurrent.duration.{FiniteDuration, TimeUnit}
 
 object EngineModule:

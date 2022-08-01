@@ -1,5 +1,6 @@
-package it.unibo.pps.control
+package it.unibo.pps.control.loader
 
+import it.unibo.pps.control.engine.EngineModule
 import monix.eval.Task
 
 object LoaderModule:

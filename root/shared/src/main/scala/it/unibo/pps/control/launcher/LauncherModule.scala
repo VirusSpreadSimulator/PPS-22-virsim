@@ -1,6 +1,7 @@
-package it.unibo.pps.control
+package it.unibo.pps.control.launcher
 
 import it.unibo.pps.boundary.BoundaryModule
+import it.unibo.pps.control.loader.LoaderModule
 import monix.eval.Task
 
 object LauncherModule:

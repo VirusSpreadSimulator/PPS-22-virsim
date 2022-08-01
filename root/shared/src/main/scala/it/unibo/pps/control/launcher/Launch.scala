@@ -1,10 +1,9 @@
-package it.unibo.pps.control
+package it.unibo.pps.control.launcher
 
 import it.unibo.pps.boundary.BoundaryModule
-import it.unibo.pps.control.{EngineModule, LauncherModule, LoaderModule}
+import it.unibo.pps.control.engine.EngineModule
+import it.unibo.pps.control.loader.LoaderModule
 import it.unibo.pps.entity.EnvModule
-import monix.execution.Scheduler
-import scala.concurrent.duration.DurationInt
 
 /** Launch base config (End of the world) */
 trait Launch
@@ -14,7 +13,7 @@ trait Launch
     with EngineModule.Interface
     with EnvModule.Interface:
 
-  import EngineConfiguration.given
+  import it.unibo.pps.control.engine.EngineConfiguration.`given`
 
   override val env = EnvImpl()
   override val engine = EngineImpl()

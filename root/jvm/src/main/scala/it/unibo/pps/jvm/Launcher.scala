@@ -1,7 +1,7 @@
 package it.unibo.pps.jvm
 
+import it.unibo.pps.control.launcher.Launch
 import it.unibo.pps.jvm.boundary.GUIModule
-import it.unibo.pps.control.Launch
 
 object Launcher extends Launch with GUIModule.Interface:
 
