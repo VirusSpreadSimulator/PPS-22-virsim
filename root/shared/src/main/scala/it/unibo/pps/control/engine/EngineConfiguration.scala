@@ -3,6 +3,7 @@ package it.unibo.pps.control.engine
 import monix.execution.Scheduler
 
 import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.duration.DurationInt
 
 object EngineConfiguration:
   trait SimulationConfiguration:
