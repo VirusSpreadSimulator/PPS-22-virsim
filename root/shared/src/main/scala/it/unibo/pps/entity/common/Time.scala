@@ -14,4 +14,4 @@ object Time:
     * @return
     *   [[DurationTime]] instance
     */
-  def DurationTime(length: Long, unit: TimeUnit): DurationTime = FiniteDuration(lenght, unit)
+  def DurationTime(length: Long, unit: TimeUnit): DurationTime = FiniteDuration(length, unit)
