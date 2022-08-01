@@ -10,6 +10,10 @@ object ProblableEvents:
   object ProbabilityResult:
     given Conversion[Boolean, ProbabilityResult] with
       def apply(result: Boolean): ProbabilityResult = if result then HAPPENED else NOTHAPPENED
+    given Conversion[ProbabilityResult, Boolean] with
+      def apply(result: ProbabilityResult): Boolean = result match
+        case HAPPENED => true
+        case _ => false
 
   /** Type-class for extending a type that can act as a probable event
     * @tparam E
