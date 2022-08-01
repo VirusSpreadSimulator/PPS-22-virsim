@@ -3,7 +3,7 @@ package it.unibo.pps.entity.common
 import scala.concurrent.duration
 import scala.concurrent.duration.{FiniteDuration, TimeUnit}
 
-object SpaceTime:
+object Time:
   /** Alias for finite duration time */
   type DurationTime = FiniteDuration
   /** Factory for [[DurationTime]]

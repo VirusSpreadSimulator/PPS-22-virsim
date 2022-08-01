@@ -1,6 +1,6 @@
 package it.unibo.pps.common
 
-import it.unibo.pps.entity.common.SpaceTime.DurationTime
+import it.unibo.pps.entity.common.Time.DurationTime
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
