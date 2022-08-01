@@ -4,7 +4,7 @@ ThisBuild / wartremoverErrors += Wart.Nothing
 
 lazy val startupTransition: State => State = "writeHooks" :: _
 
-lazy val root = crossProject(JSPlatform, NativePlatform, JVMPlatform)
+lazy val root = crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Full)
   .settings(
     name := "PPS-22-virsim",
@@ -23,21 +23,20 @@ lazy val root = crossProject(JSPlatform, NativePlatform, JVMPlatform)
     ),
     libraryDependencies ++= Seq(
       "org.scalatest" %% "scalatest" % "3.2.13" % Test,
-      "io.monix" %% "monix" % "3.4.1"
+      "io.monix" %%% "monix" % "3.4.1",
+      "dev.optics" %%% "monocle-core" % "3.1.0",
+      "dev.optics" %%% "monocle-macro" % "3.1.0"
     )
   )
   .jsSettings(
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies ++= Seq(
-      "org.scala-js" %%% "scalajs-dom" % "2.2.0",
-      "io.monix" %%% "monix" % "3.4.1"
+      "org.scala-js" %%% "scalajs-dom" % "2.2.0"
     )
   )
-  .nativeSettings()
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "org.scala-lang.modules" %% "scala-swing" % "3.0.0",
-      "io.monix" %% "monix" % "3.4.1"
+      "org.scala-lang.modules" %% "scala-swing" % "3.0.0"
     )
   )
 
