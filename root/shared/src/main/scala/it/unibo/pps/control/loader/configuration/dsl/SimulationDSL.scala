@@ -1,9 +1,8 @@
-package it.unibo.pps.control.loader.configuration
+package it.unibo.pps.control.loader.configuration.dsl
 
-import it.unibo.pps.control.loader.configuration.ConfigurationComponent.VirsimConfiguration
 import it.unibo.pps.control.engine.SimulationComponent.Simulation
 
-object ConfigurationDSL:
+object SimulationDSL:
 
   extension (simulation: Simulation)
     def days(numberOfDays: Int): Simulation =
