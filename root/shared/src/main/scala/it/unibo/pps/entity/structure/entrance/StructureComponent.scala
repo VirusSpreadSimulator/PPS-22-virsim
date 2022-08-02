@@ -1,4 +1,4 @@
-package it.unibo.pps.entity.structure.entrance
+package it.unibo.pp  s.entity.structure.entrance
 
 import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
 import it.unibo.pps.entity.common.Space.Point2D
