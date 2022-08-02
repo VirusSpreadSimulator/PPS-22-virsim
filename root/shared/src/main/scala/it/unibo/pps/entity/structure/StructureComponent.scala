@@ -1,9 +1,6 @@
-package it.unibo.pps.entity.structure.entrance
+package it.unibo.pps.entity.structure
 
-import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
-import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.common.Space.Distance
-import it.unibo.pps.entity.common.Time.DurationTime
 
 /** Module that define all the component and the characteristic that can define a Structure in the simulation. */
 object StructureComponent:
