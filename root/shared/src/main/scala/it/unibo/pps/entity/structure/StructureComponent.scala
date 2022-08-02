@@ -49,7 +49,7 @@ object StructureComponent:
       */
     def visibilityDistance: Distance
 
-  /** A [[Structure]] that can be closed. It will affect the tryToEnter method. */
+  /** A [[Structure]] that can be closed. */
   trait Closable:
     structure: Structure =>
     def isOpen: Boolean
