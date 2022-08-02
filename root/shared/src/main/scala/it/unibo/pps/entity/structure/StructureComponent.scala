@@ -90,6 +90,10 @@ object StructureComponent:
   trait Hospitalization:
     structure: Structure =>
     import Hospitalization.TreatmentQuality
+    /** Each hospital has a virus treatment quality.
+      * @return
+      *   the virus treatment quality.
+      */
     def treatmentQuality: TreatmentQuality
 
   object Hospitalization:
