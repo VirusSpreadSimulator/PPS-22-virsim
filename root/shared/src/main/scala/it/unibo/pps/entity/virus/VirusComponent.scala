@@ -4,6 +4,12 @@ object VirusComponent:
 
   trait Virus:
 
+    /** The name of the virus inside the environment.
+      * @return
+      *   the name of the virus.
+      */
+    def name: String
+
     /** The ability of the virus to spread inside the population.
       * @return
       *   the spread rate.
