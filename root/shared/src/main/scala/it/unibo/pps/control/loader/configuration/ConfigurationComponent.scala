@@ -1,7 +1,7 @@
 package it.unibo.pps.control.loader.configuration
 
 import it.unibo.pps.control.loader.configuration.SimulationConfigurations.SimulationConfiguration
-import it.unibo.pps.control.loader.configuration.VirusConfigurations.VirusConfiguration
+import it.unibo.pps.entity.virus.VirusComponent.Virus
 import it.unibo.pps.entity.structure.StructureComponent.Structure
 
 object ConfigurationComponent:
@@ -18,7 +18,7 @@ object ConfigurationComponent:
       * @return
       *   a configuration of the virus.
       */
-    def virusConfiguration: VirusConfiguration
+    def virusConfiguration: Virus
 
     /** The section of the configuration file about the structures parameters.
       * @return
@@ -28,6 +28,6 @@ object ConfigurationComponent:
 
   case class VirsimConfiguration(
       override val simulationConfiguration: SimulationConfiguration,
-      override val virusConfiguration: VirusConfiguration,
+      override val virusConfiguration: Virus,
       override val structuresConfiguration: Set[Structure]
   ) extends Configuration

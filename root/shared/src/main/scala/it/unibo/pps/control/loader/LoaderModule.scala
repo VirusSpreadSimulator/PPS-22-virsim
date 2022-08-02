@@ -2,8 +2,6 @@ package it.unibo.pps.control.loader
 
 import it.unibo.pps.control.engine.EngineModule
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.Configuration
-import it.unibo.pps.control.loader.configuration.SimulationConfigurations.SimulationConfiguration
-import it.unibo.pps.control.loader.configuration.VirusConfigurations.VirusConfiguration
 
 import it.unibo.pps.entity.EnvModule.Env
 import monix.eval.Task
