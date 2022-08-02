@@ -33,10 +33,31 @@ object StructureComponent:
     def entranceStrategy: EntranceStrategy
     /** @return the entity that are inside the structure. */
     def entities: Set[Entity]
+    /** Method that allow an entity to try to enter inside the structure. Note that an entity could be not allowed to
+      * enter based on the characteristics of the structure.
+      * @param entity
+      *   the entity that want to enter
+      * @return
+      *   The modified instance of the structure if entered, the same instead
+      */
+    def tryToEnter(entity: Entity): Structure = checkEnter(entity) match
+      case true => enter(entity)
+      case _ => this
+    /** Method that check if an entity is allowed to enter
+      * @param entity
+      *   the entity that want to enter
+      * @return
+      *   true if it can enter, false instead
+      */
+    protected def checkEnter(entity: Entity): Boolean
+    /** Method that insert the entity inside the structure
+      * @return
+      *   The modified instance of the structure if entered, the same instead
+      */
+    protected def enter(entity: Entity): Structure
 
-  /** A [[Structure]] that can be placed. */
+  /** A mixin that describe a [[Structure]] that can be placed. */
   trait Placeable extends Structure:
-    structure: Structure =>
     type Position
     /** Being placeable, the structure has a position.
       * @return
@@ -49,10 +70,10 @@ object StructureComponent:
       */
     def visibilityDistance: Distance
 
-  /** A [[Structure]] that can be closed. */
-  trait Closable:
-    structure: Structure =>
+  /** A mixin that describe a [[Structure]] that can be closed. */
+  trait Closable extends Structure:
     def isOpen: Boolean
+    abstract override protected def checkEnter(entity: Entity): Boolean = isOpen && super.checkEnter(entity)
 
   /** A decoration for structure that can be grouped. */
   trait Groupable:
