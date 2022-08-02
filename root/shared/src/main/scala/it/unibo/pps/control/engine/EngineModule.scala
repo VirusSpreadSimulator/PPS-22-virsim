@@ -3,7 +3,7 @@ package it.unibo.pps.control.engine
 import it.unibo.pps.boundary.BoundaryModule
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.boundary.component.Events.Event.Hit
-import it.unibo.pps.control.engine.EngineConfiguration.SimulationConfiguration
+import it.unibo.pps.control.engine.EngineConfiguration.SimulationConfig
 import it.unibo.pps.entity.{EnvModule, State}
 import monix.catnap.ConcurrentQueue
 import monix.eval.Task
@@ -20,7 +20,7 @@ object EngineModule:
   type Requirements = BoundaryModule.Provider with EnvModule.Provider
   trait Component:
     context: Requirements =>
-    class EngineImpl(using simulationConfiguration: SimulationConfiguration) extends Engine:
+    class EngineImpl(using simulationConfiguration: SimulationConfig) extends Engine:
       import EngineImpl.given
 
       private var max: Int = 0 // todo: brutto forse?
