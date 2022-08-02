@@ -87,12 +87,12 @@ object StructureComponent:
     structure: Structure =>
 
   /** A decoration for structure that can provide treatment for the virus. */
-  trait Hospital:
+  trait Hospitalization:
     structure: Structure =>
-    import Hospital.TreatmentQuality
+    import Hospitalization.TreatmentQuality
     def treatmentQuality: TreatmentQuality
 
-  object Hospital:
+  object Hospitalization:
     /** Describe the quality of the treatment provided by the structure. */
     enum TreatmentQuality:
       case GOOD, MEDIUM, LOW
