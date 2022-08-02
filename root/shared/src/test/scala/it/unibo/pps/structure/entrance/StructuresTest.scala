@@ -1,8 +1,8 @@
 package it.unibo.pps.structure.entrance
 
 import it.unibo.pps.entity.common.Space.Point2D
-import it.unibo.pps.entity.structure.Structures.{GenericBuilding, House}
-import it.unibo.pps.entity.structure.StructureComponent.{Closable, Structure}
+import it.unibo.pps.entity.structure.Structures.{GenericBuilding, Hospital, House}
+import it.unibo.pps.entity.structure.StructureComponent.{Closable, Structure, Hospitalization}
 import it.unibo.pps.entity.structure.entrance.Entrance.{BaseEntranceStrategy, FilterBasedStrategy}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
@@ -14,6 +14,7 @@ class StructuresTest extends AnyFunSuite with Matchers:
   private val capacity = 2
   private val entities = Seq("entity1", "entity2", "entity3")
   private val position = Point2D(3, 0)
+  private val treatmentQuality = Hospitalization.TreatmentQuality.GOOD
 
   test("Initially a house is empty") {
     val house: Structure = House(infectionProbability, capacity)
@@ -65,6 +66,56 @@ class StructuresTest extends AnyFunSuite with Matchers:
       GenericBuilding(infectionProbability, capacity, entranceStrategy = FilteredStrategy(), position = position)
     building = tryToEnterMultiple(building, entities)
     building.entities.size shouldBe capacity
+  }
+
+  // todo: --------------------
+
+  test("Initially a hospital is empty") {
+    val hospital: Structure =
+      Hospital(infectionProbability, capacity, position = position, treatmentQuality = treatmentQuality)
+    hospital.entities.size shouldBe 0
+  }
+
+  test("In a hospital the strategy must be considered, true case") {
+    class FilteredStrategy extends BaseEntranceStrategy with FilterBasedStrategy(_.contains("ent"))
+    var hospital: Structure =
+      Hospital(
+        infectionProbability,
+        capacity,
+        entranceStrategy = FilteredStrategy(),
+        position = position,
+        treatmentQuality = treatmentQuality
+      )
+    hospital = hospital.tryToEnter(entities.head)
+    hospital.entities.size shouldBe 1
+  }
+
+  test("In a hospital the strategy must be considered, false case") {
+    class FilteredStrategy extends BaseEntranceStrategy with FilterBasedStrategy(_.contains("rand"))
+    var hospital: Structure =
+      Hospital(
+        infectionProbability,
+        capacity,
+        entranceStrategy = FilteredStrategy(),
+        position = position,
+        treatmentQuality = treatmentQuality
+      )
+    hospital = hospital.tryToEnter(entities.head)
+    hospital.entities.size shouldBe 0
+  }
+
+  test("In a hospital even if the strategy allow the entity, the capacity must be respected") {
+    class FilteredStrategy extends BaseEntranceStrategy with FilterBasedStrategy(_.contains("ent"))
+    var hospital: Structure =
+      Hospital(
+        infectionProbability,
+        capacity,
+        entranceStrategy = FilteredStrategy(),
+        position = position,
+        treatmentQuality = treatmentQuality
+      )
+    hospital = tryToEnterMultiple(hospital, entities)
+    hospital.entities.size shouldBe capacity
   }
 
   private def tryToEnterMultiple(structure: Structure, entities: Seq[String]): Structure =
