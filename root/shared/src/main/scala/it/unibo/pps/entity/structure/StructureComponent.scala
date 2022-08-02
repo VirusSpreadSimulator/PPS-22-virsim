@@ -75,4 +75,3 @@ object StructureComponent:
     /** Describe the quality of the treatment provided by the structure. */
     enum TreatmentQuality:
       case GOOD, MEDIUM, LOW
-
