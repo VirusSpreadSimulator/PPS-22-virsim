@@ -15,3 +15,28 @@ object Time:
     *   [[DurationTime]] instance
     */
   def DurationTime(length: Long, unit: TimeUnit): DurationTime = FiniteDuration(length, unit)
+
+  /** Model the TimeStamp concept */
+  trait TimeStamp:
+    /** Represent the ticks after the current iteration number.
+      * @return
+      *   the ticks after the current iteration number.
+      */
+    def ticksSinceIterationStart: Long
+    /** Represent the current iteration number.
+      * @return
+      *   the iteration number.
+      */
+    def iteration: Int
+    /** Method to convert a timestamp to the ticks since the start of the simulation.
+      * @return
+      *   the absolute ticks.
+      */
+    def toAbsoluteValue(): Long
+
+  object TimeStamp:
+    def apply(ticksSinceIterationStart: Long, iteration: Int): TimeStamp =
+      TimeStampImpl(ticksSinceIterationStart, iteration)
+    private case class TimeStampImpl(override val ticksSinceIterationStart: Long, override val iteration: Int)
+        extends TimeStamp:
+      override def toAbsoluteValue(): Long = iteration * ticksSinceIterationStart
