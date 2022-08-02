@@ -16,7 +16,7 @@ object LauncherModule:
       override def launch(): Task[Unit] =
         for
           _ <- Task.sequence(context.boundaries.map(_.init()))
-          _ <- context.loader.load(10)
+          _ <- Task(context.loader.load("configuration.scala"))
         yield ()
   trait Interface extends Provider with Component:
     self: Requirements =>
