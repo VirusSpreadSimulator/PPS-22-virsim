@@ -8,22 +8,35 @@ import monix.eval.Task
 
 object LoaderModule:
   trait Loader:
+
     /** @param configurationFile
       *   the configuration file with simulation parameters.
       * @return
       *   a configuration of simulation, virus and structures.
       */
     def load(configurationFile: String): Configuration
+
+    /** @param configuration
+      *   The configuration of the simulation, structures and virus.
+      * @return
+      *   the initialized environment.
+      */
+    def createEnvironment(configuration: Configuration): Env
+
   trait Provider:
     val loader: Loader
   type Requirements = EngineModule.Provider
+
   trait Component:
     context: Requirements =>
     class LoaderImpl extends Loader:
       override def load(configurationFile: String): Configuration = ???
+
+      override def createEnvironment(configuration: Configuration): Env = ???
       for
         configuration <- Task(load)
-        _ <- Task(context.engine.init(0))
+        initializedEnvironment <- Task(createEnvironment)
+        _ <- Task(context.engine.init(0)) // pass environment instead of maxNumber
         _ <- context.engine.startSimulation()
       yield ()
   trait Interface extends Provider with Component:
