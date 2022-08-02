@@ -10,6 +10,8 @@ import monocle.syntax.all.*
 
 //todo: refactor with correct entities
 class StructuresTest extends AnyFunSuite with Matchers:
+  private class FilteredStrategyTrue extends BaseEntranceStrategy with FilterBasedStrategy(_.contains("ent"))
+  private class FilteredStrategyFalse extends BaseEntranceStrategy with FilterBasedStrategy(_.contains("rand"))
   private val infectionProbability = 2
   private val capacity = 2
   private val entities = Seq("entity1", "entity2", "entity3")
@@ -39,17 +41,15 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("In a generic building the strategy must be considered, true case") {
-    class FilteredStrategy extends BaseEntranceStrategy with FilterBasedStrategy(_.contains("ent"))
     var building: Structure =
-      GenericBuilding(infectionProbability, capacity, entranceStrategy = FilteredStrategy(), position = position)
+      GenericBuilding(infectionProbability, capacity, entranceStrategy = FilteredStrategyTrue(), position = position)
     building = building.tryToEnter(entities.head)
     building.entities.size shouldBe 1
   }
 
   test("In a generic building the strategy must be considered, false case") {
-    class FilteredStrategy extends BaseEntranceStrategy with FilterBasedStrategy(_.contains("rand"))
     var building: Structure =
-      GenericBuilding(infectionProbability, capacity, entranceStrategy = FilteredStrategy(), position = position)
+      GenericBuilding(infectionProbability, capacity, entranceStrategy = FilteredStrategyFalse(), position = position)
     building = building.tryToEnter(entities.head)
     building.entities.size shouldBe 0
   }
@@ -61,14 +61,11 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("In a generic building even if the strategy allow the entity, the capacity must be respected") {
-    class FilteredStrategy extends BaseEntranceStrategy with FilterBasedStrategy(_.contains("ent"))
     var building: Structure =
-      GenericBuilding(infectionProbability, capacity, entranceStrategy = FilteredStrategy(), position = position)
+      GenericBuilding(infectionProbability, capacity, entranceStrategy = FilteredStrategyTrue(), position = position)
     building = tryToEnterMultiple(building, entities)
     building.entities.size shouldBe capacity
   }
-
-  // todo: --------------------
 
   test("Initially a hospital is empty") {
     val hospital: Structure =
@@ -77,12 +74,11 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("In a hospital the strategy must be considered, true case") {
-    class FilteredStrategy extends BaseEntranceStrategy with FilterBasedStrategy(_.contains("ent"))
     var hospital: Structure =
       Hospital(
         infectionProbability,
         capacity,
-        entranceStrategy = FilteredStrategy(),
+        entranceStrategy = FilteredStrategyTrue(),
         position = position,
         treatmentQuality = treatmentQuality
       )
@@ -91,12 +87,11 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("In a hospital the strategy must be considered, false case") {
-    class FilteredStrategy extends BaseEntranceStrategy with FilterBasedStrategy(_.contains("rand"))
     var hospital: Structure =
       Hospital(
         infectionProbability,
         capacity,
-        entranceStrategy = FilteredStrategy(),
+        entranceStrategy = FilteredStrategyFalse(),
         position = position,
         treatmentQuality = treatmentQuality
       )
@@ -105,12 +100,11 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("In a hospital even if the strategy allow the entity, the capacity must be respected") {
-    class FilteredStrategy extends BaseEntranceStrategy with FilterBasedStrategy(_.contains("ent"))
     var hospital: Structure =
       Hospital(
         infectionProbability,
         capacity,
-        entranceStrategy = FilteredStrategy(),
+        entranceStrategy = FilteredStrategyTrue(),
         position = position,
         treatmentQuality = treatmentQuality
       )
