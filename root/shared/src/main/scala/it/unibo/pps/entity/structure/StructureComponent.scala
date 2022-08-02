@@ -31,7 +31,7 @@ object StructureComponent:
       *   the strategy
       */
     def entranceStrategy: EntranceStrategy
-    /** @return the entity that are inside the structure. */
+    /** @return the entities that are inside the structure. */
     def entities: Set[Entity]
     /** Method that allow an entity to try to enter inside the structure. Note that an entity could be not allowed to
       * enter based on the characteristics of the structure.
