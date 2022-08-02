@@ -1,4 +1,4 @@
-package it.unibo.pps.entity.Entity
+package it.unibo.pps.entity.entity
 
 /* A module that represents the characteristics that can have an Entity in the simulation. */
 object EntityComponent {
