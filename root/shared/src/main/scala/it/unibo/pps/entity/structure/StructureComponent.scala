@@ -8,8 +8,8 @@ object StructureComponent:
   /** The Structure base interface. */
   trait Structure:
     type Probability
-    type Entity
     type TimeDistribution
+    type Entity = String // todo: to be changed
 
     /** Each structure has an infection probability that influence the infection of an entity that is inside.
       * @return
