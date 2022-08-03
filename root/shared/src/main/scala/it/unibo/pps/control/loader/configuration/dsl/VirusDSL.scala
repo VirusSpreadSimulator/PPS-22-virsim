@@ -1,23 +1,22 @@
 package it.unibo.pps.control.loader.configuration.dsl
 
 import it.unibo.pps.entity.virus.VirusComponent.Virus
+import monocle.syntax.all.*
 
 object VirusDSL:
+
+  def virus: Virus = Virus()
 
   extension (virus: Virus)
 
     def name(virusName: String): Virus =
-      virus.name = Some(virusName)
-      virus
+      virus.focus(_.name).replace(virusName)
 
     def spreadRate(virusSpreadRate: Double): Virus =
-      virus.spreadRate = Some(virusSpreadRate)
-      virus
+      virus.focus(_.spreadRate).replace(virusSpreadRate)
 
     def averagePositivityDays(days: Int): Virus =
-      virus.averagePositivityDays = Some(days)
-      virus
+      virus.focus(_.averagePositivityDays).replace(days)
 
     def severeDeseaseProbability(probability: Int): Virus =
-      virus.severeDeseaseProbability = Some(probability)
-      virus
+      virus.focus(_.severeDeseaseProbability).replace(probability)
