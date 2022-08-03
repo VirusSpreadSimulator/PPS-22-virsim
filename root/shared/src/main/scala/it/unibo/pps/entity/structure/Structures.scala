@@ -6,7 +6,9 @@ import it.unibo.pps.entity.structure.StructureComponent.*
 import it.unibo.pps.entity.structure.entrance.Entrance.EntranceStrategy
 import it.unibo.pps.entity.structure.entrance.Entrance.BaseEntranceStrategy
 import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
+import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.structure.StructureComponent.Hospitalization.TreatmentQuality
+import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
 
 import scala.concurrent.duration.MINUTES
 import monocle.syntax.all.*
@@ -45,12 +47,12 @@ object Structures:
       override val infectionProbability: Double,
       override val capacity: Int,
       override val permanenceTimeDistribution: GaussianDurationTime = defaultPermanenceTimeDistribution,
-      override val entities: Set[String] = Set()
+      override val entities: Set[EntityPermanence] = Set()
   ) extends BaseStructure
       with Habitable:
     override val entranceStrategy: EntranceStrategy = BaseEntranceStrategy()
-    override protected def enter(entity: String): Structure =
-      this.focus(_.entities).modify(_ + entity)
+    override protected def enter(entity: String, timestamp: TimeStamp): Structure =
+      this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
 
   /** Builder for the GenericBuilding type of structure
     * @param infectionProbability
@@ -78,7 +80,7 @@ object Structures:
       override val capacity: Int,
       override val permanenceTimeDistribution: GaussianDurationTime = defaultPermanenceTimeDistribution,
       override val entranceStrategy: EntranceStrategy = BaseEntranceStrategy(),
-      override val entities: Set[String] = Set(),
+      override val entities: Set[EntityPermanence] = Set(),
       override val isOpen: Boolean = true,
       override val visibilityDistance: Distance = defaultVisibilityDistance,
       override val group: String = defaultGroup
@@ -87,8 +89,8 @@ object Structures:
       with Visible
       with Groupable:
     override type Group = String
-    override protected def enter(entity: String): Structure =
-      this.focus(_.entities).modify(_ + entity)
+    override protected def enter(entity: String, timestamp: TimeStamp): Structure =
+      this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
 
   /** Builder for the GenericBuilding type of structure
     * @param infectionProbability
@@ -114,11 +116,11 @@ object Structures:
       override val capacity: Int,
       override val permanenceTimeDistribution: GaussianDurationTime = defaultPermanenceTimeDistribution,
       override val entranceStrategy: EntranceStrategy = BaseEntranceStrategy(),
-      override val entities: Set[String] = Set(),
+      override val entities: Set[EntityPermanence] = Set(),
       override val visibilityDistance: Distance = defaultVisibilityDistance,
       override val treatmentQuality: TreatmentQuality
   ) extends BaseStructure
       with Visible
       with Hospitalization:
-    override protected def enter(entity: String): Structure =
-      this.focus(_.entities).modify(_ + entity)
+    override protected def enter(entity: String, timestamp: TimeStamp): Structure =
+      this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))

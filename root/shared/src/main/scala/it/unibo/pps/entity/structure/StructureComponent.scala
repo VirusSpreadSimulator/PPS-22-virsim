@@ -1,7 +1,9 @@
 package it.unibo.pps.entity.structure
 
 import it.unibo.pps.entity.common.Space.Distance
+import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.structure.entrance.Entrance.EntranceStrategy
+import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
 
 /** Module that define all the component and the characteristic that can define a Structure in the simulation. */
 object StructureComponent:
@@ -38,7 +40,7 @@ object StructureComponent:
       */
     def entranceStrategy: EntranceStrategy
     /** @return the entities that are inside the structure. */
-    def entities: Set[Entity]
+    def entities: Set[EntityPermanence]
     /** Method that allow an entity to try to enter inside the structure. Note that an entity could be not allowed to
       * enter based on the characteristics of the structure.
       * @param entity
@@ -46,8 +48,8 @@ object StructureComponent:
       * @return
       *   The modified instance of the structure if entered, the same instead
       */
-    def tryToEnter(entity: Entity): Structure = checkEnter(entity) match
-      case true => enter(entity)
+    def tryToEnter(entity: Entity, timestamp: TimeStamp): Structure = checkEnter(entity) match
+      case true => enter(entity, timestamp)
       case _ => this
     /** Method that check if an entity is allowed to enter
       * @param entity
@@ -60,7 +62,7 @@ object StructureComponent:
       * @return
       *   The modified instance of the structure if entered, the same instead
       */
-    protected def enter(entity: Entity): Structure
+    protected def enter(entity: Entity, timestamp: TimeStamp): Structure
 
   /** A mixin that describe a [[Structure]] that can be seen. */
   trait Visible extends Structure:
