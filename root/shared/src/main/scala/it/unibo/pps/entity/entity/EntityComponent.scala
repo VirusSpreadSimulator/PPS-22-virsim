@@ -4,9 +4,6 @@ import it.unibo.pps.entity.common.Space.Point2D
 
 /* A module that represents the characteristics that can have an Entity in the simulation. */
 object EntityComponent {
-  /* Represent the infection of an entity. */
-  case class Infection(severity: Int, infectionDuration: Int)
-
   /* Base implementation of an entity. */
   trait Entity:
     type Home
@@ -17,7 +14,11 @@ object EntityComponent {
       *   the age of the entity.
       */
     def age: Int
-    */
+
+    /** Every entity is assigned to an habitable Structure.
+      * @return
+      *   the home to which the entity is assigned.
+      */
     def home: Home
 
     /** The current health of an entity.
