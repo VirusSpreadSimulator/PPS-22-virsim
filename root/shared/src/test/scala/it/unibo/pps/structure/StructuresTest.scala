@@ -29,20 +29,17 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("In a house can enter anyone") {
-    var houseCopy: Structure = house.copy()
-    houseCopy = houseCopy.tryToEnter(entities.head, timeStamp)
+    var houseCopy: Structure = house.tryToEnter(entities.head, timeStamp)
     houseCopy.entities.size shouldBe 1
   }
 
   test("No more entities than capacity can enter in a House") {
-    var houseCopy: Structure = house.copy()
-    houseCopy = tryToEnterMultiple(houseCopy, entities)
+    var houseCopy: Structure = tryToEnterMultiple(house, entities)
     houseCopy.entities.size shouldBe capacity
   }
 
   test("An entity can exit from an house") {
-    var houseCopy: Structure = house.copy()
-    houseCopy = houseCopy.tryToEnter(entities.head, timeStamp)
+    var houseCopy: Structure = house.tryToEnter(entities.head, timeStamp)
     houseCopy = houseCopy.entityExit(entities.head)
     houseCopy.entities.isEmpty shouldBe true
   }
@@ -64,8 +61,7 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("A generic building can be closed after creation and will not accept entities") {
-    var buildingCopy = building.copy()
-    buildingCopy = buildingCopy.focus(_.isOpen).replace(false)
+    var buildingCopy = building.focus(_.isOpen).replace(false)
     buildingCopy.tryToEnter(entities.head, timeStamp).entities.size shouldBe 0
   }
 
@@ -76,8 +72,7 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("An entity can exit from a generic building") {
-    var buildingCopy: Structure = building.copy()
-    buildingCopy = buildingCopy.tryToEnter(entities.head, timeStamp)
+    var buildingCopy: Structure = building.tryToEnter(entities.head, timeStamp)
     buildingCopy = buildingCopy.entityExit(entities.head)
     buildingCopy.entities.isEmpty shouldBe true
   }
@@ -105,8 +100,7 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("An entity can exit from a hospital") {
-    var hospitalCopy: Structure = hospital.copy()
-    hospitalCopy = hospitalCopy.tryToEnter(entities.head, timeStamp)
+    var hospitalCopy: Structure = hospital.tryToEnter(entities.head, timeStamp)
     hospitalCopy = hospitalCopy.entityExit(entities.head)
     hospitalCopy.entities.isEmpty shouldBe true
   }
