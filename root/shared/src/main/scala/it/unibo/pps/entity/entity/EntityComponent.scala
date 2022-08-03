@@ -39,12 +39,6 @@ object EntityComponent {
       */
     def immunity: Int
 
-//    /** An entity could be infected by the virus
-//      * @return
-//      *   An object Some containing the infection if present, None otherwise.
-//      */
-//    def infection: Option[Infection]
-
   /* Represent the an entity that exist in the simulation and can move*/
   trait Moving extends Entity:
 
