@@ -2,9 +2,13 @@ package it.unibo.pps.control.loader
 
 import it.unibo.pps.control.engine.EngineModule
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.Configuration
+import it.unibo.pps.control.loader.configuration.ConfigurationComponent.VirsimConfiguration
 
 import it.unibo.pps.entity.EnvModule.Env
 import monix.eval.Task
+
+import javax.script.ScriptEngineManager
+import scala.io.Source
 
 object LoaderModule:
   trait Loader:
@@ -30,7 +34,12 @@ object LoaderModule:
   trait Component:
     context: Requirements =>
     class LoaderImpl extends Loader:
-      override def load(configurationFile: String): Configuration = ???
+      override def load(configurationFile: String): Configuration =
+        val engineManager: ScriptEngineManager = new ScriptEngineManager(getClass().getClassLoader())
+        val engine = engineManager.getEngineByName("scala")
+        engine
+          .eval(Source.fromFile(getClass.getResource("configuration.scala").getFile).getLines.mkString)
+          .asInstanceOf[VirsimConfiguration]
 
       override def createEnvironment(configuration: Configuration): Env = ???
       for
