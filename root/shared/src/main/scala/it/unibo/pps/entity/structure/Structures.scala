@@ -53,6 +53,8 @@ object Structures:
     override val entranceStrategy: EntranceStrategy = BaseEntranceStrategy()
     override protected def enter(entity: String, timestamp: TimeStamp): Structure =
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
+    override protected def exit(entity: Entity): Structure =
+      this.focus(_.entities).modify(_.filter(_.entity != entity))
 
   /** Builder for the GenericBuilding type of structure
     * @param infectionProbability
@@ -91,6 +93,8 @@ object Structures:
     override type Group = String
     override protected def enter(entity: String, timestamp: TimeStamp): Structure =
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
+    override protected def exit(entity: Entity): Structure =
+      this.focus(_.entities).modify(_.filter(_.entity != entity))
 
   /** Builder for the GenericBuilding type of structure
     * @param infectionProbability
@@ -124,3 +128,5 @@ object Structures:
       with Hospitalization:
     override protected def enter(entity: String, timestamp: TimeStamp): Structure =
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
+    override protected def exit(entity: Entity): Structure =
+      this.focus(_.entities).modify(_.filter(_.entity != entity))

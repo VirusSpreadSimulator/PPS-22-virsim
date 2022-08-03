@@ -51,6 +51,14 @@ object StructureComponent:
     def tryToEnter(entity: Entity, timestamp: TimeStamp): Structure = checkEnter(entity) match
       case true => enter(entity, timestamp)
       case _ => this
+    /** Method that allow an entity to exit from the structure. This method WILL NOT handle the entity position, but it
+      * will only remove the entity from internal structures.
+      * @param entity
+      *   the entity that need to exit
+      * @return
+      *   The modified instance of the structure without the entity inside.
+      */
+    def entityExit(entity: Entity): Structure = exit(entity)
     /** Method that check if an entity is allowed to enter
       * @param entity
       *   the entity that want to enter
@@ -59,10 +67,21 @@ object StructureComponent:
       */
     protected def checkEnter(entity: Entity): Boolean
     /** Method that insert the entity inside the structure
+      * @param entity
+      *   the entity that want to enter
+      * @param timestamp
+      *   the timestamp in which the entity is entered
       * @return
       *   The modified instance of the structure if entered, the same instead
       */
     protected def enter(entity: Entity, timestamp: TimeStamp): Structure
+    /** Method that remove an entity from the structure
+      * @param entity
+      *   the entity that want to exit
+      * @return
+      *   The modified instance of the structure without the entity inside.
+      */
+    protected def exit(entity: Entity): Structure
 
   /** A mixin that describe a [[Structure]] that can be seen. */
   trait Visible extends Structure:
