@@ -21,6 +21,7 @@ object Structures:
 
   /** It's the base [[Structure]] */
   trait BaseStructure extends Structure:
+    override type Position = Point2D
     override type Probability = Double
     override type TimeDistribution = GaussianDurationTime
 
@@ -40,6 +41,7 @@ object Structures:
     *   the entities that are inside the structure.
     */
   case class House(
+      override val position: Point2D,
       override val infectionProbability: Double,
       override val capacity: Int,
       override val permanenceTimeDistribution: GaussianDurationTime = defaultPermanenceTimeDistribution,
@@ -71,20 +73,19 @@ object Structures:
     *   the group of the structure
     */
   case class GenericBuilding(
+      override val position: Point2D,
       override val infectionProbability: Double,
       override val capacity: Int,
       override val permanenceTimeDistribution: GaussianDurationTime = defaultPermanenceTimeDistribution,
       override val entranceStrategy: EntranceStrategy = BaseEntranceStrategy(),
       override val entities: Set[String] = Set(),
       override val isOpen: Boolean = true,
-      override val position: Point2D,
       override val visibilityDistance: Distance = defaultVisibilityDistance,
       override val group: String = defaultGroup
   ) extends BaseStructure
       with Closable
-      with Placeable
+      with Visible
       with Groupable:
-    override type Position = Point2D
     override type Group = String
     override protected def enter(entity: String): Structure =
       this.focus(_.entities).modify(_ + entity)
@@ -108,17 +109,16 @@ object Structures:
     *   the virus treatment quality.
     */
   case class Hospital(
+      override val position: Point2D,
       override val infectionProbability: Double,
       override val capacity: Int,
       override val permanenceTimeDistribution: GaussianDurationTime = defaultPermanenceTimeDistribution,
       override val entranceStrategy: EntranceStrategy = BaseEntranceStrategy(),
       override val entities: Set[String] = Set(),
-      override val position: Point2D,
       override val visibilityDistance: Distance = defaultVisibilityDistance,
       override val treatmentQuality: TreatmentQuality
   ) extends BaseStructure
-      with Placeable
+      with Visible
       with Hospitalization:
-    override type Position = Point2D
     override protected def enter(entity: String): Structure =
       this.focus(_.entities).modify(_ + entity)

@@ -17,10 +17,10 @@ class StructuresTest extends AnyFunSuite with Matchers:
   private val entities = Seq("entity1", "entity2", "entity3")
   private val position = Point2D(3, 0)
   private val treatmentQuality = Hospitalization.TreatmentQuality.GOOD
-  private val house = House(infectionProbability, capacity)
-  private val building = GenericBuilding(infectionProbability, capacity, position = position)
+  private val house = House(position, infectionProbability, capacity)
+  private val building = GenericBuilding(position, infectionProbability, capacity)
   private val hospital =
-    Hospital(infectionProbability, capacity, position = position, treatmentQuality = treatmentQuality)
+    Hospital(position, infectionProbability, capacity, treatmentQuality = treatmentQuality)
 
   test("Initially a house is empty") {
     house.entities.size shouldBe 0
