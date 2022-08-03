@@ -14,10 +14,10 @@ object Time:
     * @return
     *   [[DurationTime]] instance
     */
-  def DurationTime(length: Long, unit: TimeUnit): DurationTime = FiniteDuration(length, unit)
+  def DurationTime(length: Int, unit: TimeUnit): DurationTime = FiniteDuration(length, unit)
 
   /** Model the TimeStamp concept */
-  trait TimeStamp:
+  trait TimeStamp extends Ordered[TimeStamp]:
     /** Represent the ticks after the current iteration number.
       * @return
       *   the ticks after the current iteration number.
@@ -54,3 +54,4 @@ object Time:
       override def toAbsoluteTickValue(): Long = iteration * ticksSinceIterationStart
       override def toMinutes(): Int = ticksSinceIterationStart
       override def toAbsoluteMinutes(): Long = iteration * toMinutes()
+      override def compare(that: TimeStamp): Int = (this.toAbsoluteTickValue() - that.toAbsoluteTickValue()).toInt
