@@ -1,6 +1,7 @@
 package it.unibo.pps.structure
 
 import it.unibo.pps.entity.common.Space.Point2D
+import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.structure.StructureComponent.{Closable, Hospitalization, Structure}
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, Hospital, House}
 import it.unibo.pps.entity.structure.entrance.Entrance.{BaseEntranceStrategy, FilterBasedStrategy}
@@ -17,6 +18,7 @@ class StructuresTest extends AnyFunSuite with Matchers:
   private val entities = Seq("entity1", "entity2", "entity3")
   private val position = Point2D(3, 0)
   private val treatmentQuality = Hospitalization.TreatmentQuality.GOOD
+  private val timeStamp = TimeStamp(100)
   private val house = House(position, infectionProbability, capacity)
   private val building = GenericBuilding(position, infectionProbability, capacity)
   private val hospital =
@@ -28,7 +30,7 @@ class StructuresTest extends AnyFunSuite with Matchers:
 
   test("In a house can enter anyone") {
     var houseCopy: Structure = house.copy()
-    houseCopy = houseCopy.tryToEnter(entities.head)
+    houseCopy = houseCopy.tryToEnter(entities.head, timeStamp)
     houseCopy.entities.size shouldBe 1
   }
 
@@ -44,20 +46,20 @@ class StructuresTest extends AnyFunSuite with Matchers:
 
   test("In a generic building the strategy must be considered, true case") {
     var buildingCopy: Structure = building.copy(entranceStrategy = FilteredStrategyTrue())
-    buildingCopy = buildingCopy.tryToEnter(entities.head)
+    buildingCopy = buildingCopy.tryToEnter(entities.head, timeStamp)
     buildingCopy.entities.size shouldBe 1
   }
 
   test("In a generic building the strategy must be considered, false case") {
     var buildingCopy: Structure = building.copy(entranceStrategy = FilteredStrategyFalse())
-    buildingCopy = buildingCopy.tryToEnter(entities.head)
+    buildingCopy = buildingCopy.tryToEnter(entities.head, timeStamp)
     buildingCopy.entities.size shouldBe 0
   }
 
   test("A generic building can be closed after creation and will not accept entities") {
     var buildingCopy = building.copy()
     buildingCopy = buildingCopy.focus(_.isOpen).replace(false)
-    buildingCopy.tryToEnter(entities.head).entities.size shouldBe 0
+    buildingCopy.tryToEnter(entities.head, timeStamp).entities.size shouldBe 0
   }
 
   test("In a generic building even if the strategy allow the entity, the capacity must be respected") {
@@ -72,13 +74,13 @@ class StructuresTest extends AnyFunSuite with Matchers:
 
   test("In a hospital the strategy must be considered, true case") {
     var hospitalCopy: Structure = hospital.copy(entranceStrategy = FilteredStrategyTrue())
-    hospitalCopy = hospitalCopy.tryToEnter(entities.head)
+    hospitalCopy = hospitalCopy.tryToEnter(entities.head, timeStamp)
     hospitalCopy.entities.size shouldBe 1
   }
 
   test("In a hospital the strategy must be considered, false case") {
     var hospitalCopy: Structure = hospital.copy(entranceStrategy = FilteredStrategyFalse())
-    hospitalCopy = hospitalCopy.tryToEnter(entities.head)
+    hospitalCopy = hospitalCopy.tryToEnter(entities.head, timeStamp)
     hospitalCopy.entities.size shouldBe 0
   }
 
@@ -90,5 +92,5 @@ class StructuresTest extends AnyFunSuite with Matchers:
 
   private def tryToEnterMultiple(structure: Structure, entities: Seq[String]): Structure =
     var s = structure
-    for entity <- entities do s = s.tryToEnter(entity)
+    for entity <- entities do s = s.tryToEnter(entity, timeStamp)
     s
