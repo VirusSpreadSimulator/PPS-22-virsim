@@ -8,12 +8,13 @@ object EntityComponent {
   trait Entity:
     type Home
     type Position
+    type AgeDistribution
 
     /** The age of the entity.
       * @return
       *   the age of the entity.
       */
-    def age: Int
+    def age: AgeDistribution
 
     /** Every entity is assigned to an habitable Structure.
       * @return
@@ -23,7 +24,7 @@ object EntityComponent {
 
     /** The current health of an entity.
       * @return
-      *   the healt of the entity
+      *   the health of the entity
       */
     def health: Int
 
@@ -47,7 +48,7 @@ object EntityComponent {
       * @return
       *   the current position of the entity.
       */
-    def position: Point2D
+    def position: Position
 
     import Moving.movementGoal
     /** Define the goal of the movement
@@ -61,11 +62,11 @@ object EntityComponent {
       case RANDOM_MOVEMENT, BACK_TO_HOME, NO_MOVEMENT
 
   /* Represent an Entity that could be infected by another entity. */
-  trait Infected extends Entity:
+  trait Infectious extends Entity:
     /** An entity could be infected by the virus
       * @return
       *   An object Some containing the infection if present, None otherwise.
       */
-    def infection: Infection
+    def infection: Option[Infection]
 
 }
