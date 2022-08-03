@@ -1,5 +1,6 @@
 package it.unibo.pps.entity.common
 
+import scala.annotation.targetName
 import scala.concurrent.duration
 import scala.concurrent.duration.{FiniteDuration, TimeUnit}
 
@@ -61,3 +62,7 @@ object Time:
       override def toMinutes(): Long = ticksSinceIterationStart / TimeConfiguration.TICKS_PER_MINUTE
       override def toAbsoluteMinutes(): Long = absoluteTicks / TimeConfiguration.TICKS_PER_MINUTE
       override def compare(that: TimeStamp): Int = (this.absoluteTicks - that.absoluteTicks).toInt
+
+  extension (t: TimeStamp)
+    @targetName("plus")
+    def +(d: DurationTime): TimeStamp = TimeStamp(t.absoluteTicks + d.toMinutes * TimeConfiguration.TICKS_PER_MINUTE)
