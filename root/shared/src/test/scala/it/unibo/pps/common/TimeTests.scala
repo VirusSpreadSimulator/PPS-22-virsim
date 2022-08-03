@@ -5,6 +5,7 @@ import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.common.Time.TimeConfiguration
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
+import scala.concurrent.duration.MINUTES
 
 class TimeTests extends AnyFunSuite with Matchers:
   private val absoluteTime = 1540
@@ -13,10 +14,9 @@ class TimeTests extends AnyFunSuite with Matchers:
   private val timeStamp = TimeStamp(absoluteTime)
 
   test("It's possible to obtain length and unit from a duration") {
-    import scala.concurrent.duration.MILLISECONDS
-    val duration = DurationTime(time, MILLISECONDS)
+    val duration = DurationTime(time, MINUTES)
     duration.length shouldBe time
-    duration.unit shouldBe MILLISECONDS
+    duration.unit shouldBe MINUTES
   }
 
   test("Timestamp tick number should be convertible to its relative value respect to the iteration start") {
@@ -38,4 +38,10 @@ class TimeTests extends AnyFunSuite with Matchers:
   test("Two timestamp should be comparable in order to understand which one is the latest") {
     val lowerTimestamp = TimeStamp(absoluteTime - 1)
     timeStamp > lowerTimestamp shouldBe true
+  }
+
+  test("It possible to add a DurationTime to a timestamp in order to obtain an incremented timestamp value") {
+    val minutesToAdd = 10
+    val durationTime = DurationTime(minutesToAdd, MINUTES)
+    timeStamp + durationTime shouldEqual TimeStamp(absoluteTime + minutesToAdd * TimeConfiguration.TICKS_PER_MINUTE)
   }
