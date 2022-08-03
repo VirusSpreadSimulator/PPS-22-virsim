@@ -40,6 +40,13 @@ class StructuresTest extends AnyFunSuite with Matchers:
     houseCopy.entities.size shouldBe capacity
   }
 
+  test("An entity can exit from an house") {
+    var houseCopy: Structure = house.copy()
+    houseCopy = houseCopy.tryToEnter(entities.head, timeStamp)
+    houseCopy = houseCopy.entityExit(entities.head)
+    houseCopy.entities.isEmpty shouldBe true
+  }
+
   test("Initially a generic building is empty") {
     building.entities.size shouldBe 0
   }
@@ -68,6 +75,13 @@ class StructuresTest extends AnyFunSuite with Matchers:
     buildingCopy.entities.size shouldBe capacity
   }
 
+  test("An entity can exit from a generic building") {
+    var buildingCopy: Structure = building.copy()
+    buildingCopy = buildingCopy.tryToEnter(entities.head, timeStamp)
+    buildingCopy = buildingCopy.entityExit(entities.head)
+    buildingCopy.entities.isEmpty shouldBe true
+  }
+
   test("Initially a hospital is empty") {
     hospital.entities.size shouldBe 0
   }
@@ -88,6 +102,13 @@ class StructuresTest extends AnyFunSuite with Matchers:
     var hospitalCopy: Structure = hospital.copy(entranceStrategy = FilteredStrategyTrue())
     hospitalCopy = tryToEnterMultiple(hospitalCopy, entities)
     hospitalCopy.entities.size shouldBe capacity
+  }
+
+  test("An entity can exit from a hospital") {
+    var hospitalCopy: Structure = hospital.copy()
+    hospitalCopy = hospitalCopy.tryToEnter(entities.head, timeStamp)
+    hospitalCopy = hospitalCopy.entityExit(entities.head)
+    hospitalCopy.entities.isEmpty shouldBe true
   }
 
   private def tryToEnterMultiple(structure: Structure, entities: Seq[String]): Structure =
