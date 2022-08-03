@@ -8,37 +8,29 @@ object VirusComponent:
       * @return
       *   the name of the virus.
       */
-    def getVirusName: Option[String]
+    def name: String
 
     /** The ability of the virus to spread inside the population.
       * @return
       *   the spread rate.
       */
-    def getSpreadRate: Option[Double]
+    def spreadRate: Double
 
     /** The average duration of the virus infection.
       * @return
       *   the average days of infection.
       */
-    def getAveragePositivityDays: Option[Int]
+    def averagePositivityDays: Int
 
     /** The ability of the virus to cause health damages.
       * @return
       *   the desease probability of the virus.
       */
-    def getSevereDeseaseProbability: Option[Int]
+    def severeDeseaseProbability: Int
 
-  class Virus extends VirusConfiguration:
-
-    var name: Option[String] = Some("Generic-Virus")
-    var spreadRate: Option[Double] = Some(1.5)
-    var averagePositivityDays: Option[Int] = Some(7)
-    var severeDeseaseProbability: Option[Int] = Some(35)
-
-    override def getVirusName: Option[String] = name
-
-    override def getSpreadRate: Option[Double] = spreadRate
-
-    override def getAveragePositivityDays: Option[Int] = averagePositivityDays
-
-    override def getSevereDeseaseProbability: Option[Int] = severeDeseaseProbability
+  case class Virus(
+      override val name: String = "Generic-Virus",
+      override val spreadRate: Double = 1.5,
+      override val averagePositivityDays: Int = 7,
+      override val severeDeseaseProbability: Int = 25
+  ) extends VirusConfiguration
