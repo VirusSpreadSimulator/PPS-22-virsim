@@ -7,10 +7,16 @@ import it.unibo.pps.entity.structure.entrance.Entrance.EntranceStrategy
 object StructureComponent:
   /** The Structure base interface. */
   trait Structure:
+    type Position
     type Probability
     type TimeDistribution
     type Entity = String // todo: to be changed
 
+    /** Being placeable, the structure has a position.
+      * @return
+      *   the position of the structure.
+      */
+    def position: Position
     /** Each structure has an infection probability that influence the infection of an entity that is inside.
       * @return
       *   the infection probability when an entity is inside the structure.
@@ -56,14 +62,8 @@ object StructureComponent:
       */
     protected def enter(entity: Entity): Structure
 
-  /** A mixin that describe a [[Structure]] that can be placed. */
-  trait Placeable extends Structure:
-    type Position
-    /** Being placeable, the structure has a position.
-      * @return
-      *   the position of the structure.
-      */
-    def position: Position
+  /** A mixin that describe a [[Structure]] that can be seen. */
+  trait Visible extends Structure:
     /** A placeable structure has a distance within which it is visible.
       * @return
       *   the distance within which the structure is visible.
