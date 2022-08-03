@@ -3,7 +3,7 @@
 | Product Backlog Item                                         | Sprint Task                                                  | Volunteer   | Initial Estimate of Effort | 1    | 2    | 3    | 4    | 5    |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ----------- | -------------------------- | ---- | ---- | ---- | ---- | ---- |
 | Definizione e implementazione del modello del dominio        | Implementazione del dominio: Virus                           | Acampora    | 6                          |      |      |      |      |      |
-|                                                              | Implementazione del dominio: Strutture                       | Giulianelli | 6                          |      |      |      |      |      |
+|                                                              | Implementazione del dominio: Strutture                       | Giulianelli | 6                          | 5    | 2    |      |      |      |
 |                                                              | Implementazione del dominio: Entità                          | Accursi     | 6                          |      |      |      |      |      |
 |                                                              | Implementazione del dominio: Environment                     | Accursi     | 6                          |      |      |      |      |      |
 | Sviluppo del motore di simulazione                           | gestione delle interazioni tra engine e boundary ed aggiornamento delle entity | Giulianelli | 8                          |      |      |      |      |      |
