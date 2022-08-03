@@ -1,12 +1,12 @@
-package it.unibo.pps.structure.entrance
+package it.unibo.pps.structure
 
 import it.unibo.pps.entity.common.Space.Point2D
+import it.unibo.pps.entity.structure.StructureComponent.{Closable, Hospitalization, Structure}
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, Hospital, House}
-import it.unibo.pps.entity.structure.StructureComponent.{Closable, Structure, Hospitalization}
 import it.unibo.pps.entity.structure.entrance.Entrance.{BaseEntranceStrategy, FilterBasedStrategy}
+import monocle.syntax.all.*
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
-import monocle.syntax.all.*
 
 //todo: refactor with correct entities
 class StructuresTest extends AnyFunSuite with Matchers:
