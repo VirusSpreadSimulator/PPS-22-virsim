@@ -28,3 +28,8 @@ class TimeTests extends AnyFunSuite with Matchers:
   test("A timestamp tick value should be convertible to absolute minutes since the start of the simulation") {
     timeStamp.toAbsoluteMinutes() shouldBe (iterationNumber * timeStamp.toMinutes())
   }
+
+  test("Two timestamp should be comparable in order to understand which one is the latest") {
+    val lowerTimestamp = TimeStamp(time, iterationNumber - 1)
+    timeStamp > lowerTimestamp shouldBe true
+  }
