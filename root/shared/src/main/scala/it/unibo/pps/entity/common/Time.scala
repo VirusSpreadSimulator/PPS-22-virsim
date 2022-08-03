@@ -22,7 +22,7 @@ object Time:
       * @return
       *   the ticks after the current iteration number.
       */
-    def ticksSinceIterationStart: Long
+    def ticksSinceIterationStart: Int
     /** Represent the current iteration number.
       * @return
       *   the iteration number.
@@ -32,11 +32,25 @@ object Time:
       * @return
       *   the absolute ticks.
       */
-    def toAbsoluteValue(): Long
+    def toAbsoluteTickValue(): Long
+    /** Method to convert the ticks from the engine in the minutes of the virtual time. The minutes returned are respect
+      * to the current iteration.
+      * @return
+      *   the minutes
+      */
+    def toMinutes(): Int
+    /** Method to convert the ticks from the engine in the minutes of the virtual time.The minutes returned are respect
+      * to the current iteration
+      * @return
+      *   the absolute minutes
+      */
+    def toAbsoluteMinutes(): Long
 
   object TimeStamp:
-    def apply(ticksSinceIterationStart: Long, iteration: Int): TimeStamp =
+    def apply(ticksSinceIterationStart: Int, iteration: Int): TimeStamp =
       TimeStampImpl(ticksSinceIterationStart, iteration)
-    private case class TimeStampImpl(override val ticksSinceIterationStart: Long, override val iteration: Int)
+    private case class TimeStampImpl(override val ticksSinceIterationStart: Int, override val iteration: Int)
         extends TimeStamp:
-      override def toAbsoluteValue(): Long = iteration * ticksSinceIterationStart
+      override def toAbsoluteTickValue(): Long = iteration * ticksSinceIterationStart
+      override def toMinutes(): Int = ticksSinceIterationStart
+      override def toAbsoluteMinutes(): Long = iteration * toMinutes()
