@@ -7,6 +7,8 @@ import org.scalatest.matchers.should.Matchers
 
 class TimeTests extends AnyFunSuite with Matchers:
   private val time = 100
+  private val iterationNumber = 2
+  private val timeStamp = TimeStamp(time, iterationNumber)
 
   test("It's possible to obtain length and unit from a duration") {
     import scala.concurrent.duration.MILLISECONDS
@@ -15,8 +17,14 @@ class TimeTests extends AnyFunSuite with Matchers:
     duration.unit shouldBe MILLISECONDS
   }
 
-  test("A timestamp should be convertible to its absolute value respect the start of the simulation") {
-    val iterationNumber = 2
-    val timeStamp = TimeStamp(time, iterationNumber)
-    timeStamp.toAbsoluteValue() shouldBe (time * iterationNumber)
+  test("A timestamp tick value should be convertible to its absolute value respect the start of the simulation") {
+    timeStamp.toAbsoluteTickValue() shouldBe (time * iterationNumber)
+  }
+
+  test("A timestamp tick value should be convertible to minutes") {
+    timeStamp.toMinutes() shouldBe time
+  }
+
+  test("A timestamp tick value should be convertible to absolute minutes since the start of the simulation") {
+    timeStamp.toAbsoluteMinutes() shouldBe (iterationNumber * timeStamp.toMinutes())
   }
