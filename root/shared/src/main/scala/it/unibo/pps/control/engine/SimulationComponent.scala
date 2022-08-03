@@ -4,37 +4,40 @@ object SimulationComponent:
 
   trait SimulationConfiguration:
 
+    /** @return the size of the environment choosed by the user. */
+    def gridSide: Int
+
     /** @return the duration of the simulation. */
-    def getDuration: Option[Int]
+    def duration: Int
 
     /** @return the number of entities choosed by the user. */
-    def getNumberOfEntities: Option[Int]
+    def numberOfEntities: Int
 
     /** Default: 4
       * @return
       *   the number of people at every house.
       */
-    def getPeoplePerHouse: Option[Int]
+    def peoplePerHouse: Int
 
-    /** @return */
-    def getAveragePopulationAge: Option[Int]
+    /** @return
+      *   the average age of the entities inside the environment.
+      */
+    def averagePopulationAge: Int
 
-    def getStdDevPopulationAge: Option[Double]
+    /** @return
+      *   the age standard deviation of the entities inside the environment.
+      */
+    def stdDevPopulationAge: Double
 
-    def getStartingInfectedPercentage: Option[Double]
+    /** @return the initial percentage of infected entities inside the environment. */
+    def startingInfectedPercentage: Double
 
-  class Simulation extends SimulationConfiguration:
-
-    var duration: Option[Int] = None
-    var numberOfEntities: Option[Int] = None
-    var peoplePerHouse: Option[Int] = Some(4)
-    var averagePopulationAge: Option[Int] = Some(40)
-    var stdDevPopulationAge: Option[Double] = Some(0.5)
-    var startingInfectedPercentage: Option[Double] = Some(10)
-
-    override def getDuration: Option[Int] = duration
-    override def getNumberOfEntities: Option[Int] = numberOfEntities
-    override def getPeoplePerHouse: Option[Int] = peoplePerHouse
-    override def getAveragePopulationAge: Option[Int] = averagePopulationAge
-    override def getStdDevPopulationAge: Option[Double] = stdDevPopulationAge
-    override def getStartingInfectedPercentage: Option[Double] = startingInfectedPercentage
+  case class Simulation(
+      override val gridSide: Int = 50,
+      override val duration: Int = 30,
+      override val numberOfEntities: Int = 100,
+      override val peoplePerHouse: Int = 4,
+      override val averagePopulationAge: Int = 40,
+      override val stdDevPopulationAge: Double = 0.5,
+      override val startingInfectedPercentage: Double = 10
+  ) extends SimulationConfiguration
