@@ -8,7 +8,7 @@
    + 1.1.  Simulazione della diffusione di un virus all’interno di una popolazione di individui che interagisce in un ambiente limitato
      + 1.1.1. generazione di diversi scenari configurabili attraverso mappe personalizzate
        + 1.1.1.2. presenza di diverse tipologie di strutture con caratteristiche personalizzabili legate al virus
-     + 1.1.2. definizione di una configurazione statica che riguarda diversi aspetti della simulazione, dell’ambiente e degl individui.
+     + 1.1.2. definizione di una configurazione statica che riguarda diversi aspetti della simulazione, dell’ambiente e degli individui.
      + 1.1.3. interazione con la simulazione per la modifica e l’aggiunta di ulteriori parametri o vincoli.
      + 1.1.4. presenza di un tempo virtuale e di un ciclo giorno/notte.
      + 1.1.5. Visualizzazione, monitoraggio ed esportazione di informazioni e statistiche riguardanti l’andamento della simulazione
