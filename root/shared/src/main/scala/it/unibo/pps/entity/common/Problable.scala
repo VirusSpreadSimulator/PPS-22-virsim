@@ -20,10 +20,14 @@ object ProblableEvents:
     *   the type that model the event
     */
   trait Probable[E]:
+    /** Method in which it's implemented the formula that express the probability of the interested event */
     extension (e: E) def probability: Double
 
   /** A set of operations modeled on the Probable type-class */
   object ProbableOps:
+    /** Method that handle the probability and every time that is called return a [[ProbabilityResult]] that describe if
+      * the event is happened or not.
+      */
     extension [E: Probable](e: E) def isHappening: ProbabilityResult = e.probability >= Random.nextDouble()
 
   /** Object that group the main given of Probable type-class */
