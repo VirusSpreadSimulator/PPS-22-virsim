@@ -8,13 +8,17 @@ object EntityComponent {
   trait Entity:
     type Home
     type Position
-    type AgeDistribution
+
+    /** Uniquely defines the entity
+      * @return
+      */
+    def id: Int
 
     /** The age of the entity.
       * @return
       *   the age of the entity.
       */
-    def age: AgeDistribution
+    def age: Int
 
     /** Every entity is assigned to an habitable Structure.
       * @return
