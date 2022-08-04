@@ -42,5 +42,5 @@ object GaussianProperty:
       extends Gaussian[FiniteDuration]:
     override def next(): FiniteDuration = FiniteDuration(nextGaussian().toLong, unit)
 
-  class GaussianAgeDistribution(override val mean: Int, override val std: Int) extends Gaussian[Int]:
+  class GaussianAgeDistribution(override val mean: Double, override val std: Double) extends Gaussian[Int]:
     override def next(): Int = nextGaussian().toInt
