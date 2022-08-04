@@ -38,13 +38,13 @@ object GUI:
 
     override def init(): Task[Unit] =
       for
-        frame <- container.asyncBoundary(SwingConfiguration.swingScheduler)
+        frame <- container.asyncBoundary(Utils.swingScheduler)
         _ <- io(renderBtns.map(_.button).foreach(frame.add))
         _ <- io(frame.setVisible(true))
       yield ()
 
     override def render(i: Int): Task[Unit] =
       for
-        _ <- Task.pure {}.asyncBoundary(SwingConfiguration.swingScheduler)
+        _ <- Task.pure {}.asyncBoundary(Utils.swingScheduler)
         _ <- Task(println(i))
       yield ()
