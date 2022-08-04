@@ -11,7 +11,7 @@ object BoundaryModule:
     def start(): Task[Unit]
     def render(i: Int): Task[Unit]
     def events(): Observable[Event]
-  trait ConfigBoundary:
+  trait ConfigBoundary extends Boundary:
     def config(): Task[Path]
     def error(): Task[Unit]
   trait Provider:
