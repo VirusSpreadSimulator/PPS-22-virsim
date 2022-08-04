@@ -8,7 +8,7 @@
    + 1.1.  Simulazione della diffusione di un virus all’interno di una popolazione di individui che interagisce in un ambiente limitato
      + 1.1.1. generazione di diversi scenari configurabili attraverso mappe personalizzate
        + 1.1.1.2. presenza di diverse tipologie di strutture con caratteristiche personalizzabili legate al virus
-     + 1.1.2. definizione di una configurazione statica che riguarda diversi aspetti della simulazione, dell’ambiente e degl individui.
+     + 1.1.2. definizione di una configurazione statica che riguarda diversi aspetti della simulazione, dell’ambiente e degli individui.
      + 1.1.3. interazione con la simulazione per la modifica e l’aggiunta di ulteriori parametri o vincoli.
      + 1.1.4. presenza di un tempo virtuale e di un ciclo giorno/notte.
      + 1.1.5. Visualizzazione, monitoraggio ed esportazione di informazioni e statistiche riguardanti l’andamento della simulazione
@@ -17,7 +17,7 @@
 
 ## Utente
 
-Per essere il più vicini possibile ad una situazione agile reale, Andrea Acampora riveste il ruolo di committente all’interno di questo progetto. Il diagolo, portato avanti tra il Product Owner e il Committente può essere riassunto nelle seguenti intervista: 
+Per essere il più vicini possibile ad una situazione agile reale, Andrea Acampora riveste il ruolo di committente all’interno di questo progetto. Il diagolo, portato avanti tra il Product Owner e il Committente può essere riassunto nella seguente intervista: 
 
 > "Faccio parte del comitato tecnico scientifico. Alla luce della recente pandemia ho la necessità di un software, preferibilmente leggero e multipiattaforma, che sia in grado di simulare la diffusione di un virus all'interno della popolazione. 
 > Dalle nostre recenti analisi e dalle statistiche fornite dal ministero si evince una difficoltà nel prevedere i livelli di contagio in situazioni che prevedono l'interazione tra individui in spazi aperti e/o all'interno di strutture. A fronte di ciò si richiede la possibilità di configurare la simulazione in termini di caratteristiche degli individui, delle strutture e del virus. Nello specifico deve essere possibile descrivere la popolazione in termini di età e cardinalità. Le strutture, le quali avranno pericolosità di contagio personalizzata, possono essere collocate arbitrariamente all'interno dell'ambiente. Il virus deve essere configurato considerando il tasso di diffusione, periodo medio di positività e la probabiltà di sviluppare una forma grave della malattia. 

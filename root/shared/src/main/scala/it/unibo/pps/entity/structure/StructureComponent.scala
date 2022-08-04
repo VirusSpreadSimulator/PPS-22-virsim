@@ -93,6 +93,11 @@ object StructureComponent:
 
   /** A mixin that describe a [[Structure]] that can be closed. */
   trait Closable extends Structure:
+    /** A closeable structure is a structure that can be closed. This method represent the state of the structure in
+      * that terms
+      * @return
+      *   true if it's open, false otherwise
+      */
     def isOpen: Boolean
     abstract override protected def checkEnter(entity: Entity): Boolean = isOpen && super.checkEnter(entity)
 

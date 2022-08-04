@@ -5,6 +5,12 @@ object Entrance:
 
   /** Trait that model the entrance strategy interface */
   trait EntranceStrategy:
+    /** It's the core of the strategy, and it decide if the entity can enter or not.
+      * @param entity
+      *   the entity that wants to enter in the structure
+      * @return
+      *   true if the entity can enter, false otherwise.
+      */
     def canEnter(entity: Entity): Boolean
 
   /** Base entrance strategy. It corresponds to the free strategy. So everyone could possibly enter. */
