@@ -4,7 +4,7 @@ import it.unibo.pps.entity.entity.EntityComponent.*
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
 import it.unibo.pps.entity.structure.Structures.*
-import it.unibo.pps.entity.entity.EntityComponent.Moving.movementGoal
+import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
 
 object Entities:
   /* The base entity of the simulation. */
@@ -40,8 +40,8 @@ object Entities:
       override val home: House,
       override val immunity: Int = 0,
       override val position: Point2D,
-      override val movementGoal: movementGoal,
-      override val infection: Option[Infection]
+      override val movementGoal: MovementGoal = MovementGoal.RANDOM_MOVEMENT,
+      override val infection: Option[Infection] = None
   ) extends BaseEntity
       with Moving
       with Infectious:
