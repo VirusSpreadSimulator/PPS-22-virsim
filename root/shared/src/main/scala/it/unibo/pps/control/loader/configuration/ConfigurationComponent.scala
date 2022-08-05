@@ -26,6 +26,14 @@ object ConfigurationComponent:
       */
     def structuresConfiguration: Set[Structure]
 
+  enum ConfigurationResult:
+    case OK(configuration: Configuration)
+    case ERROR(error: ConfigurationError)
+
+  enum ConfigurationError:
+    case MISSING_VALUES
+    case INVALID_FILE
+
   case class VirsimConfiguration(
       override val simulation: Simulation,
       override val virusConfiguration: Virus,
