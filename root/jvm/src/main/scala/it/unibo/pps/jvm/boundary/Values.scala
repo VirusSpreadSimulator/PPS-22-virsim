@@ -5,3 +5,5 @@ object Values:
     val SIMULATORNAME = "Virus Spread Simulator"
     val CHOOSEFILEBTN = "Choose"
     val STARTBTN = "Start"
+    val PAUSEBTN = "Pause"
+    val STOPBTN = "Stop"
