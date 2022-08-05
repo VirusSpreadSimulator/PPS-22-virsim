@@ -12,6 +12,12 @@ object Entities:
     override type Position = Point2D
     override type Home = House
 
+    /** Calculates the max health that an entity can have during the simulation
+      * @return
+      *   the max health for an entity
+      */
+    def calculateMaxHealth(): Int = (100 - (30.0 / 100.0) * age).toInt //to be refactored removing magic numbers
+
   /** Case class for the entity of the simulation.
     * @param id
     *   the id of the entity.
@@ -19,10 +25,6 @@ object Entities:
     *   the age of the entity.
     * @param home
     *   the home of the entity
-    * @param health
-    *   current health of the entity
-    * @param maxHealth
-    *   max health that the entity can have.
     * @param immunity
     *   the immunity rate to the infection
     * @param position
@@ -44,5 +46,7 @@ object Entities:
       with Moving
       with Infectious:
 
-    override val maxHealth: Int = (100 - (30.0 / 100.0) * age).toInt // TO BE REFACTORED
+    /* max health that the entity can have, based on the age. */
+    override val maxHealth: Int = calculateMaxHealth()
+    /* current health of the entity. Initially set to max health.  */
     override val health: Int = maxHealth
