@@ -1,13 +1,15 @@
-package it.unibo.pps.jvm.boundary
+package it.unibo.pps.jvm.boundary.gui
 
-import java.nio.file.Path
 import it.unibo.pps.boundary.ViewUtils.io
-import monix.eval.Task
 import it.unibo.pps.jvm.boundary.Values.Text
+import it.unibo.pps.jvm.boundary.Utils
+import it.unibo.pps.jvm.boundary.gui.InitGUI
+import monix.eval.Task
 
 import java.awt.{FlowLayout, Font, GridLayout}
+import java.nio.file.Path
+import javax.swing.*
 import javax.swing.border.EmptyBorder
-import javax.swing.{JButton, JFrame, JLabel, JPanel, JTextField}
 
 /** TEST FILE FOR INIT FRAME */
 trait InitGUI:
@@ -82,7 +84,7 @@ object InitGUI:
 
     override def error(): Task[Unit] = ???
 
-  @main def main(): Unit =
-    import monix.execution.Scheduler
-    given Scheduler = monix.execution.Scheduler.global
-    InitGUI().init().runAsyncAndForget
+//  @main def main(): Unit =
+//    import monix.execution.Scheduler
+//    given Scheduler = monix.execution.Scheduler.global
+//    InitGUI().init().runAsyncAndForget
