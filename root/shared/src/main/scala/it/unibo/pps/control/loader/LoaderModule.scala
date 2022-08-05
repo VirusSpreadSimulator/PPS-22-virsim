@@ -16,7 +16,7 @@ import it.unibo.pps.entity.environment.EnvironmentModule
 import it.unibo.pps.entity.structure.StructureComponent.Structure
 import it.unibo.pps.entity.virus.VirusComponent
 import it.unibo.pps.entity.entity.Entities.*
-import it.unibo.pps.entity.entity.EntityComponent.Moving.movementGoal
+import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
 import it.unibo.pps.entity.entity.IdGenerator.Generator
 import it.unibo.pps.entity.entity.IdGenerator.IntegerIdGenerator
 import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
