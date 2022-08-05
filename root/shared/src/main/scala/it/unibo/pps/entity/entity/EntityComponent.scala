@@ -54,15 +54,15 @@ object EntityComponent {
       */
     def position: Position
 
-    import Moving.movementGoal
+    import Moving.MovementGoal
     /** Define the goal of the movement
       * @return
       */
-    def movementGoal: movementGoal
+    def movementGoal: MovementGoal
 
   object Moving:
     /** Describe the movement of the entity */
-    enum movementGoal:
+    enum MovementGoal:
       case RANDOM_MOVEMENT, BACK_TO_HOME, NO_MOVEMENT
 
   /* Represent an Entity that could be infected by another entity. */
