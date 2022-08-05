@@ -19,7 +19,7 @@ trait SimulationGUI:
 
 object SimulationGUI: //todo: group all the magic number in Values
   def apply(width: Int = 800, height: Int = 700, title: String = "Virsim"): SimulationGUI =
-    SimulationGUIImpl(width + 20, height + 20, title)
+    SimulationGUIImpl(width + 30, height + 30, title)
   private class SimulationGUIImpl(width: Int, height: Int, title: String) extends SimulationGUI:
     import Utils.given
 
@@ -78,7 +78,6 @@ object SimulationGUI: //todo: group all the magic number in Values
         _ <- Task.pure {}.asyncBoundary(Utils.swingScheduler)
         _ <- io(simulationPanel.updateAndDisplay())
         _ <- io(chartPanel.updateAndDisplay())
-        _ <- io(println(chartPanel.getSize().width))
       yield ()
 
     override def events(): Observable[Event] = ???
