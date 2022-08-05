@@ -2,7 +2,7 @@ package it.unibo.pps.entity.entity
 
 import it.unibo.pps.entity.entity.EntityComponent.*
 import it.unibo.pps.entity.common.Space.Point2D
-import it.unibo.pps.entity.common.GaussianProperty.GaussianAgeDistribution
+import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
 import it.unibo.pps.entity.structure.Structures.*
 import it.unibo.pps.entity.entity.EntityComponent.Moving.movementGoal
 
@@ -36,12 +36,13 @@ object Entities:
       override val id: Int,
       override val age: Int,
       override val home: House,
-      override val health: Int,
-      override val maxHealth: Int,
       override val immunity: Int = 0,
       override val position: Point2D,
       override val movementGoal: movementGoal,
       override val infection: Option[Infection]
   ) extends BaseEntity
       with Moving
-      with Infectious
+      with Infectious:
+
+    override val maxHealth: Int = (100 - (30.0 / 100.0) * age).toInt // TO BE REFACTORED
+    override val health: Int = maxHealth
