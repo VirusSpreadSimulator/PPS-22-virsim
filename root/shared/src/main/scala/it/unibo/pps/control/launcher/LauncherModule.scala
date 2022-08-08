@@ -26,15 +26,17 @@ object LauncherModule:
 
       override def launcherLoop(): Task[Unit] =
         for
-          //context.boundaries.configBoundary.config
+          path <- context.configBoundary.config()
           configResult <- context.loader.parseConfiguration("configuration.scala")
           _ <- configResult match
             case ERROR(errors) =>
-              //Task(context.boundaries.configBoundary.error(configResult))
-              launcherLoop()
+              for
+                _ <- context.configBoundary.error(errors)
+                _ <- launcherLoop()
+              yield ()
             case OK(configuration) =>
               for
-                //_ <- Task.sequence(context.boundaries.map(_.start))
+                _ <- Task.sequence(context.boundaries.map(_.start()))
                 _ <- context.loader.startEngine(configuration)
               yield ()
         yield ()

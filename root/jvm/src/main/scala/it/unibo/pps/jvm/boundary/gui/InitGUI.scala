@@ -1,32 +1,38 @@
 package it.unibo.pps.jvm.boundary.gui
 
 import it.unibo.pps.boundary.ViewUtils.io
+import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
 import it.unibo.pps.jvm.boundary.Values.Text
 import it.unibo.pps.jvm.boundary.Utils
 import it.unibo.pps.jvm.boundary.gui.InitGUI
 import monix.eval.Task
 
+import java.awt.event.ActionEvent
 import java.awt.{FlowLayout, Font, GridLayout}
 import java.nio.file.Path
 import javax.swing.*
 import javax.swing.border.EmptyBorder
+import scala.concurrent.Promise
 
 /** TEST FILE FOR INIT FRAME */
 trait InitGUI:
   def init(): Task[Unit]
-  def start(): Task[Unit]
   def config(): Task[Path]
-  def error(): Task[Unit]
+  def error(err: ConfigurationError): Task[Unit]
+  def start(simulation: SimulationGUI): Task[Unit]
 
 object InitGUI:
   def apply(width: Int = 500, height: Int = 800, title: String = "Virsim"): InitGUI = InitGUIImpl(width, height, title)
   private class InitGUIImpl(width: Int, height: Int, title: String) extends InitGUI:
     import Utils.given
+    private lazy val frame = JFrame(title)
+    private lazy val startBtn = JButton(Text.STARTBTN)
+    private lazy val fileChooser = JFileChooser()
     private lazy val fileSrcTextField: JTextField = JTextField(width / 25)
+    private val filePromise = Promise[Path]()
 
     private lazy val container: Task[JFrame] =
       for
-        frame <- io(JFrame(title))
         _ <- io(frame.setMinimumSize((width, height)))
         _ <- io(frame.setSize(width, height))
         _ <- io(frame.setLocationRelativeTo(null))
@@ -45,6 +51,7 @@ object InitGUI:
       for
         panel <- io(JPanel(FlowLayout(FlowLayout.CENTER)))
         chooseBtn <- io(JButton(Text.CHOOSEFILEBTN))
+        _ <- io(chooseBtn.addActionListener((e: ActionEvent) => openFileDialog()))
         _ <- io(panel.add(fileSrcTextField))
         _ <- io(panel.add(chooseBtn))
       yield panel
@@ -52,7 +59,7 @@ object InitGUI:
     private lazy val startPanel: Task[JPanel] =
       for
         panel <- io(JPanel())
-        startBtn <- io(JButton(Text.STARTBTN))
+        _ <- io(startBtn.addActionListener((e: ActionEvent) => filePromise.success(Path.of(fileSrcTextField.getText))))
         _ <- io(panel.add(startBtn))
       yield panel
 
@@ -78,13 +85,16 @@ object InitGUI:
         _ <- io(frame.setVisible(true))
       yield ()
 
-    override def start(): Task[Unit] = ???
+    override def config(): Task[Path] = Task.deferFuture(filePromise.future)
 
-    override def config(): Task[Path] = ???
+    override def error(err: ConfigurationError): Task[Unit] = Task.pure {}
 
-    override def error(): Task[Unit] = ???
+    override def start(simulation: SimulationGUI): Task[Unit] =
+      for
+        _ <- io(frame.dispose())
+        _ <- simulation.init()
+      yield ()
 
-//  @main def main(): Unit =
-//    import monix.execution.Scheduler
-//    given Scheduler = monix.execution.Scheduler.global
-//    InitGUI().init().runAsyncAndForget
+    private def openFileDialog(): Unit = fileChooser.showOpenDialog(frame) match
+      case JFileChooser.APPROVE_OPTION => fileSrcTextField.setText(fileChooser.getSelectedFile.getAbsolutePath)
+      case _ =>

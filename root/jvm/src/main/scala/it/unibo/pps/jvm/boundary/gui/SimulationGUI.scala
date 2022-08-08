@@ -92,15 +92,3 @@ object SimulationGUI: //todo: group all the magic number in Values
       Observable
         .fromIterable(Seq(commandPanel, dynamicConfigPanel))
         .flatMap(_.events)
-
-  @main def main(): Unit =
-    import monix.execution.Scheduler
-    import scala.concurrent.duration.{FiniteDuration, MILLISECONDS}
-    given Scheduler = monix.execution.Scheduler.global
-    val gui = SimulationGUI()
-    gui.init().runSyncUnsafe()
-    (for
-      _ <- Task.sleep(FiniteDuration(100, MILLISECONDS))
-      _ <- gui.render()
-      _ <- Task.shift
-    yield gui).loopForever.runAsyncAndForget
