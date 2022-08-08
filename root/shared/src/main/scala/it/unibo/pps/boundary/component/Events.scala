@@ -4,4 +4,5 @@ object Events:
   enum Event:
     case Hit(number: Int)
     case Pause
+    case SwitchStructure(group: String)
     case GuiClosed
