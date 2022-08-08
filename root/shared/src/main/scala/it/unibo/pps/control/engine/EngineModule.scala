@@ -5,7 +5,7 @@ import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.boundary.component.Events.Event.Hit
 import it.unibo.pps.control.engine.EngineConfiguration.SimulationConfig
 import it.unibo.pps.entity.State
-import it.unibo.pps.entity.environment.EnvironmentModule
+import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import monix.catnap.ConcurrentQueue
 import monix.eval.Task
 import monix.reactive.Observable
@@ -15,10 +15,10 @@ import scala.concurrent.duration.{FiniteDuration, TimeUnit}
 object EngineModule:
   trait Engine:
     def init(simulationDuration: Int): Unit
-    def startSimulationLoop(): Task[Unit]
+    def startSimulationLoop(environment: Environment): Task[Unit]
   trait Provider:
     val engine: Engine
-  type Requirements = BoundaryModule.Provider with EnvironmentModule.Provider
+  type Requirements = BoundaryModule.Provider
   trait Component:
     context: Requirements =>
     class EngineImpl(using simulationConfiguration: SimulationConfig) extends Engine:
@@ -29,10 +29,10 @@ object EngineModule:
       override def init(duration: Int): Unit =
         simulationDuration = duration
 
-      override def startSimulationLoop(): Task[Unit] =
-        simulationDispatcher()
+      override def startSimulationLoop(environment: Environment): Task[Unit] =
+        simulationDispatcher(environment)
 
-      private def simulationDispatcher(): Task[Unit] =
+      private def simulationDispatcher(environment: Environment): Task[Unit] =
         for
           eventQueue <- ConcurrentQueue.unbounded[Task, Event]()
           sinkEvent = Observable
@@ -40,11 +40,11 @@ object EngineModule:
             .flatMap(_.events())
             .mapEval(event => eventQueue.offer(event))
             .foreachL { _ => }
-          simulationTask <- Task.parMap2(sinkEvent, simulationLoop(eventQueue)) { (_, _) => }
+          simulationTask <- Task.parMap2(sinkEvent, simulationLoop(eventQueue, environment)) { (_, _) => }
         //_ <- Task(context.boundaries.main.startSimulation(gridSide))
         yield simulationTask
 
-      private def simulationLoop(queue: ConcurrentQueue[Task, Event]): Task[Unit] =
+      private def simulationLoop(queue: ConcurrentQueue[Task, Event], environment: Environment): Task[Unit] =
         for
           events <- queue.drain(0, simulationConfiguration.maxEventPerIteration)
           timeTarget = simulationConfiguration.tickTime
@@ -56,7 +56,7 @@ object EngineModule:
           newTime <- timeNow(timeTarget.unit)
           timeDiff = FiniteDuration(newTime - prevTime, timeTarget.unit)
           _ <- waitNextTick(timeDiff, timeTarget)
-          _ <- simulationLoop(queue)
+          _ <- simulationLoop(queue, environment)
         yield ()
 
 //      // todo: need to do a process of re-engineering in handling of events and update logic (considering the model).
