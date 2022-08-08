@@ -1,0 +1,17 @@
+# Sprint Backlog - 4
+
+| Product Backlog Item                                         | Sprint Task                                                  | Volunteer   | Initial Estimate of Effort | 1    | 2    | 3    | 4    | 5    |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ----------- | -------------------------- | ---- | ---- | ---- | ---- | ---- |
+| Sviluppo del motore di simulazione                           | gestione delle interazioni tra engine e boundary ed aggiornamento delle entity | Giulianelli | 8                          |      |      |      |      |      |
+|                                                              | gestione dei dati aggregati prodotti dalla simulazione       | Acampora    | 3                          |      |      |      |      |      |
+| Realizzazione GUI JVM-Based                                  | gestione interazione e flow con l'engine                     | Giulianelli | 4                          |      |      |      |      |      |
+|                                                              | realizzazione della GUI - schermata di simulazione           |             | 5                          |      |      |      |      |      |
+|                                                              | realizzazione della GUI - creazione grafici                  | Acampora    | 2                          |      |      |      |      |      |
+|                                                              | realizzazione della GUI - panello con le interazioni dinamiche |             | 2                          |      |      |      |      |      |
+| Implementazione del modulo per il caricamento della configurazione fornita dall'utente | sviluppo API di base per la configurazione della simulazione | Acampora    | 3                          |      |      |      |      |      |
+|                                                              | sviluppo del loader della configurazione                     | Acampora    | 3                          |      |      |      |      |      |
+| Sviluppo della logica di movimento degli individui           | implementazione della logica di movimento degli individui    | Accursi     | 5                          |      |      |      |      |      |
+| Sviluppo della logica di interazione tra individui e strutture | implementazione della logica di interazione tra individui e strutture | Accursi     | 5                          |      |      |      |      |      |
+| Sviluppo della logica di interazione dinamica dell'utente con la simulazione | gestione del comando pausa                                   |             | 3                          |      |      |      |      |      |
+|                                                              | gestione del comando stop                                    |             | 3                          |      |      |      |      |      |
+|                                                              | gestione del comando ripresa                                 |             | 3                          |      |      |      |      |      |
