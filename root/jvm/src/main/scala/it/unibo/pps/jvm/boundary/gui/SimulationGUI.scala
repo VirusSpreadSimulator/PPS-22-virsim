@@ -53,7 +53,7 @@ object SimulationGUI: //todo: group all the magic number in Values
         _ <- io(simulationPanel.setMinimumSize((500, 500)))
         _ <- io(chartPanel.setMinimumSize((300, 500)))
         split <- io(JSplitPane(JSplitPane.HORIZONTAL_SPLIT, simulationPanel, chartPanel))
-        _ <- io(split.setResizeWeight(0.5))
+        _ <- io(split.setResizeWeight(1))
         _ <- io(split.setOneTouchExpandable(true))
         _ <- io(split.setContinuousLayout(true))
       yield split
