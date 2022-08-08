@@ -13,7 +13,7 @@ import monix.reactive.Observable
 import scala.concurrent.duration.{FiniteDuration, TimeUnit}
 
 object EngineModule:
-  trait Engine:
+  trait Engine: // todo: maybe 'init' it is not useful, considering that the duration of the simulation can be pass
     def init(simulationDuration: Int): Unit
     def startSimulationLoop(environment: Environment): Task[Unit]
   trait Provider:

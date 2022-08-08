@@ -10,7 +10,7 @@ import monix.eval.Task
 object LauncherModule:
   trait Launcher:
     def launch(): Task[Unit]
-    def launcherLoop(): Task[Unit]
+    def launcherLoop(): Task[Unit] // todo: is it useful here? I think that may be only private
   trait Provider:
     val launcher: Launcher
   type Requirements = BoundaryModule.Provider with LoaderModule.Provider
