@@ -11,7 +11,16 @@ import monix.reactive.Observable
 import monix.eval.Task
 
 import java.awt.{BorderLayout, GridLayout}
-import javax.swing.{BoxLayout, JFrame, JPanel, JScrollPane, JSplitPane, ScrollPaneConstants, SwingUtilities}
+import javax.swing.{
+  BoxLayout,
+  JFrame,
+  JPanel,
+  JScrollPane,
+  JSplitPane,
+  ScrollPaneConstants,
+  SwingUtilities,
+  WindowConstants
+}
 
 trait SimulationGUI:
   def init(): Task[Unit]
@@ -66,7 +75,7 @@ object SimulationGUI: //todo: group all the magic number in Values
         bottomP <- bottomPanel
         _ <- io(bottomP.setMinimumSize((800, 200)))
         split <- io(JSplitPane(JSplitPane.VERTICAL_SPLIT, topP, bottomP))
-        _ <- io(split.setResizeWeight(0.5))
+        _ <- io(split.setResizeWeight(1))
         _ <- io(split.setOneTouchExpandable(true))
         _ <- io(split.setContinuousLayout(true))
       yield split
@@ -74,6 +83,7 @@ object SimulationGUI: //todo: group all the magic number in Values
     override def init(): Task[Unit] =
       for
         frame <- container.asyncBoundary(Utils.swingScheduler)
+        _ <- io(frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE))
         mainP <- mainPanel
         _ <- io(mainP.setOpaque(true))
         _ <- io(frame.add(mainP))

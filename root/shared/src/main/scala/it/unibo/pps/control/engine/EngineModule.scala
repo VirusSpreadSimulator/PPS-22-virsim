@@ -52,7 +52,7 @@ object EngineModule:
 //          currentState <- getCurrentState()
 //          newState <- handleEvents(currentState, events.toList)
 //          _ <- updateEnv(newState)
-//          _ <- renderBoundaries(newState).asyncBoundary // Render and return to default scheduler with asyncBoundary
+          _ <- renderBoundaries(State(0)).asyncBoundary // Render and return to default scheduler with asyncBoundary
           newTime <- timeNow(timeTarget.unit)
           timeDiff = FiniteDuration(newTime - prevTime, timeTarget.unit)
           _ <- waitNextTick(timeDiff, timeTarget)

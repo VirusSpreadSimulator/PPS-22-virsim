@@ -80,6 +80,7 @@ object InitGUI:
     override def init(): Task[Unit] =
       for
         frame <- container.asyncBoundary(Utils.swingScheduler)
+        _ <- io(frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE))
         mainP <- mainPanel
         _ <- io(frame.setContentPane(mainP))
         _ <- io(frame.setVisible(true))
