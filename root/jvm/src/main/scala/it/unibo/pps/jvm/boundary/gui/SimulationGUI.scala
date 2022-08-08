@@ -6,6 +6,7 @@ import it.unibo.pps.jvm.boundary.Utils
 import it.unibo.pps.jvm.boundary.gui.SimulationGUI
 import it.unibo.pps.jvm.boundary.gui.panel.SimulationPanel
 import it.unibo.pps.jvm.boundary.gui.panel.ChartPanel
+import it.unibo.pps.jvm.boundary.gui.panel.BottomPanels.{CommandPanel, DynamicConfigPanel}
 import monix.reactive.Observable
 import monix.eval.Task
 
@@ -18,13 +19,17 @@ trait SimulationGUI:
   def events(): Observable[Event]
 
 object SimulationGUI: //todo: group all the magic number in Values
-  def apply(width: Int = 800, height: Int = 700, title: String = "Virsim"): SimulationGUI =
-    SimulationGUIImpl(width + 30, height + 30, title)
+  def apply(width: Int = 920, height: Int = 850, title: String = "Virsim"): SimulationGUI =
+    SimulationGUIImpl(width, height, title)
   private class SimulationGUIImpl(width: Int, height: Int, title: String) extends SimulationGUI:
     import Utils.given
 
+    // Top panels
     private lazy val simulationPanel = SimulationPanel()
     private lazy val chartPanel = ChartPanel()
+    // Bottom panels
+    private lazy val commandPanel = CommandPanel()
+    private lazy val dynamicConfigPanel = DynamicConfigPanel()
 
     private lazy val container: Task[JFrame] =
       for
@@ -49,6 +54,9 @@ object SimulationGUI: //todo: group all the magic number in Values
         panel <- io(JPanel())
         panelLM <- io(GridLayout(1, 5))
         _ <- io(panel.setLayout(panelLM))
+        panels = Seq(commandPanel, dynamicConfigPanel)
+        _ <- io(for p <- panels do panel.add(p))
+        _ <- io(for p <- panels do p.display())
       yield panel
 
     private lazy val mainPanel: Task[JSplitPane] =
@@ -80,7 +88,10 @@ object SimulationGUI: //todo: group all the magic number in Values
         _ <- io(chartPanel.updateAndDisplay())
       yield ()
 
-    override def events(): Observable[Event] = ???
+    override def events(): Observable[Event] =
+      Observable
+        .fromIterable(Seq(commandPanel, dynamicConfigPanel))
+        .flatMap(_.events)
 
   @main def main(): Unit =
     import monix.execution.Scheduler
