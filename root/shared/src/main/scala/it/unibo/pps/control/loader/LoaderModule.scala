@@ -28,7 +28,6 @@ import monix.eval.Task
 import java.io.Reader
 import javax.script.ScriptEngineManager
 import scala.io.Source
-import scala.quoted.*
 
 object LoaderModule:
   trait Loader:
@@ -38,7 +37,7 @@ object LoaderModule:
       * @return
       *   the result of the configuration parsing.
       */
-    def parseConfiguration(configurationFile: String): ConfigurationResult
+    def parseConfiguration(configurationFile: String): Task[ConfigurationResult]
 
     /** @param configuration
       *   The configuration of the simulation, structures and virus.
@@ -59,15 +58,22 @@ object LoaderModule:
 
   trait Component:
     context: Requirements =>
+
     class LoaderImpl extends Loader:
-      override def parseConfiguration(configurationFile: String): ConfigurationResult =
-        val configurationString: String = Source.fromFile(configurationFile).getLines().mkString
-        val configuration: VirsimConfiguration = VirsimConfiguration(simulation, virus, structures)
-        ConfigurationResult.OK(configuration)
+
+      override def parseConfiguration(configurationFile: String): Task[ConfigurationResult] =
+        // val configurationString: String = Source.fromFile(configurationFile).getLines().mkString
+        for
+          configuration <- Task(VirsimConfiguration(simulation, virus, structures))
+          configResult <- Task(ConfigurationResult.OK(configuration))
+        yield configResult
 
       override def createEnvironment(configuration: Configuration): Unit =
+        //check that gridSide is <= 25
         val idGenerator: Generator[Int] = IntegerIdGenerator(0)
         val entities: Set[Entity] = Set()
+        val houses: Set[House] = Set()
+        (configuration.simulation.numberOfEntities / configuration.simulation.peoplePerHouse)
         for
           i <- 0 until configuration.simulation.numberOfEntities
           entity = SimulationEntity(
@@ -90,7 +96,7 @@ object LoaderModule:
         for
           _ <- Task(createEnvironment(configuration))
           _ <- Task(
-            context.engine.init(configuration.simulation.duration, configuration.simulation.gridSide)
+            context.engine.init(configuration.simulation.duration)
           )
           _ <- context.engine.startSimulationLoop()
         yield ()
