@@ -44,7 +44,7 @@ object LoaderModule:
       * @return
       *   the initialized environment.
       */
-    def createEnvironment(configuration: Configuration): Unit
+    def createEnvironment(configuration: Configuration): Environment
 
     /** After parsing the configuration file and initializing the environment it starts the simulation engine.
       * @return
@@ -68,7 +68,7 @@ object LoaderModule:
           configResult <- Task(ConfigurationResult.OK(configuration))
         yield configResult
 
-      override def createEnvironment(configuration: Configuration): Unit =
+      override def createEnvironment(configuration: Configuration): Environment =
         //check that gridSide is <= 25
         val idGenerator: Generator[Int] = IntegerIdGenerator(0)
         val entities: Set[Entity] = Set()
@@ -90,15 +90,13 @@ object LoaderModule:
             position = Point2D(1, 1)
           )
         yield entities + entity
-        context.env.initializeEnvironment(entities, virus, structures)
+        context.env.initialized(entities, virus, structures)
 
       override def startEngine(configuration: Configuration): Task[Unit] =
         for
-          _ <- Task(createEnvironment(configuration))
-          _ <- Task(
-            context.engine.init(configuration.simulation.duration)
-          )
-          _ <- context.engine.startSimulationLoop()
+          initializedEnvironment <- Task(createEnvironment(configuration))
+          _ <- Task(context.engine.init(configuration.simulation.duration))
+          _ <- context.engine.startSimulationLoop(initializedEnvironment)
         yield ()
 
   trait Interface extends Provider with Component:
