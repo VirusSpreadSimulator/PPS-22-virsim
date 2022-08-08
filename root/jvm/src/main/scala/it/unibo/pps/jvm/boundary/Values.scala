@@ -7,3 +7,5 @@ object Values:
     val STARTBTN = "Start"
     val PAUSEBTN = "Pause"
     val STOPBTN = "Stop"
+    val COMMANDSLABEL = "Commands"
+    val DYBAMICONFIGLABEL = "Dynamic config"
