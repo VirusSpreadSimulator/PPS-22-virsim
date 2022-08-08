@@ -2,10 +2,10 @@
 
 | Product Backlog Item                                         | Sprint Task                                                  | Volunteer            | Initial Estimate of Effort | 1    | 2    | 3    | 4    | 5    |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------- | -------------------------- | ---- | ---- | ---- | ---- | ---- |
-| Sviluppo del motore di simulazione                           | gestione delle interazioni tra engine e boundary             | Giulianelli          | 4                          |      |      |      |      |      |
+| Sviluppo del motore di simulazione                           | gestione delle interazioni tra engine e boundary             | Giulianelli          | 4                          | 1    |      |      |      |      |
 |                                                              | gestione dell'aggiornamento delle entity                     | Accursi, Giulianelli | 4                          |      |      |      |      |      |
 |                                                              | gestione dei dati aggregati prodotti dalla simulazione       | Acampora             | 3                          |      |      |      |      |      |
-| Realizzazione GUI JVM-Based                                  | gestione interazione e flow                                  | Giulianelli          | 4                          |      |      |      |      |      |
+| Realizzazione GUI JVM-Based                                  | gestione interazione e flow                                  | Giulianelli          | 4                          | 1    |      |      |      |      |
 |                                                              | realizzazione della GUI - schermata di simulazione           |                      | 5                          |      |      |      |      |      |
 |                                                              | realizzazione della GUI - creazione grafici                  | Acampora             | 2                          |      |      |      |      |      |
 |                                                              | realizzazione della GUI - panello con le interazioni dinamiche |                      | 2                          |      |      |      |      |      |
