@@ -26,10 +26,9 @@ object InitGUI:
   private class InitGUIImpl(width: Int, height: Int, title: String) extends InitGUI:
     import Utils.given
     private lazy val frame = JFrame(title)
-    private lazy val startBtn = JButton(Text.STARTBTN)
     private lazy val fileChooser = JFileChooser()
     private lazy val fileSrcTextField: JTextField = JTextField(width / 25)
-    private val filePromise = Promise[Path]()
+    private lazy val filePromise = Promise[Path]()
 
     private lazy val container: Task[JFrame] =
       for
@@ -59,6 +58,7 @@ object InitGUI:
     private lazy val startPanel: Task[JPanel] =
       for
         panel <- io(JPanel())
+        startBtn <- io(JButton(Text.STARTBTN))
         _ <- io(startBtn.addActionListener((e: ActionEvent) => filePromise.success(Path.of(fileSrcTextField.getText))))
         _ <- io(panel.add(startBtn))
       yield panel
