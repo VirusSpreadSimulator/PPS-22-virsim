@@ -14,7 +14,7 @@ import scala.concurrent.duration.{FiniteDuration, TimeUnit}
 
 object EngineModule:
   trait Engine:
-    def init(simulationDuration: Int, gridSide: Int): Unit
+    def init(simulationDuration: Int): Unit
     def startSimulationLoop(): Task[Unit]
   trait Provider:
     val engine: Engine
@@ -26,8 +26,7 @@ object EngineModule:
 
       private var simulationDuration: Int = 7
 
-      override def init(duration: Int, gridSide: Int): Unit =
-        //context.boundaries.main.startSimulation(gridSide)
+      override def init(duration: Int): Unit =
         simulationDuration = duration
 
       override def startSimulationLoop(): Task[Unit] =
