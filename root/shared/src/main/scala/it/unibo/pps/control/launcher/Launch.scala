@@ -17,7 +17,7 @@ trait Launch
 
   import EngineConfiguration.given
 
-  override val env = EnvironmentImpl()
+  override val env = Environment.empty
   override val engine = EngineImpl()
   override val loader = LoaderImpl()
   override val launcher = LauncherImpl()

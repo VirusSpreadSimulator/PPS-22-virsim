@@ -17,11 +17,15 @@ object EnvironmentModule:
     def structures: Set[Structure]
     def virus: Virus
 
-    def initializeEnvironment(entities: Set[Entity], virus: Virus, structures: Set[Structure]): Unit
+    def initialized(entities: Set[Entity], virus: Virus, structures: Set[Structure]): Environment
 
   trait Provider:
     val env: Environment
   trait Component:
+
+    object Environment:
+      def empty: Environment = EnvironmentImpl()
+
     case class EnvironmentImpl(
         override val time: TimeStamp = TimeStamp(0),
         override val gridSide: Int = 50,
@@ -30,13 +34,11 @@ object EnvironmentModule:
         override val virus: Virus = Virus()
     ) extends Environment:
 
-      override def initializeEnvironment(
+      override def initialized(
           simulationEntities: Set[Entity],
           simulationVirus: Virus,
           simulationStructures: Set[Structure]
-      ): Unit =
-        this.focus(_.entities).replace(simulationEntities)
-        this.focus(_.virus).replace(simulationVirus)
-        this.focus(_.structures).replace(simulationStructures)
+      ): Environment =
+        EnvironmentImpl(entities = simulationEntities, structures = simulationStructures, virus = simulationVirus)
 
   trait Interface extends Provider with Component
