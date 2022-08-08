@@ -1,5 +1,6 @@
 package it.unibo.pps.jvm.boundary.gui.panel
 
+import it.unibo.pps.jvm.boundary.gui.panel.Panels.UpdateblePanel
 import java.awt.geom.AffineTransform
 import javax.swing.JPanel
 import java.awt.{Color, Dimension, Graphics, Graphics2D, RenderingHints}

@@ -3,7 +3,7 @@ package it.unibo.pps.jvm.boundary
 import it.unibo.pps.boundary.ViewUtils.io
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.boundary.component.Events.Event.*
-import it.unibo.pps.jvm.boundary.component.MonadButton
+import it.unibo.pps.jvm.boundary.component.MonadComponents.MonadButton
 import monix.eval.Task
 import monix.execution.Scheduler
 import monix.reactive.Observable
