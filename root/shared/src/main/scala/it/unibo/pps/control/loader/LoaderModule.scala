@@ -28,7 +28,6 @@ import monix.eval.Task
 import java.io.Reader
 import javax.script.ScriptEngineManager
 import scala.io.Source
-import scala.quoted.*
 
 object LoaderModule:
   trait Loader:
@@ -38,14 +37,14 @@ object LoaderModule:
       * @return
       *   the result of the configuration parsing.
       */
-    def parseConfiguration(configurationFile: String): ConfigurationResult
+    def parseConfiguration(configurationFile: String): Task[ConfigurationResult]
 
     /** @param configuration
       *   The configuration of the simulation, structures and virus.
       * @return
       *   the initialized environment.
       */
-    def createEnvironment(configuration: Configuration): Unit
+    def createEnvironment(configuration: Configuration): Environment
 
     /** After parsing the configuration file and initializing the environment it starts the simulation engine.
       * @return
@@ -59,15 +58,22 @@ object LoaderModule:
 
   trait Component:
     context: Requirements =>
-    class LoaderImpl extends Loader:
-      override def parseConfiguration(configurationFile: String): ConfigurationResult =
-        val configurationString: String = Source.fromFile(configurationFile).getLines().mkString
-        val configuration: VirsimConfiguration = VirsimConfiguration(simulation, virus, structures)
-        ConfigurationResult.OK(configuration)
 
-      override def createEnvironment(configuration: Configuration): Unit =
+    class LoaderImpl extends Loader:
+
+      override def parseConfiguration(configurationFile: String): Task[ConfigurationResult] =
+        // val configurationString: String = Source.fromFile(configurationFile).getLines().mkString
+        for
+          configuration <- Task(VirsimConfiguration(simulation, virus, structures))
+          configResult <- Task(ConfigurationResult.OK(configuration))
+        yield configResult
+
+      override def createEnvironment(configuration: Configuration): Environment =
+        //check that gridSide is <= 25
         val idGenerator: Generator[Int] = IntegerIdGenerator(0)
         val entities: Set[Entity] = Set()
+        val houses: Set[House] = Set()
+        (configuration.simulation.numberOfEntities / configuration.simulation.peoplePerHouse)
         for
           i <- 0 until configuration.simulation.numberOfEntities
           entity = SimulationEntity(
@@ -84,15 +90,13 @@ object LoaderModule:
             position = Point2D(1, 1)
           )
         yield entities + entity
-        context.env.initializeEnvironment(entities, virus, structures)
+        context.env.initialized(entities, virus, structures)
 
       override def startEngine(configuration: Configuration): Task[Unit] =
         for
-          _ <- Task(createEnvironment(configuration))
-          _ <- Task(
-            context.engine.init(configuration.simulation.duration, configuration.simulation.gridSide)
-          )
-          _ <- context.engine.startSimulationLoop()
+          initializedEnvironment <- Task(createEnvironment(configuration))
+          _ <- Task(context.engine.init(configuration.simulation.duration))
+          _ <- context.engine.startSimulationLoop(initializedEnvironment)
         yield ()
 
   trait Interface extends Provider with Component:

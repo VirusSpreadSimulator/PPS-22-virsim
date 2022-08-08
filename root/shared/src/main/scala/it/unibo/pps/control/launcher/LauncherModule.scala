@@ -4,6 +4,7 @@ import it.unibo.pps.boundary.BoundaryModule
 import it.unibo.pps.control.loader.LoaderModule
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationResult
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationResult.*
+
 import monix.eval.Task
 
 object LauncherModule:
@@ -25,14 +26,17 @@ object LauncherModule:
 
       override def launcherLoop(): Task[Unit] =
         for
-          configResult <- Task(
-            context.loader.parseConfiguration("configuration.scala")
-          ) //context.boundaries.configBoundary.config
+          //context.boundaries.configBoundary.config
+          configResult <- context.loader.parseConfiguration("configuration.scala")
           _ <- configResult match
             case ERROR(errors) =>
               //Task(context.boundaries.configBoundary.error(configResult))
               launcherLoop()
-            case OK(configuration) => Task(context.loader.startEngine(configuration))
+            case OK(configuration) =>
+              for
+                //_ <- Task.sequence(context.boundaries.map(_.start))
+                _ <- context.loader.startEngine(configuration)
+              yield ()
         yield ()
 
   trait Interface extends Provider with Component:
