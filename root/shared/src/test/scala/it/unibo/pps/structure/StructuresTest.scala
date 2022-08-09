@@ -61,7 +61,7 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("A generic building can be closed after creation and will not accept entities") {
-    var buildingCopy = building.focus(_.isOpen).replace(false)
+    val buildingCopy = building.focus(_.isOpen).replace(false)
     buildingCopy.tryToEnter(entities.head, timeStamp).entities.size shouldBe 0
   }
 
