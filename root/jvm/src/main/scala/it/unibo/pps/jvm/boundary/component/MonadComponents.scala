@@ -7,8 +7,10 @@ import monix.execution.Cancelable
 import monix.reactive.{Observable, OverflowStrategy}
 import it.unibo.pps.boundary.ViewUtils.io
 import CustomSwingComponents.JNumericTextField
+import it.unibo.pps.jvm.boundary.Values.Margin
 import javax.swing.{BoxLayout, JButton, JPanel, JTextField}
 import java.awt.event.ActionEvent
+import javax.swing.Box
 
 /** Module that contains all the definition of custom components that can be easily integrated in a monadic system. */
 object MonadComponents:
@@ -86,6 +88,7 @@ object MonadComponents:
         p.setLayout(BoxLayout(p, BoxLayout.X_AXIS))
         textField.setMaximumSize(textField.getPreferredSize)
         p.add(button)
+        p.add(Box.createRigidArea(Margin.DEFAULT_HMARGIN))
         p.add(textField)
         p
 
