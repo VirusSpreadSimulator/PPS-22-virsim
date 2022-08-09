@@ -17,8 +17,6 @@ import it.unibo.pps.entity.structure.StructureComponent.Structure
 import it.unibo.pps.entity.virus.VirusComponent
 import it.unibo.pps.entity.entity.Entities.*
 import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
-import it.unibo.pps.entity.entity.IdGenerator.Generator
-import it.unibo.pps.entity.entity.IdGenerator.IntegerIdGenerator
 import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.structure.Structures.House
@@ -70,14 +68,13 @@ object LoaderModule:
 
       override def createEnvironment(configuration: Configuration): Environment =
         //check that gridSide is <= 25
-        val idGenerator: Generator[Int] = IntegerIdGenerator(0)
         val entities: Set[Entity] = Set()
         val houses: Set[House] = Set()
         (configuration.simulation.numberOfEntities / configuration.simulation.peoplePerHouse)
         for
           i <- 0 until configuration.simulation.numberOfEntities
           entity = SimulationEntity(
-            idGenerator.next(),
+            i,
             GaussianIntDistribution(
               configuration.simulation.averagePopulationAge,
               configuration.simulation.stdDevPopulationAge
