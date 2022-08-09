@@ -4,11 +4,11 @@ import it.unibo.pps.jvm.boundary.component.MonadComponents.{MonadButton, MonadCo
 import it.unibo.pps.jvm.boundary.Values.Text
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.boundary.component.Events.Event.*
-import it.unibo.pps.jvm.boundary.gui.panel.Panels.{DisplayblePanel, EventablePanel}
+import it.unibo.pps.jvm.boundary.gui.panel.Panels.{DisplayblePanel, EventablePanel, UpdateblePanel}
 import monix.reactive.Observable
 
-import java.awt.Font
-import javax.swing.{BoxLayout, JLabel, JPanel}
+import java.awt.{BorderLayout, Font}
+import javax.swing.{BoxLayout, JLabel, JPanel, JScrollPane, JTextArea, ScrollPaneConstants}
 
 /** Module that wrap all the panels that are in the bottom area of the simulation gui */
 object BottomPanels:
@@ -17,7 +17,7 @@ object BottomPanels:
     private val pauseBtn = MonadButton(Text.PAUSE_BTN, Pause)
     private val stopBtn = MonadButton(Text.STOP_BTN, Stop)
 
-    override def display(): Unit =
+    override def init(): Unit =
       setLayout(BoxLayout(this, BoxLayout.Y_AXIS))
       val titleLabel = JLabel(Text.COMMANDS_LABEL)
       titleLabel.setFont(titleLabel.getFont.deriveFont(Font.BOLD))
@@ -37,7 +37,7 @@ object BottomPanels:
     private val vaccineRound = MonadConfigButton.numeric(Text.VACCINE_ROUND, 3, 0, 100, p => VaccineRound(p.toDouble))
     private val switchStructureBtn = MonadConfigButton(Text.SWITCH_STRUCTURE_OPEN, 5, SwitchStructure.apply)
 
-    override def display(): Unit =
+    override def init(): Unit =
       setLayout(BoxLayout(this, BoxLayout.Y_AXIS))
       val titleLabel = JLabel(Text.DYNAMIC_CONFIG_LABEL)
       titleLabel.setFont(titleLabel.getFont.deriveFont(Font.BOLD))
@@ -50,3 +50,19 @@ object BottomPanels:
       Observable
         .fromIterable(Seq(turnMaskOn, vaccineRound, switchStructureBtn))
         .flatMap(_.events)
+
+  /** DynamicActionsLog. It is the panel that show all the information about the dynamic configurations. */
+  class DynamicActionsLog extends UpdateblePanel:
+    private lazy val textArea = JTextArea("a \n a \n a \n")
+    private lazy val scrollTextArea = JScrollPane(textArea)
+    private lazy val titleLabel = JLabel(Text.DYNAMIC_CONFIG_LOG_LABEL)
+
+    override def init(): Unit =
+      setLayout(BorderLayout())
+      titleLabel.setFont(titleLabel.getFont.deriveFont(Font.BOLD))
+      add(titleLabel, BorderLayout.NORTH)
+      scrollTextArea.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED)
+      add(scrollTextArea, BorderLayout.CENTER)
+
+    override def updateAndDisplay(): Unit =
+      textArea.setText((for i <- 1 to 30 yield "a \n a \n a").reduce(_ + _))
