@@ -11,4 +11,6 @@ class ChartPanel() extends UpdateblePanel:
   add(JLabel("Ciao"))
   add(JLabel("Ciao"))
 
+  override def init(): Unit = repaint()
+
   override def updateAndDisplay(): Unit = repaint()

@@ -34,4 +34,6 @@ class SimulationPanel() extends UpdateblePanel:
     val s: Int = Math.min(d.getWidth.toInt, d.getHeight.toInt)
     (s, s)
 
+  override def init(): Unit = this.repaint()
+
   override def updateAndDisplay(): Unit = this.repaint()
