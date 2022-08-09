@@ -6,6 +6,7 @@ import it.unibo.pps.control.loader.configuration.ConfigurationComponent.{
   ConfigurationResult,
   VirsimConfiguration
 }
+import it.unibo.pps.control.loader.configuration.ConfigurationComponent.given
 import it.unibo.pps.control.loader.configuration.dsl.SimulationDSL.simulation
 import it.unibo.pps.control.loader.configuration.dsl.VirusDSL.virus
 import it.unibo.pps.control.loader.configuration.dsl.StructuresDSL.structures
@@ -20,14 +21,19 @@ import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
 import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.structure.Structures.House
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.MAX_VALUES
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.MIN_VALUES
+import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
+import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError.*
 import monocle.syntax.all.*
 import monix.eval.Task
 
-import java.io.Reader
-import javax.script.ScriptEngineManager
+import javax.script.{ScriptEngine, ScriptEngineManager}
 import scala.io.Source
 
 object LoaderModule:
+
   trait Loader:
 
     /** @param configurationFile
@@ -59,16 +65,33 @@ object LoaderModule:
 
     class LoaderImpl extends Loader:
 
+      private def readFile(path: String): Task[String] =
+        Task(GlobalDefaults.DSL_IMPORTS + Source.fromFile(path).getLines().mkString)
+
+      private def reflectConfiguration(program: String)(using engine: ScriptEngine): Task[Option[Configuration]] =
+        val canBeReflected = engine.eval(program).isInstanceOf[VirsimConfiguration]
+        if canBeReflected then Task(Some(engine.eval(program).asInstanceOf[VirsimConfiguration])) else Task(None)
+
+      private def checkErrors(configuration: Configuration): Task[ConfigurationResult] =
+        Task(ConfigurationResult.OK(configuration))
+
       override def parseConfiguration(configurationFile: String): Task[ConfigurationResult] =
-        // val configurationString: String = Source.fromFile(configurationFile).getLines().mkString
         for
-          configuration <- Task(VirsimConfiguration(simulation, virus, structures))
-          configResult <- Task(ConfigurationResult.OK(configuration))
-        yield configResult
+          program <- readFile(configurationFile)
+          configuration <- reflectConfiguration(program)
+          parsingResult <- configuration match
+            case None =>
+              Task(
+                ConfigurationResult.ERROR(
+                  ConfigurationError.INVALID_FILE("Invalid Scala file! Please check our DSL documentation !")
+                )
+              )
+            case Some(configuration: Configuration) => checkErrors(configuration)
+        yield parsingResult
 
       override def createEnvironment(configuration: Configuration): Environment =
-        //check that gridSide is <= 25
-        val entities: Set[Entity] = Set()
+        // multiply grid side x3
+        val entities: Set[SimulationEntity] = Set()
         val houses: Set[House] = Set()
         (configuration.simulation.numberOfEntities / configuration.simulation.peoplePerHouse)
         for
@@ -87,7 +110,7 @@ object LoaderModule:
             position = Point2D(1, 1)
           )
         yield entities + entity
-        context.env.initialized(entities, virus, structures)
+        context.env.initialized(configuration.simulation.gridSide, entities, virus, structures)
 
       override def startEngine(configuration: Configuration): Task[Unit] =
         for
