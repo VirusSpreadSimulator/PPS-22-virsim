@@ -99,7 +99,7 @@ object SimulationGUI:
         _ <- io(panel.setLayout(panelLM))
         panels = Seq(commandPanel, dynamicActionsLogPanel, dynamicConfigPanel, statsPanel)
         _ <- io(for p <- panels do panel.add(p))
-        _ <- io(for p <- panels do p.init())
+        _ <- Task.sequence(for p <- panels yield p.init())
       yield panel
 
     private lazy val mainPanel: Task[JSplitPane] =
@@ -128,10 +128,10 @@ object SimulationGUI:
     override def render(): Task[Unit] =
       for
         _ <- Task.pure {}.asyncBoundary(Utils.swingScheduler)
-        _ <- io(simulationPanel.updateAndDisplay())
-        _ <- io(chartPanel.updateAndDisplay())
-        _ <- io(dynamicActionsLogPanel.updateAndDisplay())
-        _ <- io(statsPanel.updateAndDisplay())
+        _ <- simulationPanel.update()
+        _ <- chartPanel.update()
+        _ <- dynamicActionsLogPanel.update()
+        _ <- statsPanel.update()
       yield ()
 
     override def events(): Observable[Event] =

@@ -2,6 +2,8 @@ package it.unibo.pps.jvm.boundary.gui.panel
 
 import it.unibo.pps.jvm.boundary.gui.panel.Panels.UpdateblePanel
 import javax.swing.{JLabel, JPanel}
+import it.unibo.pps.boundary.ViewUtils.io
+import monix.eval.Task
 
 /** The Chart Panel is the panel of the simulation gui that contains and handle the graphs. */
 class ChartPanel() extends UpdateblePanel:
@@ -11,6 +13,6 @@ class ChartPanel() extends UpdateblePanel:
   add(JLabel("Ciao"))
   add(JLabel("Ciao"))
 
-  override def init(): Unit = repaint()
+  override def init(): Task[Unit] = io(this.repaint())
 
-  override def updateAndDisplay(): Unit = repaint()
+  override def update(): Task[Unit] = io(this.repaint())

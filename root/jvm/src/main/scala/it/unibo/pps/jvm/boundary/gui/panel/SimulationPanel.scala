@@ -5,6 +5,8 @@ import java.awt.geom.AffineTransform
 import javax.swing.JPanel
 import java.awt.{Color, Dimension, Graphics, Graphics2D, RenderingHints}
 import scala.util.Random
+import it.unibo.pps.boundary.ViewUtils.io
+import monix.eval.Task
 
 /** The Simulation Panel is the panel that handle the visualization of the simulation status. For this reason it extends
   * [[UpdateblePanel]]
@@ -34,6 +36,6 @@ class SimulationPanel() extends UpdateblePanel:
     val s: Int = Math.min(d.getWidth.toInt, d.getHeight.toInt)
     (s, s)
 
-  override def init(): Unit = this.repaint()
+  override def init(): Task[Unit] = io(this.repaint())
 
-  override def updateAndDisplay(): Unit = this.repaint()
+  override def update(): Task[Unit] = io(this.repaint())
