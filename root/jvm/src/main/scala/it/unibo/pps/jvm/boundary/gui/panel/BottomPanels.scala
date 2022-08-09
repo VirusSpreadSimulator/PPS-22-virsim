@@ -7,7 +7,7 @@ import it.unibo.pps.boundary.component.Events.Event.*
 import it.unibo.pps.jvm.boundary.gui.panel.Panels.{DisplayblePanel, EventablePanel, UpdateblePanel}
 import monix.reactive.Observable
 
-import java.awt.{BorderLayout, Font}
+import java.awt.{BorderLayout, Component, Font}
 import javax.swing.{BoxLayout, JLabel, JPanel, JScrollPane, JTextArea, ScrollPaneConstants}
 
 /** Module that wrap all the panels that are in the bottom area of the simulation gui */
@@ -41,10 +41,9 @@ object BottomPanels:
       setLayout(BoxLayout(this, BoxLayout.Y_AXIS))
       val titleLabel = JLabel(Text.DYNAMIC_CONFIG_LABEL)
       titleLabel.setFont(titleLabel.getFont.deriveFont(Font.BOLD))
-      add(titleLabel)
-      add(turnMaskOn.button)
-      add(vaccineRound.panel)
-      add(switchStructureBtn.panel)
+      for elem <- Seq(titleLabel, turnMaskOn.button, vaccineRound.panel, switchStructureBtn.panel) do
+        add(elem)
+        elem.setAlignmentX(Component.LEFT_ALIGNMENT)
 
     override lazy val events: Observable[Event] =
       Observable
