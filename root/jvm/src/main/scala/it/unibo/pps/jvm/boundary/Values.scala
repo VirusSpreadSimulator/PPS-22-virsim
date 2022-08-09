@@ -10,6 +10,9 @@ object Values:
     val STOP_BTN = "Stop"
     val COMMANDS_LABEL = "Commands"
     val DYNAMIC_CONFIG_LABEL = "Dynamic config"
+    val SWITCH_MASK_OBLIGATION = "Switch mask obligation"
+    val VACCINE_ROUND = "Vaccine round"
+    val SWITCH_STRUCTURE_OPEN = "Switch group"
 
   object Dimension:
     val INITGUI_WIDTH = 500
