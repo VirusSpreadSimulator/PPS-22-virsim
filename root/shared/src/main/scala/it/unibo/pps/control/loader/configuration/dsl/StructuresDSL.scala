@@ -1,10 +1,10 @@
 package it.unibo.pps.control.loader.configuration.dsl
 
-import it.unibo.pps.entity.structure.StructureComponent.Structure
+import it.unibo.pps.entity.structure.Structures.SimulationStructure
 
 object StructuresDSL:
 
-  val structures: Set[Structure] = Set()
+  val structures: Set[SimulationStructure] = Set()
 
   extension [A](set: Set[A])
     def are(variable: A): Set[A] = set + variable
