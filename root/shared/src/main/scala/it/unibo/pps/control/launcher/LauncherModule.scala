@@ -27,7 +27,7 @@ object LauncherModule:
       override def launcherLoop(): Task[Unit] =
         for
           path <- context.configBoundary.config()
-          configResult <- context.loader.parseConfiguration("configuration.scala")
+          configResult <- context.loader.parseConfiguration(path.toString)
           _ <- configResult match
             case ERROR(errors) =>
               for
