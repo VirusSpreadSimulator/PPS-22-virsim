@@ -10,6 +10,11 @@ object Events:
     case Stop
     /** The user signal the intent to switch the obligation of the mask */
     case SwitchMaskObligation
+    /** The user signal the intent to do a vaccine round.
+      * @param percentage
+      *   the percentage of entities that will be vaccinated
+      */
+    case VaccineRound(percentage: Double)
     /** The user signal the intent to open/close a structure
       * @param group:
       *   the group to open/close
