@@ -65,3 +65,19 @@ object BottomPanels:
 
     override def updateAndDisplay(): Unit =
       textArea.setText((for i <- 1 to 30 yield "a \n a \n a").reduce(_ + _))
+
+  /** StatsPanel. It is the panel that show the main statistics about the simulation data. */
+  class StatsPanel extends UpdateblePanel:
+    private lazy val textArea = JTextArea("a \n a \n a \n")
+    private lazy val scrollTextArea = JScrollPane(textArea)
+    private lazy val titleLabel = JLabel(Text.STATS_LABEL)
+
+    override def init(): Unit =
+      setLayout(BorderLayout())
+      titleLabel.setFont(titleLabel.getFont.deriveFont(Font.BOLD))
+      add(titleLabel, BorderLayout.NORTH)
+      scrollTextArea.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED)
+      add(scrollTextArea, BorderLayout.CENTER)
+
+    override def updateAndDisplay(): Unit =
+      textArea.setText((for i <- 1 to 30 yield "b \n b \n b").reduce(_ + _))
