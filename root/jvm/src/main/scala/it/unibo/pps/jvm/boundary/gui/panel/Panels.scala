@@ -9,13 +9,13 @@ import javax.swing.JPanel
   * gui
   */
 object Panels:
-  /** UpdateblePanel represent a panel that can be updated during the simulation. */
-  trait UpdateblePanel extends JPanel:
-    def updateAndDisplay(): Unit // todo: pass the env
-
   /** DisplayblePanel represent a panel that is only updated once, so it needs only to be displayed once */
   trait DisplayblePanel extends JPanel:
-    def display(): Unit
+    def init(): Unit
+
+  /** UpdateblePanel represent a panel that can be updated during the simulation. */
+  trait UpdateblePanel extends JPanel with DisplayblePanel:
+    def updateAndDisplay(): Unit // todo: pass the env
 
   /** EventablePanel represent a panel that is able to emit events. It's represented as a self-type on the JPanel */
   trait EventablePanel:
