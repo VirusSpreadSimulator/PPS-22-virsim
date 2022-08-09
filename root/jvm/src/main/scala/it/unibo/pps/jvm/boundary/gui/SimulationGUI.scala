@@ -7,7 +7,7 @@ import it.unibo.pps.jvm.boundary.Values.{Dimension, Text}
 import it.unibo.pps.jvm.boundary.gui.SimulationGUI
 import it.unibo.pps.jvm.boundary.gui.panel.SimulationPanel
 import it.unibo.pps.jvm.boundary.gui.panel.ChartPanel
-import it.unibo.pps.jvm.boundary.gui.panel.BottomPanels.{CommandPanel, DynamicConfigPanel}
+import it.unibo.pps.jvm.boundary.gui.panel.BottomPanels.{CommandPanel, DynamicConfigPanel, DynamicActionsLog}
 import monix.reactive.Observable
 import monix.eval.Task
 
@@ -66,6 +66,7 @@ object SimulationGUI:
     // Bottom panels
     private lazy val commandPanel = CommandPanel()
     private lazy val dynamicConfigPanel = DynamicConfigPanel()
+    private lazy val dynamicActionsLogPanel = DynamicActionsLog()
 
     private lazy val container: Task[JFrame] =
       for
@@ -90,9 +91,9 @@ object SimulationGUI:
         panel <- io(JPanel())
         panelLM <- io(GridLayout(1, 5))
         _ <- io(panel.setLayout(panelLM))
-        panels = Seq(commandPanel, dynamicConfigPanel)
+        panels = Seq(commandPanel, dynamicActionsLogPanel, dynamicConfigPanel)
         _ <- io(for p <- panels do panel.add(p))
-        _ <- io(for p <- panels do p.display())
+        _ <- io(for p <- panels do p.init())
       yield panel
 
     private lazy val mainPanel: Task[JSplitPane] =
@@ -123,6 +124,7 @@ object SimulationGUI:
         _ <- Task.pure {}.asyncBoundary(Utils.swingScheduler)
         _ <- io(simulationPanel.updateAndDisplay())
         _ <- io(chartPanel.updateAndDisplay())
+        _ <- io(dynamicActionsLogPanel.updateAndDisplay())
       yield ()
 
     override def events(): Observable[Event] =
