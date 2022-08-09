@@ -7,6 +7,10 @@ import it.unibo.pps.entity.common.ProblableEvents.ProbableOps.*
 import it.unibo.pps.entity.common.ProblableEvents.ProbableGivenInstance.given
 
 class ProbableTests extends AnyFunSuite with Matchers:
+  test("A probable event has a probabilty") {
+    1.probability shouldEqual 1
+  }
+
   test("A 100% probable event should happen") {
     1.isHappening shouldBe ProbabilityResult.HAPPENED
   }
