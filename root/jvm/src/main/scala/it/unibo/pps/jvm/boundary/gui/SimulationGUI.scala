@@ -7,7 +7,12 @@ import it.unibo.pps.jvm.boundary.Values.{Dimension, Text}
 import it.unibo.pps.jvm.boundary.gui.SimulationGUI
 import it.unibo.pps.jvm.boundary.gui.panel.SimulationPanel
 import it.unibo.pps.jvm.boundary.gui.panel.ChartPanel
-import it.unibo.pps.jvm.boundary.gui.panel.BottomPanels.{CommandPanel, DynamicConfigPanel, DynamicActionsLog}
+import it.unibo.pps.jvm.boundary.gui.panel.BottomPanels.{
+  CommandPanel,
+  DynamicConfigPanel,
+  DynamicActionsLog,
+  StatsPanel
+}
 import monix.reactive.Observable
 import monix.eval.Task
 
@@ -67,6 +72,7 @@ object SimulationGUI:
     private lazy val commandPanel = CommandPanel()
     private lazy val dynamicConfigPanel = DynamicConfigPanel()
     private lazy val dynamicActionsLogPanel = DynamicActionsLog()
+    private lazy val statsPanel = StatsPanel()
 
     private lazy val container: Task[JFrame] =
       for
@@ -89,9 +95,9 @@ object SimulationGUI:
     private lazy val bottomPanel: Task[JPanel] =
       for
         panel <- io(JPanel())
-        panelLM <- io(GridLayout(1, 5))
+        panelLM <- io(GridLayout(1, 4, 20, 0))
         _ <- io(panel.setLayout(panelLM))
-        panels = Seq(commandPanel, dynamicActionsLogPanel, dynamicConfigPanel)
+        panels = Seq(commandPanel, dynamicActionsLogPanel, dynamicConfigPanel, statsPanel)
         _ <- io(for p <- panels do panel.add(p))
         _ <- io(for p <- panels do p.init())
       yield panel
@@ -125,6 +131,7 @@ object SimulationGUI:
         _ <- io(simulationPanel.updateAndDisplay())
         _ <- io(chartPanel.updateAndDisplay())
         _ <- io(dynamicActionsLogPanel.updateAndDisplay())
+        _ <- io(statsPanel.updateAndDisplay())
       yield ()
 
     override def events(): Observable[Event] =
