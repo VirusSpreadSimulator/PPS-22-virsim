@@ -73,7 +73,7 @@ object LoaderModule:
         (configuration.simulation.numberOfEntities / configuration.simulation.peoplePerHouse)
         for
           i <- 0 until configuration.simulation.numberOfEntities
-          entity = SimulationEntity(
+          entity = BaseEntity(
             i,
             GaussianIntDistribution(
               configuration.simulation.averagePopulationAge,

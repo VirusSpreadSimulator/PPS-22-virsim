@@ -8,7 +8,7 @@ import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
 
 object Entities:
   /* The base entity of the simulation. */
-  trait BaseEntity extends Entity:
+  trait SimulationEntity extends Entity:
     override type Position = Point2D
     override type Home = House
 
@@ -34,7 +34,7 @@ object Entities:
     * @param infection
     *   if present, describes the infection of the entity
     */
-  case class SimulationEntity(
+  case class BaseEntity(
       override val id: Int,
       override val age: Int,
       override val home: House,
@@ -42,7 +42,7 @@ object Entities:
       override val position: Point2D,
       override val movementGoal: MovementGoal = MovementGoal.RANDOM_MOVEMENT,
       override val infection: Option[Infection] = None
-  ) extends BaseEntity
+  ) extends SimulationEntity
       with Moving
       with Infectious:
 
