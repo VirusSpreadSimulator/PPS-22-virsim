@@ -10,7 +10,7 @@ object Values:
     val STOP_BTN = "Stop"
     val COMMANDS_LABEL = "Commands"
     val DYNAMIC_CONFIG_LABEL = "Dynamic config"
-  
+
   object Dimension:
     val INITGUI_WIDTH = 500
     val INITGUI_HEIGHT = 800
