@@ -13,7 +13,8 @@ object Values:
     val DYNAMIC_CONFIG_LABEL = "Dynamic config"
     val SWITCH_MASK_OBLIGATION = "Switch mask obligation"
     val VACCINE_ROUND = "Vaccine round"
-    val SWITCH_STRUCTURE_OPEN = "Switch group"
+    val SWITCH_STRUCTURE_OPEN = " Switch group "
+    val STATS_LABEL = "Stats"
 
   object Dimension:
     val INITGUI_WIDTH = 500
@@ -24,3 +25,10 @@ object Values:
     val CHART_PANEL_MIN_DIMENSION = (300, 500)
     val SIMULATION_GUI_TOP_DIMENSION = (800, 500)
     val SIMULATION_GUI_BOTTOM_DIMENSION = (800, 200)
+
+  object Margin:
+    import it.unibo.pps.jvm.boundary.Utils.given
+    import java.awt.Dimension
+
+    val DEFAULT_HMARGIN: Dimension = (10, 0)
+    val DEFAULT_VMARGIN: Dimension = (0, 5)
