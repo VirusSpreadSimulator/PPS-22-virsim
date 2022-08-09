@@ -22,9 +22,21 @@ import javax.swing.{
   WindowConstants
 }
 
+/** Interface that describe the user interface for the simulation */
 trait SimulationGUI:
+  /** Init the simulation user interface
+    * @return
+    *   the task
+    */
   def init(): Task[Unit]
+  /** Render the new state of the simulation on the user interface
+    * @return
+    */
   def render(): Task[Unit]
+  /** Obtain the observable that emit all the events of the user interface
+    * @return
+    *   the observable
+    */
   def events(): Observable[Event]
 
 object SimulationGUI: //todo: group all the magic number in Values

@@ -14,11 +14,32 @@ import javax.swing.*
 import javax.swing.border.EmptyBorder
 import scala.concurrent.Promise
 
-/** TEST FILE FOR INIT FRAME */
+/** Interface that describe the init user interface for the simulation (JVM) */
 trait InitGUI:
+  /** Initialise the gui
+    * @return
+    *   the task
+    */
   def init(): Task[Unit]
+  /** This task allow the caller to obtain the path of the configuration file for the simulation. Useful for
+    * [[it.unibo.pps.boundary.BoundaryModule.ConfigBoundary.config()]]
+    * @return
+    *   the task
+    */
   def config(): Task[Path]
+  /** This task allow the caller to show an error in the configuration
+    * @param err
+    *   the error in the configuration
+    * @return
+    *   the task
+    */
   def error(err: ConfigurationError): Task[Unit]
+  /** Handle the start of the simulation
+    * @param simulation
+    *   the simulation user interface to launch
+    * @return
+    *   the task
+    */
   def start(simulation: SimulationGUI): Task[Unit]
 
 object InitGUI:
