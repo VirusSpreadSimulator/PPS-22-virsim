@@ -9,6 +9,7 @@ import monix.reactive.Observable
 
 import java.nio.file.Path
 
+/** Config Boundary implementation for the JVM GUI. */
 object GUIModule:
   trait Provider:
     val gui: ConfigBoundary

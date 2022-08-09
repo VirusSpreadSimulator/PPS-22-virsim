@@ -10,7 +10,9 @@ import monix.reactive.Observable
 import java.awt.Font
 import javax.swing.{BoxLayout, JLabel, JPanel}
 
+/** Module that wrap all the panels that are in the bottom area of the simulation gui */
 object BottomPanels:
+  /** Command Panel implementation. It is the panel that contains the pause/stop commands of the simulation */
   class CommandPanel extends DisplayblePanel with EventablePanel:
     private val pauseBtn = MonadButton(Text.PAUSE_BTN, Pause)
 
@@ -26,6 +28,8 @@ object BottomPanels:
         .fromIterable(Seq(pauseBtn))
         .flatMap(_.events)
 
+  /** Dynamic Configuration Panel. It is the panel that contains all the possible dynamic configuration set by the user.
+    */
   class DynamicConfigPanel extends DisplayblePanel with EventablePanel:
     private val switchStructureBtn = MonadConfigButton("Switch group", 5, SwitchStructure.apply)
 

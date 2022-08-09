@@ -41,6 +41,16 @@ trait SimulationGUI:
   def events(): Observable[Event]
 
 object SimulationGUI:
+  /** Factory to create a simulation GUI
+    * @param width
+    *   the width of the window
+    * @param height
+    *   the height of the window
+    * @param title
+    *   the title of the window
+    * @return
+    *   the Simulation GUI.
+    */
   def apply(
       width: Int = Dimension.SIMULATIONGUI_WIDTH,
       height: Int = Dimension.SIMULATIONGUI_HEIGHT,

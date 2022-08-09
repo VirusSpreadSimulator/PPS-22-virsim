@@ -44,6 +44,16 @@ trait InitGUI:
   def start(simulation: SimulationGUI): Task[Unit]
 
 object InitGUI:
+  /** Factory to create an InitGUI
+    * @param width
+    *   the width of the window
+    * @param height
+    *   the height of the window
+    * @param title
+    *   the title of the window
+    * @return
+    *   the Init GUI.
+    */
   def apply(
       width: Int = Dimension.INITGUI_WIDTH,
       height: Int = Dimension.INITGUI_HEIGHT,

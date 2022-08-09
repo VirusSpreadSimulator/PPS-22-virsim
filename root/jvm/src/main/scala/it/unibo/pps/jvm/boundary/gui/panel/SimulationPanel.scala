@@ -6,6 +6,9 @@ import javax.swing.JPanel
 import java.awt.{Color, Dimension, Graphics, Graphics2D, RenderingHints}
 import scala.util.Random
 
+/** The Simulation Panel is the panel that handle the visualization of the simulation status. For this reason it extends
+  * [[UpdateblePanel]]
+  */
 class SimulationPanel() extends UpdateblePanel:
   override def paint(g: Graphics): Unit =
     val panelDim = getSize()
