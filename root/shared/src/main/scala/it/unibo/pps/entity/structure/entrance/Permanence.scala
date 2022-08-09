@@ -1,10 +1,9 @@
 package it.unibo.pps.entity.structure.entrance
 
 import it.unibo.pps.entity.common.Time.{DurationTime, TimeStamp}
+import it.unibo.pps.entity.entity.EntityComponent.Entity
 
 object Permanence:
-  type Entity = String // todo: refactor when entity is defined
-
   /** Model the permanence status */
   enum PermanenceStatus:
     /** VALID: permanence still in its assigned duration time */

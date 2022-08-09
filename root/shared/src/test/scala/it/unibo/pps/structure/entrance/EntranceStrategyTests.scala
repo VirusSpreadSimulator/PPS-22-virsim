@@ -1,39 +1,43 @@
 package it.unibo.pps.structure.entrance
 
+import it.unibo.pps.entity.entity.Entities.SimulationEntity
+import it.unibo.pps.entity.structure.Structures.House
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import it.unibo.pps.entity.structure.entrance.Entrance.*
 
-//todo: fix entity type when @accursi's entity is modeled
 class EntranceStrategyTests extends AnyFunSuite with Matchers:
+  private val house = House((1L, 0L), 1, 2)
+  private val entity = SimulationEntity(0, 23, house, position = (10L, 5L))
+
   test("Base entrance strategy should let everyone to enter") {
-    BaseEntranceStrategy().canEnter("random") shouldBe true
+    BaseEntranceStrategy().canEnter(entity) shouldBe true
   }
 
   test("Filter based entrance strategy should respect the filter, true case") {
-    class FilteredStrategy extends BaseEntranceStrategy with FilterBasedStrategy(_.contains("rand"))
-    FilteredStrategy().canEnter("random") shouldBe true
+    class FilteredStrategy extends BaseEntranceStrategy with FilterBasedStrategy(_.age > 18)
+    FilteredStrategy().canEnter(entity) shouldBe true
   }
 
   test("Filter based entrance strategy should respect the filter, false case") {
-    class FilteredStrategy extends BaseEntranceStrategy with FilterBasedStrategy(_.contains("x"))
-    FilteredStrategy().canEnter("random") shouldBe false
+    class FilteredStrategy extends BaseEntranceStrategy with FilterBasedStrategy(_.age < 18)
+    FilteredStrategy().canEnter(entity) shouldBe false
   }
 
   test("Probability based entrance strategy with probability 1 should let everyone to enter") {
     class ProbabilityStrategy extends BaseEntranceStrategy with ProbabilityBasedStrategy(1)
-    ProbabilityStrategy().canEnter("random") shouldBe true
+    ProbabilityStrategy().canEnter(entity) shouldBe true
   }
 
   test("Probability based entrance strategy with probability 0 should let noone to enter") {
     class ProbabilityStrategy extends BaseEntranceStrategy with ProbabilityBasedStrategy(0)
-    ProbabilityStrategy().canEnter("random") shouldBe false
+    ProbabilityStrategy().canEnter(entity) shouldBe false
   }
 
   test("We can mix different strategies") {
     class MixedStrategy
         extends BaseEntranceStrategy
-        with FilterBasedStrategy(_.contains("rand"))
+        with FilterBasedStrategy(_.age > 18)
         with ProbabilityBasedStrategy(0)
-    MixedStrategy().canEnter("random") shouldBe false
+    MixedStrategy().canEnter(entity) shouldBe false
   }

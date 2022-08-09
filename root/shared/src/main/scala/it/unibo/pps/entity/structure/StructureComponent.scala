@@ -4,6 +4,7 @@ import it.unibo.pps.entity.common.Space.Distance
 import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.structure.entrance.Entrance.EntranceStrategy
 import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
+import it.unibo.pps.entity.entity.EntityComponent.Entity
 
 /** Module that define all the component and the characteristic that can define a Structure in the simulation. */
 object StructureComponent:
@@ -12,7 +13,6 @@ object StructureComponent:
     type Position
     type Probability
     type TimeDistribution
-    type Entity = String // todo: to be changed
 
     /** Being placeable, the structure has a position.
       * @return

@@ -1,8 +1,8 @@
 package it.unibo.pps.entity.structure.entrance
 
-object Entrance:
-  type Entity = String // todo: to be removed when integrated with @accursi's entity code
+import it.unibo.pps.entity.entity.EntityComponent.Entity
 
+object Entrance:
   /** Trait that model the entrance strategy interface */
   trait EntranceStrategy:
     /** It's the core of the strategy, and it decide if the entity can enter or not.

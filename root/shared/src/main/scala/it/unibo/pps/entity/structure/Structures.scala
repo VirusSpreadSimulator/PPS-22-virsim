@@ -9,7 +9,7 @@ import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
 import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.structure.StructureComponent.Hospitalization.TreatmentQuality
 import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
-
+import it.unibo.pps.entity.entity.EntityComponent.Entity
 import scala.concurrent.duration.MINUTES
 import monocle.syntax.all.*
 
@@ -37,8 +37,6 @@ object Structures:
     *   the capacity of the structure in terms of the number of entities that can enter
     * @param permanenceTimeDistribution
     *   gaussian distribution that describe the permanence time
-    * @param entranceStrategy
-    *   the strategy used for discriminate the entities entrance
     * @param entities
     *   the entities that are inside the structure.
     */
@@ -51,7 +49,7 @@ object Structures:
   ) extends BaseStructure
       with Habitable:
     override val entranceStrategy: EntranceStrategy = BaseEntranceStrategy()
-    override protected def enter(entity: String, timestamp: TimeStamp): Structure =
+    override protected def enter(entity: Entity, timestamp: TimeStamp): Structure =
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
     override protected def exit(entity: Entity): Structure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
@@ -91,7 +89,7 @@ object Structures:
       with Visible
       with Groupable:
     override type Group = String
-    override protected def enter(entity: String, timestamp: TimeStamp): Structure =
+    override protected def enter(entity: Entity, timestamp: TimeStamp): Structure =
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
     override protected def exit(entity: Entity): Structure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
@@ -126,7 +124,7 @@ object Structures:
   ) extends BaseStructure
       with Visible
       with Hospitalization:
-    override protected def enter(entity: String, timestamp: TimeStamp): Structure =
+    override protected def enter(entity: Entity, timestamp: TimeStamp): Structure =
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
     override protected def exit(entity: Entity): Structure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))

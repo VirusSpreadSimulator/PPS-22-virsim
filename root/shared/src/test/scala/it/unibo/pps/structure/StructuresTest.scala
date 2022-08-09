@@ -2,6 +2,8 @@ package it.unibo.pps.structure
 
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.common.Time.TimeStamp
+import it.unibo.pps.entity.entity.Entities.SimulationEntity
+import it.unibo.pps.entity.entity.EntityComponent.Entity
 import it.unibo.pps.entity.structure.StructureComponent.{Closable, Hospitalization, Structure}
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, Hospital, House}
 import it.unibo.pps.entity.structure.entrance.Entrance.{BaseEntranceStrategy, FilterBasedStrategy}
@@ -9,13 +11,11 @@ import monocle.syntax.all.*
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-//todo: refactor with correct entities
 class StructuresTest extends AnyFunSuite with Matchers:
-  private class FilteredStrategyTrue extends BaseEntranceStrategy with FilterBasedStrategy(_.contains("ent"))
-  private class FilteredStrategyFalse extends BaseEntranceStrategy with FilterBasedStrategy(_.contains("rand"))
-  private val infectionProbability = 2
+  private class FilteredStrategyTrue extends BaseEntranceStrategy with FilterBasedStrategy(_.age > 18)
+  private class FilteredStrategyFalse extends BaseEntranceStrategy with FilterBasedStrategy(_.age > 24)
+  private val infectionProbability = 1
   private val capacity = 2
-  private val entities = Seq("entity1", "entity2", "entity3")
   private val position = Point2D(3, 0)
   private val treatmentQuality = Hospitalization.TreatmentQuality.GOOD
   private val timeStamp = TimeStamp(100)
@@ -23,6 +23,12 @@ class StructuresTest extends AnyFunSuite with Matchers:
   private val building = GenericBuilding(position, infectionProbability, capacity)
   private val hospital =
     Hospital(position, infectionProbability, capacity, treatmentQuality = treatmentQuality)
+  private val entities =
+    Seq(
+      SimulationEntity(0, 23, house, position = (10L, 5L)),
+      SimulationEntity(1, 23, house, position = (10L, 5L)),
+      SimulationEntity(2, 23, house, position = (10L, 5L))
+    )
 
   test("Initially a house is empty") {
     house.entities.size shouldBe 0
@@ -105,7 +111,7 @@ class StructuresTest extends AnyFunSuite with Matchers:
     hospitalCopy.entities.isEmpty shouldBe true
   }
 
-  private def tryToEnterMultiple(structure: Structure, entities: Seq[String]): Structure =
+  private def tryToEnterMultiple(structure: Structure, entities: Seq[Entity]): Structure =
     var s = structure
     for entity <- entities do s = s.tryToEnter(entity, timeStamp)
     s
