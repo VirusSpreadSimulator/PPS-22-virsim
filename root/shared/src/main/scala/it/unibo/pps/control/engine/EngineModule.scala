@@ -72,7 +72,7 @@ object EngineModule:
 //        Task.eval(context.env.updateState(state))
 
       private def renderBoundaries(state: State): Task[Seq[Unit]] =
-        Task.sequence(context.boundaries.map(_.render(state.number)))
+        Task.sequence(context.boundaries.map(_.consume(state.number)))
 
       private def timeNow(unit: TimeUnit): Task[Long] = Task.clock.monotonic(unit)
 

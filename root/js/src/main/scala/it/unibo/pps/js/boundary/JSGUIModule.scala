@@ -18,6 +18,6 @@ object JSGUIModule:
       override def config(): Task[Path] = Task(Path.of(""))
       override def error(err: ConfigurationError): Task[Unit] = Task.pure {}
       override def start() = Task.pure {}
-      override def render(i: Int) = guiJs.render(i)
+      override def consume(i: Int) = guiJs.render(i)
       override def events(): Observable[Event] = guiJs.events()
   trait Interface extends Provider with Component
