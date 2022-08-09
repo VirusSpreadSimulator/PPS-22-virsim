@@ -9,6 +9,7 @@ object Values:
     val PAUSE_BTN = "Pause"
     val STOP_BTN = "Stop"
     val COMMANDS_LABEL = "Commands"
+    val DYNAMIC_CONFIG_LOG_LABEL = "Dynamic config values"
     val DYNAMIC_CONFIG_LABEL = "Dynamic config"
     val SWITCH_MASK_OBLIGATION = "Switch mask obligation"
     val VACCINE_ROUND = "Vaccine round"
