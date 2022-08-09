@@ -1,10 +1,6 @@
 package it.unibo.pps.entity.structure
 
 import it.unibo.pps.entity.common.Space.Distance
-import it.unibo.pps.entity.common.Time.TimeStamp
-import it.unibo.pps.entity.structure.entrance.Entrance.EntranceStrategy
-import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
-import it.unibo.pps.entity.entity.EntityComponent.Entity
 
 /** Module that define all the component and the characteristic that can define a Structure in the simulation. */
 object StructureComponent:
@@ -13,6 +9,11 @@ object StructureComponent:
     type Position
     type Probability
     type TimeDistribution
+    type BaseEntity
+    type StrategyToEnter
+    type EntityInStructure
+    type SimulationTime
+    type BaseStructure <: Structure
 
     /** Being placeable, the structure has a position.
       * @return
@@ -38,9 +39,9 @@ object StructureComponent:
       * @return
       *   the strategy
       */
-    def entranceStrategy: EntranceStrategy
+    def entranceStrategy: StrategyToEnter
     /** @return the entities that are inside the structure. */
-    def entities: Set[EntityPermanence]
+    def entities: Set[EntityInStructure]
     /** Method that allow an entity to try to enter inside the structure. Note that an entity could be not allowed to
       * enter based on the characteristics of the structure.
       * @param entity
@@ -48,9 +49,9 @@ object StructureComponent:
       * @return
       *   The modified instance of the structure if entered, the same instead
       */
-    def tryToEnter(entity: Entity, timestamp: TimeStamp): Structure = checkEnter(entity) match
+    def tryToEnter(entity: BaseEntity, timestamp: SimulationTime): BaseStructure = checkEnter(entity) match
       case true => enter(entity, timestamp)
-      case _ => this
+      case _ => notEntered(entity, timestamp)
     /** Method that allow an entity to exit from the structure. This method WILL NOT handle the entity position, but it
       * will only remove the entity from internal structures.
       * @param entity
@@ -58,14 +59,14 @@ object StructureComponent:
       * @return
       *   The modified instance of the structure without the entity inside.
       */
-    def entityExit(entity: Entity): Structure = exit(entity)
+    def entityExit(entity: BaseEntity): BaseStructure = exit(entity)
     /** Method that check if an entity is allowed to enter
       * @param entity
       *   the entity that want to enter
       * @return
       *   true if it can enter, false instead
       */
-    protected def checkEnter(entity: Entity): Boolean
+    protected def checkEnter(entity: BaseEntity): Boolean
     /** Method that insert the entity inside the structure
       * @param entity
       *   the entity that want to enter
@@ -74,14 +75,23 @@ object StructureComponent:
       * @return
       *   The modified instance of the structure if entered, the same instead
       */
-    protected def enter(entity: Entity, timestamp: TimeStamp): Structure
+    protected def enter(entity: BaseEntity, timestamp: SimulationTime): BaseStructure
     /** Method that remove an entity from the structure
       * @param entity
       *   the entity that want to exit
       * @return
-      *   The modified instance of the structure without the entity inside.
+      *   the modified instance of the structure without the entity inside.
       */
-    protected def exit(entity: Entity): Structure
+    protected def exit(entity: BaseEntity): BaseStructure
+    /** Method to handle the situation in which an entity can't enter in the structure
+      * @param entity
+      *   the entity for witch the entering is denied
+      * @param timeStamp
+      *   the timestamp in which the entity request to enter
+      * @return
+      *   the resulting structure instance
+      */
+    protected def notEntered(entity: BaseEntity, timeStamp: SimulationTime): BaseStructure
 
   /** A mixin that describe a [[Structure]] that can be seen. */
   trait Visible extends Structure:
@@ -99,7 +109,7 @@ object StructureComponent:
       *   true if it's open, false otherwise
       */
     def isOpen: Boolean
-    abstract override protected def checkEnter(entity: Entity): Boolean = isOpen && super.checkEnter(entity)
+    abstract override protected def checkEnter(entity: BaseEntity): Boolean = isOpen && super.checkEnter(entity)
 
   /** A decoration for structure that can be grouped. */
   trait Groupable:

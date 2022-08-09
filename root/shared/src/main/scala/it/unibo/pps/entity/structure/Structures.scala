@@ -1,6 +1,5 @@
 package it.unibo.pps.entity.structure
 
-import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
 import it.unibo.pps.entity.common.Space.{Distance, Point2D}
 import it.unibo.pps.entity.structure.StructureComponent.*
 import it.unibo.pps.entity.structure.entrance.Entrance.EntranceStrategy
@@ -22,13 +21,19 @@ object Structures:
   private val defaultPermanenceTimeDistribution = GaussianDurationTime(20, 5, MINUTES)
 
   /** It's the base [[Structure]] */
-  trait BaseStructure extends Structure:
+  trait SimulationStructure extends Structure:
     override type Position = Point2D
     override type Probability = Double
     override type TimeDistribution = GaussianDurationTime
+    override type BaseEntity = Entity
+    override type StrategyToEnter = EntranceStrategy
+    override type EntityInStructure = EntityPermanence
+    override type SimulationTime = TimeStamp
+    override type BaseStructure = SimulationStructure
 
-    override protected def checkEnter(entity: Entity): Boolean =
+    override protected def checkEnter(entity: BaseEntity): Boolean =
       entities.size < capacity && entranceStrategy.canEnter(entity)
+    override protected def notEntered(entity: Entity, timeStamp: TimeStamp): SimulationStructure = this
 
   /** Builder for the House type of structure
     * @param infectionProbability
@@ -46,12 +51,12 @@ object Structures:
       override val capacity: Int,
       override val permanenceTimeDistribution: GaussianDurationTime = defaultPermanenceTimeDistribution,
       override val entities: Set[EntityPermanence] = Set()
-  ) extends BaseStructure
+  ) extends SimulationStructure
       with Habitable:
     override val entranceStrategy: EntranceStrategy = BaseEntranceStrategy()
-    override protected def enter(entity: Entity, timestamp: TimeStamp): Structure =
+    override protected def enter(entity: Entity, timestamp: TimeStamp): SimulationStructure =
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
-    override protected def exit(entity: Entity): Structure =
+    override protected def exit(entity: Entity): SimulationStructure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
 
   /** Builder for the GenericBuilding type of structure
@@ -84,14 +89,14 @@ object Structures:
       override val isOpen: Boolean = true,
       override val visibilityDistance: Distance = defaultVisibilityDistance,
       override val group: String = defaultGroup
-  ) extends BaseStructure
+  ) extends SimulationStructure
       with Closable
       with Visible
       with Groupable:
     override type Group = String
-    override protected def enter(entity: Entity, timestamp: TimeStamp): Structure =
+    override protected def enter(entity: Entity, timestamp: TimeStamp): SimulationStructure =
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
-    override protected def exit(entity: Entity): Structure =
+    override protected def exit(entity: Entity): SimulationStructure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
 
   /** Builder for the GenericBuilding type of structure
@@ -121,10 +126,10 @@ object Structures:
       override val entities: Set[EntityPermanence] = Set(),
       override val visibilityDistance: Distance = defaultVisibilityDistance,
       override val treatmentQuality: TreatmentQuality
-  ) extends BaseStructure
+  ) extends SimulationStructure
       with Visible
       with Hospitalization:
-    override protected def enter(entity: Entity, timestamp: TimeStamp): Structure =
+    override protected def enter(entity: Entity, timestamp: TimeStamp): SimulationStructure =
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
-    override protected def exit(entity: Entity): Structure =
+    override protected def exit(entity: Entity): SimulationStructure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
