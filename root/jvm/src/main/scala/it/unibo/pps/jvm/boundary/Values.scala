@@ -2,10 +2,21 @@ package it.unibo.pps.jvm.boundary
 
 object Values:
   object Text:
-    val SIMULATORNAME = "Virus Spread Simulator"
-    val CHOOSEFILEBTN = "Choose"
-    val STARTBTN = "Start"
-    val PAUSEBTN = "Pause"
-    val STOPBTN = "Stop"
-    val COMMANDSLABEL = "Commands"
-    val DYBAMICONFIGLABEL = "Dynamic config"
+    val SIMULATOR_NAME_SHORT = "Virsim"
+    val SIMULATOR_NAME = "Virus Spread Simulator"
+    val CHOOSE_FILE_BTN = "Choose"
+    val START_BTN = "Start"
+    val PAUSE_BTN = "Pause"
+    val STOP_BTN = "Stop"
+    val COMMANDS_LABEL = "Commands"
+    val DYNAMIC_CONFIG_LABEL = "Dynamic config"
+  
+  object Dimension:
+    val INITGUI_WIDTH = 500
+    val INITGUI_HEIGHT = 800
+    val SIMULATIONGUI_WIDTH = 920
+    val SIMULATIONGUI_HEIGHT = 850
+    val SIMULATION_PANEL_MIN_DIMENSION = (500, 500)
+    val CHART_PANEL_MIN_DIMENSION = (300, 500)
+    val SIMULATION_GUI_TOP_DIMENSION = (800, 500)
+    val SIMULATION_GUI_BOTTOM_DIMENSION = (800, 200)

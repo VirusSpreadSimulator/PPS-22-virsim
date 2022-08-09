@@ -3,6 +3,7 @@ package it.unibo.pps.jvm.boundary.gui
 import it.unibo.pps.boundary.ViewUtils.io
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.jvm.boundary.Utils
+import it.unibo.pps.jvm.boundary.Values.{Dimension, Text}
 import it.unibo.pps.jvm.boundary.gui.SimulationGUI
 import it.unibo.pps.jvm.boundary.gui.panel.SimulationPanel
 import it.unibo.pps.jvm.boundary.gui.panel.ChartPanel
@@ -39,8 +40,12 @@ trait SimulationGUI:
     */
   def events(): Observable[Event]
 
-object SimulationGUI: //todo: group all the magic number in Values
-  def apply(width: Int = 920, height: Int = 850, title: String = "Virsim"): SimulationGUI =
+object SimulationGUI:
+  def apply(
+      width: Int = Dimension.SIMULATIONGUI_WIDTH,
+      height: Int = Dimension.SIMULATIONGUI_HEIGHT,
+      title: String = Text.SIMULATOR_NAME_SHORT
+  ): SimulationGUI =
     SimulationGUIImpl(width, height, title)
   private class SimulationGUIImpl(width: Int, height: Int, title: String) extends SimulationGUI:
     import Utils.given
@@ -62,8 +67,8 @@ object SimulationGUI: //todo: group all the magic number in Values
 
     private lazy val topPanel: Task[JSplitPane] =
       for
-        _ <- io(simulationPanel.setMinimumSize((500, 500)))
-        _ <- io(chartPanel.setMinimumSize((300, 500)))
+        _ <- io(simulationPanel.setMinimumSize(Dimension.SIMULATION_PANEL_MIN_DIMENSION))
+        _ <- io(chartPanel.setMinimumSize(Dimension.CHART_PANEL_MIN_DIMENSION))
         split <- io(JSplitPane(JSplitPane.HORIZONTAL_SPLIT, simulationPanel, chartPanel))
         _ <- io(split.setResizeWeight(1))
         _ <- io(split.setOneTouchExpandable(true))
@@ -83,9 +88,9 @@ object SimulationGUI: //todo: group all the magic number in Values
     private lazy val mainPanel: Task[JSplitPane] =
       for
         topP <- topPanel
-        _ <- io(topP.setMinimumSize((800, 500)))
+        _ <- io(topP.setMinimumSize(Dimension.SIMULATION_GUI_TOP_DIMENSION))
         bottomP <- bottomPanel
-        _ <- io(bottomP.setMinimumSize((800, 200)))
+        _ <- io(bottomP.setMinimumSize(Dimension.SIMULATION_GUI_BOTTOM_DIMENSION))
         split <- io(JSplitPane(JSplitPane.VERTICAL_SPLIT, topP, bottomP))
         _ <- io(split.setResizeWeight(1))
         _ <- io(split.setOneTouchExpandable(true))

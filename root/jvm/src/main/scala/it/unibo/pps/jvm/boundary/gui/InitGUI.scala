@@ -2,7 +2,7 @@ package it.unibo.pps.jvm.boundary.gui
 
 import it.unibo.pps.boundary.ViewUtils.io
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
-import it.unibo.pps.jvm.boundary.Values.Text
+import it.unibo.pps.jvm.boundary.Values.{Dimension, Text}
 import it.unibo.pps.jvm.boundary.Utils
 import it.unibo.pps.jvm.boundary.gui.InitGUI
 import monix.eval.Task
@@ -27,7 +27,8 @@ trait InitGUI:
     *   the task
     */
   def config(): Task[Path]
-  /** This task allow the caller to show an error in the configuration
+  /** This task allow the caller to show an error in the configuration. Useful for
+    * [[it.unibo.pps.boundary.BoundaryModule.ConfigBoundary.error()]]
     * @param err
     *   the error in the configuration
     * @return
@@ -43,7 +44,12 @@ trait InitGUI:
   def start(simulation: SimulationGUI): Task[Unit]
 
 object InitGUI:
-  def apply(width: Int = 500, height: Int = 800, title: String = "Virsim"): InitGUI = InitGUIImpl(width, height, title)
+  def apply(
+      width: Int = Dimension.INITGUI_WIDTH,
+      height: Int = Dimension.INITGUI_HEIGHT,
+      title: String = Text.SIMULATOR_NAME_SHORT
+  ): InitGUI =
+    InitGUIImpl(width, height, title)
   private class InitGUIImpl(width: Int, height: Int, title: String) extends InitGUI:
     import Utils.given
     private lazy val frame = JFrame(title)
@@ -62,7 +68,7 @@ object InitGUI:
       for
         panel <- io(JPanel())
         label <- io(JLabel())
-        _ <- io(label.setText(Text.SIMULATORNAME))
+        _ <- io(label.setText(Text.SIMULATOR_NAME))
         _ <- io(label.setFont(label.getFont.deriveFont(Font.BOLD, label.getFont.getSize2D * 3f)))
         _ <- io(panel.add(label))
       yield panel
@@ -70,7 +76,7 @@ object InitGUI:
     private lazy val filePanel: Task[JPanel] =
       for
         panel <- io(JPanel(FlowLayout(FlowLayout.CENTER)))
-        chooseBtn <- io(JButton(Text.CHOOSEFILEBTN))
+        chooseBtn <- io(JButton(Text.CHOOSE_FILE_BTN))
         _ <- io(chooseBtn.addActionListener((e: ActionEvent) => openFileDialog()))
         _ <- io(panel.add(fileSrcTextField))
         _ <- io(panel.add(chooseBtn))
@@ -79,7 +85,7 @@ object InitGUI:
     private lazy val startPanel: Task[JPanel] =
       for
         panel <- io(JPanel())
-        startBtn <- io(JButton(Text.STARTBTN))
+        startBtn <- io(JButton(Text.START_BTN))
         _ <- io(startBtn.addActionListener((e: ActionEvent) => filePromise.success(Path.of(fileSrcTextField.getText))))
         _ <- io(panel.add(startBtn))
       yield panel

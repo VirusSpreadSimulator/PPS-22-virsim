@@ -12,11 +12,11 @@ import javax.swing.{BoxLayout, JLabel, JPanel}
 
 object BottomPanels:
   class CommandPanel extends DisplayblePanel with EventablePanel:
-    private val pauseBtn = MonadButton(Text.PAUSEBTN, Pause)
+    private val pauseBtn = MonadButton(Text.PAUSE_BTN, Pause)
 
     override def display(): Unit =
       setLayout(BoxLayout(this, BoxLayout.Y_AXIS))
-      val titleLabel = JLabel(Text.COMMANDSLABEL)
+      val titleLabel = JLabel(Text.COMMANDS_LABEL)
       titleLabel.setFont(titleLabel.getFont.deriveFont(Font.BOLD))
       add(titleLabel)
       add(pauseBtn.button)
@@ -31,7 +31,7 @@ object BottomPanels:
 
     override def display(): Unit =
       setLayout(BoxLayout(this, BoxLayout.Y_AXIS))
-      val titleLabel = JLabel(Text.DYBAMICONFIGLABEL)
+      val titleLabel = JLabel(Text.DYNAMIC_CONFIG_LABEL)
       titleLabel.setFont(titleLabel.getFont.deriveFont(Font.BOLD))
       add(titleLabel)
       add(switchStructureBtn.panel)
