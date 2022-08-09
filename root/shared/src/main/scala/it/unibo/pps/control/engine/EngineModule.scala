@@ -4,6 +4,7 @@ import it.unibo.pps.boundary.BoundaryModule
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.boundary.component.Events.Event.Hit
 import it.unibo.pps.control.engine.EngineConfiguration.SimulationConfig
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
 import it.unibo.pps.entity.State
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import monix.catnap.ConcurrentQueue
@@ -24,7 +25,7 @@ object EngineModule:
     class EngineImpl(using simulationConfiguration: SimulationConfig) extends Engine:
       import EngineImpl.given
 
-      private var simulationDuration: Int = 7
+      private var simulationDuration: Int = GlobalDefaults.DURATION
 
       override def init(duration: Int): Unit =
         simulationDuration = duration

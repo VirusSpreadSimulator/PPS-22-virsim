@@ -1,5 +1,7 @@
 package it.unibo.pps.control.engine
 
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
+
 object SimulationComponent:
 
   trait SimulationConfiguration:
@@ -33,11 +35,11 @@ object SimulationComponent:
     def startingInfectedPercentage: Double
 
   case class Simulation(
-      override val gridSide: Int = 50,
-      override val duration: Int = 30,
-      override val numberOfEntities: Int = 100,
-      override val peoplePerHouse: Int = 4,
-      override val averagePopulationAge: Int = 40,
-      override val stdDevPopulationAge: Double = 0.5,
-      override val startingInfectedPercentage: Double = 10
+      override val gridSide: Int = GlobalDefaults.GRID_SIDE,
+      override val duration: Int = GlobalDefaults.DURATION,
+      override val numberOfEntities: Int = GlobalDefaults.NUMBER_OF_ENTITIES,
+      override val peoplePerHouse: Int = GlobalDefaults.PEOPLE_PER_HOUSE,
+      override val averagePopulationAge: Int = GlobalDefaults.AVERAGE_POPULATION_AGE,
+      override val stdDevPopulationAge: Double = GlobalDefaults.STD_DEV_POPULATION_AGE,
+      override val startingInfectedPercentage: Double = GlobalDefaults.STARTING_INFECTED_PERCENTAGE
   ) extends SimulationConfiguration

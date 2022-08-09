@@ -1,5 +1,7 @@
 package it.unibo.pps.entity.virus
 
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.VirusDefaults
+
 object VirusComponent:
 
   trait VirusConfiguration:
@@ -29,8 +31,8 @@ object VirusComponent:
     def severeDeseaseProbability: Int
 
   case class Virus(
-      override val name: String = "Generic-Virus",
-      override val spreadRate: Double = 1.5,
-      override val averagePositivityDays: Int = 7,
-      override val severeDeseaseProbability: Int = 25
+      override val name: String = VirusDefaults.NAME,
+      override val spreadRate: Double = VirusDefaults.SPREAD_RATE,
+      override val averagePositivityDays: Int = VirusDefaults.AVERAGE_POSITIVITY_DAYS,
+      override val severeDeseaseProbability: Int = VirusDefaults.SEVERE_DESEASE_PROBABILITY
   ) extends VirusConfiguration
