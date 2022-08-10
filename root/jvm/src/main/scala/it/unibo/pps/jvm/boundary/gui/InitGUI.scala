@@ -125,7 +125,13 @@ object InitGUI:
 
     override def config(): Task[Path] = Task.deferFuture(filePromise.future)
 
-    override def error(err: ConfigurationError): Task[Unit] = Task.pure {}
+    override def error(err: ConfigurationError): Task[Unit] = for
+      errorMessage <- io(err match
+        case ConfigurationError.INVALID_FILE(message) => message
+        case ConfigurationError.WRONG_PARAMETERS(message) => message
+      )
+      _ <- io(JOptionPane.showMessageDialog(frame, errorMessage, Text.CONFIG_ERROR_TITLE, JOptionPane.ERROR_MESSAGE))
+    yield ()
 
     override def start(simulation: SimulationGUI): Task[Unit] =
       for

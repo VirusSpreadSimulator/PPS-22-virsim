@@ -15,6 +15,7 @@ object Values:
     val VACCINE_ROUND = "Vaccine round"
     val SWITCH_STRUCTURE_OPEN = " Switch group "
     val STATS_LABEL = "Stats"
+    val CONFIG_ERROR_TITLE = "Configuration error"
 
   object Dimension:
     val INITGUI_WIDTH = 500
