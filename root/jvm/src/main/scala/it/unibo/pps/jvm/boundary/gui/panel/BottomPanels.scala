@@ -56,7 +56,7 @@ object BottomPanels:
     override lazy val events: Observable[Event] =
       Observable
         .fromIterable(Seq(turnMaskOn, vaccineRound, switchStructureBtn))
-        .flatMap(_.events)
+        .mergeMap(_.events)
 
   /** DynamicActionsLog. It is the panel that show all the information about the dynamic configurations. */
   class DynamicActionsLog extends UpdateblePanel:
