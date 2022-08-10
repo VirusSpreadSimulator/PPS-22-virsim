@@ -33,12 +33,9 @@ trait ConfigurationParser:
     if canBeReflected then Task(Some(engine.eval(program).asInstanceOf[VirsimConfiguration])) else Task(None)
 
   def checkErrors(configuration: Configuration): Task[ConfigurationResult] =
-    var errors: List[ConfigurationError] = List.empty
-    errors = errors :::
-      (configuration.simulation.gridSide shouldBeWithin (MIN_VALUES.MIN_GRID_SIZE, MAX_VALUES.MAX_GRID_SIZE)
-        andIfNot "Error: invalid parameter gridSide!") :::
-      (configuration.simulation.numberOfEntities shouldBeWithin (MIN_VALUES.MIN_NUMBER_OF_ENTITIES, MAX_VALUES.MAX_NUMBER_OF_ENTITIES)
-        andIfNot "Error: invalid parameter numberOfEntities!")
+    val errors: List[ConfigurationError] = List() :::
+      (configuration.simulation.gridSide shouldBeWithin (MIN_VALUES.MIN_GRID_SIZE, MAX_VALUES.MAX_GRID_SIZE) andIfNot "Error: invalid parameter gridSide!") :::
+      (configuration.simulation.numberOfEntities shouldBeWithin (MIN_VALUES.MIN_NUMBER_OF_ENTITIES, MAX_VALUES.MAX_NUMBER_OF_ENTITIES) andIfNot "Error: invalid parameter numberOfEntities!")
     errors.size match
       case 0 => Task(ConfigurationResult.OK(configuration))
       case _ => Task(ConfigurationResult.ERROR(errors))
