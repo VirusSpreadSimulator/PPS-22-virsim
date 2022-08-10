@@ -50,7 +50,7 @@ object BoundaryModule:
       * @return
       *   the task
       */
-    def error(error: ConfigurationError): Task[Unit]
+    def error(error: Seq[ConfigurationError]): Task[Unit]
   /** Provider of the component */
   trait Provider:
     /** All the boundaries that are inside the system. */

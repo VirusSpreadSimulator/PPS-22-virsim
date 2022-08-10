@@ -20,7 +20,7 @@ object GUIModule:
       private val simulationScreen: SimulationGUI = SimulationGUI()
       override def init(): Task[Unit] = initSimulationScreen.init()
       override def config(): Task[Path] = initSimulationScreen.config()
-      override def error(err: ConfigurationError): Task[Unit] = initSimulationScreen.error(err)
+      override def error(errors: Seq[ConfigurationError]): Task[Unit] = initSimulationScreen.error(errors)
       override def start(): Task[Unit] = initSimulationScreen.start(simulationScreen)
       override def consume(env: Environment): Task[Unit] = simulationScreen.render(env)
       override def events(): Observable[Event] = simulationScreen.events()

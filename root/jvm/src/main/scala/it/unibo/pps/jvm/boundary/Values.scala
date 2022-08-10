@@ -16,6 +16,8 @@ object Values:
     val SWITCH_STRUCTURE_OPEN = " Switch group "
     val STATS_LABEL = "Stats"
     val CONFIG_ERROR_TITLE = "Configuration error"
+    val INVALID_FILE_LABEL = "Invalid file "
+    val WRONG_PARAMETER_LABEL = "Wrong Parameter "
 
   object Dimension:
     val INITGUI_WIDTH = 500

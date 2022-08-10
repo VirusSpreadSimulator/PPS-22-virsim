@@ -31,12 +31,12 @@ trait InitGUI:
   def config(): Task[Path]
   /** This task allow the caller to show an error in the configuration. Useful for
     * [[it.unibo.pps.boundary.BoundaryModule.ConfigBoundary.error()]]
-    * @param err
-    *   the error in the configuration
+    * @param errors
+    *   the errors in the configuration
     * @return
     *   the task
     */
-  def error(err: ConfigurationError): Task[Unit]
+  def error(errors: Seq[ConfigurationError]): Task[Unit]
   /** Handle the start of the simulation
     * @param simulation
     *   the simulation user interface to launch
@@ -127,10 +127,15 @@ object InitGUI:
 
     override def config(): Task[Path] = Task.defer(fileChosen.consumeWith(Consumer.head))
 
-    override def error(err: ConfigurationError): Task[Unit] = for
-      errorMessage <- io(err match
-        case ConfigurationError.INVALID_FILE(message) => message
-        case ConfigurationError.WRONG_PARAMETERS(message) => message
+    override def error(errors: Seq[ConfigurationError]): Task[Unit] = for
+      errorMessage <- io(
+        errors
+          .map(err =>
+            err match
+              case ConfigurationError.INVALID_FILE(message) => Text.INVALID_FILE_LABEL + message
+              case ConfigurationError.WRONG_PARAMETER(message) => Text.WRONG_PARAMETER_LABEL + message
+          )
+          .reduce(_ + "\n" + _)
       )
       _ <- io(JOptionPane.showMessageDialog(frame, errorMessage, Text.CONFIG_ERROR_TITLE, JOptionPane.ERROR_MESSAGE))
     yield ()
