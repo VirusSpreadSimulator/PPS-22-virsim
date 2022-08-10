@@ -25,10 +25,12 @@ object BottomPanels:
         _ <- io(setLayout(BoxLayout(this, BoxLayout.Y_AXIS)))
         titleLabel = JLabel(Text.COMMANDS_LABEL)
         _ <- io(titleLabel.setFont(titleLabel.getFont.deriveFont(Font.BOLD)))
-        _ <- io(add(titleLabel))
-        _ <- io(add(pauseBtn.button))
-        _ <- io(add(stopBtn.button))
-        - <- io(add(speedComboBox.combobox))
+        elems = Seq(titleLabel, pauseBtn.button, stopBtn.button, speedComboBox.combobox)
+        _ <- io {
+          for elem <- elems do
+            add(elem)
+            elem.setAlignmentX(Component.LEFT_ALIGNMENT)
+        }
       yield ()
 
     override lazy val events: Observable[Event] =
