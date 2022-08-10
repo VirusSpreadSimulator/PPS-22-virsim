@@ -137,4 +137,4 @@ object SimulationGUI:
     override def events(): Observable[Event] =
       Observable
         .fromIterable(Seq(commandPanel, dynamicConfigPanel))
-        .flatMap(_.events)
+        .mergeMap(_.events)

@@ -38,7 +38,7 @@ object EngineModule:
           eventQueue <- ConcurrentQueue.unbounded[Task, Event]()
           sinkEvent = Observable
             .fromIterable(context.boundaries)
-            .flatMap(_.events())
+            .mergeMap(_.events())
             .mapEval(event => eventQueue.offer(event))
             .foreachL { _ => }
           simulationTask <- Task.parMap2(sinkEvent, simulationLoop(eventQueue, environment)) { (_, _) => }

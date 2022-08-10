@@ -31,7 +31,7 @@ object BottomPanels:
     override lazy val events: Observable[Event] =
       Observable
         .fromIterable(Seq(pauseBtn, stopBtn))
-        .flatMap(_.events)
+        .mergeMap(_.events)
 
   /** Dynamic Configuration Panel. It is the panel that contains all the possible dynamic configuration set by the user.
     */
