@@ -4,13 +4,13 @@ import it.unibo.pps.boundary.BoundaryModule
 import it.unibo.pps.control.loader.LoaderModule
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationResult
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationResult.*
+import it.unibo.pps.control.loader.configuration.ConfigurationComponent.given
 
 import monix.eval.Task
 
 object LauncherModule:
   trait Launcher:
     def launch(): Task[Unit]
-    def launcherLoop(): Task[Unit] // todo: is it useful here? I think that may be only private
   trait Provider:
     val launcher: Launcher
   type Requirements = BoundaryModule.Provider with LoaderModule.Provider
@@ -24,7 +24,7 @@ object LauncherModule:
           _ <- launcherLoop()
         yield ()
 
-      override def launcherLoop(): Task[Unit] =
+      private def launcherLoop(): Task[Unit] =
         for
           path <- context.configBoundary.config()
           configResult <- context.loader.parseConfiguration(path.toString)

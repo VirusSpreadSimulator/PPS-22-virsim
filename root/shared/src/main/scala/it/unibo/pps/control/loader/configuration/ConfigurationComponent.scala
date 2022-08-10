@@ -4,6 +4,7 @@ import it.unibo.pps.control.engine.SimulationComponent.Simulation
 import it.unibo.pps.entity.virus.VirusComponent.Virus
 import it.unibo.pps.entity.structure.StructureComponent.Structure
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
+import it.unibo.pps.control.loader.configuration.ConfigurationParser
 
 import javax.script.ScriptEngine
 import javax.script.ScriptEngineManager
@@ -11,6 +12,7 @@ import javax.script.ScriptEngineManager
 object ConfigurationComponent:
 
   given ScriptEngine = new javax.script.ScriptEngineManager(getClass.getClassLoader).getEngineByName("scala")
+  given ConfigurationParser = ConfigurationParser()
 
   trait Configuration:
 
@@ -34,10 +36,10 @@ object ConfigurationComponent:
 
   enum ConfigurationResult:
     case OK(configuration: Configuration)
-    case ERROR(error: ConfigurationError)
+    case ERROR(errors: List[ConfigurationError])
 
   enum ConfigurationError:
-    case WRONG_PARAMETERS(message: String)
+    case WRONG_PARAMETER(message: String)
     case INVALID_FILE(message: String)
 
   case class VirsimConfiguration(
