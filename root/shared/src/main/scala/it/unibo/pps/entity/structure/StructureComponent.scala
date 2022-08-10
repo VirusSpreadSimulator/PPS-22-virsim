@@ -4,7 +4,9 @@ import it.unibo.pps.entity.common.Space.Distance
 
 /** Module that define all the component and the characteristic that can define a Structure in the simulation. */
 object StructureComponent:
-  /** The Structure base interface. */
+  /** The Structure base interface. It abstract from all the types because it represent the pure concept of a structure
+    * abstracting away from the particular implementation types
+    */
   trait Structure:
     type Position
     type Probability

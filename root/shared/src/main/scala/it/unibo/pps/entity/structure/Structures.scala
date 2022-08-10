@@ -20,7 +20,8 @@ object Structures:
   private val defaultGroup = "base"
   private val defaultPermanenceTimeDistribution = GaussianDurationTime(20, 5, MINUTES)
 
-  /** It's the base [[Structure]] */
+  /** It's the simulation [[Structure]]. It specify all the types, connecting them to the other types in the simulator
+    */
   trait SimulationStructure extends Structure:
     override type Position = Point2D
     override type Probability = Double
