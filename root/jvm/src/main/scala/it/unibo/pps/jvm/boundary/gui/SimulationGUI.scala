@@ -86,7 +86,9 @@ object SimulationGUI:
     private lazy val topPanel: Task[JSplitPane] =
       for
         _ <- io(simulationPanel.setMinimumSize(Dimension.SIMULATION_PANEL_MIN_DIMENSION))
+        _ <- io(simulationPanel.init())
         _ <- io(chartPanel.setMinimumSize(Dimension.CHART_PANEL_MIN_DIMENSION))
+        _ <- io(chartPanel.init())
         split <- io(JSplitPane(JSplitPane.HORIZONTAL_SPLIT, simulationPanel, chartPanel))
         _ <- io(split.setResizeWeight(1))
         _ <- io(split.setOneTouchExpandable(true))

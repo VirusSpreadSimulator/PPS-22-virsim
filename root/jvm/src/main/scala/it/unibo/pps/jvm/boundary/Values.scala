@@ -35,3 +35,23 @@ object Values:
 
     val DEFAULT_HMARGIN: Dimension = (10, 0)
     val DEFAULT_VMARGIN: Dimension = (0, 5)
+
+  object SimulationColor:
+    import java.awt.Color
+    val BACKGROUND_COLOR = Color(56, 142, 60)
+    val BACKGROUND_CHART_PANEL_COLOR = Color(255, 204, 128)
+    val HEALTHY_ENTITY_COLOR = Color(118, 255, 3)
+    val INFECTED_ENTITY_COLOR = Color(221, 44, 0)
+    val IMMUNITY_COLOR = Color(13, 71, 161)
+    val HOUSE_COLOR = Color(144, 164, 174)
+    val GENERIC_COLOR_OPEN = Color(255, 145, 0)
+    val GENERIC_COLOR_CLOSED = Color(255, 183, 77)
+    val HOSPITAL_COLOR = Color(3, 169, 244)
+    val VISIBILITY_RANGE_COLOR = Color(212, 225, 87)
+
+    def ageColor(color: Color, age: Int): Color =
+      Color(
+        Math.max(color.getRed - age / 3, 0),
+        Math.max(color.getGreen - age / 3, 0),
+        Math.max(color.getBlue - age / 3, 0)
+      )
