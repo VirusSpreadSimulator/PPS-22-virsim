@@ -1,6 +1,7 @@
 package it.unibo.pps.jvm.boundary.gui.panel
 
 import it.unibo.pps.boundary.component.Events.Event
+import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import monix.reactive.Observable
 import monix.eval.Task
 import javax.swing.JPanel
@@ -19,7 +20,7 @@ object Panels:
     * lazy monix Tasks, in order to express in a better way the computation.
     */
   trait UpdateblePanel extends JPanel with DisplayblePanel:
-    def update(): Task[Unit] // todo: pass the env
+    def update(env: Environment): Task[Unit]
 
   /** EventablePanel represent a panel that is able to emit events. It's represented as a self-type on the JPanel */
   trait EventablePanel:

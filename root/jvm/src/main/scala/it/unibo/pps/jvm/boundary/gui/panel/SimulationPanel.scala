@@ -6,6 +6,7 @@ import javax.swing.JPanel
 import java.awt.{Color, Dimension, Graphics, Graphics2D, RenderingHints}
 import scala.util.Random
 import it.unibo.pps.boundary.ViewUtils.io
+import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import monix.eval.Task
 
 /** The Simulation Panel is the panel that handle the visualization of the simulation status. For this reason it extends
@@ -38,4 +39,4 @@ class SimulationPanel() extends UpdateblePanel:
 
   override def init(): Task[Unit] = io(this.repaint())
 
-  override def update(): Task[Unit] = io(this.repaint())
+  override def update(env: Environment): Task[Unit] = io(this.repaint())

@@ -3,6 +3,7 @@ import monix.eval.Task
 import monix.reactive.Observable
 import component.Events.Event
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
+import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 
 import java.nio.file.Path
 
@@ -22,12 +23,12 @@ object BoundaryModule:
       */
     def start(): Task[Unit]
     /** Consume the current state of the simulation.
-      * @param i
-      *   the current state //todo fix this comment with the state
+      * @param env
+      *   the current environment
       * @return
       *   the task
       */
-    def consume(i: Int): Task[Unit]
+    def consume(env: Environment): Task[Unit]
     /** Every boundary can produce events and the control part of the architecture may be interested in.
       * @return
       *   the observable that emit events for the boundary

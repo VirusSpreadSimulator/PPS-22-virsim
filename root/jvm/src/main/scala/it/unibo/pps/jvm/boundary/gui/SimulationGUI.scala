@@ -2,6 +2,7 @@ package it.unibo.pps.jvm.boundary.gui
 
 import it.unibo.pps.boundary.ViewUtils.io
 import it.unibo.pps.boundary.component.Events.Event
+import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.jvm.boundary.Utils
 import it.unibo.pps.jvm.boundary.Values.{Dimension, Text}
 import it.unibo.pps.jvm.boundary.gui.SimulationGUI
@@ -9,8 +10,8 @@ import it.unibo.pps.jvm.boundary.gui.panel.SimulationPanel
 import it.unibo.pps.jvm.boundary.gui.panel.ChartPanel
 import it.unibo.pps.jvm.boundary.gui.panel.BottomPanels.{
   CommandPanel,
-  DynamicConfigPanel,
   DynamicActionsLog,
+  DynamicConfigPanel,
   StatsPanel
 }
 import monix.reactive.Observable
@@ -38,7 +39,7 @@ trait SimulationGUI:
   /** Render the new state of the simulation on the user interface
     * @return
     */
-  def render(): Task[Unit]
+  def render(env: Environment): Task[Unit]
   /** Obtain the observable that emit all the events of the user interface
     * @return
     *   the observable
@@ -125,13 +126,13 @@ object SimulationGUI:
         _ <- io(frame.setVisible(true))
       yield ()
 
-    override def render(): Task[Unit] =
+    override def render(env: Environment): Task[Unit] =
       for
         _ <- Task.pure {}.asyncBoundary(Utils.swingScheduler)
-        _ <- simulationPanel.update()
-        _ <- chartPanel.update()
-        _ <- dynamicActionsLogPanel.update()
-        _ <- statsPanel.update()
+        _ <- simulationPanel.update(env)
+        _ <- chartPanel.update(env)
+        _ <- dynamicActionsLogPanel.update(env)
+        _ <- statsPanel.update(env)
       yield ()
 
     override def events(): Observable[Event] =

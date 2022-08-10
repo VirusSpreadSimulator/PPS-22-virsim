@@ -8,6 +8,7 @@ import it.unibo.pps.jvm.boundary.gui.panel.Panels.{DisplayblePanel, EventablePan
 import monix.reactive.Observable
 import monix.eval.Task
 import it.unibo.pps.boundary.ViewUtils.io
+import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 
 import java.awt.{BorderLayout, Component, Font}
 import javax.swing.{BoxLayout, JLabel, JPanel, JScrollPane, JTextArea, ScrollPaneConstants}
@@ -85,7 +86,9 @@ object BottomPanels:
         _ <- io(add(scrollTextArea, BorderLayout.CENTER))
       yield ()
 
-    override def update(): Task[Unit] = io(textArea.setText((for i <- 1 to 30 yield "a \n a \n a").reduce(_ + _)))
+    override def update(env: Environment): Task[Unit] = io(
+      textArea.setText((for i <- 1 to 30 yield "a \n a \n a").reduce(_ + _))
+    )
 
   /** StatsPanel. It is the panel that show the main statistics about the simulation data. */
   class StatsPanel extends UpdateblePanel:
@@ -103,4 +106,6 @@ object BottomPanels:
         _ <- io(add(scrollTextArea, BorderLayout.CENTER))
       yield ()
 
-    override def update(): Task[Unit] = io(textArea.setText((for i <- 1 to 30 yield "b \n b \n b").reduce(_ + _)))
+    override def update(env: Environment): Task[Unit] = io(
+      textArea.setText((for i <- 1 to 30 yield "b \n b \n b").reduce(_ + _))
+    )

@@ -54,12 +54,55 @@ object EngineModule:
 //          newState <- handleEvents(currentState, events.toList)
 //          _ <- updateEnv(newState)
           _ <- debugEvents(events)
-          _ <- renderBoundaries(State(0)).asyncBoundary // Render and return to default scheduler with asyncBoundary
+          env = createTestEnv()
+          _ <- renderBoundaries(env).asyncBoundary // Render and return to default scheduler with asyncBoundary
           newTime <- timeNow(timeTarget.unit)
           timeDiff = FiniteDuration(newTime - prevTime, timeTarget.unit)
           _ <- waitNextTick(timeDiff, timeTarget)
           _ <- simulationLoop(queue, environment)
         yield ()
+
+      private def createTestEnv(): Environment = //todo: to be deleted
+        import it.unibo.pps.entity.common.Space.Point2D
+        import it.unibo.pps.entity.entity.Entities.BaseEntity
+        import it.unibo.pps.entity.structure.Structures.House
+        import it.unibo.pps.entity.environment.EnvironmentModule.Component
+        import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
+        import it.unibo.pps.entity.structure.StructureComponent.Hospitalization.TreatmentQuality
+        import it.unibo.pps.entity.virus.VirusComponent.Virus
+        import it.unibo.pps.entity.entity.Entities.SimulationEntity
+        import it.unibo.pps.entity.environment.EnvironmentModule
+        import it.unibo.pps.entity.environment.EnvironmentModule.Component
+        import it.unibo.pps.entity.structure.Structures.{GenericBuilding, Hospital, SimulationStructure}
+        import scala.util.Random
+
+        val nEntities = 16
+        val ageDistribution = GaussianIntDistribution(27, 10)
+        val gridSize = 30
+        val peoplePerHouse = 4
+        // Houses
+        val houses =
+          for i <- 0 until nEntities / peoplePerHouse
+          yield House((Random.nextLong(gridSize), Random.nextLong(gridSize)), 0.5, peoplePerHouse)
+        val generic = GenericBuilding((Random.nextLong(gridSize), Random.nextLong(gridSize)), 0.5, 10)
+        val hospital = Hospital(
+          (Random.nextLong(gridSize), Random.nextLong(gridSize)),
+          0.5,
+          10,
+          treatmentQuality = TreatmentQuality.GOOD
+        )
+        val entities = for
+          i <- 0 until 15
+          entity = BaseEntity(
+            i,
+            ageDistribution.next(),
+            houses(i % peoplePerHouse),
+            position = Point2D(Random.nextLong(gridSize), Random.nextLong(gridSize))
+          )
+        yield entity
+        object prova extends EnvironmentModule.Interface:
+          override val env = Environment.empty
+        prova.env.initialized(gridSize, entities.toSet, Virus(), (generic +: hospital +: houses).toSet)
 
       private def debugEvents(events: Seq[Event]): Task[Unit] = events match
         case event +: t =>
@@ -80,8 +123,8 @@ object EngineModule:
 //      private def updateEnv(state: State): Task[Unit] =
 //        Task.eval(context.env.updateState(state))
 
-      private def renderBoundaries(state: State): Task[Seq[Unit]] =
-        Task.sequence(context.boundaries.map(_.consume(state.number)))
+      private def renderBoundaries(env: Environment): Task[Seq[Unit]] =
+        Task.sequence(context.boundaries.map(_.consume(env)))
 
       private def timeNow(unit: TimeUnit): Task[Long] = Task.clock.monotonic(unit)
 
