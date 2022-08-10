@@ -25,6 +25,7 @@ object SimulationDefaults:
 
   object MAX_VALUES:
     val MAX_GRID_SIZE: Int = 50
+    val MAX_NUMBER_OF_ENTITIES: Int = 1000
 
   object MIN_VALUES:
     val MIN_GRID_SIZE: Int = 5
