@@ -42,8 +42,14 @@ object BottomPanels:
     */
   class DynamicConfigPanel extends DisplayblePanel with EventablePanel:
     private val turnMaskOn = MonadButton(Text.SWITCH_MASK_OBLIGATION, SwitchMaskObligation)
-    private val vaccineRound = MonadConfigButton.numeric(Text.VACCINE_ROUND, 3, 0, 100, p => VaccineRound(p.toDouble))
     private val switchStructureBtn = MonadConfigButton(Text.SWITCH_STRUCTURE_OPEN, 5, SwitchStructure.apply)
+    private val vaccineRound = MonadConfigButton.numeric(
+      Text.VACCINE_ROUND,
+      3,
+      0,
+      100,
+      p => VaccineRound(Some(p).filter(_.nonEmpty).map(_.toDouble).getOrElse(0))
+    )
 
     override def init(): Task[Unit] =
       for
