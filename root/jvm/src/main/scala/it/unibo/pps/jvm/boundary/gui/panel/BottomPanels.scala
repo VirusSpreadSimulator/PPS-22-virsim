@@ -1,13 +1,14 @@
 package it.unibo.pps.jvm.boundary.gui.panel
 
-import it.unibo.pps.jvm.boundary.component.MonadComponents.{MonadButton, MonadConfigButton}
+import it.unibo.pps.jvm.boundary.component.MonadComponents.{MonadButton, MonadCombobox, MonadConfigButton}
 import it.unibo.pps.jvm.boundary.Values.Text
-import it.unibo.pps.boundary.component.Events.Event
+import it.unibo.pps.boundary.component.Events.{Event, Params}
 import it.unibo.pps.boundary.component.Events.Event.*
 import it.unibo.pps.jvm.boundary.gui.panel.Panels.{DisplayblePanel, EventablePanel, UpdateblePanel}
 import monix.reactive.Observable
 import monix.eval.Task
 import it.unibo.pps.boundary.ViewUtils.io
+
 import java.awt.{BorderLayout, Component, Font}
 import javax.swing.{BoxLayout, JLabel, JPanel, JScrollPane, JTextArea, ScrollPaneConstants}
 
@@ -17,6 +18,7 @@ object BottomPanels:
   class CommandPanel extends DisplayblePanel with EventablePanel:
     private val pauseBtn = MonadButton(Text.PAUSE_BTN, Pause)
     private val stopBtn = MonadButton(Text.STOP_BTN, Stop)
+    private val speedComboBox = MonadCombobox(Params.Speed.values, Params.Speed.NORMAL, ChangeSpeed.apply)
 
     override def init(): Task[Unit] =
       for
@@ -26,11 +28,12 @@ object BottomPanels:
         _ <- io(add(titleLabel))
         _ <- io(add(pauseBtn.button))
         _ <- io(add(stopBtn.button))
+        - <- io(add(speedComboBox.combobox))
       yield ()
 
     override lazy val events: Observable[Event] =
       Observable
-        .fromIterable(Seq(pauseBtn, stopBtn))
+        .fromIterable(Seq(pauseBtn, stopBtn, speedComboBox))
         .mergeMap(_.events)
 
   /** Dynamic Configuration Panel. It is the panel that contains all the possible dynamic configuration set by the user.
