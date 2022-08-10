@@ -65,7 +65,7 @@ object InitGUI:
     private lazy val frame = JFrame(title)
     private lazy val fileChooser = JFileChooser()
     private lazy val fileSrcTextField: JTextField = JTextField(width / 25)
-    private lazy val filePromise = Promise[Path]()
+    private var filePromise = Promise[Path]()
 
     private lazy val container: Task[JFrame] =
       for
@@ -131,6 +131,7 @@ object InitGUI:
         case ConfigurationError.WRONG_PARAMETERS(message) => message
       )
       _ <- io(JOptionPane.showMessageDialog(frame, errorMessage, Text.CONFIG_ERROR_TITLE, JOptionPane.ERROR_MESSAGE))
+      _ <- io { filePromise = Promise[Path]() }
     yield ()
 
     override def start(simulation: SimulationGUI): Task[Unit] =
