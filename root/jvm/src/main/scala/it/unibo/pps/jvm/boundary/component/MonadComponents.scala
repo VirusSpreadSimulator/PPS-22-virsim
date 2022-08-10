@@ -8,9 +8,8 @@ import monix.reactive.{Observable, OverflowStrategy}
 import it.unibo.pps.boundary.ViewUtils.io
 import CustomSwingComponents.JNumericTextField
 import it.unibo.pps.jvm.boundary.Values.Margin
-import javax.swing.{BoxLayout, JButton, JPanel, JTextField}
+import javax.swing.{Box, BoxLayout, JButton, JComboBox, JPanel, JTextField}
 import java.awt.event.ActionEvent
-import javax.swing.Box
 
 /** Module that contains all the definition of custom components that can be easily integrated in a monadic system. */
 object MonadComponents:
@@ -94,5 +93,23 @@ object MonadComponents:
 
       override lazy val events: Observable[Event] = Observable.create(OverflowStrategy.Unbounded) { out =>
         button.addActionListener((e: ActionEvent) => out.onNext(eventFactory(textField.getText)))
+        Cancelable.empty
+      }
+
+  trait MonadCombobox[A] extends EventSource:
+    def combobox: JComboBox[A]
+  object MonadCombobox:
+    def apply[A](elems: Seq[A], selectedElem: A, eventFactory: A => Event): MonadCombobox[A] =
+      val combobox = JComboBox[A]()
+      for elem <- elems do combobox.addItem(elem)
+      combobox.setSelectedItem(selectedElem)
+      combobox.setMaximumSize(combobox.getPreferredSize)
+      MonadComboboxImpl(combobox, eventFactory)
+    private class MonadComboboxImpl[A](override val combobox: JComboBox[A], eventFactory: A => Event)
+        extends MonadCombobox[A]:
+      override lazy val events: Observable[Event] = Observable.create(OverflowStrategy.Unbounded) { out =>
+        combobox.addActionListener((e: ActionEvent) =>
+          out.onNext(eventFactory(combobox.getSelectedItem.asInstanceOf[A]))
+        )
         Cancelable.empty
       }
