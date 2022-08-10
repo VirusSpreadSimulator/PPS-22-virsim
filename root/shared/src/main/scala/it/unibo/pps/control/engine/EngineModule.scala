@@ -3,7 +3,7 @@ package it.unibo.pps.control.engine
 import it.unibo.pps.boundary.BoundaryModule
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.boundary.component.Events.Event.Hit
-import it.unibo.pps.control.engine.EngineConfiguration.SimulationConfig
+import it.unibo.pps.control.engine.config.EngineConfiguration.SimulationConfig
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
 import it.unibo.pps.entity.State
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
@@ -48,11 +48,12 @@ object EngineModule:
       private def simulationLoop(queue: ConcurrentQueue[Task, Event], environment: Environment): Task[Unit] =
         for
           events <- queue.drain(0, simulationConfiguration.maxEventPerIteration)
-          timeTarget = simulationConfiguration.tickTime
+          timeTarget = simulationConfiguration.engineSpeed.tickTime
           prevTime <- timeNow(timeTarget.unit)
 //          currentState <- getCurrentState()
 //          newState <- handleEvents(currentState, events.toList)
 //          _ <- updateEnv(newState)
+          _ <- debugEvents(events)
           _ <- renderBoundaries(State(0)).asyncBoundary // Render and return to default scheduler with asyncBoundary
           newTime <- timeNow(timeTarget.unit)
           timeDiff = FiniteDuration(newTime - prevTime, timeTarget.unit)
@@ -60,6 +61,13 @@ object EngineModule:
           _ <- simulationLoop(queue, environment)
         yield ()
 
+      private def debugEvents(events: Seq[Event]): Task[Unit] = events match
+        case event +: t =>
+          Task {
+            println(event)
+            debugEvents(t)
+          }
+        case _ => Task.pure {}
 //      // todo: need to do a process of re-engineering in handling of events and update logic (considering the model).
 //      private def handleEvents(state: State, events: Seq[Event]): Task[State] = events match
 //        case event :: t => handleEvents(handleLogic(state, event), t)
