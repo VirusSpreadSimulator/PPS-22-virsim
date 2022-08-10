@@ -2,9 +2,9 @@ package it.unibo.pps.control.launcher
 
 import it.unibo.pps.boundary.BoundaryModule
 import it.unibo.pps.control.engine.EngineModule
+import it.unibo.pps.control.engine.config.EngineConfiguration
 import it.unibo.pps.control.launcher.LauncherModule
 import it.unibo.pps.control.loader.LoaderModule
-import it.unibo.pps.control.engine.EngineConfiguration
 import it.unibo.pps.entity.environment.EnvironmentModule
 
 /** Launch base config (End of the world) */
@@ -15,7 +15,7 @@ trait Launch
     with EngineModule.Interface
     with EnvironmentModule.Interface:
 
-  import EngineConfiguration.given
+  import it.unibo.pps.control.engine.config.EngineConfiguration.given
 
   override val env = Environment.empty
   override val engine = EngineImpl()
