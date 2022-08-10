@@ -17,7 +17,7 @@ object JSGUIModule:
       private val guiJs = JSGUI()
       override def init() = guiJs.init()
       override def config(): Task[Path] = Task(Path.of(""))
-      override def error(err: ConfigurationError): Task[Unit] = Task.pure {}
+      override def error(errors: Seq[ConfigurationError]): Task[Unit] = Task.pure {}
       override def start() = Task.pure {}
       override def consume(env: Environment) = guiJs.render(0)
       override def events(): Observable[Event] = guiJs.events()
