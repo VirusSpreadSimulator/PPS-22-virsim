@@ -6,6 +6,8 @@ import it.unibo.pps.jvm.boundary.Values.{Dimension, Text}
 import it.unibo.pps.jvm.boundary.Utils
 import it.unibo.pps.jvm.boundary.gui.InitGUI
 import monix.eval.Task
+import monix.reactive.Consumer
+import monix.reactive.subjects.PublishSubject
 
 import java.awt.event.ActionEvent
 import java.awt.{FlowLayout, Font, GridLayout}
@@ -65,7 +67,7 @@ object InitGUI:
     private lazy val frame = JFrame(title)
     private lazy val fileChooser = JFileChooser()
     private lazy val fileSrcTextField: JTextField = JTextField(width / 25)
-    private var filePromise = Promise[Path]()
+    private lazy val fileChosen = PublishSubject[Path]() // Instead of a var with a Promise
 
     private lazy val container: Task[JFrame] =
       for
@@ -96,7 +98,7 @@ object InitGUI:
       for
         panel <- io(JPanel())
         startBtn <- io(JButton(Text.START_BTN))
-        _ <- io(startBtn.addActionListener((e: ActionEvent) => filePromise.success(Path.of(fileSrcTextField.getText))))
+        _ <- io(startBtn.addActionListener((e: ActionEvent) => fileChosen.onNext(Path.of(fileSrcTextField.getText))))
         _ <- io(panel.add(startBtn))
       yield panel
 
@@ -123,7 +125,7 @@ object InitGUI:
         _ <- io(frame.setVisible(true))
       yield ()
 
-    override def config(): Task[Path] = Task.deferFuture(filePromise.future)
+    override def config(): Task[Path] = Task.defer(fileChosen.consumeWith(Consumer.head))
 
     override def error(err: ConfigurationError): Task[Unit] = for
       errorMessage <- io(err match
@@ -131,7 +133,6 @@ object InitGUI:
         case ConfigurationError.WRONG_PARAMETERS(message) => message
       )
       _ <- io(JOptionPane.showMessageDialog(frame, errorMessage, Text.CONFIG_ERROR_TITLE, JOptionPane.ERROR_MESSAGE))
-      _ <- io { filePromise = Promise[Path]() }
     yield ()
 
     override def start(simulation: SimulationGUI): Task[Unit] =
