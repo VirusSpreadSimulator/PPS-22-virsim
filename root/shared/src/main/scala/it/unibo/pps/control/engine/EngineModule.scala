@@ -83,10 +83,10 @@ object EngineModule:
         // Houses
         val houses =
           for i <- 0 until nEntities / peoplePerHouse
-          yield House((Random.nextLong(gridSize), Random.nextLong(gridSize)), 0.5, peoplePerHouse)
-        val generic = GenericBuilding((Random.nextLong(gridSize), Random.nextLong(gridSize)), 0.5, 10)
+          yield House((Random.nextInt(gridSize), Random.nextInt(gridSize)), 0.5, peoplePerHouse)
+        val generic = GenericBuilding((Random.nextInt(gridSize), Random.nextInt(gridSize)), 0.5, 10)
         val hospital = Hospital(
-          (Random.nextLong(gridSize), Random.nextLong(gridSize)),
+          (Random.nextInt(gridSize), Random.nextInt(gridSize)),
           0.5,
           10,
           treatmentQuality = TreatmentQuality.GOOD
@@ -97,7 +97,7 @@ object EngineModule:
             i,
             ageDistribution.next(),
             houses(i % peoplePerHouse),
-            position = Point2D(Random.nextLong(gridSize), Random.nextLong(gridSize))
+            position = Point2D(Random.nextInt(gridSize), Random.nextInt(gridSize))
           )
         yield entity
         object prova extends EnvironmentModule.Interface:

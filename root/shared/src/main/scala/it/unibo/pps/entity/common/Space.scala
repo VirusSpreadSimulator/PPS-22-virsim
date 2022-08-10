@@ -11,11 +11,11 @@ object Space:
     * @param y
     *   the Y coordinate
     */
-  case class Point2D(x: Long, y: Long)
+  case class Point2D(x: Int, y: Int)
 
   object Point2D:
-    given Conversion[(Long, Long), Point2D] with
-      def apply(p: (Long, Long)): Point2D = Point2D(p._1, p._2)
+    given Conversion[(Int, Int), Point2D] with
+      def apply(p: (Int, Int)): Point2D = Point2D(p._1, p._2)
 
   extension (p: Point2D)
     /** General method to combine two [[Point2D]]
@@ -24,7 +24,7 @@ object Space:
       * @param f
       *   the function applied to both the coordinate of the point
       */
-    def combine(other: Point2D)(f: (Long, Long) => Long): Point2D = Point2D(f(p.x, other.x), f(p.y, other.y))
+    def combine(other: Point2D)(f: (Int, Int) => Int): Point2D = Point2D(f(p.x, other.x), f(p.y, other.y))
     /** Plus operator
       *
       * @param other
