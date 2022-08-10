@@ -8,7 +8,7 @@ import org.scalatest.matchers.should.Matchers
 
 class SpaceTests extends AnyFunSuite with Matchers:
   private val p1 = Point2D(10, 20)
-  private val p2 = (5L, 4L)
+  private val p2 = (5, 4)
   private val tolerance = 1e-6
 
   test("The combine operator works on both the coordinates") {

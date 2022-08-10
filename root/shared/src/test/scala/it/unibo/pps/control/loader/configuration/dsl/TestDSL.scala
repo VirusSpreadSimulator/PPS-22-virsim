@@ -22,8 +22,8 @@ class TestDSL extends AnyFunSuite with Matchers:
   }
 
   test("Structures should be configurable via DSL") {
-    "structures are GenericBuilding(infectionProbability = 20, capacity = 30, position = (10L, 10L)) " +
-      "and GenericBuilding(infectionProbability = 20, capacity = 30, position = (10L, 10L))" should compile
+    "structures are GenericBuilding(infectionProbability = 20, capacity = 30, position = (10, 10)) " +
+      "and GenericBuilding(infectionProbability = 20, capacity = 30, position = (10, 10))" should compile
 
   }
 
@@ -31,6 +31,6 @@ class TestDSL extends AnyFunSuite with Matchers:
     "VirsimConfiguration(" +
       "simulation gridSide 50 days 7 entities 200 averagePopulationAge 40 stdDevPopulationAge 0.5 peoplePerHouse 4 startingInfectedPercentage 10, " +
       "virus spreadRate 1.5 averagePositivityDays 7 severeDeseaseProbability 15, " +
-      "structures are GenericBuilding(position = (10L, 10L), infectionProbability = 20, capacity = 30) and " +
-      "GenericBuilding(position = (20L, 20L), infectionProbability = 25, capacity = 40))" should compile
+      "structures are GenericBuilding(position = (10, 10), infectionProbability = 20, capacity = 30) and " +
+      "GenericBuilding(position = (20, 20), infectionProbability = 25, capacity = 40))" should compile
   }
