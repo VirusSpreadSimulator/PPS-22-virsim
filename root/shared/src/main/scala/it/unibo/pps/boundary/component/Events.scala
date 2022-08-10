@@ -8,6 +8,11 @@ object Events:
     case Pause
     /** The user signal the intent to stop the simulation */
     case Stop
+    /** The user signal the intent to change the speed of the simulation
+      * @param speed
+      *   the selected speed
+      */
+    case ChangeSpeed(speed: Params.Speed)
     /** The user signal the intent to switch the obligation of the mask */
     case SwitchMaskObligation
     /** The user signal the intent to do a vaccine round.
@@ -20,3 +25,7 @@ object Events:
       *   the group to open/close
       */
     case SwitchStructure(group: String)
+
+  object Params:
+    enum Speed:
+      case SLOW, NORMAL, FAST
