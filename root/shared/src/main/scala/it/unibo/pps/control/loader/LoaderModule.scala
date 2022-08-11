@@ -6,27 +6,28 @@ import it.unibo.pps.control.loader.configuration.ConfigurationComponent.{
   ConfigurationResult,
   VirsimConfiguration
 }
-import it.unibo.pps.control.loader.configuration.dsl.SimulationDSL.simulation
-import it.unibo.pps.control.loader.configuration.dsl.VirusDSL.virus
-import it.unibo.pps.control.loader.configuration.dsl.StructuresDSL.structures
-import it.unibo.pps.entity.common.GaussianProperty
 import it.unibo.pps.entity.entity.EntityComponent.Entity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.environment.EnvironmentModule
 import it.unibo.pps.entity.structure.StructureComponent.Structure
 import it.unibo.pps.entity.virus.VirusComponent
 import it.unibo.pps.entity.entity.Entities.*
-import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
 import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.given
 import it.unibo.pps.entity.structure.Structures.House
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.StructuresDefault
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.VirusDefaults
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.MAX_VALUES
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.MIN_VALUES
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError.*
 import it.unibo.pps.control.loader.configuration.ConfigurationParser
+import it.unibo.pps.entity.entity.{EntityFactory, Infection}
+import it.unibo.pps.entity.entity.Infection
+
+import scala.util.Random
 import monocle.syntax.all.*
 import monix.eval.Task
 
@@ -48,7 +49,7 @@ object LoaderModule:
       * @return
       *   the initialized environment.
       */
-    def createEnvironment(configuration: Configuration): Environment
+    def createEnvironment(configuration: Configuration)(using entityFactory: EntityFactory): Task[Environment]
 
     /** After parsing the configuration file and initializing the environment it starts the simulation engine.
       * @return
@@ -65,11 +66,9 @@ object LoaderModule:
 
     class LoaderImpl extends Loader:
 
-      override def parseConfiguration(configurationFile: String)(using
-          parser: ConfigurationParser
-      ): Task[ConfigurationResult] =
+      override def parseConfiguration(filePath: String)(using parser: ConfigurationParser): Task[ConfigurationResult] =
         for
-          program <- parser.readFile(configurationFile)
+          program <- parser.readFile(filePath)
           configuration <- parser.reflectConfiguration(program)
           parsingResult <- configuration match
             case None =>
@@ -81,32 +80,16 @@ object LoaderModule:
             case Some(configuration: Configuration) => parser.checkErrors(configuration)
         yield parsingResult
 
-      override def createEnvironment(configuration: Configuration): Environment =
-        // multiply grid side x3
-        val entities: Set[SimulationEntity] = Set()
-        val houses: Set[House] = Set()
-        (configuration.simulation.numberOfEntities / configuration.simulation.peoplePerHouse)
+      override def createEnvironment(configuration: Configuration)(using factory: EntityFactory): Task[Environment] =
         for
-          i <- 0 until configuration.simulation.numberOfEntities
-          entity = BaseEntity(
-            i,
-            GaussianIntDistribution(
-              configuration.simulation.averagePopulationAge,
-              configuration.simulation.stdDevPopulationAge
-            ).next(),
-            House(
-              position = Point2D(1, 1),
-              infectionProbability = 10,
-              capacity = configuration.simulation.peoplePerHouse
-            ),
-            position = Point2D(1, 1)
-          )
-        yield entities + entity
-        context.env.initialized(configuration.simulation.gridSide, entities, virus, structures)
+          entities <- factory.create(configuration)
+          virus = configuration.virusConfiguration
+          structures = configuration.structuresConfiguration
+        yield context.env.initialized(configuration.simulation.gridSide, entities, virus, structures)
 
       override def startEngine(configuration: Configuration): Task[Unit] =
         for
-          initializedEnvironment <- Task(createEnvironment(configuration))
+          initializedEnvironment <- createEnvironment(configuration)
           _ <- Task(context.engine.init(configuration.simulation.duration))
           _ <- context.engine.startSimulationLoop(initializedEnvironment)
         yield ()
