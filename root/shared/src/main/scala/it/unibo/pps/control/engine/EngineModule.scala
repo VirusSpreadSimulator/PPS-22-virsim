@@ -108,8 +108,7 @@ object EngineModule:
       private def debugEvents(events: Seq[Event]): Task[Unit] = events match
         case event +: t =>
           Task {
-            println(event)
-            debugEvents(t)
+            println("Event processed: " + events.foldLeft("")(_ + ", " + _))
           }
         case _ => Task.pure {}
 //      // todo: need to do a process of re-engineering in handling of events and update logic (considering the model).
