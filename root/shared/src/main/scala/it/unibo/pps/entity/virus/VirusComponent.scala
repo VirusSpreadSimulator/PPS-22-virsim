@@ -24,6 +24,12 @@ object VirusComponent:
       */
     def averagePositivityDays: Int
 
+    /** The Standard Deviation of positivity days.
+      * @return
+      *   the Standard Deviation of positivity days.
+      */
+    def stdDevPositivityDays: Double
+
     /** The ability of the virus to cause health damages.
       * @return
       *   the desease probability of the virus.
@@ -34,5 +40,6 @@ object VirusComponent:
       override val name: String = VirusDefaults.NAME,
       override val spreadRate: Double = VirusDefaults.SPREAD_RATE,
       override val averagePositivityDays: Int = VirusDefaults.AVERAGE_POSITIVITY_DAYS,
+      override val stdDevPositivityDays: Double = VirusDefaults.STD_DEV_POSITIVITY_DAYS,
       override val severeDeseaseProbability: Int = VirusDefaults.SEVERE_DESEASE_PROBABILITY
   ) extends VirusConfiguration
