@@ -47,7 +47,7 @@ object EntityFactory:
             Random.nextInt(configuration.simulation.gridSide)
           )
           infected =
-            if i % configuration.simulation.peoplePerHouse == 0 then
+            if i % configuration.simulation.startingInfectedPercentage == 0 then
               Some(
                 Infection(
                   configuration.virusConfiguration.severeDeseaseProbability,
