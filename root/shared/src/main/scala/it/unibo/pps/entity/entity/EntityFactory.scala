@@ -6,6 +6,11 @@ import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
 import it.unibo.pps.entity.structure.Structures.House
 import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
+import it.unibo.pps.entity.common.ProblableEvents.*
+import it.unibo.pps.entity.common.ProblableEvents.ProbabilityResult.*
+import it.unibo.pps.entity.common.ProblableEvents.ProbableOps.*
+import it.unibo.pps.entity.common.ProblableEvents.ProbableGivenInstance.given
+import it.unibo.pps.entity.entity.Infection.*
 import monix.eval.Task
 
 import scala.util.Random
@@ -50,7 +55,10 @@ object EntityFactory:
             if i % configuration.simulation.startingInfectedPercentage == 0 then
               Some(
                 Infection(
-                  configuration.virusConfiguration.severeDeseaseProbability,
+                  configuration.virusConfiguration.severeDeseaseProbability.isHappening match
+                    case HAPPENED => Severity.SERIOUS()
+                    case NOTHAPPENED => Severity.LIGHT()
+                  ,
                   GaussianIntDistribution(
                     configuration.virusConfiguration.averagePositivityDays,
                     configuration.virusConfiguration.stdDevPositivityDays
