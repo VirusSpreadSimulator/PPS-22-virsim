@@ -34,12 +34,12 @@ object VirusComponent:
       * @return
       *   the desease probability of the virus.
       */
-    def severeDeseaseProbability: Int
+    def severeDeseaseProbability: Double
 
   case class Virus(
       override val name: String = VirusDefaults.NAME,
       override val spreadRate: Double = VirusDefaults.SPREAD_RATE,
       override val averagePositivityDays: Int = VirusDefaults.AVERAGE_POSITIVITY_DAYS,
       override val stdDevPositivityDays: Double = VirusDefaults.STD_DEV_POSITIVITY_DAYS,
-      override val severeDeseaseProbability: Int = VirusDefaults.SEVERE_DESEASE_PROBABILITY
+      override val severeDeseaseProbability: Double = VirusDefaults.SEVERE_DESEASE_PROBABILITY
   ) extends VirusConfiguration

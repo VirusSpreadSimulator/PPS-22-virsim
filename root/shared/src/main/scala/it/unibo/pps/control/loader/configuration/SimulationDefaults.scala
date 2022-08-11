@@ -23,7 +23,7 @@ object SimulationDefaults:
     val SPREAD_RATE: Double = 1.5
     val AVERAGE_POSITIVITY_DAYS: Int = 7
     val STD_DEV_POSITIVITY_DAYS: Double = 3
-    val SEVERE_DESEASE_PROBABILITY: Int = 25
+    val SEVERE_DESEASE_PROBABILITY: Double = 0.75
 
   object StructuresDefault:
     val HOUSE_INFECTION_PROB: Double = 0.5
