@@ -58,20 +58,20 @@ object Drawables:
 
     private def drawRemainedCapacity(g: Graphics2D, structure: SimulationStructure, scale: Int): Unit =
       val message = s"${structure.capacity - structure.entities.size}"
-      val font = Font(Font.SANS_SERIF, Font.PLAIN, 10)
+      val font = Font(Font.SANS_SERIF, Font.BOLD, 10)
       val scaleFont = AffineTransform()
       val fontMetrics = g.getFontMetrics(font)
       val scaleF = Math.min(
-        scale.toDouble / (fontMetrics.getMaxAscent + fontMetrics.getMaxDescent),
-        scale.toDouble / fontMetrics.stringWidth(message)
+        scale.toDouble * 2 / (fontMetrics.getMaxAscent + fontMetrics.getMaxDescent),
+        scale.toDouble * 2 / fontMetrics.stringWidth(message)
       )
       scaleFont.scale(scaleF, scaleF)
       g.setFont(font.deriveFont(scaleFont))
-      g.setColor(Color.WHITE)
+      g.setColor(SimulationColor.STRUCTURE_CAPACITY_COLOR)
       g.drawString(
         message,
         scaleToView(structure.position.x, scale),
-        scaleToView(structure.position.y + 1, scale)
+        scaleToView(structure.position.y, scale)
       )
 
     private def drawStructureVisibility(g: Graphics2D, structure: SimulationStructure with Visible, scale: Int): Unit =
