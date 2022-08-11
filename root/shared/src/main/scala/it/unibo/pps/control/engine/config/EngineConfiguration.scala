@@ -1,5 +1,7 @@
 package it.unibo.pps.control.engine.config
 
+import it.unibo.pps.boundary.component.Events.Event
+import it.unibo.pps.control.engine.behaviouralLogics.Logic.{EventLogic, UpdateLogic}
 import it.unibo.pps.control.engine.config.Configurations.EngineSpeed
 import monix.execution.Scheduler
 
@@ -25,8 +27,26 @@ object EngineConfiguration:
       *   the [[EngineSpeed]]
       */
     def engineSpeed_=(speed: EngineSpeed): Unit
+    /** The sequence of all the logics that need to be executed every iteration
+      * @return
+      *   the list of logics
+      */
+    def logics: Seq[UpdateLogic]
+    /** It returns a function that for each event returns the specific logic that is able to handle it.
+      * @return
+      *   the function that for an event returns the associated logic
+      */
+    def eventLogics: Event => EventLogic
 
   given Scheduler = monix.execution.Scheduler.global
   given SimulationConfig with
-    override val maxEventPerIteration = 3
-    override var engineSpeed = EngineSpeed.NORMAL
+    override val maxEventPerIteration: Int = 3
+    override var engineSpeed: EngineSpeed = EngineSpeed.NORMAL
+    override val logics: Seq[UpdateLogic] = Seq(UpdateLogic.identity, UpdateLogic.identity, UpdateLogic.identity)
+    override val eventLogics: Event => EventLogic = _ match
+      case Event.Pause => EventLogic.identity
+      case Event.Stop => EventLogic.identity
+      case Event.ChangeSpeed(_) => EventLogic.identity
+      case Event.SwitchMaskObligation => EventLogic.identity
+      case Event.VaccineRound(_) => EventLogic.identity
+      case Event.SwitchStructure(_) => EventLogic.identity

@@ -42,7 +42,6 @@ object EngineModule:
             .mapEval(event => eventQueue.offer(event))
             .foreachL { _ => }
           simulationTask <- Task.parMap2(sinkEvent, simulationLoop(eventQueue, environment)) { (_, _) => }
-        //_ <- Task(context.boundaries.main.startSimulation(gridSide))
         yield simulationTask
 
       private def simulationLoop(queue: ConcurrentQueue[Task, Event], environment: Environment): Task[Unit] =
@@ -50,34 +49,26 @@ object EngineModule:
           events <- queue.drain(0, simulationConfiguration.maxEventPerIteration)
           timeTarget = simulationConfiguration.engineSpeed.tickTime
           prevTime <- timeNow(timeTarget.unit)
-//          currentState <- getCurrentState()
-//          newState <- handleEvents(currentState, events.toList)
-//          _ <- updateEnv(newState)
           _ <- debugEvents(events)
-          _ <- renderBoundaries(environment)
+          envAfterEvents <- handleEvents(events, environment)
+          updatedEnv <- performLogics(envAfterEvents)
+          _ <- renderBoundaries(updatedEnv)
           newTime <- timeNow(timeTarget.unit)
           timeDiff = FiniteDuration(newTime - prevTime, timeTarget.unit)
           _ <- waitNextTick(timeDiff, timeTarget)
           _ <- simulationLoop(queue, environment)
         yield ()
 
-      private def debugEvents(events: Seq[Event]): Task[Unit] = events match
-        case event +: t =>
-          Task {
-            println(events.foldLeft("Event processed:")(_ + " " + _))
-          }
-        case _ => Task.pure {}
-//      // todo: need to do a process of re-engineering in handling of events and update logic (considering the model).
-//      private def handleEvents(state: State, events: Seq[Event]): Task[State] = events match
-//        case event :: t => handleEvents(handleLogic(state, event), t)
-//        case _ =>
-//          computeNewState(state) // At the end (we are sure that the tick time passed in the loop thanks to the wait)
+      private def performLogics(environment: Environment): Task[Environment] =
+        simulationConfiguration.logics.foldLeft(Task(environment))((t, logic) => t.flatMap(env => logic.execute(env)))
 
-//      private def getCurrentState(): Task[State] =
-//        Task.eval(context.env.getState())
-//
-//      private def updateEnv(state: State): Task[Unit] =
-//        Task.eval(context.env.updateState(state))
+      private def handleEvents(events: Seq[Event], environment: Environment): Task[Environment] =
+        events
+          .map(event => simulationConfiguration.eventLogics(event))
+          .foldLeft(Task(environment))((t, logic) => t.flatMap(env => logic.handle(env)))
+
+      private def debugEvents(events: Seq[Event]): Task[Unit] =
+        if events.nonEmpty then Task(println(events.foldLeft("Event processed:")(_ + " " + _))) else Task.pure {}
 
       private def renderBoundaries(env: Environment): Task[Seq[Unit]] =
         Task.sequence(context.boundaries.map(_.consume(env)))
@@ -87,14 +78,6 @@ object EngineModule:
       private def waitNextTick(timeDiff: FiniteDuration, timeTarget: FiniteDuration): Task[Unit] = timeDiff match
         case n if n > timeTarget => Task.pure {}
         case _ => Task.sleep(timeTarget - timeDiff)
-
-      // Simulation Logic
-      private def handleLogic(state: State, event: Event): State = event match
-        case Hit(n) => println("HIT"); State(0)
-
-//      private def computeNewState(state: State): State = state match
-//        case State(number) if number < max => State(number + 1)
-//        case _ => State(0)
 
     object EngineImpl:
       given Conversion[State, Task[State]] = Task(_)
