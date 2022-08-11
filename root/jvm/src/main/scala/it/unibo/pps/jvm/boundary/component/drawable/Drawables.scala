@@ -1,6 +1,6 @@
-package it.unibo.pps.jvm.boundary.component
+package it.unibo.pps.jvm.boundary.component.drawable
 
-import it.unibo.pps.boundary.component.Drawable
+import it.unibo.pps.boundary.component.drawable.Drawable
 import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.StructureComponent.Visible
@@ -8,7 +8,7 @@ import it.unibo.pps.entity.structure.Structures.{GenericBuilding, Hospital, Hous
 import it.unibo.pps.jvm.boundary.Values.SimulationColor
 
 import java.awt.geom.AffineTransform
-import java.awt.{Color, Font, Graphics2D}
+import java.awt.{Color, Font}
 import scala.swing.Graphics2D
 
 /** Define given instances for drawable types */
@@ -17,7 +17,7 @@ object Drawables:
 
   /** Extend [[Environment]] with draw capabilities */
   given Drawable[Environment] with
-    import it.unibo.pps.boundary.component.DrawableOps.*
+    import it.unibo.pps.boundary.component.drawable.DrawableOps.*
     extension (env: Environment)
       def draw(g: Graphics2D, scale: Int): Unit =
         env.structures.drawAll(g, scale)

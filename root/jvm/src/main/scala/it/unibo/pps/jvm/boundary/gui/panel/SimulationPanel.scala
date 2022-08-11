@@ -26,7 +26,7 @@ class SimulationPanel() extends UpdateblePanel:
       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
       g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)
 
-      import it.unibo.pps.jvm.boundary.component.Drawables.given
+      import it.unibo.pps.jvm.boundary.component.drawable.Drawables.given
       environment.draw(g2, scale)
 
   override def init(): Task[Unit] = io(setOpaque(true))

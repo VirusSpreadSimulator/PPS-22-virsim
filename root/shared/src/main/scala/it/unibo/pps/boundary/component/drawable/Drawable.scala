@@ -1,4 +1,4 @@
-package it.unibo.pps.boundary.component
+package it.unibo.pps.boundary.component.drawable
 
 import scala.swing.Graphics2D
 
