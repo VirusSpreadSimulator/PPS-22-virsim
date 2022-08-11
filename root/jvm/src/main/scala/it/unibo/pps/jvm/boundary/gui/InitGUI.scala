@@ -123,11 +123,13 @@ object InitGUI:
         mainP <- mainPanel
         _ <- io(frame.setContentPane(mainP))
         _ <- io(frame.setVisible(true))
+        _ <- Task.shift
       yield ()
 
     override def config(): Task[Path] = Task.defer(fileChosen.consumeWith(Consumer.head))
 
     override def error(errors: Seq[ConfigurationError]): Task[Unit] = for
+      _ <- Task.pure {}.asyncBoundary(Utils.swingScheduler)
       errorMessage <- io(
         errors
           .map(err =>
@@ -138,6 +140,7 @@ object InitGUI:
           .reduce(_ + "\n" + _)
       )
       _ <- io(JOptionPane.showMessageDialog(frame, errorMessage, Text.CONFIG_ERROR_TITLE, JOptionPane.ERROR_MESSAGE))
+      _ <- Task.shift
     yield ()
 
     override def start(simulation: SimulationGUI): Task[Unit] =

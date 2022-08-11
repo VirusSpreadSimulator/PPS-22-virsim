@@ -55,7 +55,7 @@ object EngineModule:
 //          _ <- updateEnv(newState)
           _ <- debugEvents(events)
           env = createTestEnv()
-          _ <- renderBoundaries(env).asyncBoundary // Render and return to default scheduler with asyncBoundary
+          _ <- renderBoundaries(env)
           newTime <- timeNow(timeTarget.unit)
           timeDiff = FiniteDuration(newTime - prevTime, timeTarget.unit)
           _ <- waitNextTick(timeDiff, timeTarget)

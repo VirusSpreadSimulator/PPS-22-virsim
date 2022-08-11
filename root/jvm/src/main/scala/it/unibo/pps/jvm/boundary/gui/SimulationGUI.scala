@@ -126,6 +126,7 @@ object SimulationGUI:
         _ <- io(frame.add(mainP))
         _ <- io(frame.pack())
         _ <- io(frame.setVisible(true))
+        _ <- Task.shift
       yield ()
 
     override def render(env: Environment): Task[Unit] =
@@ -135,6 +136,7 @@ object SimulationGUI:
         _ <- chartPanel.update(env)
         _ <- dynamicActionsLogPanel.update(env)
         _ <- statsPanel.update(env)
+        _ <- Task.shift
       yield ()
 
     override def events(): Observable[Event] =
