@@ -18,5 +18,8 @@ object VirusDSL:
     def averagePositivityDays(days: Int): Virus =
       virus.focus(_.averagePositivityDays).replace(days)
 
+    def stdDevPositivityDays(stdDev: Double): Virus =
+      virus.focus(_.stdDevPositivityDays).replace(stdDev)
+
     def severeDeseaseProbability(probability: Int): Virus =
       virus.focus(_.severeDeseaseProbability).replace(probability)
