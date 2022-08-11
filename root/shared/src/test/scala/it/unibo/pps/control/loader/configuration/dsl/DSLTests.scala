@@ -11,7 +11,7 @@ import it.unibo.pps.entity.virus.VirusComponent.Virus
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class TestDSL extends AnyFunSuite with Matchers:
+class DSLTests extends AnyFunSuite with Matchers:
 
   test("Simulation should be configurable via DSL") {
     "simulation gridSide 50 days 7 entities 200 averagePopulationAge 40 stdDevPopulationAge 0.5 peoplePerHouse 4 startingInfectedPercentage 10" should compile
