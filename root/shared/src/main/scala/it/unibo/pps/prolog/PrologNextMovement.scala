@@ -77,10 +77,10 @@ object PrologNextMovement:
       worldWidth: Int,
       worldHeight: Int,
       step: Int,
-      homePosition: Point2D
+      homePos: Point2D
   ): Set[Point2D] =
     val currentPosition = s"point(${currPosition._1}, ${currPosition._2})"
-    val homePosition = s"home(${homePosition._1}, ${homePosition._2})"
+    val homePosition = s"home(${homePos._1}, ${homePos._2})"
     val input = Struct(
       "goHome",
       Term.createTerm(currentPosition),
