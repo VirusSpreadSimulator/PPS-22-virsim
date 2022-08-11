@@ -1,6 +1,6 @@
 package it.unibo.pps.boundary.component.drawable
 
-import scala.swing.Graphics2D
+import java.awt.Graphics2D
 
 /** Type class for extending a type with draw capabilities
   * @tparam A
