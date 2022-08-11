@@ -8,4 +8,4 @@ import scala.concurrent.ExecutionContext
 
 object ViewUtils:
   // A facade on Task with a terminology more related to UI.
-  def io[A](computation: A): Task[A] = Task(computation)
+  def io[A](computation: => A): Task[A] = Task(computation)

@@ -86,7 +86,9 @@ object SimulationGUI:
     private lazy val topPanel: Task[JSplitPane] =
       for
         _ <- io(simulationPanel.setMinimumSize(Dimension.SIMULATION_PANEL_MIN_DIMENSION))
+        _ <- io(simulationPanel.init())
         _ <- io(chartPanel.setMinimumSize(Dimension.CHART_PANEL_MIN_DIMENSION))
+        _ <- io(chartPanel.init())
         split <- io(JSplitPane(JSplitPane.HORIZONTAL_SPLIT, simulationPanel, chartPanel))
         _ <- io(split.setResizeWeight(1))
         _ <- io(split.setOneTouchExpandable(true))
@@ -124,6 +126,7 @@ object SimulationGUI:
         _ <- io(frame.add(mainP))
         _ <- io(frame.pack())
         _ <- io(frame.setVisible(true))
+        _ <- Task.shift
       yield ()
 
     override def render(env: Environment): Task[Unit] =
@@ -133,6 +136,7 @@ object SimulationGUI:
         _ <- chartPanel.update(env)
         _ <- dynamicActionsLogPanel.update(env)
         _ <- statsPanel.update(env)
+        _ <- Task.shift
       yield ()
 
     override def events(): Observable[Event] =

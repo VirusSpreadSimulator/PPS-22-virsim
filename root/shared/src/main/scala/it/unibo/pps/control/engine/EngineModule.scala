@@ -55,7 +55,7 @@ object EngineModule:
 //          _ <- updateEnv(newState)
           _ <- debugEvents(events)
           env = createTestEnv()
-          _ <- renderBoundaries(env).asyncBoundary // Render and return to default scheduler with asyncBoundary
+          _ <- renderBoundaries(env)
           newTime <- timeNow(timeTarget.unit)
           timeDiff = FiniteDuration(newTime - prevTime, timeTarget.unit)
           _ <- waitNextTick(timeDiff, timeTarget)
@@ -83,10 +83,10 @@ object EngineModule:
         // Houses
         val houses =
           for i <- 0 until nEntities / peoplePerHouse
-          yield House((Random.nextInt(gridSize), Random.nextInt(gridSize)), 0.5, peoplePerHouse)
-        val generic = GenericBuilding((Random.nextInt(gridSize), Random.nextInt(gridSize)), 0.5, 10)
+          yield House((Random.nextInt(gridSize), gridSize - 1), 0.5, peoplePerHouse)
+        val generics = List(GenericBuilding((10, 15), 0.5, 10), GenericBuilding((20, 4), 0.5, 10, isOpen = false))
         val hospital = Hospital(
-          (Random.nextInt(gridSize), Random.nextInt(gridSize)),
+          (25, 7),
           0.5,
           10,
           treatmentQuality = TreatmentQuality.GOOD
@@ -95,20 +95,20 @@ object EngineModule:
           i <- 0 until 15
           entity = BaseEntity(
             i,
-            ageDistribution.next(),
+            Math.max(ageDistribution.next(), 1),
             houses(i % peoplePerHouse),
-            position = Point2D(Random.nextInt(gridSize), Random.nextInt(gridSize))
+            position = Point2D(Random.nextInt(gridSize), Random.nextInt(gridSize)),
+            immunity = if Random.nextBoolean() then 10 else 0
           )
         yield entity
         object prova extends EnvironmentModule.Interface:
           override val env = Environment.empty
-        prova.env.initialized(gridSize, entities.toSet, Virus(), (generic +: hospital +: houses).toSet)
+        prova.env.initialized(gridSize, entities.toSet, Virus(), (generics ++: hospital +: houses).toSet)
 
       private def debugEvents(events: Seq[Event]): Task[Unit] = events match
         case event +: t =>
           Task {
-            println(event)
-            debugEvents(t)
+            println("Event processed: " + events.foldLeft("")(_ + ", " + _))
           }
         case _ => Task.pure {}
 //      // todo: need to do a process of re-engineering in handling of events and update logic (considering the model).
