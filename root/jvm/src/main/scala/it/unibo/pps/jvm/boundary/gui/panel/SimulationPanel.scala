@@ -5,7 +5,6 @@ import it.unibo.pps.jvm.boundary.gui.panel.Panels.UpdateblePanel
 import java.awt.geom.AffineTransform
 import javax.swing.JPanel
 import java.awt.{Color, Dimension, Font, Graphics, Graphics2D, RenderingHints}
-import scala.util.Random
 import it.unibo.pps.boundary.ViewUtils.io
 import it.unibo.pps.entity.entity.Entities.BaseEntity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
