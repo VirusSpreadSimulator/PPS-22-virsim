@@ -61,9 +61,9 @@ object ConfigurationParser:
       catch case ex: Exception => Task(None)
 
     override def checkErrors(configuration: Configuration): Task[ConfigurationResult] =
-      val errors: List[ConfigurationError] = List() :::
+      val errors: List[ConfigurationError] =
         (configuration.simulation.gridSide shouldBeWithin (MIN_VALUES.MIN_GRID_SIZE, MAX_VALUES.MAX_GRID_SIZE) andIfNot "Error: invalid parameter gridSide!") :::
-        (configuration.simulation.numberOfEntities shouldBeWithin (MIN_VALUES.MIN_NUMBER_OF_ENTITIES, MAX_VALUES.MAX_NUMBER_OF_ENTITIES) andIfNot "Error: invalid parameter numberOfEntities!")
+          (configuration.simulation.numberOfEntities shouldBeWithin (MIN_VALUES.MIN_NUMBER_OF_ENTITIES, MAX_VALUES.MAX_NUMBER_OF_ENTITIES) andIfNot "Error: invalid parameter numberOfEntities!")
       errors.size match
         case 0 => Task(ConfigurationResult.OK(configuration))
         case _ => Task(ConfigurationResult.ERROR(errors))
