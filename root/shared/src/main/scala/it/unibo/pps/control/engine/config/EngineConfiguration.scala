@@ -47,7 +47,7 @@ object EngineConfiguration:
       case Event.Pause => EventLogic.pauseLogic
       case Event.Resume => EventLogic.resumeLogic
       case Event.Stop => EventLogic.stopLogic
-      case Event.ChangeSpeed(_) => EventLogic.identity
+      case Event.ChangeSpeed(speed) => EventLogic.simulationSpeedLogic(this, EngineSpeed.fromEvent(speed))
       case Event.SwitchMaskObligation => EventLogic.identity
       case Event.VaccineRound(_) => EventLogic.identity
       case Event.SwitchStructure(_) => EventLogic.identity

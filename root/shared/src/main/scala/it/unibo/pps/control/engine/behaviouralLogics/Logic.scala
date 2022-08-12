@@ -1,6 +1,8 @@
 package it.unibo.pps.control.engine.behaviouralLogics
 
 import it.unibo.pps.boundary.component.Events.Event
+import it.unibo.pps.control.engine.config.Configurations.EngineSpeed
+import it.unibo.pps.control.engine.config.EngineConfiguration.SimulationConfig
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import monix.eval.Task
 import monocle.syntax.all.*
@@ -31,3 +33,6 @@ object Logic:
     def pauseLogic: EventLogic = env => Task(env.update(status = EnvironmentStatus.PAUSED))
     def resumeLogic: EventLogic = env => Task(env.update(status = EnvironmentStatus.EVOLVING))
     def stopLogic: EventLogic = env => Task(env.update(status = EnvironmentStatus.STOPPED))
+    def simulationSpeedLogic(config: SimulationConfig, engineSpeed: EngineSpeed): EventLogic = env =>
+      for _ <- Task(config.engineSpeed = engineSpeed)
+      yield env
