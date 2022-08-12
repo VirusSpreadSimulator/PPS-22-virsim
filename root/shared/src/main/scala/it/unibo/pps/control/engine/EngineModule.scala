@@ -2,11 +2,10 @@ package it.unibo.pps.control.engine
 
 import it.unibo.pps.boundary.BoundaryModule
 import it.unibo.pps.boundary.component.Events.Event
-import it.unibo.pps.boundary.component.Events.Event.Hit
 import it.unibo.pps.control.engine.config.EngineConfiguration.SimulationConfig
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
-import it.unibo.pps.entity.State
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
+import it.unibo.pps.entity.environment.EnvironmentStatus
 import monix.catnap.ConcurrentQueue
 import monix.eval.Task
 import monix.reactive.Observable
@@ -23,7 +22,6 @@ object EngineModule:
   trait Component:
     context: Requirements =>
     class EngineImpl(using simulationConfiguration: SimulationConfig) extends Engine:
-      import EngineImpl.given
 
       private var simulationDuration: Int = GlobalDefaults.DURATION
 
@@ -49,21 +47,25 @@ object EngineModule:
           events <- queue.drain(0, simulationConfiguration.maxEventPerIteration)
           timeTarget = simulationConfiguration.engineSpeed.tickTime
           prevTime <- timeNow(timeTarget.unit)
-          _ <- debugEvents(events)
+          _ <- debugEvents(events) // todo: to be deleted, only to see events
           envAfterEvents <- handleEvents(events, environment)
           updatedEnv <- performLogics(envAfterEvents)
+          _ <- Task(println(updatedEnv.time)) //todo: to be deleted, only to see the progress
           _ <- renderBoundaries(updatedEnv)
           newTime <- timeNow(timeTarget.unit)
           timeDiff = FiniteDuration(newTime - prevTime, timeTarget.unit)
           _ <- waitNextTick(timeDiff, timeTarget)
-          _ <- simulationLoop(queue, updatedEnv)
+          _ <- if updatedEnv.status != EnvironmentStatus.STOPPED then simulationLoop(queue, updatedEnv) else Task {}
         yield ()
 
-      private def performLogics(environment: Environment): Task[Environment] =
-        simulationConfiguration.logics.foldLeft(Task(environment))((t, logic) => t.flatMap(env => logic(env)))
+      private def performLogics(environment: Environment): Task[Environment] = environment.status match
+        case EnvironmentStatus.EVOLVING =>
+          simulationConfiguration.logics.foldLeft(Task(environment))((t, logic) => t.flatMap(env => logic(env)))
+        case _ => Task(environment)
 
       private def handleEvents(events: Seq[Event], environment: Environment): Task[Environment] =
         events
+          .filter(event => event.interested(environment.status))
           .map(event => simulationConfiguration.eventLogics(event))
           .foldLeft(Task(environment))((t, logic) => t.flatMap(env => logic(env)))
 
@@ -78,9 +80,6 @@ object EngineModule:
       private def waitNextTick(timeDiff: FiniteDuration, timeTarget: FiniteDuration): Task[Unit] = timeDiff match
         case n if n > timeTarget => Task.pure {}
         case _ => Task.sleep(timeTarget - timeDiff)
-
-    object EngineImpl:
-      given Conversion[State, Task[State]] = Task(_)
 
   trait Interface extends Provider with Component:
     self: Requirements =>

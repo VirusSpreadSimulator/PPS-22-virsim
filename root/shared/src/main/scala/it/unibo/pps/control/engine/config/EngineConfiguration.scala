@@ -46,7 +46,7 @@ object EngineConfiguration:
     override val eventLogics: Event => EventLogic = _ match
       case Event.Pause => EventLogic.pauseLogic
       case Event.Resume => EventLogic.resumeLogic
-      case Event.Stop => EventLogic.identity
+      case Event.Stop => EventLogic.stopLogic
       case Event.ChangeSpeed(_) => EventLogic.identity
       case Event.SwitchMaskObligation => EventLogic.identity
       case Event.VaccineRound(_) => EventLogic.identity
