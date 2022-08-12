@@ -2,7 +2,7 @@ package it.unibo.pps.control.engine.config
 
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.control.engine.behaviouralLogics.Logic.{EventLogic, UpdateLogic}
-import it.unibo.pps.control.engine.config.Configurations.EngineSpeed
+import it.unibo.pps.control.engine.config.Configurations.{EngineSpeed, EngineStatus}
 import monix.execution.Scheduler
 
 /** It is the module that contains the configuration of the simulation */
@@ -27,6 +27,16 @@ object EngineConfiguration:
       *   the [[EngineSpeed]]
       */
     def engineSpeed_=(speed: EngineSpeed): Unit
+    /** The current [[EngineStatus]]
+      * @return
+      *   the status
+      */
+    def engineStatus: EngineStatus
+    /** Setter to change the engine status. It is useful to pause, resume and stop the simulation
+      * @param status
+      *   the [[EngineStatus]] to set
+      */
+    def engineStatus_=(status: EngineStatus): Unit
     /** The sequence of all the logics that need to be executed every iteration
       * @return
       *   the list of logics
@@ -42,11 +52,12 @@ object EngineConfiguration:
   given SimulationConfig with
     override val maxEventPerIteration: Int = 3
     override var engineSpeed: EngineSpeed = EngineSpeed.NORMAL
+    override var engineStatus: EngineStatus = EngineStatus.RUNNING
     override val logics: Seq[UpdateLogic] = Seq(UpdateLogic.identity, UpdateLogic.identity, UpdateLogic.logicTimeUpdate)
     override val eventLogics: Event => EventLogic = _ match
-      case Event.Pause => EventLogic.pauseLogic
-      case Event.Resume => EventLogic.resumeLogic
-      case Event.Stop => EventLogic.stopLogic
+      case Event.Pause => EventLogic.pauseLogic(this)
+      case Event.Resume => EventLogic.resumeLogic(this)
+      case Event.Stop => EventLogic.stopLogic(this)
       case Event.ChangeSpeed(speed) => EventLogic.simulationSpeedLogic(this, EngineSpeed.fromEvent(speed))
       case Event.SwitchMaskObligation => EventLogic.identity
       case Event.VaccineRound(_) => EventLogic.identity

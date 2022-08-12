@@ -1,7 +1,7 @@
 package it.unibo.pps.control.engine.behaviouralLogics
 
 import it.unibo.pps.boundary.component.Events.Event
-import it.unibo.pps.control.engine.config.Configurations.EngineSpeed
+import it.unibo.pps.control.engine.config.Configurations.EngineStatus
 import it.unibo.pps.control.engine.config.EngineConfiguration.SimulationConfig
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import monix.eval.Task
@@ -27,12 +27,18 @@ object Logic:
   type EventLogic = Environment => Task[Environment]
 
   object EventLogic:
-    import it.unibo.pps.entity.environment.EnvironmentStatus
+    import it.unibo.pps.control.engine.config.Configurations.EngineSpeed
     /** Identity logic */
     def identity: EventLogic = Task(_)
-    def pauseLogic: EventLogic = env => Task(env.update(status = EnvironmentStatus.PAUSED))
-    def resumeLogic: EventLogic = env => Task(env.update(status = EnvironmentStatus.EVOLVING))
-    def stopLogic: EventLogic = env => Task(env.update(status = EnvironmentStatus.STOPPED))
+    def pauseLogic(config: SimulationConfig): EventLogic = env =>
+      for _ <- Task(config.engineStatus = EngineStatus.PAUSED)
+      yield env
+    def resumeLogic(config: SimulationConfig): EventLogic = env =>
+      for _ <- Task(config.engineStatus = EngineStatus.RUNNING)
+      yield env
+    def stopLogic(config: SimulationConfig): EventLogic = env =>
+      for _ <- Task(config.engineStatus = EngineStatus.STOPPED)
+      yield env
     def simulationSpeedLogic(config: SimulationConfig, engineSpeed: EngineSpeed): EventLogic = env =>
       for _ <- Task(config.engineSpeed = engineSpeed)
       yield env

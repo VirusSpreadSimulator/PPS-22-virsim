@@ -32,3 +32,16 @@ object Configurations:
       case Events.Params.Speed.SLOW => SLOW
       case Events.Params.Speed.NORMAL => NORMAL
       case Events.Params.Speed.FAST => FAST
+
+  /** It represent the current status of the engine of the simulation */
+  enum EngineStatus:
+    /** [[EngineStatus.RUNNING]] means that the simulation is currently running */
+    case RUNNING
+    /** [[EngineStatus.PAUSED]] means that the simulation engine is in a paused state, no event logics, no updates will
+      * be computed on it
+      */
+    case PAUSED
+    /** [[EngineStatus.STOPPED]] means that the simulation is terminated, the environment is no more evolving in a
+      * definitive way
+      */
+    case STOPPED

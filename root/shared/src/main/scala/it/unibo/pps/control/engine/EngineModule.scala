@@ -5,7 +5,7 @@ import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.control.engine.config.EngineConfiguration.SimulationConfig
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.entity.environment.EnvironmentStatus
+import it.unibo.pps.control.engine.config.Configurations.EngineStatus
 import monix.catnap.ConcurrentQueue
 import monix.eval.Task
 import monix.reactive.Observable
@@ -21,7 +21,7 @@ object EngineModule:
   type Requirements = BoundaryModule.Provider
   trait Component:
     context: Requirements =>
-    class EngineImpl(using simulationConfiguration: SimulationConfig) extends Engine:
+    class EngineImpl(using config: SimulationConfig) extends Engine:
 
       private var simulationDuration: Int = GlobalDefaults.DURATION
 
@@ -44,8 +44,8 @@ object EngineModule:
 
       private def simulationLoop(queue: ConcurrentQueue[Task, Event], environment: Environment): Task[Unit] =
         for
-          events <- queue.drain(0, simulationConfiguration.maxEventPerIteration)
-          timeTarget = simulationConfiguration.engineSpeed.tickTime
+          events <- queue.drain(0, config.maxEventPerIteration)
+          timeTarget = config.engineSpeed.tickTime
           prevTime <- timeNow(timeTarget.unit)
           _ <- debugEvents(events) // todo: to be deleted, only to see events
           envAfterEvents <- handleEvents(events, environment)
@@ -55,18 +55,18 @@ object EngineModule:
           newTime <- timeNow(timeTarget.unit)
           timeDiff = FiniteDuration(newTime - prevTime, timeTarget.unit)
           _ <- waitNextTick(timeDiff, timeTarget)
-          _ <- if updatedEnv.status != EnvironmentStatus.STOPPED then simulationLoop(queue, updatedEnv) else stop()
+          _ <- if config.engineStatus != EngineStatus.STOPPED then simulationLoop(queue, updatedEnv) else stop()
         yield ()
 
-      private def performLogics(environment: Environment): Task[Environment] = environment.status match
-        case EnvironmentStatus.EVOLVING =>
-          simulationConfiguration.logics.foldLeft(Task(environment))((t, logic) => t.flatMap(env => logic(env)))
+      private def performLogics(environment: Environment): Task[Environment] = config.engineStatus match
+        case EngineStatus.RUNNING =>
+          config.logics.foldLeft(Task(environment))((t, logic) => t.flatMap(env => logic(env)))
         case _ => Task(environment)
 
       private def handleEvents(events: Seq[Event], environment: Environment): Task[Environment] =
         events
-          .filter(event => event.interested(environment.status))
-          .map(event => simulationConfiguration.eventLogics(event))
+          .filter(event => event.interested(config.engineStatus))
+          .map(event => config.eventLogics(event))
           .foldLeft(Task(environment))((t, logic) => t.flatMap(env => logic(env)))
 
       private def debugEvents(events: Seq[Event]): Task[Unit] =

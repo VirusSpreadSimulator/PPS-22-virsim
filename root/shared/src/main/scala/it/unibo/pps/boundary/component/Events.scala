@@ -1,6 +1,6 @@
 package it.unibo.pps.boundary.component
 
-import it.unibo.pps.entity.environment.EnvironmentStatus
+import it.unibo.pps.control.engine.config.Configurations.EngineStatus
 
 object Events:
   /** Event represents all the event that can be fired by the user interface. */
@@ -29,11 +29,11 @@ object Events:
       */
     case SwitchStructure(group: String)
 
-    private def interestedStatus: Set[EnvironmentStatus] = this match
-      case Event.Resume | Event.Stop | Event.ChangeSpeed(_) => Set(EnvironmentStatus.EVOLVING, EnvironmentStatus.PAUSED)
-      case _ => Set(EnvironmentStatus.EVOLVING)
+    private def interestedStatus: Set[EngineStatus] = this match
+      case Event.Resume | Event.Stop | Event.ChangeSpeed(_) => Set(EngineStatus.RUNNING, EngineStatus.PAUSED)
+      case _ => Set(EngineStatus.RUNNING)
 
-    def interested(environmentStatus: EnvironmentStatus): Boolean = this.interestedStatus contains environmentStatus
+    def interested(engineStatus: EngineStatus): Boolean = this.interestedStatus contains engineStatus
 
   object Params:
     enum Speed:
