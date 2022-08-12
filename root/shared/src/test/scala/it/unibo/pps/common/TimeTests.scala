@@ -62,6 +62,13 @@ class TimeTests extends AnyFunSuite with Matchers:
   }
 
   test(
+    "Two timestamp should be comparable in order to understand which one is the latest, equal"
+  ) {
+    val higherTimestamp = TimeStamp(time, iterationNumber)
+    timeStamp == higherTimestamp shouldBe true
+  }
+
+  test(
     "It is possible to add a DurationTime to a timestamp to obtain an incremented timestamp, no overflow relative ticks"
   ) {
     val minutesToAdd = 10
