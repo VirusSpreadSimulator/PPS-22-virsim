@@ -60,12 +60,12 @@ object EngineModule:
         yield ()
 
       private def performLogics(environment: Environment): Task[Environment] =
-        simulationConfiguration.logics.foldLeft(Task(environment))((t, logic) => t.flatMap(env => logic.execute(env)))
+        simulationConfiguration.logics.foldLeft(Task(environment))((t, logic) => t.flatMap(env => logic(env)))
 
       private def handleEvents(events: Seq[Event], environment: Environment): Task[Environment] =
         events
           .map(event => simulationConfiguration.eventLogics(event))
-          .foldLeft(Task(environment))((t, logic) => t.flatMap(env => logic.handle(env)))
+          .foldLeft(Task(environment))((t, logic) => t.flatMap(env => logic(env)))
 
       private def debugEvents(events: Seq[Event]): Task[Unit] =
         if events.nonEmpty then Task(println(events.foldLeft("Event processed:")(_ + " " + _))) else Task.pure {}
