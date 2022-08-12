@@ -56,7 +56,7 @@ object EngineModule:
           newTime <- timeNow(timeTarget.unit)
           timeDiff = FiniteDuration(newTime - prevTime, timeTarget.unit)
           _ <- waitNextTick(timeDiff, timeTarget)
-          _ <- simulationLoop(queue, environment)
+          _ <- simulationLoop(queue, updatedEnv)
         yield ()
 
       private def performLogics(environment: Environment): Task[Environment] =
