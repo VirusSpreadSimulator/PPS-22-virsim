@@ -1,6 +1,5 @@
 package it.unibo.pps.entity.environment
 
-import it.unibo.pps.entity.State
 import it.unibo.pps.entity.entity.EntityComponent.Entity
 import it.unibo.pps.entity.structure.StructureComponent.Structure
 import it.unibo.pps.entity.virus.VirusComponent.Virus
