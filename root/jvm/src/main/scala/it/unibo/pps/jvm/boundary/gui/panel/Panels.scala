@@ -15,6 +15,7 @@ object Panels:
     */
   trait DisplayblePanel extends JPanel:
     def init(): Task[Unit]
+    def stop(): Task[Unit] = Task.pure {}
 
   /** UpdateblePanel represent a panel that can be updated during the simulation. All the operations are represented as
     * lazy monix Tasks, in order to express in a better way the computation.

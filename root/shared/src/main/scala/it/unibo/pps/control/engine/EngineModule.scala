@@ -55,7 +55,7 @@ object EngineModule:
           newTime <- timeNow(timeTarget.unit)
           timeDiff = FiniteDuration(newTime - prevTime, timeTarget.unit)
           _ <- waitNextTick(timeDiff, timeTarget)
-          _ <- if updatedEnv.status != EnvironmentStatus.STOPPED then simulationLoop(queue, updatedEnv) else Task {}
+          _ <- if updatedEnv.status != EnvironmentStatus.STOPPED then simulationLoop(queue, updatedEnv) else stop()
         yield ()
 
       private def performLogics(environment: Environment): Task[Environment] = environment.status match
@@ -74,6 +74,9 @@ object EngineModule:
 
       private def renderBoundaries(env: Environment): Task[Seq[Unit]] =
         Task.sequence(context.boundaries.map(_.consume(env)))
+
+      private def stop(): Task[Unit] =
+        Task.sequence(context.boundaries.map(_.stop())).foreachL { _ => }
 
       private def timeNow(unit: TimeUnit): Task[Long] = Task.clock.monotonic(unit)
 

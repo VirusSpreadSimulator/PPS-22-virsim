@@ -43,6 +43,12 @@ object BottomPanels:
         .fromIterable(Seq(pauseBtn, resumeBtn, stopBtn, speedComboBox))
         .mergeMap(_.events)
 
+    override def stop(): Task[Unit] =
+      Task {
+        for elem <- Seq(pauseBtn.button, resumeBtn.button, stopBtn.button, speedComboBox.combobox) do
+          elem.setEnabled(false)
+      }
+
   /** Dynamic Configuration Panel. It is the panel that contains all the possible dynamic configuration set by the user.
     */
   class DynamicConfigPanel extends DisplayblePanel with EventablePanel:
@@ -73,6 +79,9 @@ object BottomPanels:
       Observable
         .fromIterable(Seq(turnMaskOn, vaccineRound, switchStructureBtn))
         .mergeMap(_.events)
+
+    override def stop(): Task[Unit] =
+      Task(for elem <- Seq(turnMaskOn.button, switchStructureBtn.button, vaccineRound.button) do elem.setEnabled(false))
 
   /** DynamicActionsLog. It is the panel that show all the information about the dynamic configurations. */
   class DynamicActionsLog extends UpdateblePanel:

@@ -38,6 +38,7 @@ trait SimulationGUI:
   def init(): Task[Unit]
   /** Render the new state of the simulation on the user interface
     * @return
+    *   the task
     */
   def render(env: Environment): Task[Unit]
   /** Obtain the observable that emit all the events of the user interface
@@ -45,6 +46,11 @@ trait SimulationGUI:
     *   the observable
     */
   def events(): Observable[Event]
+  /** The simulation has stopped, so the gui must handle the termination
+    * @return
+    *   the task
+    */
+  def stop(): Task[Unit]
 
 object SimulationGUI:
   /** Factory to create a simulation GUI
@@ -143,3 +149,8 @@ object SimulationGUI:
       Observable
         .fromIterable(Seq(commandPanel, dynamicConfigPanel))
         .mergeMap(_.events)
+
+    override def stop(): Task[Unit] = for
+      _ <- commandPanel.stop()
+      _ <- dynamicConfigPanel.stop()
+    yield ()

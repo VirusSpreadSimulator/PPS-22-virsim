@@ -34,6 +34,12 @@ object BoundaryModule:
       *   the observable that emit events for the boundary
       */
     def events(): Observable[Event]
+    /** Simulation terminated
+      * @return
+      *   the task
+      */
+    def stop(): Task[Unit]
+
   /** ConfigBoundary is a special type of boundary dedicated to the start of the visual part of the simulator. This
     * allow to upload the configuration and start the simulation. So it's a special boundary, that is different respect
     * to the other ones.

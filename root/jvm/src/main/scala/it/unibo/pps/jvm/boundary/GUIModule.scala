@@ -22,6 +22,7 @@ object GUIModule:
       override def config(): Task[Path] = initSimulationScreen.config()
       override def error(errors: Seq[ConfigurationError]): Task[Unit] = initSimulationScreen.error(errors)
       override def start(): Task[Unit] = initSimulationScreen.start(simulationScreen)
+      override def stop(): Task[Unit] = simulationScreen.stop()
       override def consume(env: Environment): Task[Unit] = simulationScreen.render(env)
       override def events(): Observable[Event] = simulationScreen.events()
   trait Interface extends Provider with Component
