@@ -2,13 +2,13 @@ package it.unibo.pps.js.boundary
 
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.boundary.component.Events.Event.*
-import it.unibo.pps.js.boundary.component.MonadButton
 import monix.eval.Task
 import monix.execution.Cancelable
 import monix.reactive.{Observable, OverflowStrategy}
 import org.scalajs.dom
 import org.scalajs.dom.html.{Button, Image}
 import it.unibo.pps.boundary.ViewUtils.*
+import it.unibo.pps.js.boundary.component.MonadButton
 
 trait JSGUI:
   def init(): Task[Unit]
@@ -20,7 +20,7 @@ object JSGUI:
   private class JSGUIImpl(title: String) extends JSGUI:
     private lazy val renderBtns: Seq[MonadButton] =
       Seq(
-        MonadButton("Click me!", Hit(100))
+        MonadButton("Click me!", Pause)
       )
 
     override def init(): Task[Unit] =
