@@ -17,9 +17,9 @@ object Configurations:
       *   a [[FiniteDuration]] that express the tick time
       */
     def tickTime: FiniteDuration = this match
-      case SLOW => 50.millis
+      case SLOW => 200.millis
       case NORMAL => 100.millis
-      case FAST => 200.millis
+      case FAST => 50.millis
 
   object EngineSpeed:
     /** Conversion from the boundary event parameter to the actual speed concept
