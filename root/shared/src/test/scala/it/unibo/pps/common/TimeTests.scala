@@ -8,10 +8,9 @@ import org.scalatest.matchers.should.Matchers
 import scala.concurrent.duration.MINUTES
 
 class TimeTests extends AnyFunSuite with Matchers:
-  private val absoluteTime = 1540
   private val time = 100
   private val iterationNumber = 1
-  private val timeStamp = TimeStamp(absoluteTime)
+  private val timeStamp = TimeStamp(time, iterationNumber)
 
   test("It's possible to obtain length and unit from a duration") {
     val duration = DurationTime(time, MINUTES)
@@ -20,28 +19,73 @@ class TimeTests extends AnyFunSuite with Matchers:
   }
 
   test("Timestamp tick number should be convertible to its relative value respect to the iteration start") {
-    timeStamp.ticksSinceIterationStart shouldBe time
+    timeStamp.relativeTicks shouldBe time
   }
 
   test("A timestamp tick value should be convertible to minutes") {
-    timeStamp.toMinutes() shouldBe (time / TimeConfiguration.TICKS_PER_MINUTE)
-  }
-
-  test("A timestamp tick value should be convertible to absolute minutes since the start of the simulation") {
-    timeStamp.toAbsoluteMinutes() shouldBe (absoluteTime / TimeConfiguration.TICKS_PER_MINUTE)
+    timeStamp.toMinutes shouldBe (time / TimeConfiguration.TICKS_PER_MINUTE)
   }
 
   test("We can get the current iteration number from a timestamp") {
     timeStamp.iteration shouldBe iterationNumber
   }
 
-  test("Two timestamp should be comparable in order to understand which one is the latest") {
-    val lowerTimestamp = TimeStamp(absoluteTime - 1)
+  // test quando metto un valore troppo alto cosa succede
+
+  test("Two timestamp should be comparable in order to understand which one is the latest, same iteration, lower") {
+    val lowerTimestamp = TimeStamp(time - 1, iterationNumber)
     timeStamp > lowerTimestamp shouldBe true
   }
 
-  test("It possible to add a DurationTime to a timestamp in order to obtain an incremented timestamp value") {
+  test("Two timestamp should be comparable in order to understand which one is the latest, same iteration, higher") {
+    val higherTimestamp = TimeStamp(time + 1, iterationNumber)
+    timeStamp < higherTimestamp shouldBe true
+  }
+
+  test(
+    "Two timestamp should be comparable in order to understand which one is the latest, different iteration, lower"
+  ) {
+    val lowerTimestamp = TimeStamp(time, iterationNumber - 1)
+    timeStamp > lowerTimestamp shouldBe true
+  }
+
+  test(
+    "Two timestamp should be comparable in order to understand which one is the latest, different iteration, higher"
+  ) {
+    val higherTimestamp = TimeStamp(time, iterationNumber + 1)
+    timeStamp < higherTimestamp shouldBe true
+  }
+
+  test(
+    "It is possible to add a DurationTime to a timestamp to obtain an incremented timestamp, no overflow relative ticks"
+  ) {
     val minutesToAdd = 10
     val durationTime = DurationTime(minutesToAdd, MINUTES)
-    timeStamp + durationTime shouldEqual TimeStamp(absoluteTime + minutesToAdd * TimeConfiguration.TICKS_PER_MINUTE)
+    timeStamp + durationTime shouldEqual TimeStamp(
+      time + minutesToAdd * TimeConfiguration.TICKS_PER_MINUTE,
+      iterationNumber
+    )
+  }
+
+  test(
+    "It is possible to add a DurationTime to a timestamp to obtain an incremented timestamp, overflow relative ticks"
+  ) {
+    val minutesToAdd = 2000
+    val durationTime = DurationTime(minutesToAdd, MINUTES)
+    timeStamp + durationTime shouldEqual TimeStamp(
+      (time + minutesToAdd * TimeConfiguration.TICKS_PER_MINUTE) % TimeConfiguration.TICKS_PER_DAY,
+      iterationNumber + 1
+    )
+  }
+
+  test("It is possible to add a tick to a timestamp to obtain an incremented timestamp, no overflow relative ticks") {
+    val tickToAdd = 1
+    timeStamp + tickToAdd shouldEqual TimeStamp(time + tickToAdd, iterationNumber)
+  }
+
+  test("It is possible to add a tick to a timestamp to obtain an incremented timestamp, overflow relative ticks") {
+    val tickToAdd = 100
+    val iterationToAdd = 1
+    val absoluteTicks = tickToAdd + TimeConfiguration.TICKS_PER_DAY * iterationToAdd
+    timeStamp + absoluteTicks shouldEqual TimeStamp(time + tickToAdd, iterationNumber + iterationToAdd)
   }

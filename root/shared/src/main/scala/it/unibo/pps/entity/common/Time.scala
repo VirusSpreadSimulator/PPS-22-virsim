@@ -6,10 +6,10 @@ import scala.concurrent.duration.{FiniteDuration, TimeUnit}
 
 object Time:
   object TimeConfiguration:
-    val TICKS_PER_MINUTE = 1
-    val MINUTES_PER_DAY = 1440
-    val DAY_MINUTES_UPPER_BOUND = 1000
-    val TICKS_PER_DAY = MINUTES_PER_DAY * TICKS_PER_MINUTE
+    val TICKS_PER_MINUTE: Int = 1
+    val MINUTES_PER_DAY: Int = 1440
+    val DAY_MINUTES_UPPER_BOUND: Int = 1000
+    val TICKS_PER_DAY: Int = MINUTES_PER_DAY * TICKS_PER_MINUTE
 
   /** Alias for finite duration time */
   type DurationTime = FiniteDuration
@@ -25,16 +25,11 @@ object Time:
 
   /** Model the TimeStamp concept */
   trait TimeStamp extends Ordered[TimeStamp]:
-    /** Ticks since the start of the simulation.
-      * @return
-      *   the absolute ticks.
-      */
-    def absoluteTicks: Long
     /** Represent the ticks after the current iteration number.
       * @return
       *   the ticks after the current iteration number.
       */
-    def ticksSinceIterationStart: Long
+    def relativeTicks: Long
     /** Represent the current iteration number.
       * @return
       *   the iteration number.
@@ -45,24 +40,24 @@ object Time:
       * @return
       *   the minutes
       */
-    def toMinutes(): Long
-    /** Method to convert the ticks from the engine in the minutes of the virtual time.The minutes returned are respect
-      * to the current iteration
-      * @return
-      *   the absolute minutes
-      */
-    def toAbsoluteMinutes(): Long
+    def toMinutes: Long
 
   object TimeStamp:
-    def apply(absoluteTicks: Long): TimeStamp =
-      TimeStampImpl(absoluteTicks)
-    private case class TimeStampImpl(override val absoluteTicks: Long) extends TimeStamp:
-      override def ticksSinceIterationStart: Long = absoluteTicks - iteration * TimeConfiguration.TICKS_PER_DAY
-      override def iteration: Long = absoluteTicks / TimeConfiguration.TICKS_PER_DAY
-      override def toMinutes(): Long = ticksSinceIterationStart / TimeConfiguration.TICKS_PER_MINUTE
-      override def toAbsoluteMinutes(): Long = absoluteTicks / TimeConfiguration.TICKS_PER_MINUTE
-      override def compare(that: TimeStamp): Int = (this.absoluteTicks - that.absoluteTicks).toInt
+    def apply(relativeTicks: Long = 0, iteration: Long = 0): TimeStamp =
+      // Create the instance applying a correction on the values provided by the user.
+      TimeStampImpl(
+        relativeTicks % TimeConfiguration.TICKS_PER_DAY,
+        iteration + relativeTicks / TimeConfiguration.TICKS_PER_DAY
+      )
+    private case class TimeStampImpl(override val relativeTicks: Long, override val iteration: Long) extends TimeStamp:
+      override def toMinutes: Long = relativeTicks / TimeConfiguration.TICKS_PER_MINUTE
+      override def compare(that: TimeStamp): Int = iteration - that.iteration match
+        case 0 => (relativeTicks - that.relativeTicks).toInt
+        case notEqual => notEqual.toInt
 
   extension (t: TimeStamp)
     @targetName("plus")
-    def +(d: DurationTime): TimeStamp = TimeStamp(t.absoluteTicks + d.toMinutes * TimeConfiguration.TICKS_PER_MINUTE)
+    def +(d: DurationTime): TimeStamp =
+      TimeStamp(t.relativeTicks + d.toMinutes * TimeConfiguration.TICKS_PER_MINUTE, t.iteration)
+    @targetName("plus")
+    def +(ticks: Int): TimeStamp = TimeStamp(t.relativeTicks + ticks, t.iteration)
