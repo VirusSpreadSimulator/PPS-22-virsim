@@ -17,7 +17,10 @@ import javax.swing.{BoxLayout, JLabel, JPanel, JScrollPane, JTextArea, ScrollPan
 object BottomPanels:
   /** Command Panel implementation. It is the panel that contains the pause/stop commands of the simulation */
   class CommandPanel extends DisplayblePanel with EventablePanel:
-    private val pauseBtn = MonadButton(Text.PAUSE_BTN, Pause)
+    private val pauseBtn: MonadButton =
+      MonadButton(Text.PAUSE_BTN, Pause, (_, b) => { b.setEnabled(false); resumeBtn.button.setEnabled(true) })
+    private val resumeBtn: MonadButton =
+      MonadButton(Text.RESUME_BTN, Resume, (_, b) => { b.setEnabled(false); pauseBtn.button.setEnabled(true) })
     private val stopBtn = MonadButton(Text.STOP_BTN, Stop)
     private val speedComboBox = MonadCombobox(Params.Speed.values, Params.Speed.NORMAL, ChangeSpeed.apply)
 
@@ -26,17 +29,18 @@ object BottomPanels:
         _ <- io(setLayout(BoxLayout(this, BoxLayout.Y_AXIS)))
         titleLabel = JLabel(Text.COMMANDS_LABEL)
         _ <- io(titleLabel.setFont(titleLabel.getFont.deriveFont(Font.BOLD)))
-        elems = Seq(titleLabel, pauseBtn.button, stopBtn.button, speedComboBox.combobox)
+        elems = Seq(titleLabel, pauseBtn.button, resumeBtn.button, stopBtn.button, speedComboBox.combobox)
         _ <- io {
           for elem <- elems do
             add(elem)
             elem.setAlignmentX(Component.LEFT_ALIGNMENT)
         }
+        _ <- io(resumeBtn.button.setEnabled(false))
       yield ()
 
     override lazy val events: Observable[Event] =
       Observable
-        .fromIterable(Seq(pauseBtn, stopBtn, speedComboBox))
+        .fromIterable(Seq(pauseBtn, resumeBtn, stopBtn, speedComboBox))
         .mergeMap(_.events)
 
   /** Dynamic Configuration Panel. It is the panel that contains all the possible dynamic configuration set by the user.
