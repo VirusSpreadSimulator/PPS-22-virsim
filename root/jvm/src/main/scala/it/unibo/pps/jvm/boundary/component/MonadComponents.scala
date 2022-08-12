@@ -26,11 +26,21 @@ object MonadComponents:
       * @return
       *   the MonadButton
       */
-    def apply(title: String, event: Event): MonadButton =
-      MonadButtonImpl(JButton(title), event)
-    private class MonadButtonImpl(override val button: JButton, event: Event) extends MonadButton:
+    def apply(
+        title: String,
+        event: Event,
+        customLogicOnClick: (ActionEvent, JButton) => Unit = (e, b) => {}
+    ): MonadButton =
+      MonadButtonImpl(JButton(title), event, customLogicOnClick)
+    private class MonadButtonImpl(
+        override val button: JButton,
+        event: Event,
+        customLogicOnClick: (ActionEvent, JButton) => Unit
+    ) extends MonadButton:
       override lazy val events: Observable[Event] = Observable.create(OverflowStrategy.Unbounded) { out =>
-        button.addActionListener((e: ActionEvent) => out.onNext(event))
+        button.addActionListener { (e: ActionEvent) =>
+          customLogicOnClick(e, button); out.onNext(event)
+        }
         Cancelable.empty
       }
 
