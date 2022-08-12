@@ -1,5 +1,7 @@
 package it.unibo.pps.boundary.component
 
+import it.unibo.pps.entity.environment.EnvironmentStatus
+
 object Events:
   /** Event represents all the event that can be fired by the user interface. */
   enum Event:
@@ -27,6 +29,12 @@ object Events:
       *   the group to open/close
       */
     case SwitchStructure(group: String)
+
+    private def interestedStatus: Set[EnvironmentStatus] = this match
+      case Event.Resume | Event.Stop | Event.ChangeSpeed(_) => Set(EnvironmentStatus.EVOLVING, EnvironmentStatus.PAUSED)
+      case _ => Set(EnvironmentStatus.EVOLVING)
+
+    def interested(environmentStatus: EnvironmentStatus): Boolean = this.interestedStatus contains environmentStatus
 
   object Params:
     enum Speed:
