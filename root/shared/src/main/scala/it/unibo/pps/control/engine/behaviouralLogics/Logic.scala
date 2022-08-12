@@ -3,6 +3,7 @@ package it.unibo.pps.control.engine.behaviouralLogics
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.control.engine.config.Configurations.EngineStatus
 import it.unibo.pps.control.engine.config.EngineConfiguration.SimulationConfig
+import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import monix.eval.Task
 import monocle.syntax.all.*
@@ -20,6 +21,11 @@ object Logic:
 
     /** Handle the update of the time in the environment */
     def logicTimeUpdate: UpdateLogic = env => Task(env.update(time = env.time + 1))
+    def iterationLogic(config: SimulationConfig): UpdateLogic = env =>
+      for
+        over <- Task(env.time >= TimeStamp() + env.environmentDuration)
+        _ <- Task(if over then config.engineStatus = EngineStatus.STOPPED)
+      yield env
 
   /** Update logic represent a logic that is associated to an event. It takes the current environment and return a task
     * that represent the computation done on that environment due to the occur of the event.

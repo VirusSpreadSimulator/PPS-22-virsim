@@ -9,7 +9,7 @@ import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
 import monocle.syntax.all.*
-import java.util.concurrent.TimeUnit
+import scala.concurrent.duration.DAYS
 
 object EnvironmentModule:
 
@@ -43,7 +43,7 @@ object EnvironmentModule:
         override val entities: Set[SimulationEntity] = Set(),
         override val structures: Set[SimulationStructure] = Set(),
         override val virus: Virus = Virus(),
-        override val environmentDuration: DurationTime = DurationTime(GlobalDefaults.DURATION, TimeUnit.DAYS)
+        override val environmentDuration: DurationTime = DurationTime(GlobalDefaults.DURATION, DAYS)
     ) extends Environment:
 
       override def update(
@@ -54,6 +54,6 @@ object EnvironmentModule:
           virus: Virus = virus,
           environmentDuration: DurationTime = environmentDuration
       ): Environment =
-        EnvironmentImpl(time, gridSide, entities, structures, virus)
+        EnvironmentImpl(time, gridSide, entities, structures, virus, environmentDuration)
 
   trait Interface extends Provider with Component

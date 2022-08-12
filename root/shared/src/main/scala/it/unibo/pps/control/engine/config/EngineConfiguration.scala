@@ -53,7 +53,8 @@ object EngineConfiguration:
     override val maxEventPerIteration: Int = 3
     override var engineSpeed: EngineSpeed = EngineSpeed.NORMAL
     override var engineStatus: EngineStatus = EngineStatus.RUNNING
-    override val logics: Seq[UpdateLogic] = Seq(UpdateLogic.identity, UpdateLogic.identity, UpdateLogic.logicTimeUpdate)
+    override val logics: Seq[UpdateLogic] =
+      Seq(UpdateLogic.identity, UpdateLogic.logicTimeUpdate, UpdateLogic.iterationLogic(this))
     override val eventLogics: Event => EventLogic = _ match
       case Event.Pause => EventLogic.pauseLogic(this)
       case Event.Resume => EventLogic.resumeLogic(this)

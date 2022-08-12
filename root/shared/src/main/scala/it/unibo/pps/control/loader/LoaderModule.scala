@@ -27,12 +27,11 @@ import it.unibo.pps.control.loader.configuration.ConfigurationParser
 import it.unibo.pps.entity.common.Time.DurationTime
 import it.unibo.pps.entity.entity.{EntityFactory, Infection}
 import it.unibo.pps.entity.entity.Infection
-
+import scala.concurrent.duration.DAYS
 import scala.util.Random
 import monocle.syntax.all.*
 import monix.eval.Task
 
-import java.util.concurrent.TimeUnit
 import javax.script.{ScriptEngine, ScriptEngineManager}
 import scala.io.Source
 
@@ -87,7 +86,7 @@ object LoaderModule:
           entities <- factory.create(configuration)
           virus = configuration.virusConfiguration
           structures = configuration.structuresConfiguration
-          environmentDuration = DurationTime(configuration.simulation.duration, TimeUnit.DAYS)
+          environmentDuration = DurationTime(configuration.simulation.duration, DAYS)
         yield context.env.update(
           gridSide = configuration.simulation.gridSide,
           entities = entities,
