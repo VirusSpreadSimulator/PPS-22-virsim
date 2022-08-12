@@ -30,7 +30,12 @@ class TimeTests extends AnyFunSuite with Matchers:
     timeStamp.iteration shouldBe iterationNumber
   }
 
-  // test quando metto un valore troppo alto cosa succede
+  test("If the client insert a relative number higher than the maximum tick for iteration it will be handled") {
+    val relativeTime = 100
+    val iteration = 1
+    val time = iteration * TimeConfiguration.TICKS_PER_DAY + relativeTime
+    TimeStamp(time) shouldEqual TimeStamp(relativeTime, iteration)
+  }
 
   test("Two timestamp should be comparable in order to understand which one is the latest, same iteration, lower") {
     val lowerTimestamp = TimeStamp(time - 1, iterationNumber)
