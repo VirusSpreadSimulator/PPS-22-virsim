@@ -7,6 +7,7 @@ object Values:
     val CHOOSE_FILE_BTN: String = "Choose"
     val START_BTN: String = "Start"
     val PAUSE_BTN: String = "Pause"
+    val RESUME_BTN: String = "Resume"
     val STOP_BTN: String = "Stop"
     val COMMANDS_LABEL: String = "Commands"
     val DYNAMIC_CONFIG_LOG_LABEL: String = "Dynamic config values"
