@@ -5,7 +5,6 @@ import it.unibo.pps.entity.environment.EnvironmentStatus
 object Events:
   /** Event represents all the event that can be fired by the user interface. */
   enum Event:
-    case Hit(number: Int) // todo: delete
     /** The user signal the intent to pause the simulation. */
     case Pause
     /** The user signal the intent to resume the simulation. */
