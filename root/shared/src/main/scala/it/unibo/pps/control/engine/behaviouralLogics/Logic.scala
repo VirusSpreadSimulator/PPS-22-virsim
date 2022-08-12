@@ -28,5 +28,6 @@ object Logic:
     import it.unibo.pps.entity.environment.EnvironmentStatus
     /** Identity logic */
     def identity: EventLogic = Task(_)
-    def pauseLogic: EventLogic = env => Task(env.update(status = EnvironmentStatus.PAUSE))
+    def pauseLogic: EventLogic = env => Task(env.update(status = EnvironmentStatus.PAUSED))
     def resumeLogic: EventLogic = env => Task(env.update(status = EnvironmentStatus.EVOLVING))
+    def stopLogic: EventLogic = env => Task(env.update(status = EnvironmentStatus.STOPPED))
