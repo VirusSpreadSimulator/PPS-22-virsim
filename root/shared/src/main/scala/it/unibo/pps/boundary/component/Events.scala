@@ -6,6 +6,8 @@ object Events:
     case Hit(number: Int) // todo: delete
     /** The user signal the intent to pause the simulation. */
     case Pause
+    /** The user signal the intent to resume the simulation. */
+    case Resume
     /** The user signal the intent to stop the simulation */
     case Stop
     /** The user signal the intent to change the speed of the simulation
