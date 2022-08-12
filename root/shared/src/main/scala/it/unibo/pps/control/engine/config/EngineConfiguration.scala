@@ -44,7 +44,8 @@ object EngineConfiguration:
     override var engineSpeed: EngineSpeed = EngineSpeed.NORMAL
     override val logics: Seq[UpdateLogic] = Seq(UpdateLogic.identity, UpdateLogic.identity, UpdateLogic.logicTimeUpdate)
     override val eventLogics: Event => EventLogic = _ match
-      case Event.Pause => EventLogic.identity
+      case Event.Pause => EventLogic.pauseLogic
+      case Event.Resume => EventLogic.resumeLogic
       case Event.Stop => EventLogic.identity
       case Event.ChangeSpeed(_) => EventLogic.identity
       case Event.SwitchMaskObligation => EventLogic.identity
