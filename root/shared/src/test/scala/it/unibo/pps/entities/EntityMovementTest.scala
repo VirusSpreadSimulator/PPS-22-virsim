@@ -34,7 +34,7 @@ class EntityMovementTest extends AnyFunSuite with Matchers:
   object FakeEnv extends EnvironmentModule.Interface:
     override val env: EnvironmentModule.Environment = Environment.empty
   val initializedEnv: EnvironmentModule.Environment =
-    FakeEnv.env.initialized(gridSize, Set(entity), Virus(), Set())
+    FakeEnv.env.update(gridSide = gridSize, entities = Set(entity), virus = Virus(), structures = Set())
 
 //  test("an entity can move") {
 //    val movementLogic: EntityLogic = CalculateNextMovement()

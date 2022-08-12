@@ -20,7 +20,12 @@ class CalculateNextMovement extends EntityLogic:
         updatedEntity: SimulationEntity = BaseEntity(id, age, home, position = position, infection = infection)
       yield updatedEntity
 
-    environment.initialized(environment.gridSide, updatedEntities, environment.virus, environment.structures)
+    environment.update(
+      gridSide = environment.gridSide,
+      entities = updatedEntities,
+      virus = environment.virus,
+      structures = environment.structures
+    )
 
   /** Extracts random position given the set of possible position
     * @param set

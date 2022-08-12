@@ -4,11 +4,12 @@ import it.unibo.pps.entity.entity.EntityComponent.Entity
 import it.unibo.pps.entity.structure.StructureComponent.Structure
 import it.unibo.pps.entity.virus.VirusComponent.Virus
 import it.unibo.pps.control.loader.configuration.dsl.VirusDSL
-import it.unibo.pps.entity.common.Time.TimeStamp
+import it.unibo.pps.entity.common.Time.{DurationTime, TimeStamp}
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
 import monocle.syntax.all.*
+import java.util.concurrent.TimeUnit
 
 object EnvironmentModule:
 
@@ -18,21 +19,15 @@ object EnvironmentModule:
     def entities: Set[SimulationEntity]
     def structures: Set[SimulationStructure]
     def virus: Virus
-
-    // todo: to be deleted or rethink
-    def initialized(
-        gridSide: Int,
-        entities: Set[SimulationEntity],
-        virus: Virus,
-        structures: Set[SimulationStructure]
-    ): Environment
+    def environmentDuration: DurationTime
 
     def update(
         time: TimeStamp = time,
         gridSide: Int = gridSide,
         entities: Set[SimulationEntity] = entities,
         structures: Set[SimulationStructure] = structures,
-        virus: Virus = virus
+        virus: Virus = virus,
+        environmentDuration: DurationTime = environmentDuration
     ): Environment
 
   trait Provider:
@@ -47,29 +42,17 @@ object EnvironmentModule:
         override val gridSide: Int = GlobalDefaults.GRID_SIDE,
         override val entities: Set[SimulationEntity] = Set(),
         override val structures: Set[SimulationStructure] = Set(),
-        override val virus: Virus = Virus()
+        override val virus: Virus = Virus(),
+        override val environmentDuration: DurationTime = DurationTime(GlobalDefaults.DURATION, TimeUnit.DAYS)
     ) extends Environment:
-
-      // todo: to be deleted or rethink
-      override def initialized(
-          gridSize: Int,
-          simulationEntities: Set[SimulationEntity],
-          simulationVirus: Virus,
-          simulationStructures: Set[SimulationStructure]
-      ): Environment =
-        EnvironmentImpl(
-          gridSide = gridSize,
-          entities = simulationEntities,
-          structures = simulationStructures,
-          virus = simulationVirus
-        )
 
       override def update(
           time: TimeStamp = time,
           gridSide: Int = gridSide,
           entities: Set[SimulationEntity] = entities,
           structures: Set[SimulationStructure] = structures,
-          virus: Virus = virus
+          virus: Virus = virus,
+          environmentDuration: DurationTime = environmentDuration
       ): Environment =
         EnvironmentImpl(time, gridSide, entities, structures, virus)
 

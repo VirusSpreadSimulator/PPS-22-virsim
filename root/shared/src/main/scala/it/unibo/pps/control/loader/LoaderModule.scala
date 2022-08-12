@@ -24,6 +24,7 @@ import it.unibo.pps.control.loader.configuration.SimulationDefaults.MIN_VALUES
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError.*
 import it.unibo.pps.control.loader.configuration.ConfigurationParser
+import it.unibo.pps.entity.common.Time.DurationTime
 import it.unibo.pps.entity.entity.{EntityFactory, Infection}
 import it.unibo.pps.entity.entity.Infection
 
@@ -31,6 +32,7 @@ import scala.util.Random
 import monocle.syntax.all.*
 import monix.eval.Task
 
+import java.util.concurrent.TimeUnit
 import javax.script.{ScriptEngine, ScriptEngineManager}
 import scala.io.Source
 
@@ -85,12 +87,18 @@ object LoaderModule:
           entities <- factory.create(configuration)
           virus = configuration.virusConfiguration
           structures = configuration.structuresConfiguration
-        yield context.env.initialized(configuration.simulation.gridSide, entities, virus, structures)
+          environmentDuration = DurationTime(configuration.simulation.duration, TimeUnit.DAYS)
+        yield context.env.update(
+          gridSide = configuration.simulation.gridSide,
+          entities = entities,
+          virus = virus,
+          structures = structures,
+          environmentDuration = environmentDuration
+        )
 
       override def startEngine(configuration: Configuration): Task[Unit] =
         for
           initializedEnvironment <- createEnvironment(configuration)
-          _ <- Task(context.engine.init(configuration.simulation.duration))
           _ <- context.engine.startSimulationLoop(initializedEnvironment)
         yield ()
 
