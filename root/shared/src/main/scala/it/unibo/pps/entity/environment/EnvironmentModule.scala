@@ -19,6 +19,7 @@ object EnvironmentModule:
     def entities: Set[SimulationEntity]
     def structures: Set[SimulationStructure]
     def virus: Virus
+    def status: EnvironmentStatus
 
     // todo: to be deleted or rethink
     def initialized(
@@ -33,7 +34,8 @@ object EnvironmentModule:
         gridSide: Int = gridSide,
         entities: Set[SimulationEntity] = entities,
         structures: Set[SimulationStructure] = structures,
-        virus: Virus = virus
+        virus: Virus = virus,
+        status: EnvironmentStatus = status
     ): Environment
 
   trait Provider:
@@ -48,7 +50,8 @@ object EnvironmentModule:
         override val gridSide: Int = GlobalDefaults.GRID_SIDE,
         override val entities: Set[SimulationEntity] = Set(),
         override val structures: Set[SimulationStructure] = Set(),
-        override val virus: Virus = Virus()
+        override val virus: Virus = Virus(),
+        override val status: EnvironmentStatus = EnvironmentStatus.EVOLVING
     ) extends Environment:
 
       // todo: to be deleted or rethink
@@ -70,8 +73,9 @@ object EnvironmentModule:
           gridSide: Int = gridSide,
           entities: Set[SimulationEntity] = entities,
           structures: Set[SimulationStructure] = structures,
-          virus: Virus = virus
+          virus: Virus = virus,
+          status: EnvironmentStatus = status
       ): Environment =
-        EnvironmentImpl(time, gridSide, entities, structures, virus)
+        EnvironmentImpl(time, gridSide, entities, structures, virus, status)
 
   trait Interface extends Provider with Component
