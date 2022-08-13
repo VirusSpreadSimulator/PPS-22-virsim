@@ -27,7 +27,7 @@ object LauncherModule:
       private def launcherLoop(): Task[Unit] =
         for
           path <- context.configBoundary.config()
-          configResult <- context.loader.parseConfiguration(path.toString)
+          configResult <- context.loader.parseConfiguration(path)
           _ <- configResult match
             case ERROR(errors) =>
               for
