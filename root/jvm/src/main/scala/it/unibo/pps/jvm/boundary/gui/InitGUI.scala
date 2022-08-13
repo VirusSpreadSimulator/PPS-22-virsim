@@ -11,7 +11,6 @@ import monix.reactive.subjects.PublishSubject
 
 import java.awt.event.ActionEvent
 import java.awt.{FlowLayout, Font, GridLayout}
-import java.nio.file.Path
 import javax.swing.*
 import javax.swing.border.EmptyBorder
 import scala.concurrent.Promise
@@ -28,7 +27,7 @@ trait InitGUI:
     * @return
     *   the task
     */
-  def config(): Task[Path]
+  def config(): Task[String]
   /** This task allow the caller to show an error in the configuration. Useful for
     * [[it.unibo.pps.boundary.BoundaryModule.ConfigBoundary.error()]]
     * @param errors
@@ -67,7 +66,7 @@ object InitGUI:
     private lazy val frame = JFrame(title)
     private lazy val fileChooser = JFileChooser()
     private lazy val fileSrcTextField: JTextField = JTextField(width / 25)
-    private lazy val fileChosen = PublishSubject[Path]() // Instead of a var with a Promise
+    private lazy val fileChosen = PublishSubject[String]() // Instead of a var with a Promise
 
     private lazy val container: Task[JFrame] =
       for
@@ -98,7 +97,7 @@ object InitGUI:
       for
         panel <- io(JPanel())
         startBtn <- io(JButton(Text.START_BTN))
-        _ <- io(startBtn.addActionListener((e: ActionEvent) => fileChosen.onNext(Path.of(fileSrcTextField.getText))))
+        _ <- io(startBtn.addActionListener((e: ActionEvent) => fileChosen.onNext(fileSrcTextField.getText)))
         _ <- io(panel.add(startBtn))
       yield panel
 
@@ -126,7 +125,7 @@ object InitGUI:
         _ <- Task.shift
       yield ()
 
-    override def config(): Task[Path] = Task.defer(fileChosen.consumeWith(Consumer.head))
+    override def config(): Task[String] = Task.defer(fileChosen.consumeWith(Consumer.head))
 
     override def error(errors: Seq[ConfigurationError]): Task[Unit] = for
       _ <- Task.pure {}.asyncBoundary(Utils.swingScheduler)

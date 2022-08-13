@@ -5,8 +5,6 @@ import component.Events.Event
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 
-import java.nio.file.Path
-
 object BoundaryModule:
   /** Interface that define the base boundary. All the boundary need to extend this trait in order to be compatible. All
     * the data will be send to the boundaries in the same way (ECB pattern)
@@ -49,7 +47,7 @@ object BoundaryModule:
       * @return
       *   the task
       */
-    def config(): Task[Path]
+    def config(): Task[String]
     /** This task allow the caller to report an error in the configuration to the boundary
       * @param error
       *   the error in the configuration

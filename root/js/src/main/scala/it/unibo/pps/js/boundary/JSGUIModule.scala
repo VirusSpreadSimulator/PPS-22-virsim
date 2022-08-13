@@ -7,8 +7,6 @@ import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import monix.eval.Task
 import monix.reactive.Observable
 
-import java.nio.file.Path
-
 object JSGUIModule:
   trait Provider:
     val jsGui: ConfigBoundary
@@ -16,7 +14,7 @@ object JSGUIModule:
     class JSGUIBoundaryImpl extends ConfigBoundary:
       private val guiJs = JSGUI()
       override def init() = guiJs.init()
-      override def config(): Task[Path] = Task(Path.of(""))
+      override def config(): Task[String] = Task("")
       override def error(errors: Seq[ConfigurationError]): Task[Unit] = Task.pure {}
       override def start() = Task.pure {}
       override def stop() = Task.pure {}
