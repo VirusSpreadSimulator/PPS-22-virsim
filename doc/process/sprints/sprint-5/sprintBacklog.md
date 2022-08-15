@@ -1,11 +1,18 @@
 # Sprint Backlog - 5
 
-| Product Backlog Item | Sprint Task | Volunteer | Initial Estimate of Effort | 1    | 2    | 3    | 4    | 5    |
-| -------------------- | ----------- | --------- | -------------------------- | ---- | ---- | ---- | ---- | ---- |
-|                      |             |           |                            |      |      |      |      |      |
-|                      |             |           |                            |      |      |      |      |      |
-|                      |             |           |                            |      |      |      |      |      |
-|                      |             |           |                            |      |      |      |      |      |
-|                      |             |           |                            |      |      |      |      |      |
-|                      |             |           |                            |      |      |      |      |      |
-|                      |             |           |                            |      |      |      |      |      |
+| Product Backlog Item                                         | Sprint Task                                                  | Volunteer   | Initial Estimate of Effort | 1    | 2    | 3    | 4    | 5    |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ----------- | -------------------------- | ---- | ---- | ---- | ---- | ---- |
+| Realizzazione GUI JVM-Based                                  | sviluppo dei grafici                                         | Acampora    | 4                          |      |      |      |      |      |
+|                                                              | visualizzazione dei dati principali di simulazione           | Acampora    | 2                          |      |      |      |      |      |
+| Sviluppo della logica di interazione tra gli individui       | sviluppo della logica di interazione tra gli individui       |             | 6                          |      |      |      |      |      |
+| Sviluppo della logica di interazione tra individui e strutture | gestione entrata individui all'interno delle strutture       | Accursi     | 5                          |      |      |      |      |      |
+|                                                              | gestione uscita individui dalle strutture                    | Accursi     | 5                          |      |      |      |      |      |
+| Sviluppo della logica di contagio degli individui            | sviluppo della logica di contagio degli individui esterno alle strutture | Giulianelli | 6                          |      |      |      |      |      |
+|                                                              | sviluppo della logica di contagio degli individui interno alle strutture | Giulianelli | 5                          |      |      |      |      |      |
+| Sviluppo della logica per l'aggiornamento dello stato degli individui | sviluppo della logica di aggiornamento dello stato di salute |             | 5                          |      |      |      |      |      |
+|                                                              | gestione dell'obiettivo dell'individuo in base allo stato della simulazione |             | 2                          |      |      |      |      |      |
+| Sviluppo della logica di interazione dinamica dell'utente con la simulazione | sviluppo della logica che riguarda l'obbligo di mascherina   | Accursi     | 3                          |      |      |      |      |      |
+|                                                              | sviluppo della logica che riguarda la campagna vaccinale     | Acampora    | 2                          |      |      |      |      |      |
+|                                                              | sviluppo della logica che riguarda la chiusura di un gruppo di strutture | Giulianelli | 2                          |      |      |      |      |      |
+| Monitoraggio real-time della simulazione                     | sviluppo di un modulo che si occupa dell'aggregazione dei dati di simulazione | Acampora    | 7                          |      |      |      |      |      |
+| Sviluppo del sistema di esportazioni dati                    | sviluppo del sistema di esportazioni dati                    | Acampora    | 4                          |      |      |      |      |      |
