@@ -12,9 +12,10 @@
 | 8        | Sviluppo della logica di interazione tra gli individui       |         | 5                     | 5    | 5    | 5    | 4    |      |
 | 9        | Sviluppo della logica di interazione tra individui e strutture |         | 12                    | 12   | 12   | 12   | 12   |      |
 | 10       | Sviluppo della logica di contagio degli individui            |         | 15                    | 15   | 15   | 14   | 14   |      |
-| 11       | Sviluppo della logica di interazione dinamica dell'utente con la simulazione |         | 10                    | 10   | 10   | 10   | 8    |      |
-| 12       | Sviluppo del DSL per la configurazione statica della simulazione |         | 8                     | 8    | 8    | 5    | 1    |      |
-| 13       | Monitoraggio real-time della simulazione                     |         | 5                     | 5    | 5    | 5    | 4    |      |
-| 14       | Sviluppo del sistema di esportazioni dati                    |         | 5                     | 5    | 5    | 5    | 4    |      |
-| 15       | Realizzazione GUI JS-Based                                   |         | 4                     | 4    | 3    | 3    | 3    |      |
+| 11       | Sviluppo della logica per l'aggiornamento dello stato degli individui |         | 4                     | 4    | 4    | 4    | 4    |      |
+| 12       | Sviluppo della logica di interazione dinamica dell'utente con la simulazione |         | 10                    | 10   | 10   | 10   | 8    |      |
+| 13       | Sviluppo del DSL per la configurazione statica della simulazione |         | 8                     | 8    | 8    | 5    | 1    |      |
+| 14       | Monitoraggio real-time della simulazione                     |         | 5                     | 5    | 5    | 5    | 4    |      |
+| 15       | Sviluppo del sistema di esportazioni dati                    |         | 5                     | 5    | 5    | 5    | 4    |      |
+| 16       | Realizzazione GUI JS-Based                                   |         | 4                     | 4    | 3    | 3    | 3    |      |
 
