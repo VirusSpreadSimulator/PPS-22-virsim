@@ -23,12 +23,14 @@ lazy val root = crossProject(JSPlatform, JVMPlatform)
     ),
     libraryDependencies ++= Seq(
       "org.scalatest" %% "scalatest" % "3.2.13" % Test,
+      "com.disneystreaming" %% "weaver-monix" % "0.6.15" % Test,
       "io.monix" %%% "monix" % "3.4.1",
       "dev.optics" %%% "monocle-core" % "3.1.0",
       "it.unibo.alice.tuprolog" % "tuprolog" % "3.3.0",
       "dev.optics" %%% "monocle-macro" % "3.1.0",
       "org.scala-lang" %% "scala3-staging" % scalaVersion.value
-    )
+    ),
+    testFrameworks += new TestFramework("weaver.framework.Monix")
   )
   .jsSettings(
     scalaJSUseMainModuleInitializer := true,
