@@ -16,11 +16,22 @@ object Logic:
   type UpdateLogic = Environment => Task[Environment]
 
   object UpdateLogic:
-    /** Identity logic */
+    /** Identity logic
+      * @return
+      *   the logic
+      */
     def identity: UpdateLogic = Task(_)
-
-    /** Handle the update of the time in the environment */
+    /** Handle the update of the time in the environment
+      * @return
+      *   the logic
+      */
     def logicTimeUpdate: UpdateLogic = env => Task(env.update(time = env.time + 1))
+    /** Handle the termination of the simulation
+      * @param config
+      *   the simulation configuration to modify
+      * @return
+      *   the logic
+      */
     def iterationLogic(config: SimulationConfig): UpdateLogic = env =>
       for
         over <- Task(env.time >= TimeStamp() + env.environmentDuration)
@@ -36,15 +47,41 @@ object Logic:
     import it.unibo.pps.control.engine.config.Configurations.EngineSpeed
     /** Identity logic */
     def identity: EventLogic = Task(_)
+    /** Logic to handle the paused state
+      * @param config
+      *   the configuration to modify
+      * @return
+      *   the event logic
+      */
     def pauseLogic(config: SimulationConfig): EventLogic = env =>
       for _ <- Task(config.engineStatus = EngineStatus.PAUSED)
       yield env
+    /** Logic to resume the simulation
+      * @param config
+      *   the configuration to modify
+      * @return
+      *   the event logic
+      */
     def resumeLogic(config: SimulationConfig): EventLogic = env =>
       for _ <- Task(config.engineStatus = EngineStatus.RUNNING)
       yield env
+    /** Logic to handle the stopped state
+      * @param config
+      *   the configuration to modify
+      * @return
+      *   the event logic
+      */
     def stopLogic(config: SimulationConfig): EventLogic = env =>
       for _ <- Task(config.engineStatus = EngineStatus.STOPPED)
       yield env
+    /** Logic to change the simulation speed
+      * @param config
+      *   the configuration to modify
+      * @param engineSpeed
+      *   the speed to set
+      * @return
+      *   the event logic
+      */
     def simulationSpeedLogic(config: SimulationConfig, engineSpeed: EngineSpeed): EventLogic = env =>
       for _ <- Task(config.engineSpeed = engineSpeed)
       yield env
