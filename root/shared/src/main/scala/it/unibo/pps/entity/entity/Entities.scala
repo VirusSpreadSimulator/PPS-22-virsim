@@ -44,7 +44,8 @@ object Entities:
       override val immunity: Int = 0,
       override val position: Point2D,
       override val movementGoal: MovementGoal = MovementGoal.RANDOM_MOVEMENT,
-      override val infection: Option[Infection] = None
+      override val infection: Option[Infection] = None,
+      override val hasMask: Boolean = false
   ) extends SimulationEntity
       with Moving
       with Infectious:
