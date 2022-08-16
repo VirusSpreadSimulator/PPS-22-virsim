@@ -36,7 +36,7 @@ object InfectionLogic:
     override def apply(env: Environment): Task[Environment] =
       for
         entities <- Task(
-          env.entities.select[InfectingEntity].filter(_.movementGoal != Moving.MovementGoal.NO_MOVEMENT)
+          env.externalEntities.select[InfectingEntity].filter(_.movementGoal != Moving.MovementGoal.NO_MOVEMENT)
         ) // todo: dopo la modifica prendi solo le entità esterne
         infected <- Task.sequence {
           entities
@@ -53,8 +53,8 @@ object InfectionLogic:
             .filter(_.isHappening)
             .map(_.entity.infected(env.virus))
         }
-      yield env.update(entities =
-        env.entities.filter(e => !infected.map(_.id).contains(e.id)) ++ infected.toSet
+      yield env.update(externalEntities =
+        env.externalEntities.filter(e => !infected.map(_.id).contains(e.id)) ++ infected.toSet
       ) //todo: dopo la modifica sii sicuro che qui si aggiornano le entità che sono all'esterno
 
   class InternalInfectionLogic extends UpdateLogic:
@@ -77,5 +77,5 @@ object InfectionLogic:
           // todo: così le entitià in struttura non sono aggiornate.
           // todo: ribalta in modo che invece di ritornare le entità aggiornate, ritorni le strutture aggiornate, in quato ora le entità accessibili direttamente dall'env sono quelle che si trovano nell'ambiente esterno.
         }
-      yield env.update(entities = env.entities.filter(e => !infected.map(_.id).contains(e.id)) ++ infected.toSet)
+      yield env.update(externalEntities = env.externalEntities.filter(e => !infected.map(_.id).contains(e.id)) ++ infected.toSet)
 //todo: dopo la modifica sii sicuro che qui si aggiornano solo le strutture (che sono quelle nuove con i nuovi contagiati) + quelle vecchie che magari sono vuote o non hanno contagiati dentro e quindi non erano state considerate.

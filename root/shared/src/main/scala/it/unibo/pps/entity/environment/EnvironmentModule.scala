@@ -16,7 +16,7 @@ object EnvironmentModule:
   trait Environment:
     def time: TimeStamp
     def gridSide: Int
-    def entities: Set[SimulationEntity]
+    def externalEntities: Set[SimulationEntity]
     def structures: Set[SimulationStructure]
     def virus: Virus
     def environmentDuration: DurationTime
@@ -24,7 +24,7 @@ object EnvironmentModule:
     def update(
         time: TimeStamp = time,
         gridSide: Int = gridSide,
-        entities: Set[SimulationEntity] = entities,
+        externalEntities: Set[SimulationEntity] = externalEntities,
         structures: Set[SimulationStructure] = structures,
         virus: Virus = virus,
         environmentDuration: DurationTime = environmentDuration
@@ -40,7 +40,7 @@ object EnvironmentModule:
     case class EnvironmentImpl(
         override val time: TimeStamp = TimeStamp(),
         override val gridSide: Int = GlobalDefaults.GRID_SIDE,
-        override val entities: Set[SimulationEntity] = Set(),
+        override val externalEntities: Set[SimulationEntity] = Set(),
         override val structures: Set[SimulationStructure] = Set(),
         override val virus: Virus = Virus(),
         override val environmentDuration: DurationTime = DurationTime(GlobalDefaults.DURATION, DAYS)
@@ -49,11 +49,11 @@ object EnvironmentModule:
       override def update(
           time: TimeStamp = time,
           gridSide: Int = gridSide,
-          entities: Set[SimulationEntity] = entities,
+          externalEntities: Set[SimulationEntity] = externalEntities,
           structures: Set[SimulationStructure] = structures,
           virus: Virus = virus,
           environmentDuration: DurationTime = environmentDuration
       ): Environment =
-        EnvironmentImpl(time, gridSide, entities, structures, virus, environmentDuration)
+        EnvironmentImpl(time, gridSide, externalEntities, structures, virus, environmentDuration)
 
   trait Interface extends Provider with Component

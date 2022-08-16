@@ -53,7 +53,7 @@ object InfectionLogicTest extends SimpleTaskSuite:
   )
 
   object InfectedEnv extends EnvironmentModule.Interface:
-    val env = EnvironmentImpl(entities = entities.toSet, structures = buildings)
+    val env = EnvironmentImpl(externalEntities = entities.toSet, structures = buildings)
 
   val externalInfectionLogic: ExternalInfectionLogic = ExternalInfectionLogic()
   val internalInfectionLogic: InternalInfectionLogic = InternalInfectionLogic()
@@ -69,7 +69,7 @@ object InfectionLogicTest extends SimpleTaskSuite:
     for {
       updatedEnv <- externalInfectionLogic(InfectedEnv.env)
     } yield expect(
-      updatedEnv.entities.size == InfectedEnv.env.entities.size &&
+      updatedEnv.externalEntities.size == InfectedEnv.env.externalEntities.size &&
         updatedEnv.structures.map(_.entities).size == InfectedEnv.env.structures.map(_.entities).size
     )
   }
@@ -77,7 +77,7 @@ object InfectionLogicTest extends SimpleTaskSuite:
   test("When the external infection logic is applied the number of infected is more or equal") {
     for {
       updatedEnv <- externalInfectionLogic(InfectedEnv.env)
-    } yield expect(numberOfInfected(updatedEnv.entities) >= numberOfInfected(InfectedEnv.env.entities))
+    } yield expect(numberOfInfected(updatedEnv.externalEntities) >= numberOfInfected(InfectedEnv.env.externalEntities))
   }
 
   test("In external infection logic the entities that are internal to structures are not considered") {
@@ -96,7 +96,7 @@ object InfectionLogicTest extends SimpleTaskSuite:
     for {
       updatedEnv <- internalInfectionLogic(InfectedEnv.env)
     } yield expect(
-      updatedEnv.entities.size == InfectedEnv.env.entities.size &&
+      updatedEnv.externalEntities.size == InfectedEnv.env.externalEntities.size &&
         updatedEnv.structures.map(_.entities).size == InfectedEnv.env.structures.map(_.entities).size
     )
   }
@@ -104,7 +104,7 @@ object InfectionLogicTest extends SimpleTaskSuite:
   test("When the internal infection logic is applied the number of internal infected is more or equal") {
     for {
       updatedEnv <- internalInfectionLogic(InfectedEnv.env)
-      _ <- monix.eval.Task(println(numberOfInfected(updatedEnv.entities)))
+      _ <- monix.eval.Task(println(numberOfInfected(updatedEnv.externalEntities)))
       _ <- monix.eval.Task(println(numberOfInternalInfected(updatedEnv)))
     } yield expect(numberOfInternalInfected(updatedEnv) >= numberOfInternalInfected(InfectedEnv.env))
   }

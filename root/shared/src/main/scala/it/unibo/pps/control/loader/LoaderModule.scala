@@ -89,7 +89,7 @@ object LoaderModule:
           environmentDuration = DurationTime(configuration.simulation.duration, DAYS)
         yield context.env.update(
           gridSide = configuration.simulation.gridSide,
-          entities = entities,
+          externalEntities = entities,
           virus = virus,
           structures = structures,
           environmentDuration = environmentDuration

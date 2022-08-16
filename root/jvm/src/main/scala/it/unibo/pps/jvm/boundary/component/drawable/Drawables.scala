@@ -21,7 +21,7 @@ object Drawables:
     extension (env: Environment)
       def draw(g: Graphics2D, scale: Int): Unit =
         env.structures.drawAll(g, scale)
-        env.entities.drawAll(g, scale) // todo: draw solo di quelle all'esterno
+        env.externalEntities.drawAll(g, scale) // todo: draw solo di quelle all'esterno
 
   /** Extend [[SimulationEntity]] with draw capabilities */
   given Drawable[SimulationEntity] with

@@ -11,7 +11,7 @@ class CalculateNextMovement extends EntityLogic:
   override def execute(environment: Environment): Environment =
     val updatedEntities: Set[SimulationEntity] =
       for
-        entity <- environment.entities
+        entity <- environment.externalEntities
         id = entity.id
         age = entity.age
         home = entity.home
@@ -22,7 +22,7 @@ class CalculateNextMovement extends EntityLogic:
 
     environment.update(
       gridSide = environment.gridSide,
-      entities = updatedEntities,
+      externalEntities = updatedEntities,
       virus = environment.virus,
       structures = environment.structures
     )
