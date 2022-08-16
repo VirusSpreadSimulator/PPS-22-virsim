@@ -16,8 +16,8 @@ object InfectionLogicTest extends SimpleTaskSuite:
     BaseEntity(0, 20, house, position = Point2D(1, 2)),
     BaseEntity(1, 21, house, position = Point2D(3, 2)),
     BaseEntity(2, 22, house, position = Point2D(4, 5)),
-    BaseEntity(0, 20, house, position = Point2D(4, 2), infection = Some(Infection(Severity.LIGHT(), 5))),
-    BaseEntity(0, 20, house, position = Point2D(1, 1), infection = Some(Infection(Severity.LIGHT(), 5)))
+    BaseEntity(3, 20, house, position = Point2D(4, 2), infection = Some(Infection(Severity.LIGHT(), 5))),
+    BaseEntity(4, 20, house, position = Point2D(1, 1), infection = Some(Infection(Severity.LIGHT(), 5)))
   )
 
   object InfectedEnv extends EnvironmentModule.Interface:
