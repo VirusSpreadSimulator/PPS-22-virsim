@@ -69,7 +69,7 @@ object EntityComponent {
   object Moving:
     /** Describe the movement of the entity */
     enum MovementGoal:
-      case RANDOM_MOVEMENT, BACK_TO_HOME, NO_MOVEMENT
+      case RANDOM_MOVEMENT, GO_HOME, INSIDE_STRUCTURE
 
   /* Represent an Entity that could be infected by another entity. */
   trait Infectious extends Entity:
