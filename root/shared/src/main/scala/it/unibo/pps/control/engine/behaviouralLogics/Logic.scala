@@ -5,6 +5,7 @@ import it.unibo.pps.control.engine.config.Configurations.EngineStatus
 import it.unibo.pps.control.engine.config.EngineConfiguration.SimulationConfig
 import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
+import it.unibo.pps.control.engine.behaviouralLogics.infection.ExternalInfectionLogic
 import monix.eval.Task
 import monocle.syntax.all.*
 
@@ -37,6 +38,11 @@ object Logic:
         over <- Task(env.time >= TimeStamp() + env.environmentDuration)
         _ <- Task(if over then config.engineStatus = EngineStatus.STOPPED)
       yield env
+    /** Handle the infection in the environment, external to structures
+      * @return
+      *   the logic
+      */
+    def externalInfectionLogic: UpdateLogic = ExternalInfectionLogic()
 
   /** Update logic represent a logic that is associated to an event. It takes the current environment and return a task
     * that represent the computation done on that environment due to the occur of the event.
