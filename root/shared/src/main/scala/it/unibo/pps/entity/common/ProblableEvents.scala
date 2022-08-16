@@ -1,6 +1,12 @@
 package it.unibo.pps.entity.common
 
-import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionLogic.{ExternalProbableInfection, maskReduction}
+import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionLogic.{
+  ExternalProbableInfection,
+  InfectingEntity,
+  InternalProbableInfection,
+  MASK_REDUCER,
+  maskReduction
+}
 
 import scala.util.Random
 
@@ -45,3 +51,15 @@ object ProblableEvents:
             infector.position
           ) / inf.env.virus.maxInfectionDistance) * (1 - inf.entity.immunity)) / (inf.entity.maskReduction * infector.maskReduction)
         )
+    given Probable[InternalProbableInfection] with
+      extension (inf: InternalProbableInfection)
+        def probability: Double =
+          import it.unibo.pps.entity.common.Utils.*
+          val infectedInside =
+            inf.structure.entities.map(_.entity).select[InfectingEntity].filter(_.infection.isDefined)
+          if infectedInside.nonEmpty then
+            // todo: print perchè penso sia sempre > 1
+            ((inf.env.virus.spreadRate * inf.structure.infectionProbability * (1 - inf.entity.immunity)) /
+              (inf.entity.maskReduction * MASK_REDUCER * (infectedInside.count(_.hasMask) / infectedInside.size))) *
+              (infectedInside.size / (inf.structure.entities.size - 1))
+          else 0

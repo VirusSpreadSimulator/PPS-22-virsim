@@ -6,6 +6,7 @@ import it.unibo.pps.control.engine.config.EngineConfiguration.SimulationConfig
 import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionLogic.ExternalInfectionLogic
+import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionLogic.InternalInfectionLogic
 import monix.eval.Task
 import monocle.syntax.all.*
 
@@ -43,6 +44,11 @@ object Logic:
       *   the logic
       */
     def externalInfectionLogic: UpdateLogic = ExternalInfectionLogic()
+    /** Handle the infection internal to structures
+      * @return
+      *   the logic
+      */
+    def internalInfectionLogic: UpdateLogic = InternalInfectionLogic()
 
   /** Update logic represent a logic that is associated to an event. It takes the current environment and return a task
     * that represent the computation done on that environment due to the occur of the event.
