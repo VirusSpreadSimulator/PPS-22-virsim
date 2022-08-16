@@ -45,6 +45,12 @@ object EntityComponent {
       */
     def immunity: Int
 
+    /** During the simulation, an entity could wear a mask to decrease the probability of an infection
+      * @return
+      *   true if the entity has a mask, false otherwise
+      */
+    def hasMask: Boolean
+
   /* Represent the an entity that exist in the simulation and can move*/
   trait Moving extends Entity:
 
