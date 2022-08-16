@@ -1,5 +1,6 @@
 package it.unibo.pps.control.loader.configuration.dsl
 
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
 import it.unibo.pps.entity.virus.VirusComponent.Virus
 import monocle.syntax.all.*
 
@@ -23,3 +24,6 @@ object VirusDSL:
 
     def severeDeseaseProbability(probability: Double): Virus =
       virus.focus(_.severeDeseaseProbability).replace(probability)
+
+    def maxInfectionDistance(distance: Double): Virus =
+      virus.focus(_.maxInfectionDistance).replace(distance * GlobalDefaults.GRID_MULTIPLIER)
