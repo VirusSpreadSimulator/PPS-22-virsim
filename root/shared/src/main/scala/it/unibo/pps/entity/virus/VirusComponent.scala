@@ -35,6 +35,7 @@ object VirusComponent:
       *   the desease probability of the virus.
       */
     def severeDeseaseProbability: Double
+
     /** Maximum distance of infection
       * @return
       *   the maximum distance.
