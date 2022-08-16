@@ -18,6 +18,9 @@ object Entities:
       */
     def calculateMaxHealth(): Int = (100 - (30.0 / 100.0) * age).toInt //to be refactored removing magic numbers
 
+    override def equals(that: Any): Boolean = that match
+      case that: SimulationEntity => that.id == this.id
+      case _ => false
   /** Case class for the entity of the simulation.
     * @param id
     *   the id of the entity.
