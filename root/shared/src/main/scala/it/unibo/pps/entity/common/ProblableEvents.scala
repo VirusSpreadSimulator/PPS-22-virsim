@@ -1,6 +1,6 @@
 package it.unibo.pps.entity.common
 
-import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionConcepts.ExternalProbableInfection
+import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionLogic.ExternalProbableInfection
 import scala.util.Random
 
 object ProblableEvents:

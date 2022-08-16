@@ -8,7 +8,7 @@ import it.unibo.pps.entity.entity.Infection.Severity
 import it.unibo.pps.entity.structure.Structures.House
 import weaver.monixcompat.SimpleTaskSuite
 import it.unibo.pps.entity.common.Utils.*
-import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionConcepts.InfectingEntity
+import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionLogic.{ExternalInfectionLogic, InfectingEntity}
 
 object InfectionLogicTest extends SimpleTaskSuite:
   private val house = House((1, 0), 1, 2)

@@ -5,7 +5,7 @@ import it.unibo.pps.control.engine.config.Configurations.EngineStatus
 import it.unibo.pps.control.engine.config.EngineConfiguration.SimulationConfig
 import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.control.engine.behaviouralLogics.infection.ExternalInfectionLogic
+import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionLogic.ExternalInfectionLogic
 import monix.eval.Task
 import monocle.syntax.all.*
 
