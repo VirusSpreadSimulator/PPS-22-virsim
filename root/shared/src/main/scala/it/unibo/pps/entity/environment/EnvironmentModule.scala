@@ -18,6 +18,7 @@ object EnvironmentModule:
     def gridSide: Int
     def externalEntities: Set[SimulationEntity]
     def structures: Set[SimulationStructure]
+    def allEntities: Set[SimulationEntity]
     def virus: Virus
     def environmentDuration: DurationTime
 
@@ -55,5 +56,9 @@ object EnvironmentModule:
           environmentDuration: DurationTime = environmentDuration
       ): Environment =
         EnvironmentImpl(time, gridSide, externalEntities, structures, virus, environmentDuration)
+
+      override def allEntities: Set[SimulationEntity] =
+        import it.unibo.pps.entity.common.Utils.*
+        externalEntities ++ structures.flatMap(_.entities).map(_.entity).select[SimulationEntity]
 
   trait Interface extends Provider with Component
