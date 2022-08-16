@@ -4,16 +4,10 @@ import it.unibo.pps.control.engine.SimulationComponent.Simulation
 import it.unibo.pps.entity.virus.VirusComponent.Virus
 import it.unibo.pps.entity.structure.StructureComponent.Structure
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
-import it.unibo.pps.control.loader.configuration.ConfigurationParser
 import it.unibo.pps.entity.entity.EntityFactory
-
-import javax.script.ScriptEngine
-import javax.script.ScriptEngineManager
 
 object ConfigurationComponent:
 
-  given ScriptEngine = new javax.script.ScriptEngineManager(getClass.getClassLoader).getEngineByName("scala")
-  given ConfigurationParser = ConfigurationParser()
   given EntityFactory = EntityFactory()
 
   trait Configuration:
