@@ -1,6 +1,7 @@
 package it.unibo.pps.entity.common
 
-import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionLogic.ExternalProbableInfection
+import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionLogic.{ExternalProbableInfection, maskReduction}
+
 import scala.util.Random
 
 object ProblableEvents:
@@ -42,5 +43,5 @@ object ProblableEvents:
         def probability: Double = inf.infectors.foldLeft(0.0)((acc, infector) =>
           acc + (inf.env.virus.spreadRate * (1 - inf.entity.position.distanceTo(
             infector.position
-          ) / inf.env.virus.maxInfectionDistance) * (1 - inf.entity.immunity)) //todo: divide per mask)
+          ) / inf.env.virus.maxInfectionDistance) * (1 - inf.entity.immunity)) / (inf.entity.maskReduction * infector.maskReduction)
         )

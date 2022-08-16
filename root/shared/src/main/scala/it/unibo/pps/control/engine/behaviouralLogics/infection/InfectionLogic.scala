@@ -11,7 +11,7 @@ import monix.eval.Task
 
 object InfectionLogic:
   /** The reducer on the probability due to the mask */
-  val MASK_REDUCER: Int = 2
+  private val MASK_REDUCER: Int = 2
   type InfectingEntity = SimulationEntity with Moving with Infectious
 
   case class ExternalProbableInfection(
@@ -31,13 +31,14 @@ object InfectionLogic:
         duration <- Task(durationDistribution.next())
         infection <- Task(Infection(severity, duration))
       yield BaseEntity(e.id, e.age, e.home, e.immunity, e.position, e.movementGoal, infection = Some(infection))
+    def maskReduction: Int = if e.hasMask then MASK_REDUCER else 1
 
   class ExternalInfectionLogic extends UpdateLogic:
     import it.unibo.pps.entity.common.Utils.*
     override def apply(env: Environment): Task[Environment] =
       for
         entities <- Task(env.entities.select[InfectingEntity])
-        updatedEntities <- Task.sequence {
+        infected <- Task.sequence {
           entities
             .filter(_.infection.isEmpty)
             .map(e =>
@@ -52,4 +53,7 @@ object InfectionLogic:
             .filter(_.isHappening)
             .map(_.entity.infected(env.virus))
         }
-      yield env.update(entities = env.entities ++ updatedEntities.toSet)
+      yield env.update(entities = env.entities.filter(e => !infected.map(_.id).contains(e.id)) ++ infected.toSet)
+
+  class InternalInfectionlogic extends UpdateLogic:
+    override def apply(env: Environment): Task[Environment] = ???
