@@ -77,5 +77,7 @@ object InfectionLogic:
           // todo: così le entitià in struttura non sono aggiornate.
           // todo: ribalta in modo che invece di ritornare le entità aggiornate, ritorni le strutture aggiornate, in quato ora le entità accessibili direttamente dall'env sono quelle che si trovano nell'ambiente esterno.
         }
-      yield env.update(externalEntities = env.externalEntities.filter(e => !infected.map(_.id).contains(e.id)) ++ infected.toSet)
+      yield env.update(externalEntities =
+        env.externalEntities.filter(e => !infected.map(_.id).contains(e.id)) ++ infected.toSet
+      )
 //todo: dopo la modifica sii sicuro che qui si aggiornano solo le strutture (che sono quelle nuove con i nuovi contagiati) + quelle vecchie che magari sono vuote o non hanno contagiati dentro e quindi non erano state considerate.
