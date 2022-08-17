@@ -4,7 +4,7 @@ import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaul
 
 object SimulationComponent:
 
-  trait SimulationConfiguration:
+  trait SimulationParameters:
 
     /** @return the size of the environment choosed by the user. */
     def gridSide: Int
@@ -35,11 +35,11 @@ object SimulationComponent:
     def startingInfectedPercentage: Double
 
   case class Simulation(
-      override val gridSide: Int = GlobalDefaults.GRID_SIDE,
+      override val gridSide: Int = GlobalDefaults.GRID_SIDE * GlobalDefaults.GRID_MULTIPLIER,
       override val duration: Int = GlobalDefaults.DURATION,
       override val numberOfEntities: Int = GlobalDefaults.NUMBER_OF_ENTITIES,
       override val peoplePerHouse: Int = GlobalDefaults.PEOPLE_PER_HOUSE,
       override val averagePopulationAge: Int = GlobalDefaults.AVERAGE_POPULATION_AGE,
       override val stdDevPopulationAge: Double = GlobalDefaults.STD_DEV_POPULATION_AGE,
       override val startingInfectedPercentage: Double = GlobalDefaults.STARTING_INFECTED_PERCENTAGE
-  ) extends SimulationConfiguration
+  ) extends SimulationParameters
