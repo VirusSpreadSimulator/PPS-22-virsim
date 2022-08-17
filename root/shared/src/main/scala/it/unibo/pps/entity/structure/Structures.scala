@@ -151,7 +151,7 @@ object Structures:
       override val entranceStrategy: EntranceStrategy = BaseEntranceStrategy(),
       override val entities: Set[EntityPermanence] = Set(),
       override val visibilityDistance: Distance = defaultVisibilityDistance,
-      override val treatmentQuality: TreatmentQuality
+      override val treatmentQuality: TreatmentQuality = TreatmentQuality.MEDIUM
   ) extends SimulationStructure
       with Visible
       with Hospitalization:
