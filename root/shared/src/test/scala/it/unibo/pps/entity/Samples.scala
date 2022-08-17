@@ -50,6 +50,18 @@ object Samples:
         EntityPermanence(BaseEntity(8, 21, house, position = Point2D(8, 7)), TimeStamp(), DurationTime(11, MINUTES)),
         EntityPermanence(BaseEntity(9, 21, house, position = Point2D(8, 7)), TimeStamp(), DurationTime(11, MINUTES))
       )
+    ),
+    GenericBuilding(
+      Point2D(4, 5),
+      0.3,
+      4,
+      group = "group1"
+    ),
+    GenericBuilding(
+      Point2D(1, 5),
+      0.3,
+      4,
+      group = "group1"
     )
   )
 
