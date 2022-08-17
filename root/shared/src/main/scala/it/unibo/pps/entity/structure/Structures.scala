@@ -68,6 +68,14 @@ object Structures:
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
     override protected def exit(entity: SimulationEntity): SimulationStructure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
+    override def updateEntitiesInside(f: SimulationEntity => SimulationEntity): SimulationStructure =
+      val updatedEntities = for
+        permanence <- this.entities
+        updatedEntity = f(permanence.entity)
+      yield EntityPermanence(updatedEntity, permanence.timestamp, permanence.permanenceDuration)
+      this
+        .focus(_.entities)
+        .modify(_.filter(p => !updatedEntities.map(_.entity).contains(p.entity)) ++ updatedEntities)
 
   /** Builder for the GenericBuilding type of structure
     * @param infectionProbability
@@ -108,6 +116,14 @@ object Structures:
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
     override protected def exit(entity: SimulationEntity): SimulationStructure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
+    override def updateEntitiesInside(f: SimulationEntity => SimulationEntity): SimulationStructure =
+      val updatedEntities = for
+        permanence <- this.entities
+        updatedEntity = f(permanence.entity)
+      yield EntityPermanence(updatedEntity, permanence.timestamp, permanence.permanenceDuration)
+      this
+        .focus(_.entities)
+        .modify(_.filter(p => !updatedEntities.map(_.entity).contains(p.entity)) ++ updatedEntities)
 
   /** Builder for the GenericBuilding type of structure
     * @param infectionProbability
@@ -143,3 +159,11 @@ object Structures:
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
     override protected def exit(entity: SimulationEntity): SimulationStructure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
+    override def updateEntitiesInside(f: SimulationEntity => SimulationEntity): SimulationStructure =
+      val updatedEntities = for
+        permanence <- this.entities
+        updatedEntity = f(permanence.entity)
+      yield EntityPermanence(updatedEntity, permanence.timestamp, permanence.permanenceDuration)
+      this
+        .focus(_.entities)
+        .modify(_.filter(p => !updatedEntities.map(_.entity).contains(p.entity)) ++ updatedEntities)
