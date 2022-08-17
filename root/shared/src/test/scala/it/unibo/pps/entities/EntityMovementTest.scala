@@ -1,8 +1,8 @@
 package it.unibo.pps.entities
 
 import it.unibo.pps.control.engine.SimulationComponent.Simulation
-import it.unibo.pps.control.engine.behaviouralLogics.EntityLogic
-import it.unibo.pps.control.engine.behaviouralLogics.CalculateNextMovement
+import it.unibo.pps.control.engine.logics.EntityLogic
+import it.unibo.pps.control.engine.logics.CalculateNextMovement
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
 import it.unibo.pps.entity.environment.EnvironmentModule.Component

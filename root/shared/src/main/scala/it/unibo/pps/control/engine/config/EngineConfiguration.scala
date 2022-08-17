@@ -1,7 +1,7 @@
 package it.unibo.pps.control.engine.config
 
 import it.unibo.pps.boundary.component.Events.Event
-import it.unibo.pps.control.engine.behaviouralLogics.Logic.{EventLogic, UpdateLogic}
+import it.unibo.pps.control.engine.logics.Logic.{EventLogic, UpdateLogic}
 import it.unibo.pps.control.engine.config.Configurations.{EngineSpeed, EngineStatus}
 import monix.execution.Scheduler
 
@@ -54,7 +54,12 @@ object EngineConfiguration:
     override var engineSpeed: EngineSpeed = EngineSpeed.NORMAL
     override var engineStatus: EngineStatus = EngineStatus.RUNNING
     override val logics: Seq[UpdateLogic] =
-      Seq(UpdateLogic.identity, UpdateLogic.logicTimeUpdate, UpdateLogic.iterationLogic(this))
+      Seq(
+        UpdateLogic.externalInfectionLogic,
+        UpdateLogic.internalInfectionLogic,
+        UpdateLogic.logicTimeUpdate,
+        UpdateLogic.iterationLogic(this)
+      )
     override val eventLogics: Event => EventLogic = _ match
       case Event.Pause => EventLogic.pauseLogic(this)
       case Event.Resume => EventLogic.resumeLogic(this)

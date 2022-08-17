@@ -1,7 +1,7 @@
-package it.unibo.pps.control.engine.behaviouralLogics.infection
+package it.unibo.pps.control.engine.logics.infection
 
 import it.unibo.pps.entity.environment.EnvironmentModule
-import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionLogic.{
+import it.unibo.pps.control.engine.logics.infection.InfectionLogic.{
   ExternalInfectionLogic,
   InfectingEntity,
   InternalInfectionLogic
