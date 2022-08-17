@@ -67,68 +67,65 @@ object InfectionLogicTest extends SimpleTaskSuite:
   val internalInfectionLogic: InternalInfectionLogic = InternalInfectionLogic()
 
   test("The external infection logic returns an updated env") {
-    for {
-      updatedEnv <- externalInfectionLogic(InfectedEnv.env)
-    } yield expect(!(updatedEnv eq InfectedEnv.env))
+    for updatedEnv <- externalInfectionLogic(InfectedEnv.env)
+    yield expect(!(updatedEnv eq InfectedEnv.env))
   }
 
   test("External infection logic doesn't create spurious entities") {
-    for {
-      updatedEnv <- externalInfectionLogic(InfectedEnv.env)
-    } yield expect(
+    for updatedEnv <- externalInfectionLogic(InfectedEnv.env)
+    yield expect(
       updatedEnv.externalEntities.size == InfectedEnv.env.externalEntities.size &&
         updatedEnv.structures.flatMap(_.entities).size == InfectedEnv.env.structures.flatMap(_.entities).size
     )
   }
 
-  test("When the external infection logic is applied the number of infected is more or equal") {
-    for {
-      updatedEnv <- externalInfectionLogic(InfectedEnv.env)
-    } yield expect(numberOfInfected(updatedEnv.externalEntities) >= numberOfInfected(InfectedEnv.env.externalEntities))
+  test("When the external infection logic is applied the number of external infected is more or equal") {
+    for updatedEnv <- externalInfectionLogic(InfectedEnv.env)
+    yield expect(numberOfInfected(updatedEnv.externalEntities) >= numberOfInfected(InfectedEnv.env.externalEntities))
   }
 
   test("In external infection logic the entities that are internal to structures are not considered") {
-    for {
-      updatedEnv <- externalInfectionLogic(InfectedEnv.env)
-    } yield expect(numberOfInternalInfected(updatedEnv) == numberOfInternalInfected(InfectedEnv.env))
+    for updatedEnv <- externalInfectionLogic(InfectedEnv.env)
+    yield expect(numberOfInternalInfected(updatedEnv) == numberOfInternalInfected(InfectedEnv.env))
   }
 
   test("The internal infection logic returns an updated env") {
-    for {
-      updatedEnv <- internalInfectionLogic(InfectedEnv.env)
-    } yield expect(!(updatedEnv eq InfectedEnv.env))
+    for updatedEnv <- internalInfectionLogic(InfectedEnv.env)
+    yield expect(!(updatedEnv eq InfectedEnv.env))
   }
 
   test("Internal infection logic doesn't create spurious entities") {
-    for {
-      updatedEnv <- internalInfectionLogic(InfectedEnv.env)
-    } yield expect(
+    for updatedEnv <- internalInfectionLogic(InfectedEnv.env)
+    yield expect(
       updatedEnv.externalEntities.size == InfectedEnv.env.externalEntities.size &&
         updatedEnv.structures.flatMap(_.entities).size == InfectedEnv.env.structures.flatMap(_.entities).size
     )
   }
 
-  // todo: test che non si creano strutture spurie
-
-  test("When the internal infection logic is applied the number of internal infected is more or equal") {
-    for {
-      updatedEnv <- internalInfectionLogic(InfectedEnv.env)
-      _ <- monix.eval.Task(println(numberOfInfected(updatedEnv.externalEntities)))
-      _ <- monix.eval.Task(println(numberOfInternalInfected(updatedEnv)))
-    } yield expect(numberOfInternalInfected(updatedEnv) >= numberOfInternalInfected(InfectedEnv.env))
+  test("Internal infection logic doesn't create spurious structures") {
+    for updatedEnv <- internalInfectionLogic(InfectedEnv.env)
+    yield expect(InfectedEnv.env.structures.size == updatedEnv.structures.size)
   }
 
-  // todo: test che quando la si applica le entità esterne alle strutture non vengono toccate
+  test("When the internal infection logic is applied the number of internal infected is more or equal") {
+    for updatedEnv <- internalInfectionLogic(InfectedEnv.env)
+    yield expect(numberOfInternalInfected(updatedEnv) >= numberOfInternalInfected(InfectedEnv.env))
+  }
+
+  test("In internal infection logic the entities that are external to structures are not considered") {
+    for updatedEnv <- internalInfectionLogic(InfectedEnv.env)
+    yield expect(numberOfInfected(InfectedEnv.env.externalEntities) == numberOfInfected(updatedEnv.externalEntities))
+  }
 
   test("A structure without infected entities don't generate new infections") {
-    for {
+    for
       updatedEnv <- internalInfectionLogic(InfectedEnv.env)
       structuresWithoutInfectionBefore = InfectedEnv.env.structures
-        .count(s => numberOfInfected(s.entities.map(_.entity).select[SimulationEntity]) == 0)
+        .count(s => numberOfInfected(s.entities.map(_.entity)) == 0)
       structuresWithoutInfectionAfter = updatedEnv.structures.count(s =>
-        numberOfInfected(s.entities.map(_.entity).select[SimulationEntity]) == 0
+        numberOfInfected(s.entities.map(_.entity)) == 0
       )
-    } yield expect(structuresWithoutInfectionBefore == structuresWithoutInfectionAfter)
+    yield expect(structuresWithoutInfectionBefore == structuresWithoutInfectionAfter)
   }
 
   private def numberOfInfected[A](entities: Set[SimulationEntity]): Int =
@@ -139,5 +136,4 @@ object InfectionLogicTest extends SimpleTaskSuite:
       env.structures
         .flatMap(_.entities)
         .map(_.entity)
-        .select[SimulationEntity]
     )
