@@ -8,6 +8,7 @@ import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.structure.StructureComponent.{Closable, Groupable}
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
 
+/* Here, for simplicity, we consider a group of structures that have all the same starting opening state */
 object SwitchStructureLogicTest extends SimpleTaskSuite:
   val env: Environment = Samples.sampleEnv
   val analyzedGroup: String = "group1"
