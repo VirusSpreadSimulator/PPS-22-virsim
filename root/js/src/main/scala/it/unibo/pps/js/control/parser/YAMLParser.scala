@@ -46,9 +46,6 @@ object YAMLParser:
               simulation <- parseSimulationParameters(configurationParameters)
               virus <- parseVirusParameters(configurationParameters)
               structures <- parseStructuresParameters(configurationParameters)
-              _ <- Task(println("Simulation: " + simulation))
-              _ <- Task(println("Virus: " + virus))
-              _ <- Task(println("Structures: " + structures))
             yield Some(VirsimConfiguration(simulation, virus, structures))
           case Left(_) => Task(None)
 
