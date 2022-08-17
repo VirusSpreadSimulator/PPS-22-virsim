@@ -1,4 +1,4 @@
-package it.unibo.pps.control.engine.behaviouralLogics
+package it.unibo.pps.control.engine.logics
 
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 

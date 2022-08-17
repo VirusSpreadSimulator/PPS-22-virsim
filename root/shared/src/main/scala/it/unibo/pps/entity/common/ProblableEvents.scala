@@ -1,6 +1,6 @@
 package it.unibo.pps.entity.common
 
-import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionLogic.{
+import it.unibo.pps.control.engine.logics.infection.InfectionLogic.{
   ExternalProbableInfection,
   InfectingEntity,
   InternalProbableInfection,

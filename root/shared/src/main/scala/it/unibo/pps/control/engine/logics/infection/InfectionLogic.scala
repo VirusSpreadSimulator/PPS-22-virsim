@@ -1,6 +1,6 @@
-package it.unibo.pps.control.engine.behaviouralLogics.infection
+package it.unibo.pps.control.engine.logics.infection
 
-import it.unibo.pps.control.engine.behaviouralLogics.Logic.UpdateLogic
+import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
 import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
 import it.unibo.pps.entity.entity.EntityComponent.{Infectious, Moving}
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
