@@ -21,10 +21,7 @@ class CalculateNextMovement extends EntityLogic:
       yield updatedEntity
 
     environment.update(
-      gridSide = environment.gridSide,
-      externalEntities = updatedEntities,
-      virus = environment.virus,
-      structures = environment.structures
+      externalEntities = updatedEntities
     )
 
   /** Extracts random position given the set of possible position
@@ -61,4 +58,4 @@ class CalculateNextMovement extends EntityLogic:
             entity.home.position
           )
         )
-      case MovementGoal.NO_MOVEMENT => entity.position
+      case _ => entity.position
