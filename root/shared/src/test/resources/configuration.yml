@@ -1,0 +1,27 @@
+simulation:
+  gridSide: 25
+  days: 7
+  entities: 100
+  averagePopulationAge: 40
+  stdDevPopulationAge: 0.5
+  peoplePerHouse: 4
+  startingInfectedPercentage: 10
+
+virus:
+  virusName: Virus-Test
+  spreadRate: 1.5
+  averagePositivityDays: 7
+  stdDevPositivityDays: 3.0
+  severeDeseaseProbability: 0.75
+  maxInfectionDistance: 3.0
+
+structures:
+  - GenericBuilding:
+      position: [10,10]
+      infectionProbability: 0.8
+      capacity: 30
+
+  - GenericBuilding:
+      position: [20,20]
+      infectionProbability: 0.9
+      capacity: 40
