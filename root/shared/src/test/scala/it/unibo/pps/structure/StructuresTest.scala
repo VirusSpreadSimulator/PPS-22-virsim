@@ -2,8 +2,7 @@ package it.unibo.pps.structure
 
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.common.Time.TimeStamp
-import it.unibo.pps.entity.entity.Entities.BaseEntity
-import it.unibo.pps.entity.entity.EntityComponent.Entity
+import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
 import it.unibo.pps.entity.structure.StructureComponent.Hospitalization
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, Hospital, House, SimulationStructure}
 import it.unibo.pps.entity.structure.entrance.Entrance.{BaseEntranceStrategy, FilterBasedStrategy}
@@ -111,7 +110,7 @@ class StructuresTest extends AnyFunSuite with Matchers:
     hospitalCopy.entities.isEmpty shouldBe true
   }
 
-  private def tryToEnterMultiple(structure: SimulationStructure, entities: Seq[Entity]): SimulationStructure =
+  private def tryToEnterMultiple(structure: SimulationStructure, entities: Seq[SimulationEntity]): SimulationStructure =
     var s = structure
     for entity <- entities do s = s.tryToEnter(entity, timeStamp)
     s

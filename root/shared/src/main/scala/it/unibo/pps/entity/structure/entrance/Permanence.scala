@@ -1,6 +1,7 @@
 package it.unibo.pps.entity.structure.entrance
 
 import it.unibo.pps.entity.common.Time.{DurationTime, TimeStamp}
+import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.entity.EntityComponent.Entity
 
 object Permanence:
@@ -16,7 +17,7 @@ object Permanence:
       * @return
       *   the entity
       */
-    def entity: Entity
+    def entity: SimulationEntity
     /** The timestamp that represent the entry time of the entity in the structure
       * @return
       *   the timestamp
@@ -37,10 +38,13 @@ object Permanence:
     def status(timestampToCheck: TimeStamp): PermanenceStatus
 
   object EntityPermanence:
-    def apply(entity: Entity, timestamp: TimeStamp, permanenceDuration: DurationTime): EntityPermanence =
+    def apply(entity: SimulationEntity, timestamp: TimeStamp, permanenceDuration: DurationTime): EntityPermanence =
       EntityPermanenceImpl(entity, timestamp, permanenceDuration)
-    private case class EntityPermanenceImpl(entity: Entity, timestamp: TimeStamp, permanenceDuration: DurationTime)
-        extends EntityPermanence:
+    private case class EntityPermanenceImpl(
+        entity: SimulationEntity,
+        timestamp: TimeStamp,
+        permanenceDuration: DurationTime
+    ) extends EntityPermanence:
       override def status(timeStampToCheck: TimeStamp): PermanenceStatus =
         timeStampToCheck <= timestamp + permanenceDuration match
           case true => PermanenceStatus.VALID

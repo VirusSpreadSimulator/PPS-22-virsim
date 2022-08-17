@@ -4,7 +4,7 @@ import it.unibo.pps.boundary.BoundaryModule
 import it.unibo.pps.control.launcher.Launch
 import it.unibo.pps.control.parser.ParserModule
 import it.unibo.pps.js.boundary.JSGUIModule
-import it.unibo.pps.js.parser.YAMLParser
+import it.unibo.pps.js.control.parser.YAMLParser
 
 object Launcher extends Launch with JSGUIModule.Interface with YAMLParser.Interface:
   override val jsGui = JSGUIBoundaryImpl()

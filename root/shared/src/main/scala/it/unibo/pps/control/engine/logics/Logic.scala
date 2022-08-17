@@ -1,12 +1,12 @@
-package it.unibo.pps.control.engine.behaviouralLogics
+package it.unibo.pps.control.engine.logics
 
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.control.engine.config.Configurations.EngineStatus
 import it.unibo.pps.control.engine.config.EngineConfiguration.SimulationConfig
 import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionLogic.ExternalInfectionLogic
-import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionLogic.InternalInfectionLogic
+import it.unibo.pps.control.engine.logics.infection.InfectionLogic.ExternalInfectionLogic
+import it.unibo.pps.control.engine.logics.infection.InfectionLogic.InternalInfectionLogic
 import monix.eval.Task
 import monocle.syntax.all.*
 

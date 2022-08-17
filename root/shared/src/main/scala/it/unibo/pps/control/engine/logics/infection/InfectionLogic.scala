@@ -1,6 +1,6 @@
-package it.unibo.pps.control.engine.behaviouralLogics.infection
+package it.unibo.pps.control.engine.logics.infection
 
-import it.unibo.pps.control.engine.behaviouralLogics.Logic.UpdateLogic
+import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
 import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
 import it.unibo.pps.entity.entity.EntityComponent.{Infectious, Moving}
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
@@ -8,6 +8,7 @@ import it.unibo.pps.entity.virus.VirusComponent.Virus
 import it.unibo.pps.entity.common.ProblableEvents.ProbableGivenInstance.given
 import it.unibo.pps.entity.common.ProblableEvents.ProbableOps.*
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
+import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
 import monix.eval.Task
 
 object InfectionLogic:
@@ -19,25 +20,28 @@ object InfectionLogic:
   case class InternalProbableInfection(env: Environment, entity: InfectingEntity, structure: SimulationStructure)
 
   extension (e: InfectingEntity)
-    def infected(virus: Virus): Task[InfectingEntity] =
+    def infected(virus: Virus): InfectingEntity =
       import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
       import it.unibo.pps.entity.entity.Infection.Severity
       import it.unibo.pps.entity.entity.Infection
-      for
-        severity <- Task(if virus.severeDeseaseProbability.isHappening then Severity.SERIOUS() else Severity.LIGHT())
-        durationDistribution = GaussianIntDistribution(virus.averagePositivityDays, virus.stdDevPositivityDays)
-        duration <- Task(durationDistribution.next())
-        infection <- Task(Infection(severity, duration))
-      yield BaseEntity(e.id, e.age, e.home, e.immunity, e.position, e.movementGoal, infection = Some(infection))
+      val severity = if virus.severeDeseaseProbability.isHappening then Severity.SERIOUS() else Severity.LIGHT()
+      val durationDistribution = GaussianIntDistribution(virus.averagePositivityDays, virus.stdDevPositivityDays)
+      BaseEntity(
+        e.id,
+        e.age,
+        e.home,
+        e.immunity,
+        e.position,
+        e.movementGoal,
+        infection = Some(Infection(severity, durationDistribution.next()))
+      )
     def maskReduction: Int = if e.hasMask then MASK_REDUCER else 1
 
   class ExternalInfectionLogic extends UpdateLogic:
     import it.unibo.pps.entity.common.Utils.*
     override def apply(env: Environment): Task[Environment] =
       for
-        entities <- Task(
-          env.externalEntities.select[InfectingEntity].filter(_.movementGoal != Moving.MovementGoal.NO_MOVEMENT)
-        ) // todo: dopo la modifica prendi solo le entità esterne
+        entities <- Task(env.externalEntities.select[InfectingEntity])
         infected <- Task.sequence {
           entities
             .filter(_.infection.isEmpty)
@@ -51,33 +55,32 @@ object InfectionLogic:
               )
             )
             .filter(_.isHappening)
-            .map(_.entity.infected(env.virus))
+            .map(i => Task(i.entity.infected(env.virus)))
         }
       yield env.update(externalEntities =
         env.externalEntities.filter(e => !infected.map(_.id).contains(e.id)) ++ infected.toSet
-      ) //todo: dopo la modifica sii sicuro che qui si aggiornano le entità che sono all'esterno
+      )
 
   class InternalInfectionLogic extends UpdateLogic:
     import it.unibo.pps.entity.common.Utils.*
     override def apply(env: Environment): Task[Environment] =
       for
         structures <- Task(env.structures)
-        infected <- Task.sequence {
-          structures
-            .filter(_.entities.map(_.entity).select[InfectingEntity].exists(_.infection.isDefined))
-            .flatMap(s =>
-              s.entities
-                .map(_.entity)
-                .select[InfectingEntity]
-                .filter(_.infection.isEmpty)
-                .map(e => InternalProbableInfection(env, e, s))
-            )
-            .filter(_.isHappening)
-            .map(_.entity.infected(env.virus))
-          // todo: così le entitià in struttura non sono aggiornate.
-          // todo: ribalta in modo che invece di ritornare le entità aggiornate, ritorni le strutture aggiornate, in quato ora le entità accessibili direttamente dall'env sono quelle che si trovano nell'ambiente esterno.
+        infectedStructures <- Task(
+          structures.filter(_.entities.map(_.entity).select[InfectingEntity].exists(_.infection.isDefined))
+        )
+        updatedStructures <- Task {
+          for infectedStructure <- infectedStructures
+          yield infectedStructure.updateEntitiesInside { entity =>
+            entity
+              .withCapabilities[InfectingEntity]
+              .filter(_.infection.isEmpty)
+              .map(e => InternalProbableInfection(env, e, infectedStructure))
+              .filter(_.isHappening)
+              .map(_.entity.infected(env.virus))
+              .getOrElse(entity)
+              .withCapabilities[SimulationEntity]
+              .get
+          }
         }
-      yield env.update(externalEntities =
-        env.externalEntities.filter(e => !infected.map(_.id).contains(e.id)) ++ infected.toSet
-      )
-//todo: dopo la modifica sii sicuro che qui si aggiornano solo le strutture (che sono quelle nuove con i nuovi contagiati) + quelle vecchie che magari sono vuote o non hanno contagiati dentro e quindi non erano state considerate.
+      yield env.update(structures = structures -- infectedStructures ++ updatedStructures)

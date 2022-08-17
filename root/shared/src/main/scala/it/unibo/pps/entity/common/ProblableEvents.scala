@@ -1,6 +1,6 @@
 package it.unibo.pps.entity.common
 
-import it.unibo.pps.control.engine.behaviouralLogics.infection.InfectionLogic.{
+import it.unibo.pps.control.engine.logics.infection.InfectionLogic.{
   ExternalProbableInfection,
   InfectingEntity,
   InternalProbableInfection,
@@ -58,8 +58,8 @@ object ProblableEvents:
           val infectedInside =
             inf.structure.entities.map(_.entity).select[InfectingEntity].filter(_.infection.isDefined)
           if infectedInside.nonEmpty then
-            // todo: print perchè penso sia sempre > 1
             ((inf.env.virus.spreadRate * inf.structure.infectionProbability * (1 - inf.entity.immunity)) /
-              (inf.entity.maskReduction * MASK_REDUCER * (infectedInside.count(_.hasMask) / infectedInside.size))) *
+              (inf.entity.maskReduction * Math
+                .max(1, MASK_REDUCER * (infectedInside.count(_.hasMask) / infectedInside.size)))) *
               (infectedInside.size / (inf.structure.entities.size - 1))
           else 0

@@ -8,10 +8,13 @@ import monix.reactive.{Observable, OverflowStrategy}
 import org.scalajs.dom
 import org.scalajs.dom.html.{Button, Image}
 import it.unibo.pps.boundary.ViewUtils.*
+import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
 import it.unibo.pps.js.boundary.component.MonadButton
 
 trait JSGUI:
   def init(): Task[Unit]
+  def config(): Task[String]
+  def error(errors: Seq[ConfigurationError]): Task[Unit]
   def render(i: Int): Task[Unit]
   def events(): Observable[Event]
 
@@ -24,7 +27,7 @@ object JSGUI:
       )
 
     override def init(): Task[Unit] =
-      for _ <- io(renderBtns.foreach(btn => dom.document.body.appendChild(btn.button)))
+      for _ <- io(renderBtns.foreach(btn => dom.document.getElementById("div-center").appendChild(btn.button)))
       yield ()
 
     override def render(i: Int): Task[Unit] = Task(dom.console.log(i))
@@ -32,3 +35,7 @@ object JSGUI:
     override def events(): Observable[Event] = Observable
       .fromIterable(renderBtns)
       .flatMap(_.events)
+
+    override def config(): Task[String] = ???
+
+    override def error(errors: Seq[ConfigurationError]): Task[Unit] = ???

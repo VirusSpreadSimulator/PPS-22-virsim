@@ -28,15 +28,14 @@ lazy val root = crossProject(JSPlatform, JVMPlatform)
       "dev.optics" %%% "monocle-core" % "3.1.0",
       "it.unibo.alice.tuprolog" % "tuprolog" % "3.3.0",
       "dev.optics" %%% "monocle-macro" % "3.1.0",
-      "org.scala-lang" %% "scala3-staging" % scalaVersion.value
+      "org.scala-lang" %% "scala3-staging" % scalaVersion.value,
+      "org.virtuslab" %%% "scala-yaml" % "0.0.4"
     ),
     testFrameworks += new TestFramework("weaver.framework.Monix")
   )
   .jsSettings(
     scalaJSUseMainModuleInitializer := true,
-    libraryDependencies ++= Seq(
-      "org.scala-js" %%% "scalajs-dom" % "2.2.0"
-    )
+    libraryDependencies ++= Seq("org.scala-js" %%% "scalajs-dom" % "2.2.0")
   )
   .jvmSettings(
     libraryDependencies ++= Seq(

@@ -6,6 +6,7 @@ import it.unibo.pps.entity.structure.entrance.Entrance.EntranceStrategy
 import it.unibo.pps.entity.structure.entrance.Entrance.BaseEntranceStrategy
 import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
 import it.unibo.pps.entity.common.Time.TimeStamp
+import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.structure.StructureComponent.Hospitalization.TreatmentQuality
 import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
 import it.unibo.pps.entity.entity.EntityComponent.Entity
@@ -26,15 +27,23 @@ object Structures:
     override type Position = Point2D
     override type Probability = Double
     override type TimeDistribution = GaussianDurationTime
-    override type BaseEntity = Entity
+    override type BaseEntity = SimulationEntity
     override type StrategyToEnter = EntranceStrategy
     override type EntityInStructure = EntityPermanence
     override type SimulationTime = TimeStamp
     override type BaseStructure = SimulationStructure
 
+    /** Method to allow to update the state of internal entities
+      *
+      * @param f
+      *   the function that update the state
+      * @return
+      *   The modified instance of the structure with the entities updated
+      */
+    def updateEntitiesInside(f: SimulationEntity => SimulationEntity): SimulationStructure
     override protected def checkEnter(entity: BaseEntity): Boolean =
       entities.size < capacity && entranceStrategy.canEnter(entity)
-    override protected def notEntered(entity: Entity, timeStamp: TimeStamp): SimulationStructure = this
+    override protected def notEntered(entity: SimulationEntity, timeStamp: TimeStamp): SimulationStructure = this
 
   /** Builder for the House type of structure
     * @param infectionProbability
@@ -55,10 +64,18 @@ object Structures:
   ) extends SimulationStructure
       with Habitable:
     override val entranceStrategy: EntranceStrategy = BaseEntranceStrategy()
-    override protected def enter(entity: Entity, timestamp: TimeStamp): SimulationStructure =
+    override protected def enter(entity: SimulationEntity, timestamp: TimeStamp): SimulationStructure =
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
-    override protected def exit(entity: Entity): SimulationStructure =
+    override protected def exit(entity: SimulationEntity): SimulationStructure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
+    override def updateEntitiesInside(f: SimulationEntity => SimulationEntity): SimulationStructure =
+      val updatedEntities = for
+        permanence <- this.entities
+        updatedEntity = f(permanence.entity)
+      yield EntityPermanence(updatedEntity, permanence.timestamp, permanence.permanenceDuration)
+      this
+        .focus(_.entities)
+        .modify(_.filter(p => !updatedEntities.map(_.entity).contains(p.entity)) ++ updatedEntities)
 
   /** Builder for the GenericBuilding type of structure
     * @param infectionProbability
@@ -95,10 +112,18 @@ object Structures:
       with Visible
       with Groupable:
     override type Group = String
-    override protected def enter(entity: Entity, timestamp: TimeStamp): SimulationStructure =
+    override protected def enter(entity: SimulationEntity, timestamp: TimeStamp): SimulationStructure =
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
-    override protected def exit(entity: Entity): SimulationStructure =
+    override protected def exit(entity: SimulationEntity): SimulationStructure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
+    override def updateEntitiesInside(f: SimulationEntity => SimulationEntity): SimulationStructure =
+      val updatedEntities = for
+        permanence <- this.entities
+        updatedEntity = f(permanence.entity)
+      yield EntityPermanence(updatedEntity, permanence.timestamp, permanence.permanenceDuration)
+      this
+        .focus(_.entities)
+        .modify(_.filter(p => !updatedEntities.map(_.entity).contains(p.entity)) ++ updatedEntities)
 
   /** Builder for the GenericBuilding type of structure
     * @param infectionProbability
@@ -126,11 +151,19 @@ object Structures:
       override val entranceStrategy: EntranceStrategy = BaseEntranceStrategy(),
       override val entities: Set[EntityPermanence] = Set(),
       override val visibilityDistance: Distance = defaultVisibilityDistance,
-      override val treatmentQuality: TreatmentQuality
+      override val treatmentQuality: TreatmentQuality = TreatmentQuality.MEDIUM
   ) extends SimulationStructure
       with Visible
       with Hospitalization:
-    override protected def enter(entity: Entity, timestamp: TimeStamp): SimulationStructure =
+    override protected def enter(entity: SimulationEntity, timestamp: TimeStamp): SimulationStructure =
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
-    override protected def exit(entity: Entity): SimulationStructure =
+    override protected def exit(entity: SimulationEntity): SimulationStructure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
+    override def updateEntitiesInside(f: SimulationEntity => SimulationEntity): SimulationStructure =
+      val updatedEntities = for
+        permanence <- this.entities
+        updatedEntity = f(permanence.entity)
+      yield EntityPermanence(updatedEntity, permanence.timestamp, permanence.permanenceDuration)
+      this
+        .focus(_.entities)
+        .modify(_.filter(p => !updatedEntities.map(_.entity).contains(p.entity)) ++ updatedEntities)
