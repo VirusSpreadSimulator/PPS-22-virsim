@@ -100,7 +100,12 @@ object Logic:
     def simulationSpeedLogic(config: SimulationConfig, engineSpeed: EngineSpeed): EventLogic = env =>
       for _ <- Task(config.engineSpeed = engineSpeed)
       yield env
-
+    /** Logic to switch the opening state of a group of structure
+      * @param group
+      *   the group to switch
+      * @return
+      *   the event logic
+      */
     def switchStructure(group: String): EventLogic = env =>
       for
         structures <- Task(env.structures)
