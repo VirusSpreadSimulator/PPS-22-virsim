@@ -10,7 +10,7 @@ object VirusDSL:
 
   extension (virus: Virus)
 
-    def name(virusName: String): Virus =
+    def virusName(virusName: String): Virus =
       virus.focus(_.name).replace(virusName)
 
     def spreadRate(virusSpreadRate: Double): Virus =
