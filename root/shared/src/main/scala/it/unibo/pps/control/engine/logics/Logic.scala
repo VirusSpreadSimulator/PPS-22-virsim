@@ -8,6 +8,9 @@ import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.control.engine.logics.infection.InfectionLogic.ExternalInfectionLogic
 import it.unibo.pps.control.engine.logics.infection.InfectionLogic.InternalInfectionLogic
 import monix.eval.Task
+import it.unibo.pps.entity.common.Utils.*
+import it.unibo.pps.entity.structure.StructureComponent.{Closable, Groupable}
+import it.unibo.pps.entity.structure.Structures.{GenericBuilding, SimulationStructure}
 import monocle.syntax.all.*
 
 /** Module that wrap all the logic types that are needed to update the simulation [[Environment]] */
@@ -97,3 +100,16 @@ object Logic:
     def simulationSpeedLogic(config: SimulationConfig, engineSpeed: EngineSpeed): EventLogic = env =>
       for _ <- Task(config.engineSpeed = engineSpeed)
       yield env
+
+    def switchStructure(group: String): EventLogic = env =>
+      for
+        structures <- Task(env.structures)
+        structuresToUpdate <- Task(
+          structures.select[SimulationStructure with Closable with Groupable].filter(_.group == group)
+        )
+        updatedStructures = structuresToUpdate.map { struct =>
+          struct match
+            case generic: GenericBuilding => generic.focus(_.isOpen).modify(!_)
+            case _ => struct
+        }
+      yield env.update(structures = structures -- structuresToUpdate ++ updatedStructures)
