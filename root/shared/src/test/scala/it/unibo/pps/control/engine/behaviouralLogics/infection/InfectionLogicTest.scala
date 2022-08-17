@@ -36,9 +36,17 @@ object InfectionLogicTest extends SimpleTaskSuite:
       0.5,
       4,
       entities = Set(
-        EntityPermanence(entities(0), TimeStamp(), DurationTime(11, MINUTES)),
-        EntityPermanence(entities(3), TimeStamp(), DurationTime(11, MINUTES)),
-        EntityPermanence(entities(4), TimeStamp(), DurationTime(11, MINUTES))
+        EntityPermanence(BaseEntity(5, 20, house, position = Point2D(1, 7)), TimeStamp(), DurationTime(11, MINUTES)),
+        EntityPermanence(
+          BaseEntity(6, 20, house, position = Point2D(1, 7), infection = Some(Infection(Severity.LIGHT(), 5))),
+          TimeStamp(),
+          DurationTime(11, MINUTES)
+        ),
+        EntityPermanence(
+          BaseEntity(7, 20, house, position = Point2D(1, 7), infection = Some(Infection(Severity.LIGHT(), 5))),
+          TimeStamp(),
+          DurationTime(11, MINUTES)
+        )
       )
     ),
     GenericBuilding(
@@ -46,8 +54,8 @@ object InfectionLogicTest extends SimpleTaskSuite:
       0.5,
       4,
       entities = Set(
-        EntityPermanence(entities(1), TimeStamp(), DurationTime(11, MINUTES)),
-        EntityPermanence(entities(2), TimeStamp(), DurationTime(11, MINUTES))
+        EntityPermanence(BaseEntity(8, 21, house, position = Point2D(8, 7)), TimeStamp(), DurationTime(11, MINUTES)),
+        EntityPermanence(BaseEntity(9, 21, house, position = Point2D(8, 7)), TimeStamp(), DurationTime(11, MINUTES))
       )
     )
   )
@@ -58,7 +66,6 @@ object InfectionLogicTest extends SimpleTaskSuite:
   val externalInfectionLogic: ExternalInfectionLogic = ExternalInfectionLogic()
   val internalInfectionLogic: InternalInfectionLogic = InternalInfectionLogic()
 
-  //todo: riconsidera ogni test con la versione modificata di environment
   test("The external infection logic returns an updated env") {
     for {
       updatedEnv <- externalInfectionLogic(InfectedEnv.env)
@@ -70,7 +77,7 @@ object InfectionLogicTest extends SimpleTaskSuite:
       updatedEnv <- externalInfectionLogic(InfectedEnv.env)
     } yield expect(
       updatedEnv.externalEntities.size == InfectedEnv.env.externalEntities.size &&
-        updatedEnv.structures.map(_.entities).size == InfectedEnv.env.structures.map(_.entities).size
+        updatedEnv.structures.flatMap(_.entities).size == InfectedEnv.env.structures.flatMap(_.entities).size
     )
   }
 
@@ -97,9 +104,11 @@ object InfectionLogicTest extends SimpleTaskSuite:
       updatedEnv <- internalInfectionLogic(InfectedEnv.env)
     } yield expect(
       updatedEnv.externalEntities.size == InfectedEnv.env.externalEntities.size &&
-        updatedEnv.structures.map(_.entities).size == InfectedEnv.env.structures.map(_.entities).size
+        updatedEnv.structures.flatMap(_.entities).size == InfectedEnv.env.structures.flatMap(_.entities).size
     )
   }
+
+  // todo: test che non si creano strutture spurie
 
   test("When the internal infection logic is applied the number of internal infected is more or equal") {
     for {
