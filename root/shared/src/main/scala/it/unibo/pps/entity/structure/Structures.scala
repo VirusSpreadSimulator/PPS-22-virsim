@@ -43,7 +43,7 @@ object Structures:
     def updateEntitiesInside(f: SimulationEntity => SimulationEntity): SimulationStructure
     override protected def checkEnter(entity: BaseEntity): Boolean =
       entities.size < capacity && entranceStrategy.canEnter(entity)
-    override protected def notEntered(entity: Entity, timeStamp: TimeStamp): SimulationStructure = this
+    override protected def notEntered(entity: SimulationEntity, timeStamp: TimeStamp): SimulationStructure = this
 
   /** Builder for the House type of structure
     * @param infectionProbability
