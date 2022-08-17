@@ -24,7 +24,7 @@ object SimulationDefaults:
     val AVERAGE_POSITIVITY_DAYS: Int = 7
     val STD_DEV_POSITIVITY_DAYS: Double = 3
     val SEVERE_DESEASE_PROBABILITY: Double = 0.75
-    val MAXIMUM_INFECTION_DISTANCE: Double = 3
+    val MAXIMUM_INFECTION_DISTANCE: Double = 0.5
 
   object StructuresDefault:
     val HOUSE_INFECTION_PROB: Double = 0.5
