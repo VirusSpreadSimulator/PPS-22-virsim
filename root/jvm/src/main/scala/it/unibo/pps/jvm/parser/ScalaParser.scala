@@ -21,7 +21,7 @@ object ScalaParser:
   trait Component:
     class ParserImpl extends Parser:
       override def readFile(path: String): Task[String] =
-        Task(GlobalDefaults.DSL_IMPORTS + Source.fromFile(path).getLines().mkString)
+        Task(GlobalDefaults.DSL_IMPORTS + Source.fromFile(path).mkString)
 
       override def loadConfiguration(program: String): Task[Option[Configuration]] =
         val engine = new ScriptEngineManager().getEngineByName("scala")
