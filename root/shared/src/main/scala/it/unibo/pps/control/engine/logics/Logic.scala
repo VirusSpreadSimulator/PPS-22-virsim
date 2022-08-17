@@ -104,9 +104,9 @@ object Logic:
     def switchStructure(group: String): EventLogic = env =>
       for
         structures <- Task(env.structures)
-        structuresToUpdate <- Task(
+        structuresToUpdate <- Task {
           structures.select[SimulationStructure with Closable with Groupable].filter(_.group == group)
-        )
+        }
         updatedStructures = structuresToUpdate.map { struct =>
           struct match
             case generic: GenericBuilding => generic.focus(_.isOpen).modify(!_)
