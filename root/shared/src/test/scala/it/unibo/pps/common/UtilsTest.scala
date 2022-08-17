@@ -30,3 +30,16 @@ class UtilsTest extends AnyFunSuite with Matchers:
   test("We can extract from a group of structures only the closable ones") {
     initialSet.select[Closable].size shouldBe 1
   }
+
+  test("We can extract a supertype") {
+    1.withCapabilities[AnyVal].isDefined shouldBe true
+  }
+
+  test("We can extract a subtype") {
+    val x: AnyVal = 2
+    x.withCapabilities[Int].isDefined shouldBe true
+  }
+
+  test("Uncoverrtible type should be safely handled") {
+    1.withCapabilities[Point2D].isEmpty shouldBe true
+  }
