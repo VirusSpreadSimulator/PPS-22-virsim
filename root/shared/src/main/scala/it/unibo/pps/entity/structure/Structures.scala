@@ -69,10 +69,7 @@ object Structures:
     override protected def exit(entity: SimulationEntity): SimulationStructure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
     override def updateEntitiesInside(f: SimulationEntity => SimulationEntity): SimulationStructure =
-      val updatedEntities = for
-        permanence <- this.entities
-        updatedEntity = f(permanence.entity)
-      yield EntityPermanence(updatedEntity, permanence.timestamp, permanence.permanenceDuration)
+      val updatedEntities = Utils.updatePermanences(f, this.entities)
       this
         .focus(_.entities)
         .modify(_.filter(p => !updatedEntities.map(_.entity).contains(p.entity)) ++ updatedEntities)
@@ -117,10 +114,7 @@ object Structures:
     override protected def exit(entity: SimulationEntity): SimulationStructure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
     override def updateEntitiesInside(f: SimulationEntity => SimulationEntity): SimulationStructure =
-      val updatedEntities = for
-        permanence <- this.entities
-        updatedEntity = f(permanence.entity)
-      yield EntityPermanence(updatedEntity, permanence.timestamp, permanence.permanenceDuration)
+      val updatedEntities = Utils.updatePermanences(f, this.entities)
       this
         .focus(_.entities)
         .modify(_.filter(p => !updatedEntities.map(_.entity).contains(p.entity)) ++ updatedEntities)
@@ -160,10 +154,14 @@ object Structures:
     override protected def exit(entity: SimulationEntity): SimulationStructure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
     override def updateEntitiesInside(f: SimulationEntity => SimulationEntity): SimulationStructure =
-      val updatedEntities = for
-        permanence <- this.entities
-        updatedEntity = f(permanence.entity)
-      yield EntityPermanence(updatedEntity, permanence.timestamp, permanence.permanenceDuration)
+      val updatedEntities = Utils.updatePermanences(f, this.entities)
       this
         .focus(_.entities)
         .modify(_.filter(p => !updatedEntities.map(_.entity).contains(p.entity)) ++ updatedEntities)
+
+  private object Utils:
+    def updatePermanences(f: SimulationEntity => SimulationEntity, ps: Set[EntityPermanence]): Set[EntityPermanence] =
+      for
+        permanence <- ps
+        updatedEntity = f(permanence.entity)
+      yield EntityPermanence(updatedEntity, permanence.timestamp, permanence.permanenceDuration)
