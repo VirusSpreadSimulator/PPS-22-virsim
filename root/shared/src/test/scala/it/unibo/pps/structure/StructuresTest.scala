@@ -1,5 +1,6 @@
 package it.unibo.pps.structure
 
+import it.unibo.pps.entity.Samples
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
@@ -49,6 +50,17 @@ class StructuresTest extends AnyFunSuite with Matchers:
     houseCopy.entities.isEmpty shouldBe true
   }
 
+  test("We can delete all the entities inside a house") {
+    val resultingHouse = Samples.inhabitatedHouse.updateEntitiesInside(_ => None)
+    resultingHouse.entities.size shouldBe 0
+  }
+
+  test("We can modify all the entities inside a house and the number will remain equal") {
+    val resultingHouse =
+      Samples.inhabitatedHouse.updateEntitiesInside(entity => Some(entity.focus(_.age).modify(_ + 1)))
+    resultingHouse.entities.size shouldBe Samples.inhabitatedHouse.entities.size
+  }
+
   test("Initially a generic building is empty") {
     building.entities.size shouldBe 0
   }
@@ -82,6 +94,17 @@ class StructuresTest extends AnyFunSuite with Matchers:
     buildingCopy.entities.isEmpty shouldBe true
   }
 
+  test("We can delete all the entities inside a generic building") {
+    val resultingHouse = Samples.inhabitatedGenericBuilding.updateEntitiesInside(_ => None)
+    resultingHouse.entities.size shouldBe 0
+  }
+
+  test("We can modify all the entities inside a generic building and the number will remain equal") {
+    val resultingHouse =
+      Samples.inhabitatedGenericBuilding.updateEntitiesInside(entity => Some(entity.focus(_.age).modify(_ + 1)))
+    resultingHouse.entities.size shouldBe Samples.inhabitatedGenericBuilding.entities.size
+  }
+
   test("Initially a hospital is empty") {
     hospital.entities.size shouldBe 0
   }
@@ -108,6 +131,17 @@ class StructuresTest extends AnyFunSuite with Matchers:
     var hospitalCopy: SimulationStructure = hospital.tryToEnter(entities.head, timeStamp)
     hospitalCopy = hospitalCopy.entityExit(entities.head)
     hospitalCopy.entities.isEmpty shouldBe true
+  }
+
+  test("We can delete all the entities inside a hospital") {
+    val resultingHouse = Samples.inhabitatedHospital.updateEntitiesInside(_ => None)
+    resultingHouse.entities.size shouldBe 0
+  }
+
+  test("We can modify all the entities inside a hospital and the number will remain equal") {
+    val resultingHouse =
+      Samples.inhabitatedHospital.updateEntitiesInside(entity => Some(entity.focus(_.age).modify(_ + 1)))
+    resultingHouse.entities.size shouldBe Samples.inhabitatedHospital.entities.size
   }
 
   private def tryToEnterMultiple(structure: SimulationStructure, entities: Seq[SimulationEntity]): SimulationStructure =

@@ -72,7 +72,7 @@ object InfectionLogic:
               .map(e => InternalProbableInfection(env, e, infectedStructure))
               .filter(_.isHappening)
               .map(_.entity.infected(env.time, env.virus))
-              .getOrElse(entity)
+              .orElse(Some(entity))
           }
         }
       yield env.update(structures = structures -- infectedStructures ++ updatedStructures)
