@@ -1,6 +1,7 @@
 package it.unibo.pps.entity.common
 
-import scala.concurrent.duration.{FiniteDuration, TimeUnit}
+import it.unibo.pps.entity.common.Time.DurationTime
+import scala.concurrent.duration.TimeUnit
 import scala.util.Random
 
 object GaussianProperty:
@@ -39,8 +40,8 @@ object GaussianProperty:
     *   the unit choosen for the duration time object
     */
   class GaussianDurationTime(override val mean: Double, override val std: Double, unit: TimeUnit)
-      extends Gaussian[FiniteDuration]:
-    override def next(): FiniteDuration = FiniteDuration(nextGaussian().toLong, unit)
+      extends Gaussian[DurationTime]:
+    override def next(): DurationTime = DurationTime(nextGaussian().toLong, unit)
 
   class GaussianIntDistribution(override val mean: Double, override val std: Double) extends Gaussian[Int]:
     override def next(): Int = nextGaussian().toInt
