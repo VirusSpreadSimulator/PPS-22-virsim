@@ -7,6 +7,7 @@ import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.virus.VirusComponent.Virus
 import it.unibo.pps.entity.common.ProblableEvents.ProbableGivenInstance.given
 import it.unibo.pps.entity.common.ProblableEvents.ProbableOps.*
+import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
 import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
 import monix.eval.Task
@@ -20,12 +21,13 @@ object InfectionLogic:
   case class InternalProbableInfection(env: Environment, entity: InfectingEntity, structure: SimulationStructure)
 
   extension (e: InfectingEntity)
-    def infected(virus: Virus): InfectingEntity =
-      import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
+    def infected(timestamp: TimeStamp, virus: Virus): InfectingEntity =
+      import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
       import it.unibo.pps.entity.entity.Infection.Severity
       import it.unibo.pps.entity.entity.Infection
+      import scala.concurrent.duration.DAYS
       val severity = if virus.severeDeseaseProbability.isHappening then Severity.SERIOUS() else Severity.LIGHT()
-      val durationDistribution = GaussianIntDistribution(virus.averagePositivityDays, virus.stdDevPositivityDays)
+      val durationDistribution = GaussianDurationTime(virus.averagePositivityDays, virus.stdDevPositivityDays, DAYS)
       BaseEntity(
         e.id,
         e.age,
@@ -33,7 +35,7 @@ object InfectionLogic:
         e.immunity,
         e.position,
         e.movementGoal,
-        infection = Some(Infection(severity, durationDistribution.next()))
+        infection = Some(Infection(severity, timestamp, durationDistribution.next()))
       )
     def maskReduction: Int = if e.hasMask then MASK_REDUCER else 1
 
@@ -55,7 +57,7 @@ object InfectionLogic:
               )
             )
             .filter(_.isHappening)
-            .map(i => Task(i.entity.infected(env.virus)))
+            .map(i => Task(i.entity.infected(env.time, env.virus)))
         }
       yield env.update(externalEntities =
         env.externalEntities.filter(e => !infected.map(_.id).contains(e.id)) ++ infected.toSet
@@ -77,7 +79,7 @@ object InfectionLogic:
               .filter(_.infection.isEmpty)
               .map(e => InternalProbableInfection(env, e, infectedStructure))
               .filter(_.isHappening)
-              .map(_.entity.infected(env.virus))
+              .map(_.entity.infected(env.time, env.virus))
               .getOrElse(entity)
               .withCapabilities[SimulationEntity]
               .get

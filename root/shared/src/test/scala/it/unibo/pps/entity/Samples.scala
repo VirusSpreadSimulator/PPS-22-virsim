@@ -11,7 +11,7 @@ import it.unibo.pps.entity.environment.EnvironmentModule
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
 
-import scala.concurrent.duration.MINUTES
+import scala.concurrent.duration.{DAYS, MINUTES}
 
 object Samples:
   private val house = House((1, 0), 1, 2)
@@ -19,8 +19,20 @@ object Samples:
     BaseEntity(0, 20, house, position = Point2D(1, 2)),
     BaseEntity(1, 21, house, position = Point2D(3, 2)),
     BaseEntity(2, 22, house, position = Point2D(4, 5)),
-    BaseEntity(3, 20, house, position = Point2D(4, 2), infection = Some(Infection(Severity.LIGHT(), 5))),
-    BaseEntity(4, 20, house, position = Point2D(1, 1), infection = Some(Infection(Severity.LIGHT(), 5)))
+    BaseEntity(
+      3,
+      20,
+      house,
+      position = Point2D(4, 2),
+      infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
+    ),
+    BaseEntity(
+      4,
+      20,
+      house,
+      position = Point2D(1, 1),
+      infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
+    )
   )
 
   private val buildings: Set[SimulationStructure] = Set(
@@ -31,12 +43,24 @@ object Samples:
       entities = Set(
         EntityPermanence(BaseEntity(5, 20, house, position = Point2D(1, 7)), TimeStamp(), DurationTime(11, MINUTES)),
         EntityPermanence(
-          BaseEntity(6, 20, house, position = Point2D(1, 7), infection = Some(Infection(Severity.LIGHT(), 5))),
+          BaseEntity(
+            6,
+            20,
+            house,
+            position = Point2D(1, 7),
+            infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
+          ),
           TimeStamp(),
           DurationTime(11, MINUTES)
         ),
         EntityPermanence(
-          BaseEntity(7, 20, house, position = Point2D(1, 7), infection = Some(Infection(Severity.LIGHT(), 5))),
+          BaseEntity(
+            7,
+            20,
+            house,
+            position = Point2D(1, 7),
+            infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
+          ),
           TimeStamp(),
           DurationTime(11, MINUTES)
         )
