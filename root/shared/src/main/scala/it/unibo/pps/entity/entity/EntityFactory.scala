@@ -59,6 +59,7 @@ object EntityFactory:
                     case HAPPENED => Severity.SERIOUS()
                     case NOTHAPPENED => Severity.LIGHT()
                   ,
+                  TimeStamp(0),
                   GaussianIntDistribution(
                     configuration.virusConfiguration.averagePositivityDays,
                     configuration.virusConfiguration.stdDevPositivityDays
