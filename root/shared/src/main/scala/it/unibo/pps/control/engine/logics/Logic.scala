@@ -106,7 +106,7 @@ object Logic:
       * @return
       *   the event logic
       */
-    def switchStructure(group: String): EventLogic = env =>
+    def switchStructureLogic(group: String): EventLogic = env =>
       for
         structures <- Task(env.structures)
         structuresToUpdate <- Task {
