@@ -6,11 +6,15 @@ import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
 import it.unibo.pps.entity.structure.Structures.House
 import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
+import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
 import it.unibo.pps.entity.common.ProblableEvents.*
 import it.unibo.pps.entity.common.ProblableEvents.ProbabilityResult.*
 import it.unibo.pps.entity.common.ProblableEvents.ProbableOps.*
 import it.unibo.pps.entity.common.ProblableEvents.ProbableGivenInstance.given
 import it.unibo.pps.entity.entity.Infection.*
+import it.unibo.pps.entity.common.Time.TimeStamp
+import scala.concurrent.duration.DAYS
+
 import monix.eval.Task
 
 import scala.util.Random
@@ -60,9 +64,10 @@ object EntityFactory:
                     case NOTHAPPENED => Severity.LIGHT()
                   ,
                   TimeStamp(0),
-                  GaussianIntDistribution(
+                  GaussianDurationTime(
                     configuration.virusConfiguration.averagePositivityDays,
-                    configuration.virusConfiguration.stdDevPositivityDays
+                    configuration.virusConfiguration.stdDevPositivityDays,
+                    DAYS
                   ).next()
                 )
               )
