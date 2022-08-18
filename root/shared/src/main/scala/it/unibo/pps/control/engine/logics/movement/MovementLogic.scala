@@ -1,5 +1,6 @@
-package it.unibo.pps.control.engine.logics
+package it.unibo.pps.control.engine.logics.movement
 
+import it.unibo.pps.control.engine.logics.EntityLogic
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
 import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
