@@ -30,13 +30,13 @@ object EntityComponent {
       * @return
       *   the health of the entity
       */
-    def health: Int
+    def health: Double
 
     /** Every entity has a personalized maximum health status, base on the age.
       * @return
       *   the maximum health status that the entity could have.
       */
-    def maxHealth: Int
+    def maxHealth: Double
 
     /** Every entity could have an immunity rate, that increase with a vaccine or after an infection and decrease as the
       * simulation progresses
