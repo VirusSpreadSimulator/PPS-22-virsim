@@ -21,6 +21,7 @@ object EnvironmentModule:
     def allEntities: Set[SimulationEntity]
     def virus: Virus
     def environmentDuration: DurationTime
+    def deadEntities: Set[SimulationEntity]
 
     def update(
         time: TimeStamp = time,
@@ -28,7 +29,8 @@ object EnvironmentModule:
         externalEntities: Set[SimulationEntity] = externalEntities,
         structures: Set[SimulationStructure] = structures,
         virus: Virus = virus,
-        environmentDuration: DurationTime = environmentDuration
+        environmentDuration: DurationTime = environmentDuration,
+        deadEntities: Set[SimulationEntity] = deadEntities
     ): Environment
 
   trait Provider:
@@ -44,7 +46,8 @@ object EnvironmentModule:
         override val externalEntities: Set[SimulationEntity] = Set(),
         override val structures: Set[SimulationStructure] = Set(),
         override val virus: Virus = Virus(),
-        override val environmentDuration: DurationTime = DurationTime(GlobalDefaults.DURATION, DAYS)
+        override val environmentDuration: DurationTime = DurationTime(GlobalDefaults.DURATION, DAYS),
+        override val deadEntities: Set[SimulationEntity] = Set()
     ) extends Environment:
 
       override def update(
@@ -53,9 +56,10 @@ object EnvironmentModule:
           externalEntities: Set[SimulationEntity] = externalEntities,
           structures: Set[SimulationStructure] = structures,
           virus: Virus = virus,
-          environmentDuration: DurationTime = environmentDuration
+          environmentDuration: DurationTime = environmentDuration,
+          deadEntities: Set[SimulationEntity] = deadEntities
       ): Environment =
-        EnvironmentImpl(time, gridSide, externalEntities, structures, virus, environmentDuration)
+        EnvironmentImpl(time, gridSide, externalEntities, structures, virus, environmentDuration, deadEntities)
 
       override def allEntities: Set[SimulationEntity] =
         import it.unibo.pps.entity.common.Utils.*
