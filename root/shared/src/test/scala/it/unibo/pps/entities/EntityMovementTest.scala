@@ -1,43 +1,54 @@
 package it.unibo.pps.entities
 
 import it.unibo.pps.control.engine.SimulationComponent.Simulation
-import it.unibo.pps.control.engine.logics.EntityLogic
+import it.unibo.pps.control.engine.logics.entrance.EntranceLogic
+import it.unibo.pps.control.engine.logics.infection.EntranceLogicTest.{
+  buildings,
+  enterIntoStructureLogic,
+  entitiesNear,
+  firstEnv,
+  numberOfExternalEntities
+}
 import it.unibo.pps.control.engine.logics.movement.MovementLogic
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
-import it.unibo.pps.entity.environment.EnvironmentModule.Component
-import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
+import it.unibo.pps.entity.environment.EnvironmentModule.{Component, Environment}
 import it.unibo.pps.entity.structure.StructureComponent.Hospitalization.TreatmentQuality
 import it.unibo.pps.entity.virus.VirusComponent.Virus
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
+import it.unibo.pps.entity.entity.EntityComponent.Moving
 import it.unibo.pps.entity.environment.EnvironmentModule
 import it.unibo.pps.entity.environment.EnvironmentModule.Component
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, Hospital, House, SimulationStructure}
+import weaver.monixcompat.SimpleTaskSuite
 
 import scala.util.Random
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class EntityMovementTest extends AnyFunSuite with Matchers:
-  val nEntities = 16
-  val ageDistribution: GaussianIntDistribution = GaussianIntDistribution(27, 10)
-  val gridSize = 30
-  val peoplePerHouse = 4
-  val house: House = House((Random.nextInt(gridSize), gridSize - 1), 0.5, peoplePerHouse)
-  val entity: BaseEntity = BaseEntity(
-    1,
-    Math.max(ageDistribution.next(), 1),
-    house,
-    position = Point2D(Random.nextInt(gridSize), Random.nextInt(gridSize)),
-    immunity = if Random.nextBoolean() then 10 else 0
+object EntityMovementTest extends SimpleTaskSuite:
+  private val house = House((1, 0), 1, 2)
+  private val entities: Seq[SimulationEntity with Moving] = Seq(
+    BaseEntity(0, 20, house, position = Point2D(0, 20))
   )
-  object FakeEnv extends EnvironmentModule.Interface:
-    override val env: EnvironmentModule.Environment = Environment.empty
-  val initializedEnv: EnvironmentModule.Environment =
-    FakeEnv.env.update(gridSide = gridSize, externalEntities = Set(entity), virus = Virus(), structures = Set())
+  private val buildings: Set[SimulationStructure] = Set(
+    GenericBuilding(
+      Point2D(0, 21),
+      0.5,
+      4
+    )
+  )
 
-//  test("an entity can move") {
-//    val movementLogic: EntityLogic = CalculateNextMovement()
-//    val updatedEnv = movementLogic.execute(initializedEnv)
-//    updatedEnv.entities.toList.head.asInstanceOf[BaseEntity].position should not equal entity.position
-//  }
+  def env: Environment =
+    object InfectedEnv extends EnvironmentModule.Interface:
+      val env: Environment = EnvironmentImpl(externalEntities = entities.toSet, structures = buildings)
+    InfectedEnv.env
+
+  val baseEnv: Environment = env
+
+  val movementLogic: MovementLogic = MovementLogic()
+
+  test("an entity can move") {
+    for updatedEnv <- movementLogic(baseEnv)
+    yield expect(!(updatedEnv eq baseEnv))
+  }
