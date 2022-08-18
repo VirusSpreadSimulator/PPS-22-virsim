@@ -43,7 +43,11 @@ object Samples:
       0.5,
       4,
       entities = Set(
-        EntityPermanence(SimulationEntity(5, 20, house, 80, position = Point2D(1, 7)), TimeStamp(), DurationTime(11, MINUTES)),
+        EntityPermanence(
+          SimulationEntity(5, 20, house, 80, position = Point2D(1, 7)),
+          TimeStamp(),
+          DurationTime(11, MINUTES)
+        ),
         EntityPermanence(
           SimulationEntity(
             6,
@@ -75,8 +79,16 @@ object Samples:
       0.5,
       4,
       entities = Set(
-        EntityPermanence(SimulationEntity(8, 21, house, 80, position = Point2D(8, 7)), TimeStamp(), DurationTime(11, MINUTES)),
-        EntityPermanence(SimulationEntity(9, 21, house, 80, position = Point2D(8, 7)), TimeStamp(), DurationTime(11, MINUTES))
+        EntityPermanence(
+          SimulationEntity(8, 21, house, 80, position = Point2D(8, 7)),
+          TimeStamp(),
+          DurationTime(11, MINUTES)
+        ),
+        EntityPermanence(
+          SimulationEntity(9, 21, house, 80, position = Point2D(8, 7)),
+          TimeStamp(),
+          DurationTime(11, MINUTES)
+        )
       )
     ),
     GenericBuilding(

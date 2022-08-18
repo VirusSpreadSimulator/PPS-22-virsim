@@ -1,10 +1,7 @@
 package it.unibo.pps.control.engine.logics.infection
 
 import it.unibo.pps.entity.environment.EnvironmentModule
-import it.unibo.pps.control.engine.logics.infection.InfectionLogic.{
-  ExternalInfectionLogic,
-  InternalInfectionLogic
-}
+import it.unibo.pps.control.engine.logics.infection.InfectionLogic.{ExternalInfectionLogic, InternalInfectionLogic}
 import it.unibo.pps.entity.Samples
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
