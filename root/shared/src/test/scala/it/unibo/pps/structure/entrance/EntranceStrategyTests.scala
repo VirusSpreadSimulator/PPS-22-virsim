@@ -1,6 +1,6 @@
 package it.unibo.pps.structure.entrance
 
-import it.unibo.pps.entity.entity.Entities.BaseEntity
+import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.structure.Structures.House
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
@@ -8,7 +8,7 @@ import it.unibo.pps.entity.structure.entrance.Entrance.*
 
 class EntranceStrategyTests extends AnyFunSuite with Matchers:
   private val house = House((1, 0), 1, 2)
-  private val entity = BaseEntity(0, 23, house, position = (10, 5))
+  private val entity = SimulationEntity(0, 23, house, 80, position = (10, 5))
 
   test("Base entrance strategy should let everyone to enter") {
     BaseEntranceStrategy().canEnter(entity) shouldBe true

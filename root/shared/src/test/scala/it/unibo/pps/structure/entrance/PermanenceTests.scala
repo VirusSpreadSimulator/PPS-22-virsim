@@ -5,14 +5,14 @@ import org.scalatest.matchers.should.Matchers
 import it.unibo.pps.entity.common.Time.{DurationTime, TimeStamp}
 import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
 import it.unibo.pps.entity.structure.entrance.Permanence.PermanenceStatus
-import it.unibo.pps.entity.entity.Entities.BaseEntity
+import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.structure.Structures.House
 
 import scala.concurrent.duration.MINUTES
 
 class PermanenceTests extends AnyFunSuite with Matchers:
   private val house = House((1, 0), 1, 2)
-  private val entity = BaseEntity(0, 23, house, position = (10, 5))
+  private val entity = SimulationEntity(0, 23, house, 80, position = (10, 5))
   private val timestamp = TimeStamp(100)
   private val permanenceDuration = DurationTime(10, MINUTES)
   private val permanenceValid = DurationTime(1, MINUTES)

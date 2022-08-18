@@ -3,7 +3,6 @@ package it.unibo.pps.control.engine.logics.infection
 import it.unibo.pps.entity.environment.EnvironmentModule
 import it.unibo.pps.control.engine.logics.infection.InfectionLogic.{
   ExternalInfectionLogic,
-  InfectingEntity,
   InternalInfectionLogic
 }
 import it.unibo.pps.entity.Samples
@@ -80,7 +79,7 @@ object InfectionLogicTest extends SimpleTaskSuite:
   }
 
   private def numberOfInfected[A](entities: Set[SimulationEntity]): Int =
-    entities.select[InfectingEntity].count(_.infection.isDefined)
+    entities.count(_.infection.isDefined)
 
   private def numberOfInternalInfected(env: Environment): Int =
     numberOfInfected(

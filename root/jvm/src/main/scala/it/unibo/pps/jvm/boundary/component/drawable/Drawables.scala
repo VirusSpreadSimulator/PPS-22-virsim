@@ -1,7 +1,7 @@
 package it.unibo.pps.jvm.boundary.component.drawable
 
 import it.unibo.pps.boundary.component.drawable.Drawable
-import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
+import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.StructureComponent.Visible
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, Hospital, House, SimulationStructure}
@@ -28,7 +28,7 @@ object Drawables:
     extension (elem: SimulationEntity)
       def draw(g: Graphics2D, scale: Int): Unit =
         elem match
-          case entity: BaseEntity =>
+          case entity: SimulationEntity =>
             g.setColor(
               SimulationColor.ageColor(
                 if entity.infection.isDefined then SimulationColor.INFECTED_ENTITY_COLOR

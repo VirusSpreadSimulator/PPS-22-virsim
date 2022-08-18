@@ -2,7 +2,6 @@ package it.unibo.pps.entity.common
 
 import it.unibo.pps.control.engine.logics.infection.InfectionLogic.{
   ExternalProbableInfection,
-  InfectingEntity,
   InternalProbableInfection,
   MASK_REDUCER,
   maskReduction
@@ -56,7 +55,7 @@ object ProblableEvents:
         def probability: Double =
           import it.unibo.pps.entity.common.Utils.*
           val infectedInside =
-            inf.structure.entities.map(_.entity).select[InfectingEntity].filter(_.infection.isDefined)
+            inf.structure.entities.map(_.entity).filter(_.infection.isDefined)
           if infectedInside.nonEmpty then
             ((inf.env.virus.spreadRate * inf.structure.infectionProbability * (1 - inf.entity.immunity)) /
               (inf.entity.maskReduction * Math

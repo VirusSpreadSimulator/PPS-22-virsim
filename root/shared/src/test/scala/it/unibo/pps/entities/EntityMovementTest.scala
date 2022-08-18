@@ -11,7 +11,7 @@ import it.unibo.pps.control.engine.logics.infection.EntranceLogicTest.{
 }
 import it.unibo.pps.control.engine.logics.movement.MovementLogic
 import it.unibo.pps.entity.common.Space.Point2D
-import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
+import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule.{Component, Environment}
 import it.unibo.pps.entity.structure.StructureComponent.Hospitalization.TreatmentQuality
 import it.unibo.pps.entity.virus.VirusComponent.Virus
@@ -29,7 +29,7 @@ import org.scalatest.matchers.should.Matchers
 object EntityMovementTest extends SimpleTaskSuite:
   private val house = House((1, 0), 1, 2)
   private val entities: Seq[SimulationEntity with Moving] = Seq(
-    BaseEntity(0, 20, house, position = Point2D(0, 20))
+    SimulationEntity(0, 20, house, 80, position = Point2D(0, 20))
   )
   private val buildings: Set[SimulationStructure] = Set(
     GenericBuilding(

@@ -2,7 +2,7 @@ package it.unibo.pps.control.engine.logics.infection
 
 import it.unibo.pps.control.engine.logics.entrance.EntranceLogic
 import it.unibo.pps.entity.common.Utils.*
-import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
+import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.common.Space.Point2D
@@ -16,11 +16,11 @@ object EntranceLogicTest extends SimpleTaskSuite:
 
   private val house = House((1, 0), 1, 2)
   private val entitiesNear: Seq[SimulationEntity] = Seq(
-    BaseEntity(0, 20, house, position = Point2D(0, 20))
+    SimulationEntity(0, 20, house, 80, position = Point2D(0, 20))
   )
 
   private val entitiesNotNear: Seq[SimulationEntity] = Seq(
-    BaseEntity(0, 20, house, position = Point2D(10, 10))
+    SimulationEntity(0, 20, house, 80, position = Point2D(10, 10))
   )
 
   private val buildings: Set[SimulationStructure] = Set(

@@ -1,9 +1,9 @@
 package it.unibo.pps.entity.entity
 
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.Configuration
-import it.unibo.pps.control.loader.configuration.SimulationDefaults.StructuresDefault
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.{MAX_VALUES, StructuresDefault}
 import it.unibo.pps.entity.common.Space.Point2D
-import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
+import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.structure.Structures.House
 import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
 import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
@@ -13,8 +13,8 @@ import it.unibo.pps.entity.common.ProblableEvents.ProbableOps.*
 import it.unibo.pps.entity.common.ProblableEvents.ProbableGivenInstance.given
 import it.unibo.pps.entity.entity.Infection.*
 import it.unibo.pps.entity.common.Time.TimeStamp
-import scala.concurrent.duration.DAYS
 
+import scala.concurrent.duration.DAYS
 import monix.eval.Task
 
 import scala.util.Random
@@ -63,7 +63,7 @@ object EntityFactory:
                     case HAPPENED => Severity.SERIOUS()
                     case NOTHAPPENED => Severity.LIGHT()
                   ,
-                  TimeStamp(0),
+                  TimeStamp(),
                   GaussianDurationTime(
                     configuration.virusConfiguration.averagePositivityDays,
                     configuration.virusConfiguration.stdDevPositivityDays,
@@ -72,6 +72,13 @@ object EntityFactory:
                 )
               )
             else None
-          entity = BaseEntity(entityId, age, house, position = position, infection = infected)
+          entity = SimulationEntity(
+            entityId,
+            age,
+            house,
+            MAX_VALUES.MAX_HEALTH,
+            position = position,
+            infection = infected
+          )
         yield entity
       Task(entities.toSet)

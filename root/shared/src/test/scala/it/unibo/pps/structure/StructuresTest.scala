@@ -2,7 +2,7 @@ package it.unibo.pps.structure
 
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.common.Time.TimeStamp
-import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
+import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.structure.StructureComponent.Hospitalization
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, Hospital, House, SimulationStructure}
 import it.unibo.pps.entity.structure.entrance.Entrance.{BaseEntranceStrategy, FilterBasedStrategy}
@@ -24,9 +24,9 @@ class StructuresTest extends AnyFunSuite with Matchers:
     Hospital(position, infectionProbability, capacity, treatmentQuality = treatmentQuality)
   private val entities =
     Seq(
-      BaseEntity(0, 23, house, position = (10, 5)),
-      BaseEntity(1, 23, house, position = (10, 5)),
-      BaseEntity(2, 23, house, position = (10, 5))
+      SimulationEntity(0, 23, house, 80, position = (10, 5)),
+      SimulationEntity(1, 23, house, 80, position = (10, 5)),
+      SimulationEntity(2, 23, house, 80, position = (10, 5))
     )
 
   test("Initially a house is empty") {

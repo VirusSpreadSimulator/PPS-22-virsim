@@ -1,5 +1,6 @@
 package it.unibo.pps.entity.entity
 
+import it.unibo.pps.control.loader.configuration.SimulationDefaults
 import it.unibo.pps.entity.entity.EntityComponent.*
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
@@ -7,20 +8,6 @@ import it.unibo.pps.entity.structure.Structures.*
 import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
 
 object Entities:
-  /* The base entity of the simulation. */
-  trait SimulationEntity extends Entity:
-    override type Position = Point2D
-    override type Home = House
-
-    /** Calculates the max health that an entity can have during the simulation
-      * @return
-      *   the max health for an entity
-      */
-    def calculateMaxHealth(): Double = (100 - (30.0 / 100.0) * age).toDouble //to be refactored removing magic numbers
-
-    override def equals(that: Any): Boolean = that match
-      case that: SimulationEntity => that.id == this.id
-      case _ => false
   /** Case class for the entity of the simulation.
     * @param id
     *   the id of the entity.
@@ -28,6 +15,8 @@ object Entities:
     *   the age of the entity.
     * @param home
     *   the home of the entity
+    * @param health
+    *   the entity's health
     * @param immunity
     *   the immunity rate to the infection
     * @param position
@@ -36,21 +25,56 @@ object Entities:
     *   the goal of the movement of the entity
     * @param infection
     *   if present, describes the infection of the entity
+    * @param hasMask
+    *   describe if the entity is wearing a mask
     */
-  case class BaseEntity(
+  case class SimulationEntity(
       override val id: Int,
       override val age: Int,
       override val home: House,
+      override val health: Double,
       override val immunity: Double = 0.0,
       override val position: Point2D,
       override val movementGoal: MovementGoal = MovementGoal.RANDOM_MOVEMENT,
       override val infection: Option[Infection] = None,
       override val hasMask: Boolean = false
-  ) extends SimulationEntity
+  ) extends Entity
       with Moving
       with Infectious:
 
+    import it.unibo.pps.entity.entity.Entities.SimulationEntity.calculateMaxHealth
+
+    override type Position = Point2D
+    override type Home = House
     /* max health that the entity can have, based on the age. */
-    override val maxHealth: Double = calculateMaxHealth()
-    /* current health of the entity. Initially set to max health.  */
-    override val health: Double = maxHealth
+    override val maxHealth: Double = SimulationEntity.calculateMaxHealth(age)
+
+    override def equals(that: Any): Boolean = that match
+      case that: SimulationEntity => that.id == this.id
+      case _ => false
+
+  object SimulationEntity:
+    private def calculateMaxHealth(age: Int): Double =
+      100 - (30.0 / 100.0) * age
+    def apply(
+        id: Int,
+        age: Int,
+        home: House,
+        health: Double,
+        immunity: Double = 0.0,
+        position: Point2D,
+        movementGoal: MovementGoal = MovementGoal.RANDOM_MOVEMENT,
+        infection: Option[Infection] = None,
+        hasMask: Boolean = false
+    ): SimulationEntity =
+      new SimulationEntity(
+        id,
+        age,
+        home,
+        Math.max(SimulationDefaults.MIN_VALUES.MIN_HEALTH, Math.min(health, calculateMaxHealth(age))),
+        immunity,
+        position,
+        movementGoal,
+        infection,
+        hasMask
+      )

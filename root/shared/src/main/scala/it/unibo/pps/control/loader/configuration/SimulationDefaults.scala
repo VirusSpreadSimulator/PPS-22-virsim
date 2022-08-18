@@ -35,6 +35,7 @@ object SimulationDefaults:
   object MAX_VALUES:
     val MAX_GRID_SIZE: Int = 100
     val MAX_NUMBER_OF_ENTITIES: Int = 1000
+    val MAX_HEALTH: Int = 100
     val MAX_IMMUNITY: Int = 100
 
   object MIN_VALUES:

@@ -3,7 +3,7 @@ package it.unibo.pps.control.engine.logics.movement
 import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.common.Utils.*
-import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
+import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.entity.EntityComponent.Moving
 import it.unibo.pps.entity.entity.EntityComponent.Infectious
 import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
@@ -11,10 +11,9 @@ import it.unibo.pps.entity.entity.Infection
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.prolog.PrologNextMovement
 import monix.eval.Task
+import monocle.syntax.all._
 
 class MovementLogic extends UpdateLogic:
-  type MovingEntity = SimulationEntity with Moving with Infectious
-
   override def apply(environment: Environment): Task[Environment] =
 //    val updatedEntities: Set[SimulationEntity] =
 //      for
@@ -28,17 +27,9 @@ class MovementLogic extends UpdateLogic:
 //      yield updatedEntity
 //
     for
-      entities <- Task(environment.externalEntities.select[MovingEntity])
+      entities <- Task(environment.externalEntities)
       moved <- Task {
-        entities.map(e =>
-          BaseEntity(
-            e.id,
-            e.age,
-            e.home,
-            position = calculateNewPosition(e, environment.gridSide),
-            infection = e.infection
-          )
-        )
+        entities.map(e => e.focus(_.position).replace(calculateNewPosition(e, environment.gridSide)))
       }
     yield environment.update(externalEntities = moved.select[SimulationEntity])
 
@@ -60,7 +51,7 @@ class MovementLogic extends UpdateLogic:
     * @return
     *   the updated position of the entity
     */
-  private def calculateNewPosition(entity: MovingEntity, gridSide: Int): Point2D =
+  private def calculateNewPosition(entity: SimulationEntity, gridSide: Int): Point2D =
     entity.movementGoal match
       case MovementGoal.RANDOM_MOVEMENT =>
         extractRandomPosition(
