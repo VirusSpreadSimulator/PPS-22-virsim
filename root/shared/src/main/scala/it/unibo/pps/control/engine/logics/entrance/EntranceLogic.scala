@@ -8,6 +8,7 @@ import it.unibo.pps.entity.entity.EntityComponent.{Infectious, Moving}
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.StructureComponent.Visible
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
+import monix.eval.Task
 
 class EntranceLogic extends UpdateLogic:
   import it.unibo.pps.entity.common.Utils.*
