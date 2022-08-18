@@ -12,7 +12,7 @@ import it.unibo.pps.entity.structure.Structures.SimulationStructure
 object SwitchStructureLogicTest extends SimpleTaskSuite:
   val env: Environment = Samples.sampleEnv
   val analyzedGroup: String = "group1"
-  val switchLogic: EventLogic = EventLogic.switchStructure(analyzedGroup)
+  val switchLogic: EventLogic = EventLogic.switchStructureLogic(analyzedGroup)
 
   test("When switch is performed all the structure of the same group switch") {
     for updatedEnv <- switchLogic(env)

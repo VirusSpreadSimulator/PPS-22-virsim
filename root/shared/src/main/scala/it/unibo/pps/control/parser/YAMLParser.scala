@@ -1,28 +1,19 @@
-package it.unibo.pps.js.control.parser
+package it.unibo.pps.control.parser
 
 import it.unibo.pps.control.engine.SimulationComponent.Simulation
-import it.unibo.pps.control.loader.configuration.ConfigurationComponent
-import it.unibo.pps.control.loader.configuration.ConfigurationComponent.{
-  Configuration,
-  ConfigurationResult,
-  VirsimConfiguration
-}
+import it.unibo.pps.control.loader.configuration.ConfigurationComponent.{Configuration, VirsimConfiguration}
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
-import it.unibo.pps.control.loader.configuration.dsl.SimulationDSL
 import it.unibo.pps.control.parser.ParserModule.Parser
+import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, Hospital, SimulationStructure}
-import it.unibo.pps.entity.structure.StructureComponent.Hospitalization.TreatmentQuality
 import it.unibo.pps.entity.virus.VirusComponent.Virus
 import it.unibo.pps.control.loader.configuration.dsl.SimulationDSL.*
 import it.unibo.pps.control.loader.configuration.dsl.VirusDSL.*
 import it.unibo.pps.control.loader.configuration.dsl.StructuresDSL.*
-import it.unibo.pps.entity.common.Space.Point2D
-import org.scalajs.dom.{FileReader, HTMLInputElement}
 import monix.eval.Task
-import org.scalajs.dom
 import org.virtuslab.yaml.*
 
-import scala.language.postfixOps
+import scala.io.Source
 
 object YAMLParser:
 
@@ -34,10 +25,7 @@ object YAMLParser:
     class ParserImpl extends Parser:
 
       override def readFile(path: String): Task[String] =
-        val fileInput = dom.document.getElementById("file_input").asInstanceOf[HTMLInputElement]
-        val reader = new dom.FileReader()
-        reader readAsText fileInput.files(0)
-        Task(reader.result.asInstanceOf[String])
+        Task(Source.fromFile(path).mkString)
 
       override def loadConfiguration(program: String): Task[Option[Configuration]] =
         program.as[Map[String, Any]] match
