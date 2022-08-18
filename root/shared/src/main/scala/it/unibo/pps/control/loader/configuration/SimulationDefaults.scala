@@ -25,6 +25,9 @@ object SimulationDefaults:
     val STD_DEV_POSITIVITY_DAYS: Double = 3
     val SEVERE_DESEASE_PROBABILITY: Double = 0.75
     val MAXIMUM_INFECTION_DISTANCE: Double = 0.5
+    val HEALTH_GAIN: Double = 0.01
+    val HEALTH_INFECTED_LOSS: Double = 0.05
+    val IMMUNITY_LOSS: Double = 0.001
 
   object StructuresDefault:
     val HOUSE_INFECTION_PROB: Double = 0.5
@@ -32,7 +35,10 @@ object SimulationDefaults:
   object MAX_VALUES:
     val MAX_GRID_SIZE: Int = 100
     val MAX_NUMBER_OF_ENTITIES: Int = 1000
+    val MAX_IMMUNITY: Int = 100
 
   object MIN_VALUES:
     val MIN_GRID_SIZE: Int = 5
     val MIN_NUMBER_OF_ENTITIES = 2
+    val MIN_HEALTH: Int = 0
+    val MIN_IMMUNITY: Int = 0
