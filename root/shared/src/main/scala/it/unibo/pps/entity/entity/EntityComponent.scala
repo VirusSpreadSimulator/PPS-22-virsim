@@ -43,7 +43,7 @@ object EntityComponent {
       * @return
       *   the current immunity rate of the entity
       */
-    def immunity: Int
+    def immunity: Double
 
     /** During the simulation, an entity could wear a mask to decrease the probability of an infection
       * @return

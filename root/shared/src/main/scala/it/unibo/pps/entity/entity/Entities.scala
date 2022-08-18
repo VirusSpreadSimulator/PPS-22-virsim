@@ -41,7 +41,7 @@ object Entities:
       override val id: Int,
       override val age: Int,
       override val home: House,
-      override val immunity: Int = 0,
+      override val immunity: Double = 0.0,
       override val position: Point2D,
       override val movementGoal: MovementGoal = MovementGoal.RANDOM_MOVEMENT,
       override val infection: Option[Infection] = None,
