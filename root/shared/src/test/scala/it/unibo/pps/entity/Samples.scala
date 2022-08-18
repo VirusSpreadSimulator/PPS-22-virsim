@@ -14,6 +14,43 @@ import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
 import scala.concurrent.duration.{DAYS, MINUTES}
 
 object Samples:
+  val genericInfectedPermanences: Set[EntityPermanence] = Set(
+    EntityPermanence(
+      SimulationEntity(5, 20, house, 80, position = Point2D(1, 7)),
+      TimeStamp(),
+      DurationTime(11, MINUTES)
+    ),
+    EntityPermanence(
+      SimulationEntity(
+        6,
+        20,
+        house,
+        80,
+        position = Point2D(1, 7),
+        infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
+      ),
+      TimeStamp(),
+      DurationTime(11, MINUTES)
+    ),
+    EntityPermanence(
+      SimulationEntity(
+        7,
+        20,
+        house,
+        80,
+        position = Point2D(1, 7),
+        infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
+      ),
+      TimeStamp(),
+      DurationTime(11, MINUTES)
+    )
+  )
+
+  val inhabitatedHouse: House = House((1, 0), 1, 2, entities = genericInfectedPermanences)
+  val inhabitatedGenericBuilding: GenericBuilding =
+    GenericBuilding(Point2D(8, 7), 0.5, 4, entities = genericInfectedPermanences)
+  val inhabitatedHospital: Hospital = Hospital((1, 0), 1, 2, entities = genericInfectedPermanences)
+
   private val house = House((1, 0), 1, 2)
   private val entities: Seq[SimulationEntity] = Seq(
     SimulationEntity(0, 20, house, 80, position = Point2D(1, 2)),
@@ -69,42 +106,6 @@ object Samples:
       group = "group1"
     )
   )
-
-  val genericInfectedPermanences: Set[EntityPermanence] = Set(
-    EntityPermanence(
-      SimulationEntity(5, 20, house, 80, position = Point2D(1, 7)),
-      TimeStamp(),
-      DurationTime(11, MINUTES)
-    ),
-    EntityPermanence(
-      SimulationEntity(
-        6,
-        20,
-        house,
-        80,
-        position = Point2D(1, 7),
-        infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
-      ),
-      TimeStamp(),
-      DurationTime(11, MINUTES)
-    ),
-    EntityPermanence(
-      SimulationEntity(
-        7,
-        20,
-        house,
-        80,
-        position = Point2D(1, 7),
-        infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
-      ),
-      TimeStamp(),
-      DurationTime(11, MINUTES)
-    )
-  )
-  val inhabitatedHouse: House = House((1, 0), 1, 2, entities = genericInfectedPermanences)
-  val inhabitatedGenericBuilding: GenericBuilding =
-    GenericBuilding(Point2D(8, 7), 0.5, 4, entities = genericInfectedPermanences)
-  val inhabitatedHospital: Hospital = Hospital((1, 0), 1, 2, entities = genericInfectedPermanences)
 
   def sampleEnv: Environment =
     object InfectedEnv extends EnvironmentModule.Interface:
