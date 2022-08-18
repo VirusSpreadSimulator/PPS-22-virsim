@@ -31,7 +31,7 @@ object EntityFactory:
 
     override def create(configuration: Configuration): Task[Set[SimulationEntity]] =
       val houses =
-        for i <- 0 until (configuration.simulation.numberOfEntities / configuration.simulation.peoplePerHouse)
+        for _ <- 0 until (configuration.simulation.numberOfEntities / configuration.simulation.peoplePerHouse)
         yield House(
           (Random.nextInt(configuration.simulation.gridSide + 1), configuration.simulation.gridSide),
           StructuresDefault.HOUSE_INFECTION_PROB,

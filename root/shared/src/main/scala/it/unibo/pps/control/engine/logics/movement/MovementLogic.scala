@@ -6,7 +6,7 @@ import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.prolog.PrologNextMovement
 
-class CalculateNextMovement extends EntityLogic:
+class MovementLogic extends EntityLogic:
 
   override def execute(environment: Environment): Environment =
     val updatedEntities: Set[SimulationEntity] =
