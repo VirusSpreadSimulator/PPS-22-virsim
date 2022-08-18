@@ -1,4 +1,4 @@
-package it.unibo.pps.entities
+package it.unibo.pps.control.engine.logics.infection
 
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.prolog.PrologNextMovement

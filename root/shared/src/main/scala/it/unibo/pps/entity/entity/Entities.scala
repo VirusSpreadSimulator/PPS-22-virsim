@@ -16,7 +16,7 @@ object Entities:
       * @return
       *   the max health for an entity
       */
-    def calculateMaxHealth(): Int = (100 - (30.0 / 100.0) * age).toInt //to be refactored removing magic numbers
+    def calculateMaxHealth(): Double = (100 - (30.0 / 100.0) * age).toDouble //to be refactored removing magic numbers
 
     override def equals(that: Any): Boolean = that match
       case that: SimulationEntity => that.id == this.id
@@ -51,6 +51,6 @@ object Entities:
       with Infectious:
 
     /* max health that the entity can have, based on the age. */
-    override val maxHealth: Int = calculateMaxHealth()
+    override val maxHealth: Double = calculateMaxHealth()
     /* current health of the entity. Initially set to max health.  */
-    override val health: Int = maxHealth
+    override val health: Double = maxHealth

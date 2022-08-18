@@ -1,12 +1,13 @@
-package it.unibo.pps.control.engine.logics
+package it.unibo.pps.control.engine.logics.movement
 
+import it.unibo.pps.control.engine.logics.EntityLogic
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.entity.Entities.{BaseEntity, SimulationEntity}
 import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.prolog.PrologNextMovement
 
-class CalculateNextMovement extends EntityLogic:
+class MovementLogic extends EntityLogic:
 
   override def execute(environment: Environment): Environment =
     val updatedEntities: Set[SimulationEntity] =
@@ -21,10 +22,7 @@ class CalculateNextMovement extends EntityLogic:
       yield updatedEntity
 
     environment.update(
-      gridSide = environment.gridSide,
-      externalEntities = updatedEntities,
-      virus = environment.virus,
-      structures = environment.structures
+      externalEntities = updatedEntities
     )
 
   /** Extracts random position given the set of possible position
@@ -61,4 +59,4 @@ class CalculateNextMovement extends EntityLogic:
             entity.home.position
           )
         )
-      case MovementGoal.NO_MOVEMENT => entity.position
+      case _ => entity.position
