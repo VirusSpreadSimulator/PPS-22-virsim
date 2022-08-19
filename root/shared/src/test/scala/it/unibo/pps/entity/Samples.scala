@@ -25,7 +25,7 @@ object Samples:
         6,
         20,
         house,
-        80,
+        0.001,
         position = Point2D(1, 7),
         infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
       ),
@@ -60,7 +60,7 @@ object Samples:
       3,
       20,
       house,
-      80,
+      0.001,
       position = Point2D(4, 2),
       infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
     ),
