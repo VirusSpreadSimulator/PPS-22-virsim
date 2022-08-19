@@ -63,6 +63,6 @@ object EnvironmentModule:
 
       override def allEntities: Set[SimulationEntity] =
         import it.unibo.pps.entity.common.Utils.*
-        externalEntities ++ structures.flatMap(_.entities).map(_.entity).select[SimulationEntity]
+        externalEntities ++ structures.flatMap(_.entities).map(_.entity)
 
   trait Interface extends Provider with Component
