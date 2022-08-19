@@ -1,6 +1,6 @@
 VirsimConfiguration(
 
-  simulation gridSide 25 days 7 entities 100 averagePopulationAge 40 stdDevPopulationAge 0.5 peoplePerHouse 4 startingInfectedPercentage 10,
+  simulation gridSide 25 days 7 entities 100 averagePopulationAge 40 stdDevPopulationAge 0.5 startingInfectedPercentage 10,
 
   virus spreadRate 0.8 averagePositivityDays 7 stdDevPositivityDays 3.0 severeDeseaseProbability 0.75,
 
