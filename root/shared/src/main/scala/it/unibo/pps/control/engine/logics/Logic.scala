@@ -9,6 +9,7 @@ import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.control.engine.logics.infection.InfectionLogic.ExternalInfectionLogic
 import it.unibo.pps.control.engine.logics.infection.InfectionLogic.InternalInfectionLogic
 import it.unibo.pps.control.engine.logics.entitystate.EntityStateLogic.UpdateEntityStateLogic
+import it.unibo.pps.control.engine.logics.movement.MovementLogic
 import monix.eval.Task
 import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.structure.StructureComponent.{Closable, Groupable}
@@ -64,6 +65,11 @@ object Logic:
       *   the logic
       */
     def entityGoalLogic: UpdateLogic = EntityGoalUpdateLogic()
+    /** Handle the movement of entities inside the environment
+      * @return
+      *   the logic
+      */
+    def movementLogic: UpdateLogic = MovementLogic()
 
   /** Update logic represent a logic that is associated to an event. It takes the current environment and return a task
     * that represent the computation done on that environment due to the occur of the event.
