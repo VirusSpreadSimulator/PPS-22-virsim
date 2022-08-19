@@ -7,6 +7,7 @@ import scala.concurrent.duration.{FiniteDuration, TimeUnit}
 object Time:
   object TimeConfiguration:
     val TICKS_PER_MINUTE: Int = 1
+    val MINUTES_PER_HOUR: Int = 60
     val MINUTES_PER_DAY: Int = 1440
     val DAY_MINUTES_UPPER_BOUND: Int = 1000
     val TICKS_PER_DAY: Int = MINUTES_PER_DAY * TICKS_PER_MINUTE
@@ -54,6 +55,12 @@ object Time:
       *   the minutes
       */
     def toMinutes: Long
+    /** Method to convert the ticks from the engine in hours of the virtual time. The hours returned are respect to the
+      * current iteration.
+      * @return
+      *   the hours
+      */
+    def toHours: Long
     /** Method to convert the current time to the period of the day.
       * @return
       *   the period of the day represented by the current time.
@@ -69,6 +76,7 @@ object Time:
       )
     private case class TimeStampImpl(override val relativeTicks: Long, override val iteration: Long) extends TimeStamp:
       override def toMinutes: Long = relativeTicks / TimeConfiguration.TICKS_PER_MINUTE
+      override def toHours: Long = toMinutes / TimeConfiguration.MINUTES_PER_HOUR
       override def period: Period = relativeTicks match
         case t if t == 0 => Period.START_DAY
         case t if t == TimeConfiguration.DAY_MINUTES_UPPER_BOUND => Period.START_NIGHT
