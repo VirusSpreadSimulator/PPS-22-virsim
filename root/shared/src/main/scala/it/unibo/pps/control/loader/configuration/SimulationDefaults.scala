@@ -27,7 +27,7 @@ object SimulationDefaults:
     val SEVERE_DESEASE_PROBABILITY: Double = 0.75
     val MAXIMUM_INFECTION_DISTANCE: Double = 0.5
     val HEALTH_GAIN: Double = 0.01
-    val HEALTH_INFECTED_LOSS: Double = 0.05
+    val HEALTH_INFECTED_LOSS: Double = 0.01
     val IMMUNITY_LOSS: Double = 0.001
     val IMMUNITY_GAIN_RECOVERY: Double = 30
 
