@@ -3,6 +3,7 @@ package it.unibo.pps.control.engine.logics
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.control.engine.config.Configurations.EngineStatus
 import it.unibo.pps.control.engine.config.EngineConfiguration.SimulationConfig
+import it.unibo.pps.control.engine.logics.entitygoal.EntityGoalLogic.EntityGoalUpdateLogic
 import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.control.engine.logics.infection.InfectionLogic.ExternalInfectionLogic
@@ -58,6 +59,11 @@ object Logic:
       *   the logic
       */
     def entityStateUpdateLogic: UpdateLogic = UpdateEntityStateLogic()
+    /** Handle the update of the entity goal respect to the period of the day
+      * @return
+      *   the logic
+      */
+    def entityGoalLogic: UpdateLogic = EntityGoalUpdateLogic()
 
   /** Update logic represent a logic that is associated to an event. It takes the current environment and return a task
     * that represent the computation done on that environment due to the occur of the event.
