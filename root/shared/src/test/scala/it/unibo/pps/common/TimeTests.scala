@@ -110,3 +110,11 @@ class TimeTests extends AnyFunSuite with Matchers:
   test("We can obtain the period of the day from the time, night") {
     TimeStamp(TimeConfiguration.DAY_MINUTES_UPPER_BOUND + 10).period shouldBe Period.NIGHT
   }
+
+  test("We can obtain the period of the day from the time, start day") {
+    TimeStamp().period shouldBe Period.START_DAY
+  }
+
+  test("We can obtain the period of the day from the time, start night") {
+    TimeStamp(TimeConfiguration.DAY_MINUTES_UPPER_BOUND).period shouldBe Period.START_NIGHT
+  }

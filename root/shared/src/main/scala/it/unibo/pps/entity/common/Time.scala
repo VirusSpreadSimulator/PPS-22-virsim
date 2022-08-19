@@ -27,8 +27,12 @@ object Time:
     * time.
     */
   enum Period:
+    /** It represent the first minute of the day */
+    case START_DAY
     /** It represent the day. */
     case DAY
+    /** It represent the first minute of the night. */
+    case START_NIGHT
     /** It represent the night. */
     case NIGHT
 
@@ -65,8 +69,11 @@ object Time:
       )
     private case class TimeStampImpl(override val relativeTicks: Long, override val iteration: Long) extends TimeStamp:
       override def toMinutes: Long = relativeTicks / TimeConfiguration.TICKS_PER_MINUTE
-      override def period: Period =
-        if relativeTicks < TimeConfiguration.DAY_MINUTES_UPPER_BOUND then Period.DAY else Period.NIGHT
+      override def period: Period = relativeTicks match
+        case t if t == 0 => Period.START_DAY
+        case t if t == TimeConfiguration.DAY_MINUTES_UPPER_BOUND => Period.START_NIGHT
+        case t if t > TimeConfiguration.DAY_MINUTES_UPPER_BOUND => Period.NIGHT
+        case _ => Period.DAY
       override def compare(that: TimeStamp): Int = iteration - that.iteration match
         case 0 => (relativeTicks - that.relativeTicks).toInt
         case notEqual => notEqual.toInt
