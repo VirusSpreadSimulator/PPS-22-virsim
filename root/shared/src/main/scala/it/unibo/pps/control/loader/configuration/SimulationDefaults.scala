@@ -33,6 +33,7 @@ object SimulationDefaults:
 
   object StructuresDefault:
     val HOUSE_INFECTION_PROB: Double = 0.5
+    val HOSPITAL_HEALTH_GAIN: Double = 0.08
 
   object MAX_VALUES:
     val MAX_GRID_SIZE: Int = 100
@@ -45,3 +46,4 @@ object SimulationDefaults:
     val MIN_NUMBER_OF_ENTITIES = 2
     val MIN_HEALTH: Int = 0
     val MIN_IMMUNITY: Int = 0
+    val HOSPITALIZATION_HEALTH_LIMIT = 15
