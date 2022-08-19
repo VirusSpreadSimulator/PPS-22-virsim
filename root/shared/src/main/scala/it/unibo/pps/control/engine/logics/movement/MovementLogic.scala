@@ -53,7 +53,7 @@ class MovementLogic extends UpdateLogic:
             gridSide,
             gridSide,
             1,
-            entity.home.position
+            entity.homePosition
           )
         )
       case _ => entity.position

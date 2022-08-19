@@ -4,7 +4,7 @@ import it.unibo.pps.control.loader.configuration.ConfigurationComponent.Configur
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.{MAX_VALUES, StructuresDefault}
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
-import it.unibo.pps.entity.structure.Structures.House
+import it.unibo.pps.entity.structure.Structures.{House, SimulationStructure}
 import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
 import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
 import it.unibo.pps.entity.common.ProblableEvents.*
@@ -26,22 +26,14 @@ trait EntityFactory:
     * @return
     *   the Set of simulation entities.
     */
-  def create(configuration: Configuration): Task[Set[SimulationEntity]]
+  def create(configuration: Configuration, houses: Seq[SimulationStructure]): Task[Set[SimulationEntity]]
 
 object EntityFactory:
   def apply(): EntityFactory = new EntityFactoryImpl()
 
   private class EntityFactoryImpl() extends EntityFactory:
 
-    override def create(configuration: Configuration): Task[Set[SimulationEntity]] =
-      val houses =
-        for _ <- 0 until (configuration.simulation.numberOfEntities / configuration.simulation.peoplePerHouse)
-        yield House(
-          (Random.nextInt(configuration.simulation.gridSide + 1), configuration.simulation.gridSide),
-          StructuresDefault.HOUSE_INFECTION_PROB,
-          configuration.simulation.peoplePerHouse
-        )
-
+    override def create(configuration: Configuration, houses: Seq[SimulationStructure]): Task[Set[SimulationEntity]] =
       val entities =
         for
           i <- 0 until configuration.simulation.numberOfEntities
@@ -50,7 +42,7 @@ object EntityFactory:
             configuration.simulation.averagePopulationAge,
             configuration.simulation.stdDevPopulationAge
           ).next()
-          house = houses(i % houses.size)
+          homePosition = houses(i % houses.size).position
           position = Point2D(
             Random.nextInt(configuration.simulation.gridSide),
             Random.nextInt(configuration.simulation.gridSide)
@@ -75,7 +67,7 @@ object EntityFactory:
           entity = SimulationEntity(
             entityId,
             age,
-            house,
+            homePosition,
             MAX_VALUES.MAX_HEALTH,
             position = position,
             infection = infected

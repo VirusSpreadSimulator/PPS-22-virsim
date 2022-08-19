@@ -16,7 +16,7 @@ import scala.concurrent.duration.{DAYS, MINUTES}
 object Samples:
   val genericInfectedPermanences: Set[EntityPermanence] = Set(
     EntityPermanence(
-      SimulationEntity(1, 20, house, 80, position = Point2D(1, 7)),
+      SimulationEntity(1, 20, house.position, 80, position = Point2D(1, 7)),
       TimeStamp(),
       DurationTime(11, MINUTES)
     ),
@@ -24,7 +24,7 @@ object Samples:
       SimulationEntity(
         2,
         10,
-        house,
+        house.position,
         0.001,
         position = Point2D(1, 7),
         infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
@@ -36,7 +36,7 @@ object Samples:
       SimulationEntity(
         3,
         20,
-        house,
+        house.position,
         80,
         position = Point2D(1, 7),
         infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
@@ -48,7 +48,7 @@ object Samples:
       SimulationEntity(
         4,
         20,
-        house,
+        house.position,
         80,
         position = Point2D(1, 7),
         infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(0, MINUTES)))
@@ -65,13 +65,13 @@ object Samples:
 
   private val house = House((1, 0), 1, 2)
   private val entities: Set[SimulationEntity] = Set(
-    SimulationEntity(5, 20, house, 80, 10, position = Point2D(1, 2)),
-    SimulationEntity(6, 21, house, 80, 10, position = Point2D(3, 2)),
-    SimulationEntity(7, 22, house, 80, 10, position = Point2D(4, 5)),
+    SimulationEntity(5, 20, house.position, 80, 10, position = Point2D(1, 2)),
+    SimulationEntity(6, 21, house.position, 80, 10, position = Point2D(3, 2)),
+    SimulationEntity(7, 22, house.position, 80, 10, position = Point2D(4, 5)),
     SimulationEntity(
       8,
       10,
-      house,
+      house.position,
       0.001,
       70,
       position = Point2D(4, 2),
@@ -80,7 +80,7 @@ object Samples:
     SimulationEntity(
       9,
       20,
-      house,
+      house.position,
       80,
       20,
       position = Point2D(1, 1),
@@ -89,7 +89,7 @@ object Samples:
     SimulationEntity(
       10,
       20,
-      house,
+      house.position,
       80,
       10,
       position = Point2D(1, 1),
@@ -105,12 +105,12 @@ object Samples:
       4,
       entities = Set(
         EntityPermanence(
-          SimulationEntity(11, 21, house, 80, 10, position = Point2D(8, 7)),
+          SimulationEntity(11, 21, house.position, 80, 10, position = Point2D(8, 7)),
           TimeStamp(),
           DurationTime(0, MINUTES)
         ),
         EntityPermanence(
-          SimulationEntity(12, 21, house, 80, 20, position = Point2D(8, 7)),
+          SimulationEntity(12, 21, house.position, 80, 20, position = Point2D(8, 7)),
           TimeStamp(),
           DurationTime(11, MINUTES)
         )

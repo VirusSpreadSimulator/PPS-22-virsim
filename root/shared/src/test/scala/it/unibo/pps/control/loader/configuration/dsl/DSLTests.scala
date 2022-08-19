@@ -14,7 +14,7 @@ import org.scalatest.matchers.should.Matchers
 class DSLTests extends AnyFunSuite with Matchers:
 
   test("Simulation should be configurable via DSL") {
-    "simulation gridSide 50 days 7 entities 200 averagePopulationAge 40 stdDevPopulationAge 0.5 peoplePerHouse 4 startingInfectedPercentage 10" should compile
+    "simulation gridSide 50 days 7 entities 200 averagePopulationAge 40 stdDevPopulationAge 0.5 startingInfectedPercentage 10" should compile
   }
 
   test("Virus should be configurable via DSL") {
@@ -29,7 +29,7 @@ class DSLTests extends AnyFunSuite with Matchers:
 
   test("Entire environment should be configurable via DSL") {
     "VirsimConfiguration(" +
-      "simulation gridSide 50 days 7 entities 200 averagePopulationAge 40 stdDevPopulationAge 0.5 peoplePerHouse 4 startingInfectedPercentage 10, " +
+      "simulation gridSide 50 days 7 entities 200 averagePopulationAge 40 stdDevPopulationAge 0.5 startingInfectedPercentage 10, " +
       "virus spreadRate 1.5 averagePositivityDays 7 severeDeseaseProbability 15 maxInfectionDistance 2.5, " +
       "structures are GenericBuilding(position = (10, 10), infectionProbability = 20, capacity = 30) and " +
       "GenericBuilding(position = (20, 20), infectionProbability = 25, capacity = 40))" should compile

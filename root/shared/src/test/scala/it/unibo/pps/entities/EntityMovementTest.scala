@@ -29,7 +29,7 @@ import org.scalatest.matchers.should.Matchers
 object EntityMovementTest extends SimpleTaskSuite:
   private val house = House((1, 0), 1, 2)
   private val entities: Seq[SimulationEntity with Moving] = Seq(
-    SimulationEntity(0, 20, house, 80, position = Point2D(0, 20))
+    SimulationEntity(0, 20, house.position, 80, position = Point2D(0, 20))
   )
   private val buildings: Set[SimulationStructure] = Set(
     GenericBuilding(

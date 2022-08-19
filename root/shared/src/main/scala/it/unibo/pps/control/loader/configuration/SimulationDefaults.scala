@@ -7,7 +7,6 @@ object SimulationDefaults:
     val GRID_MULTIPLIER: Int = 4
     val DURATION: Int = 30
     val NUMBER_OF_ENTITIES: Int = 100
-    val PEOPLE_PER_HOUSE: Int = 4
     val AVERAGE_POPULATION_AGE: Int = 40
     val STD_DEV_POPULATION_AGE: Double = 10
     val STARTING_INFECTED_PERCENTAGE: Double = 10.0

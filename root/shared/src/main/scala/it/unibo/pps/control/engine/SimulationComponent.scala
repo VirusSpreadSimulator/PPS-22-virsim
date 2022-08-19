@@ -15,12 +15,6 @@ object SimulationComponent:
     /** @return the number of entities choosed by the user. */
     def numberOfEntities: Int
 
-    /** Default: 4
-      * @return
-      *   the number of people at every house.
-      */
-    def peoplePerHouse: Int
-
     /** @return
       *   the average age of the entities inside the environment.
       */
@@ -38,7 +32,6 @@ object SimulationComponent:
       override val gridSide: Int = GlobalDefaults.GRID_SIDE * GlobalDefaults.GRID_MULTIPLIER,
       override val duration: Int = GlobalDefaults.DURATION,
       override val numberOfEntities: Int = GlobalDefaults.NUMBER_OF_ENTITIES,
-      override val peoplePerHouse: Int = GlobalDefaults.PEOPLE_PER_HOUSE,
       override val averagePopulationAge: Int = GlobalDefaults.AVERAGE_POPULATION_AGE,
       override val stdDevPopulationAge: Double = GlobalDefaults.STD_DEV_POPULATION_AGE,
       override val startingInfectedPercentage: Double = GlobalDefaults.STARTING_INFECTED_PERCENTAGE

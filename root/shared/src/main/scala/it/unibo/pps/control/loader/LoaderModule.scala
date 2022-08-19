@@ -15,7 +15,7 @@ import it.unibo.pps.entity.entity.Entities.*
 import it.unibo.pps.entity.common.GaussianProperty.GaussianIntDistribution
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.given
-import it.unibo.pps.entity.structure.Structures.House
+import it.unibo.pps.entity.structure.Structures.{House, SimulationStructure}
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.StructuresDefault
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.VirusDefaults
@@ -82,10 +82,17 @@ object LoaderModule:
         yield parsingResult
 
       override def createEnvironment(configuration: Configuration)(using factory: EntityFactory): Task[Environment] =
+        val houses: Seq[SimulationStructure] =
+          for _ <- 0 until configuration.simulation.gridSide
+          yield House(
+            (Random.nextInt(configuration.simulation.gridSide + 1), configuration.simulation.gridSide),
+            StructuresDefault.HOUSE_INFECTION_PROB,
+            configuration.simulation.numberOfEntities / configuration.simulation.gridSide
+          )
         for
-          entities <- factory.create(configuration)
+          entities <- factory.create(configuration, houses)
           virus = configuration.virusConfiguration
-          structures = configuration.structuresConfiguration
+          structures = configuration.structuresConfiguration ++ houses.toSet
           environmentDuration = DurationTime(configuration.simulation.duration, DAYS)
         yield context.env.update(
           gridSide = configuration.simulation.gridSide,
