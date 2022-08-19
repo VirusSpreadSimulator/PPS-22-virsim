@@ -14,18 +14,31 @@ import monix.eval.Task
 import javax.script.ScriptEngineManager
 import scala.io.Source
 
+/** The Configuration parser for Scala files. It uses Java Reflection to instantiate the configuration written with the
+  * DSL in the system.
+  */
 object ScalaParser:
 
   trait Provider:
     val scalaParser: Parser
   trait Component:
     class ParserImpl extends Parser:
+
       override def readFile(path: String): Task[String] =
-        Task(GlobalDefaults.DSL_IMPORTS + Source.fromFile(path).mkString)
+        for
+          source <- Task(Source.fromFile(path))
+          fileContent <- Task(GlobalDefaults.DSL_IMPORTS + source.mkString)
+          _ <- Task(source.close())
+        yield fileContent
 
       override def loadConfiguration(program: String): Task[Option[Configuration]] =
-        val engine = new ScriptEngineManager().getEngineByName("scala")
-        try Task(Some(engine.eval(program).asInstanceOf[VirsimConfiguration]))
-        catch case ex: Exception => Task(None)
+        for
+          engine <- Task(new ScriptEngineManager().getEngineByName("scala"))
+          configuration <- Task {
+            engine.eval(program) match
+              case configuration: VirsimConfiguration => Some(configuration)
+              case _ => None
+          }
+        yield configuration
 
   trait Interface extends Provider with Component
