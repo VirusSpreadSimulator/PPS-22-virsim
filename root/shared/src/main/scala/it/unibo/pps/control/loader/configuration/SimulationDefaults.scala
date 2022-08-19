@@ -18,6 +18,9 @@ object SimulationDefaults:
         "import it.unibo.pps.entity.structure.Structures.*\n" +
         "import it.unibo.pps.control.loader.configuration.dsl.StructuresDSL.*\n\n"
     val ENTITY_PROBABILITY_TO_RETURN_HOME: Double = 0.35
+    val MIN_HEALTH_TO_GET_SICK: Double = 20.0
+    val EXPORT_FILE_PATH: String = "/tmp/virsim-export.txt"
+    val EXPORT_INTERVAL: Double = 60
 
   object VirusDefaults:
     val NAME: String = "Default-Virus"
