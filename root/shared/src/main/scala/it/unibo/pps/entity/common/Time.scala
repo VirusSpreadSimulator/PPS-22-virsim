@@ -23,6 +23,15 @@ object Time:
     */
   def DurationTime(length: Long, unit: TimeUnit): DurationTime = FiniteDuration(length, unit)
 
+  /** Describe the period of the day in order to understand if the environment time represent a day time or a night
+    * time.
+    */
+  enum Period:
+    /** It represent the day. */
+    case DAY
+    /** It represent the night. */
+    case NIGHT
+
   /** Model the TimeStamp concept */
   trait TimeStamp extends Ordered[TimeStamp]:
     /** Represent the ticks after the current iteration number.
@@ -41,6 +50,11 @@ object Time:
       *   the minutes
       */
     def toMinutes: Long
+    /** Method to convert the current time to the period of the day.
+      * @return
+      *   the period of the day represented by the current time.
+      */
+    def period: Period
 
   object TimeStamp:
     def apply(relativeTicks: Long = 0, iteration: Long = 0): TimeStamp =
@@ -51,6 +65,8 @@ object Time:
       )
     private case class TimeStampImpl(override val relativeTicks: Long, override val iteration: Long) extends TimeStamp:
       override def toMinutes: Long = relativeTicks / TimeConfiguration.TICKS_PER_MINUTE
+      override def period: Period =
+        if relativeTicks < TimeConfiguration.DAY_MINUTES_UPPER_BOUND then Period.DAY else Period.NIGHT
       override def compare(that: TimeStamp): Int = iteration - that.iteration match
         case 0 => (relativeTicks - that.relativeTicks).toInt
         case notEqual => notEqual.toInt

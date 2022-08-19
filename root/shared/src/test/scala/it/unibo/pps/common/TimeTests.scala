@@ -3,6 +3,7 @@ package it.unibo.pps.common
 import it.unibo.pps.entity.common.Time.DurationTime
 import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.common.Time.TimeConfiguration
+import it.unibo.pps.entity.common.Time.Period
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import scala.concurrent.duration.MINUTES
@@ -100,4 +101,12 @@ class TimeTests extends AnyFunSuite with Matchers:
     val iterationToAdd = 1
     val absoluteTicks = tickToAdd + TimeConfiguration.TICKS_PER_DAY * iterationToAdd
     timeStamp + absoluteTicks shouldEqual TimeStamp(time + tickToAdd, iterationNumber + iterationToAdd)
+  }
+
+  test("We can obtain the period of the day from the time, day") {
+    TimeStamp(TimeConfiguration.DAY_MINUTES_UPPER_BOUND - 10).period shouldBe Period.DAY
+  }
+
+  test("We can obtain the period of the day from the time, night") {
+    TimeStamp(TimeConfiguration.DAY_MINUTES_UPPER_BOUND + 10).period shouldBe Period.NIGHT
   }
