@@ -25,17 +25,24 @@ object YAMLParser:
     class ParserImpl extends Parser:
 
       override def readFile(path: String): Task[String] =
-        Task(Source.fromFile(path).mkString)
+        for
+          source <- Task(Source.fromFile(path))
+          fileContent <- Task(source.mkString)
+          _ <- Task(source.close())
+        yield fileContent
 
       override def loadConfiguration(program: String): Task[Option[Configuration]] =
-        program.as[Map[String, Any]] match
-          case Right(configurationParameters: Map[String, Any]) =>
-            for
-              simulation <- parseSimulationParameters(configurationParameters)
-              virus <- parseVirusParameters(configurationParameters)
-              structures <- parseStructuresParameters(configurationParameters)
-            yield Some(VirsimConfiguration(simulation, virus, structures))
-          case Left(_) => Task(None)
+        for
+          program <- Task(program.as[Map[String, Any]])
+          result <- program match
+            case Right(configurationParameters: Map[String, Any]) =>
+              for
+                simulation <- parseSimulationParameters(configurationParameters)
+                virus <- parseVirusParameters(configurationParameters)
+                structures <- parseStructuresParameters(configurationParameters)
+              yield Some(VirsimConfiguration(simulation, virus, structures))
+            case Left(_) => Task(None)
+        yield result
 
       private def parseSimulationParameters(configurationParameters: Map[String, Any]): Task[Simulation] =
         var simulation: Simulation = Simulation()
