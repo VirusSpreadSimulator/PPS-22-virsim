@@ -19,7 +19,6 @@ object EntityStateLogicTest extends SimpleTaskSuite:
       entitiesToConsider = baseEnv.externalEntities.filter(_.infection.isEmpty)
     yield expect(
       entitiesToConsider.totalHealth < updatedEnv.externalEntities
-        .filter(_.infection.isEmpty)
         .filter(e => entitiesToConsider.map(_.id).contains(e.id))
         .totalHealth
     )
@@ -31,7 +30,6 @@ object EntityStateLogicTest extends SimpleTaskSuite:
       entitiesToConsider = baseEnv.internalEntities.filter(_.infection.isEmpty)
     yield expect(
       entitiesToConsider.totalHealth < updatedEnv.internalEntities
-        .filter(_.infection.isEmpty)
         .filter(e => entitiesToConsider.map(_.id).contains(e.id))
         .totalHealth
     )
@@ -45,7 +43,6 @@ object EntityStateLogicTest extends SimpleTaskSuite:
     yield expect(
       baseEnv.externalEntities
         .filter(e => entitiesToConsider.map(_.id).contains(e.id))
-        .filter(_.infection.isDefined)
         .totalHealth > entitiesToConsider.totalHealth
     )
   }
@@ -57,9 +54,7 @@ object EntityStateLogicTest extends SimpleTaskSuite:
     yield expect(
       baseEnv.internalEntities
         .filter(e => entitiesToConsider.map(_.id).contains(e.id))
-        .filter(_.infection.isDefined)
-        .totalHealth >
-        entitiesToConsider.totalHealth
+        .totalHealth > entitiesToConsider.totalHealth
     )
   }
 
@@ -84,7 +79,6 @@ object EntityStateLogicTest extends SimpleTaskSuite:
       entitiesToConsider = baseEnv.externalEntities.filter(_.infection.isEmpty)
     yield expect(
       entitiesToConsider.totalImmunity > updatedEnv.externalEntities
-        .filter(_.infection.isEmpty)
         .filter(e => entitiesToConsider.map(_.id).contains(e.id))
         .totalImmunity
     )
@@ -96,7 +90,6 @@ object EntityStateLogicTest extends SimpleTaskSuite:
       entitiesToConsider = baseEnv.internalEntities.filter(_.infection.isEmpty)
     yield expect(
       entitiesToConsider.totalImmunity > updatedEnv.internalEntities
-        .filter(_.infection.isEmpty)
         .filter(e => entitiesToConsider.map(_.id).contains(e.id))
         .totalImmunity
     )
