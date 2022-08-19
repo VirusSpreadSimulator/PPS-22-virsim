@@ -6,6 +6,7 @@ import it.unibo.pps.control.engine.logics.infection.InfectionLogic.{
   MASK_REDUCER,
   maskReduction
 }
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.MAX_VALUES
 
 import scala.util.Random
 
@@ -48,7 +49,7 @@ object ProblableEvents:
         def probability: Double = inf.infectors.foldLeft(0.0)((acc, infector) =>
           acc + (inf.env.virus.spreadRate * (1 - inf.entity.position.distanceTo(
             infector.position
-          ) / inf.env.virus.maxInfectionDistance) * (1 - inf.entity.immunity)) / (inf.entity.maskReduction * infector.maskReduction)
+          ) / inf.env.virus.maxInfectionDistance) * (1 - inf.entity.immunity / MAX_VALUES.MAX_IMMUNITY)) / (inf.entity.maskReduction * infector.maskReduction)
         )
     given Probable[InternalProbableInfection] with
       extension (inf: InternalProbableInfection)
@@ -57,7 +58,7 @@ object ProblableEvents:
           val infectedInside =
             inf.structure.entities.map(_.entity).filter(_.infection.isDefined)
           if infectedInside.nonEmpty then
-            ((inf.env.virus.spreadRate * inf.structure.infectionProbability * (1 - inf.entity.immunity)) /
+            ((inf.env.virus.spreadRate * inf.structure.infectionProbability * (1 - inf.entity.immunity / MAX_VALUES.MAX_IMMUNITY)) /
               (inf.entity.maskReduction * Math
                 .max(1, MASK_REDUCER * (infectedInside.count(_.hasMask) / infectedInside.size)))) *
               (infectedInside.size / (inf.structure.entities.size - 1))
