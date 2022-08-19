@@ -7,7 +7,8 @@ import it.unibo.pps.jvm.boundary.Utils
 import it.unibo.pps.jvm.boundary.Values.{Dimension, Text}
 import it.unibo.pps.jvm.boundary.gui.SimulationGUI
 import it.unibo.pps.jvm.boundary.gui.panel.SimulationPanel
-import it.unibo.pps.jvm.boundary.gui.panel.ChartPanel
+import it.unibo.pps.jvm.boundary.gui.panel.charts.Charts
+import it.unibo.pps.jvm.boundary.gui.panel.ChartsPanel
 import it.unibo.pps.jvm.boundary.gui.panel.BottomPanels.{
   CommandPanel,
   DynamicActionsLog,
@@ -74,7 +75,7 @@ object SimulationGUI:
 
     // Top panels
     private lazy val simulationPanel = SimulationPanel()
-    private lazy val chartPanel = ChartPanel()
+    private lazy val chartPanel = ChartsPanel()
     // Bottom panels
     private lazy val commandPanel = CommandPanel()
     private lazy val dynamicConfigPanel = DynamicConfigPanel()
@@ -92,9 +93,9 @@ object SimulationGUI:
     private lazy val topPanel: Task[JSplitPane] =
       for
         _ <- io(simulationPanel.setMinimumSize(Dimension.SIMULATION_PANEL_MIN_DIMENSION))
-        _ <- io(simulationPanel.init())
+        _ <- simulationPanel.init()
         _ <- io(chartPanel.setMinimumSize(Dimension.CHART_PANEL_MIN_DIMENSION))
-        _ <- io(chartPanel.init())
+        _ <- chartPanel.init()
         split <- io(JSplitPane(JSplitPane.HORIZONTAL_SPLIT, simulationPanel, chartPanel))
         _ <- io(split.setResizeWeight(1))
         _ <- io(split.setOneTouchExpandable(true))
