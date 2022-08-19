@@ -15,9 +15,8 @@ object EntityStateLogicTest extends SimpleTaskSuite:
   test("External healthy entities health must be increased") {
     for
       updatedEnv <- entityStateLogic(baseEnv)
-      entitiesToConsider = baseEnv.externalEntities.filter(
-        _.infection.isEmpty
-      ) // Necessary because entities can recovery from the infection and then they would partecipate in the computation
+      // Necessary because entities can recovery from the infection and then they would participate in the computation
+      entitiesToConsider = baseEnv.externalEntities.filter(_.infection.isEmpty)
     yield expect(
       entitiesToConsider.totalHealth < updatedEnv.externalEntities
         .filter(_.infection.isEmpty)
