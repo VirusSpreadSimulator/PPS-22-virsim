@@ -69,8 +69,7 @@ object Structures:
     override protected def exit(entity: SimulationEntity): SimulationStructure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
     override def updateEntitiesInside(f: SimulationEntity => Option[SimulationEntity]): SimulationStructure =
-      val updatedEntities = Utils.updatePermanences(f, this.entities)
-      this.focus(_.entities).replace(updatedEntities)
+      this.focus(_.entities).replace(Utils.updatePermanences(f, this.entities))
 
   /** Builder for the GenericBuilding type of structure
     * @param infectionProbability
@@ -112,8 +111,7 @@ object Structures:
     override protected def exit(entity: SimulationEntity): SimulationStructure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
     override def updateEntitiesInside(f: SimulationEntity => Option[SimulationEntity]): SimulationStructure =
-      val updatedEntities = Utils.updatePermanences(f, this.entities)
-      this.focus(_.entities).replace(updatedEntities)
+      this.focus(_.entities).replace(Utils.updatePermanences(f, this.entities))
 
   /** Builder for the GenericBuilding type of structure
     * @param infectionProbability
@@ -150,8 +148,7 @@ object Structures:
     override protected def exit(entity: SimulationEntity): SimulationStructure =
       this.focus(_.entities).modify(_.filter(_.entity != entity))
     override def updateEntitiesInside(f: SimulationEntity => Option[SimulationEntity]): SimulationStructure =
-      val updatedEntities = Utils.updatePermanences(f, this.entities)
-      this.focus(_.entities).replace(updatedEntities)
+      this.focus(_.entities).replace(Utils.updatePermanences(f, this.entities))
 
   private object Utils:
     def updatePermanences(
