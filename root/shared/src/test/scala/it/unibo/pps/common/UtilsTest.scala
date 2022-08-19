@@ -43,3 +43,11 @@ class UtilsTest extends AnyFunSuite with Matchers:
   test("Uncoverrtible type should be safely handled") {
     1.withCapabilities[Point2D].isEmpty shouldBe true
   }
+
+  test("It's possible to do a computation if a condition hold") {
+    1.andIf(_ == 1)(_ + 1) shouldBe 2
+  }
+
+  test("If the condition doesn't hold andIf will not modify anything") {
+    1.andIf(_ == 10)(_ + 1) shouldBe 1
+  }

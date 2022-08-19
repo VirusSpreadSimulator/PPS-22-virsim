@@ -8,3 +8,6 @@ object Utils:
     def withCapabilities[T: ClassTag]: Option[T] = elem match
       case elem: T => Some(elem)
       case _ => None
+  extension [A](e: A)
+    def andIf(f: A => Boolean)(update: A => A): A =
+      if f(e) then update(e) else e
