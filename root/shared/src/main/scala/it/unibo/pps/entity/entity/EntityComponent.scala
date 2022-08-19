@@ -6,7 +6,6 @@ import it.unibo.pps.entity.common.Space.Point2D
 object EntityComponent {
   /* Base implementation of an entity. */
   trait Entity:
-    type Home
     type Position
 
     /** Uniquely defines the entity
@@ -20,11 +19,11 @@ object EntityComponent {
       */
     def age: Int
 
-    /** Every entity is assigned to an habitable Structure.
+    /** Every entity is assigned to an habitable Structure, the entity store the position of that home
       * @return
-      *   the home to which the entity is assigned.
+      *   the home position to which the entity is assigned.
       */
-    def home: Home
+    def homePosition: Position
 
     /** The current health of an entity.
       * @return

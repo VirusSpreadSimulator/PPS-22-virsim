@@ -13,8 +13,8 @@ object Entities:
     *   the id of the entity.
     * @param age
     *   the age of the entity.
-    * @param home
-    *   the home of the entity
+    * @param homePosition
+    *   the position of the home of the entity
     * @param health
     *   the entity's health
     * @param immunity
@@ -31,7 +31,7 @@ object Entities:
   case class SimulationEntity(
       override val id: Int,
       override val age: Int,
-      override val home: House,
+      override val homePosition: Point2D,
       override val health: Double,
       override val immunity: Double = 0.0,
       override val position: Point2D,
@@ -45,7 +45,6 @@ object Entities:
     import it.unibo.pps.entity.entity.Entities.SimulationEntity.calculateMaxHealth
 
     override type Position = Point2D
-    override type Home = House
     /* max health that the entity can have, based on the age. */
     override val maxHealth: Double = SimulationEntity.calculateMaxHealth(age)
 
@@ -59,7 +58,7 @@ object Entities:
     def apply(
         id: Int,
         age: Int,
-        home: House,
+        homePosition: Point2D,
         health: Double,
         immunity: Double = 0.0,
         position: Point2D,
@@ -70,7 +69,7 @@ object Entities:
       new SimulationEntity(
         id,
         age,
-        home,
+        homePosition,
         Math.max(SimulationDefaults.MIN_VALUES.MIN_HEALTH, Math.min(health, calculateMaxHealth(age))),
         immunity,
         position,
