@@ -17,6 +17,7 @@ object SimulationDefaults:
         "import it.unibo.pps.control.loader.configuration.dsl.VirusDSL.*\n" +
         "import it.unibo.pps.entity.structure.Structures.*\n" +
         "import it.unibo.pps.control.loader.configuration.dsl.StructuresDSL.*\n\n"
+    val ENTITY_PROBABILITY_TO_RETURN_HOME: Double = 0.35
 
   object VirusDefaults:
     val NAME: String = "Default-Virus"
