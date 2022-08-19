@@ -23,7 +23,7 @@ object Samples:
     EntityPermanence(
       SimulationEntity(
         2,
-        20,
+        10,
         house,
         0.001,
         position = Point2D(1, 7),
@@ -70,7 +70,7 @@ object Samples:
     SimulationEntity(7, 22, house, 80, 10, position = Point2D(4, 5)),
     SimulationEntity(
       8,
-      20,
+      10,
       house,
       0.001,
       70,
