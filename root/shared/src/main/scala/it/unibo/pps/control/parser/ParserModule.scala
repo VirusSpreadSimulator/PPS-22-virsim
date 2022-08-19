@@ -41,14 +41,17 @@ object ParserModule:
       *   the result of configuration errors checking.
       */
     def checkErrors(configuration: Configuration): Task[ConfigurationResult] =
-      val errors: List[ConfigurationError] =
-        (configuration.simulation.gridSide shouldBeWithin (MIN_VALUES.MIN_GRID_SIZE, MAX_VALUES.MAX_GRID_SIZE) andIfNot "Error: invalid parameter gridSide!") :::
-          (configuration.simulation.numberOfEntities shouldBeWithin (MIN_VALUES.MIN_NUMBER_OF_ENTITIES, MAX_VALUES.MAX_NUMBER_OF_ENTITIES) andIfNot "Error: invalid parameter numberOfEntities!") :::
-          (configuration.virusConfiguration.severeDeseaseProbability shouldBeWithin (0, 1) andIfNot "Error: probability must be in range (0, 1)!") :::
-          (configuration.virusConfiguration.spreadRate shouldBeWithin (0, 1) andIfNot "Error: spreadRate must be in range (0, 1)!")
-      errors.size match
-        case 0 => Task(ConfigurationResult.OK(configuration))
-        case _ => Task(ConfigurationResult.ERROR(errors))
+      for
+        errors <- Task {
+          (configuration.simulation.gridSide shouldBeWithin (MIN_VALUES.MIN_GRID_SIZE, MAX_VALUES.MAX_GRID_SIZE) andIfNot "Error: invalid parameter gridSide!") :::
+            (configuration.simulation.numberOfEntities shouldBeWithin (MIN_VALUES.MIN_NUMBER_OF_ENTITIES, MAX_VALUES.MAX_NUMBER_OF_ENTITIES) andIfNot "Error: invalid parameter numberOfEntities!") :::
+            (configuration.virusConfiguration.severeDeseaseProbability shouldBeWithin (0, 1) andIfNot "Error: probability must be in range (0, 1)!") :::
+            (configuration.virusConfiguration.spreadRate shouldBeWithin (0, 1) andIfNot "Error: spreadRate must be in range (0, 1)!")
+        }
+        result <- errors.size match
+          case 0 => Task(ConfigurationResult.OK(configuration))
+          case _ => Task(ConfigurationResult.ERROR(errors))
+      yield result
 
   /** Provider of the component */
   trait Provider:
