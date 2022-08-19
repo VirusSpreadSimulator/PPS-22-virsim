@@ -9,9 +9,9 @@ import it.unibo.pps.jvm.parser.ScalaParser
 
 object Launcher extends Launch with GUIModule.Interface with ScalaParser.Interface:
 
-  override val gui = GUIBoundaryImpl()
+  override val gui: ConfigBoundary = GUIBoundaryImpl()
   override val configBoundary: ConfigBoundary = gui
-  override val boundaries = Seq(gui)
+  override val boundaries: Seq[BoundaryModule.Boundary] = Seq(gui, exporter)
   override val scalaParser: ParserModule.Parser = ParserImpl()
   override val parser: ParserModule.Parser = scalaParser
 
