@@ -15,6 +15,5 @@ object SimulationDSL:
     def averagePopulationAge(age: Int): Simulation = sim.focus(_.averagePopulationAge).replace(age)
     def stdDevPopulationAge(standardDeviation: Double): Simulation =
       sim.focus(_.stdDevPopulationAge).replace(standardDeviation)
-    def peoplePerHouse(numberOfPeople: Int): Simulation = sim.focus(_.peoplePerHouse).replace(numberOfPeople)
     def startingInfectedPercentage(infectedPeople: Int): Simulation =
       sim.focus(_.startingInfectedPercentage).replace(infectedPeople)

@@ -16,11 +16,11 @@ object EntranceLogicTest extends SimpleTaskSuite:
 
   private val house = House((1, 0), 1, 2)
   private val entitiesNear: Seq[SimulationEntity] = Seq(
-    SimulationEntity(0, 20, house, 80, position = Point2D(0, 20))
+    SimulationEntity(0, 20, house.position, 80, position = Point2D(0, 20))
   )
 
   private val entitiesNotNear: Seq[SimulationEntity] = Seq(
-    SimulationEntity(0, 20, house, 80, position = Point2D(10, 10))
+    SimulationEntity(0, 20, house.position, 80, position = Point2D(10, 10))
   )
 
   private val buildings: Set[SimulationStructure] = Set(

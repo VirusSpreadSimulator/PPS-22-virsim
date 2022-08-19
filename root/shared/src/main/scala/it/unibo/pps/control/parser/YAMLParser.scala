@@ -62,8 +62,6 @@ object YAMLParser:
               case "stdDevPopulationAge" =>
                 simulation =
                   simulation.stdDevPopulationAge(simulationParameters("stdDevPopulationAge").asInstanceOf[Double])
-              case "peoplePerHouse" =>
-                simulation = simulation.peoplePerHouse(simulationParameters("peoplePerHouse").asInstanceOf[Int])
               case "startingInfectedPercentage" =>
                 simulation = simulation.startingInfectedPercentage(
                   simulationParameters("startingInfectedPercentage").asInstanceOf[Int]

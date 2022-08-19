@@ -25,9 +25,9 @@ class StructuresTest extends AnyFunSuite with Matchers:
     Hospital(position, infectionProbability, capacity, treatmentQuality = treatmentQuality)
   private val entities =
     Seq(
-      SimulationEntity(0, 23, house, 80, position = (10, 5)),
-      SimulationEntity(1, 23, house, 80, position = (10, 5)),
-      SimulationEntity(2, 23, house, 80, position = (10, 5))
+      SimulationEntity(0, 23, house.position, 80, position = (10, 5)),
+      SimulationEntity(1, 23, house.position, 80, position = (10, 5)),
+      SimulationEntity(2, 23, house.position, 80, position = (10, 5))
     )
 
   test("Initially a house is empty") {

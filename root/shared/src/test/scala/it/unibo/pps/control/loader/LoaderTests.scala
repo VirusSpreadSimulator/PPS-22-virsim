@@ -63,7 +63,7 @@ object LoaderTests extends SimpleTaskSuite with Matchers:
     val entityFactory: EntityFactory = EntityFactory()
     val entities: Int = 200
     val simulation = Simulation(numberOfEntities = entities)
-    for result <- entityFactory.create(VirsimConfiguration(simulation, virus, structures))
+    for result <- entityFactory.create(VirsimConfiguration(simulation, virus, structures), Seq())
     yield expect(result.size == entities)
   }
 
