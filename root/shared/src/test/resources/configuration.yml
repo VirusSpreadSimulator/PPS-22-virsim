@@ -4,7 +4,6 @@ simulation:
   entities: 100
   averagePopulationAge: 40
   stdDevPopulationAge: 0.5
-  peoplePerHouse: 4
   startingInfectedPercentage: 10
 
 virus:
