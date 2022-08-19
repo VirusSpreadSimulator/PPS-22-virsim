@@ -21,7 +21,7 @@ class SimulationPanel() extends UpdateblePanel:
       val environment = env.get
       val panelDim = getSize()
       val envDim = environment.gridSide
-      val scale = Math.max(Math.min(panelDim.width / envDim, panelDim.height / envDim), 1) // to be square
+      val scale = Math.max(Math.min(panelDim.width / envDim, panelDim.height / (envDim + 1)), 1) // to be square
       val g2: Graphics2D = g.asInstanceOf[Graphics2D]
       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
       g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)
