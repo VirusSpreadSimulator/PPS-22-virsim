@@ -15,17 +15,6 @@ import monocle.syntax.all._
 
 class MovementLogic extends UpdateLogic:
   override def apply(environment: Environment): Task[Environment] =
-//    val updatedEntities: Set[SimulationEntity] =
-//      for
-//        entity <- environment.externalEntities
-//        id = entity.id
-//        age = entity.age
-//        home = entity.home
-//        position = calculateNewPosition(entity.asInstanceOf[BaseEntity], environment.gridSide)
-//        infection = entity.asInstanceOf[BaseEntity].infection
-//        updatedEntity: SimulationEntity = BaseEntity(id, age, home, position = position, infection = infection)
-//      yield updatedEntity
-//
     for
       entities <- Task(environment.externalEntities)
       moved <- Task {
@@ -55,7 +44,7 @@ class MovementLogic extends UpdateLogic:
     entity.movementGoal match
       case MovementGoal.RANDOM_MOVEMENT =>
         extractRandomPosition(
-          PrologNextMovement.calculateNextMovement(entity.position, gridSide, gridSide, 1)
+          PrologNextMovement.calculateNextMovement(entity.position, gridSide, gridSide + 1, 1)
         )
       case MovementGoal.BACK_TO_HOME =>
         extractRandomPosition(
