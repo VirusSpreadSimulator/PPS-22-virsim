@@ -2,14 +2,14 @@ package it.unibo.pps.entity.structure
 
 import it.unibo.pps.entity.common.Space.{Distance, Point2D}
 import it.unibo.pps.entity.structure.StructureComponent.*
-import it.unibo.pps.entity.structure.entrance.Entrance.EntranceStrategy
-import it.unibo.pps.entity.structure.entrance.Entrance.BaseEntranceStrategy
+import it.unibo.pps.entity.structure.entrance.Entrance.{BaseEntranceStrategy, EntranceStrategy, FilterBasedStrategy}
 import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
 import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.structure.StructureComponent.Hospitalization.TreatmentQuality
 import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
 import it.unibo.pps.entity.entity.EntityComponent.Entity
+
 import scala.concurrent.duration.MINUTES
 import monocle.syntax.all.*
 
@@ -63,7 +63,8 @@ object Structures:
       override val entities: Set[EntityPermanence] = Set()
   ) extends SimulationStructure
       with Habitable:
-    override val entranceStrategy: EntranceStrategy = BaseEntranceStrategy()
+    override val entranceStrategy: EntranceStrategy = new BaseEntranceStrategy()
+      with FilterBasedStrategy(_.homePosition == this.position)
     override protected def enter(entity: SimulationEntity, timestamp: TimeStamp): SimulationStructure =
       this.focus(_.entities).modify(_ + EntityPermanence(entity, timestamp, permanenceTimeDistribution.next()))
     override protected def exit(entity: SimulationEntity): SimulationStructure =
