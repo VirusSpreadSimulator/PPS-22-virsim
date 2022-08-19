@@ -32,6 +32,7 @@ object InfectionLogic:
 
     def maskReduction: Int = if e.hasMask then MASK_REDUCER else 1
 
+  /** Logic that handle the infection in the environment, external to structures */
   class ExternalInfectionLogic extends UpdateLogic:
     import it.unibo.pps.entity.common.Utils.*
     override def apply(env: Environment): Task[Environment] =
@@ -56,6 +57,7 @@ object InfectionLogic:
         env.externalEntities.filter(e => !infected.map(_.id).contains(e.id)) ++ infected.toSet
       )
 
+  /** Logic that handle the infection inside the structures of the environment */
   class InternalInfectionLogic extends UpdateLogic:
     import it.unibo.pps.entity.common.Utils.*
     override def apply(env: Environment): Task[Environment] =
