@@ -57,6 +57,7 @@ object EngineConfiguration:
       Seq(
         UpdateLogic.entityStateUpdateLogic,
         UpdateLogic.entityGoalLogic,
+        UpdateLogic.movementLogic,
         UpdateLogic.externalInfectionLogic,
         UpdateLogic.internalInfectionLogic,
         UpdateLogic.logicTimeUpdate,
