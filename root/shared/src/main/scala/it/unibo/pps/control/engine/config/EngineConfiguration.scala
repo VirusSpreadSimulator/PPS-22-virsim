@@ -55,6 +55,7 @@ object EngineConfiguration:
     override var engineStatus: EngineStatus = EngineStatus.RUNNING
     override val logics: Seq[UpdateLogic] =
       Seq(
+        UpdateLogic.entityStateUpdateLogic,
         UpdateLogic.externalInfectionLogic,
         UpdateLogic.internalInfectionLogic,
         UpdateLogic.logicTimeUpdate,
