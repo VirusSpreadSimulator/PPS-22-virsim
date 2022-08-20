@@ -9,8 +9,8 @@ object Time:
     val TICKS_PER_MINUTE: Int = 1
     val MINUTES_PER_HOUR: Int = 60
     val MINUTES_PER_DAY: Int = 1440
-    val DAY_MINUTES_UPPER_BOUND: Int = 1000
-    val TICKS_PER_DAY: Int = MINUTES_PER_DAY * TICKS_PER_MINUTE
+    val DAY_MINUTES_UPPER_BOUND: Long = 1000
+    val TICKS_PER_DAY: Long = MINUTES_PER_DAY * TICKS_PER_MINUTE
 
   /** Alias for finite duration time */
   type DurationTime = FiniteDuration
@@ -78,8 +78,8 @@ object Time:
       override def toMinutes: Long = relativeTicks / TimeConfiguration.TICKS_PER_MINUTE
       override def toHours: Long = toMinutes / TimeConfiguration.MINUTES_PER_HOUR
       override def period: Period = relativeTicks match
-        case t if t == 0 => Period.START_DAY
-        case t if t == TimeConfiguration.DAY_MINUTES_UPPER_BOUND => Period.START_NIGHT
+        case 0 => Period.START_DAY
+        case TimeConfiguration.DAY_MINUTES_UPPER_BOUND => Period.START_NIGHT
         case t if t > TimeConfiguration.DAY_MINUTES_UPPER_BOUND => Period.NIGHT
         case _ => Period.DAY
       override def compare(that: TimeStamp): Int = iteration - that.iteration match
