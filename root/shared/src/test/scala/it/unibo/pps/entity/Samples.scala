@@ -98,19 +98,66 @@ object Samples:
   )
 
   private val buildings: Set[SimulationStructure] = Set(
-    GenericBuilding(Point2D(1, 7), 0.5, 4, entities = genericInfectedPermanences),
+    GenericBuilding(
+      Point2D(1, 7),
+      0.5,
+      4,
+      entities = Set(
+        EntityPermanence(
+          SimulationEntity(11, 20, house.position, 80, position = Point2D(1, 7)),
+          TimeStamp(),
+          DurationTime(11, MINUTES)
+        ),
+        EntityPermanence(
+          SimulationEntity(
+            12,
+            10,
+            house.position,
+            0.001,
+            position = Point2D(1, 7),
+            infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
+          ),
+          TimeStamp(),
+          DurationTime(11, MINUTES)
+        ),
+        EntityPermanence(
+          SimulationEntity(
+            13,
+            20,
+            house.position,
+            80,
+            position = Point2D(1, 7),
+            infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
+          ),
+          TimeStamp(),
+          DurationTime(11, MINUTES)
+        ),
+        EntityPermanence(
+          SimulationEntity(
+            14,
+            20,
+            house.position,
+            80,
+            position = Point2D(1, 7),
+            infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(0, MINUTES)))
+          ),
+          TimeStamp(),
+          DurationTime(11, MINUTES)
+        )
+      )
+    ),
     GenericBuilding(
       Point2D(8, 7),
       0.5,
       4,
       entities = Set(
         EntityPermanence(
-          SimulationEntity(11, 21, house.position, 80, 10, position = Point2D(8, 7)),
+          SimulationEntity(15, 21, house.position, 80, 10, position = Point2D(8, 7)),
           TimeStamp(),
           DurationTime(0, MINUTES)
         ),
         EntityPermanence(
-          SimulationEntity(12, 21, house.position, 80, 20, position = Point2D(8, 7)),
+          SimulationEntity(16, 21, house.position, 80, 20, position = Point2D(8, 7)),
           TimeStamp(),
           DurationTime(11, MINUTES)
         )
