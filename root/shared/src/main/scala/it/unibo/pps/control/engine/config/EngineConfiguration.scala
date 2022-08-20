@@ -56,6 +56,7 @@ object EngineConfiguration:
     override val logics: Seq[UpdateLogic] =
       Seq(
         UpdateLogic.entityStateUpdateLogic,
+        UpdateLogic.hospitalizationLogic,
         UpdateLogic.entityGoalLogic,
         UpdateLogic.movementLogic,
         UpdateLogic.externalInfectionLogic,
