@@ -52,7 +52,7 @@ object HospitalizationLogicTest extends SimpleTaskSuite:
           .filter(!_.isInstanceOf[Hospital])
           .flatMap(_.entities)
           .map(_.entity)
-      ) == countEntitiesAtRisk(env.internalEntities)
+      ) == countEntitiesAtRisk(baseEnv.internalEntities)
     )
   }
 

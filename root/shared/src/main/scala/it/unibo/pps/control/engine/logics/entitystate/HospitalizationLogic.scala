@@ -5,7 +5,7 @@ import it.unibo.pps.control.loader.configuration.SimulationDefaults.MIN_VALUES
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.common.Utils.*
-import it.unibo.pps.entity.structure.Structures.{Hospital, SimulationStructure}
+import it.unibo.pps.entity.structure.Structures.Hospital
 import monix.eval.Task
 
 object HospitalizationLogic:
