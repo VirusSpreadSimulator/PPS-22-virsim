@@ -15,48 +15,37 @@ import scala.concurrent.duration.{DAYS, MINUTES}
 
 object Samples:
   private val house = House((1, 0), 1, 2)
-  val genericInfectedPermanences: Set[EntityPermanence] = Set(
-    EntityPermanence(
-      SimulationEntity(1, 20, house.position, 80, position = Point2D(1, 7)),
-      TimeStamp(),
-      DurationTime(11, MINUTES)
-    ),
-    EntityPermanence(
-      SimulationEntity(
-        2,
-        10,
-        house.position,
-        0.001,
-        position = Point2D(1, 7),
-        infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
-      ),
-      TimeStamp(),
-      DurationTime(11, MINUTES)
-    ),
+  private def permanence(
+      id: Int,
+      age: Int,
+      housePosition: Point2D,
+      health: Double,
+      position: Point2D,
+      infectionDuration: Option[DurationTime] = None,
+      immunity: Double = 0,
+      duration: DurationTime = DurationTime(11, MINUTES)
+  ) =
     EntityPermanence(
       SimulationEntity(
-        3,
-        20,
-        house.position,
-        80,
-        position = Point2D(1, 7),
-        infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
+        id,
+        age,
+        housePosition,
+        health,
+        immunity,
+        position = position,
+        infection =
+          if infectionDuration.isDefined then Some(Infection(Severity.LIGHT(), TimeStamp(), infectionDuration.get))
+          else None
       ),
       TimeStamp(),
-      DurationTime(11, MINUTES)
-    ),
-    EntityPermanence(
-      SimulationEntity(
-        4,
-        20,
-        house.position,
-        80,
-        position = Point2D(1, 7),
-        infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(0, MINUTES)))
-      ),
-      TimeStamp(),
-      DurationTime(11, MINUTES)
+      duration
     )
+
+  val genericInfectedPermanences: Set[EntityPermanence] = Set(
+    permanence(1, 20, house.position, 80, Point2D(1, 7)),
+    permanence(2, 10, house.position, 0.001, Point2D(1, 7), Some(DurationTime(5, DAYS))),
+    permanence(3, 20, house.position, 80, Point2D(1, 7), Some(DurationTime(5, DAYS))),
+    permanence(4, 20, house.position, 80, Point2D(1, 7), Some(DurationTime(0, MINUTES)))
   )
 
   val inhabitatedHouse: House = House((1, 0), 1, 2, entities = genericInfectedPermanences)
@@ -103,47 +92,10 @@ object Samples:
       0.5,
       4,
       entities = Set(
-        EntityPermanence(
-          SimulationEntity(11, 20, house.position, 80, position = Point2D(1, 7)),
-          TimeStamp(),
-          DurationTime(11, MINUTES)
-        ),
-        EntityPermanence(
-          SimulationEntity(
-            12,
-            10,
-            house.position,
-            0.001,
-            position = Point2D(1, 7),
-            infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
-          ),
-          TimeStamp(),
-          DurationTime(11, MINUTES)
-        ),
-        EntityPermanence(
-          SimulationEntity(
-            13,
-            20,
-            house.position,
-            80,
-            position = Point2D(1, 7),
-            infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(5, DAYS)))
-          ),
-          TimeStamp(),
-          DurationTime(11, MINUTES)
-        ),
-        EntityPermanence(
-          SimulationEntity(
-            14,
-            20,
-            house.position,
-            80,
-            position = Point2D(1, 7),
-            infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(0, MINUTES)))
-          ),
-          TimeStamp(),
-          DurationTime(11, MINUTES)
-        )
+        permanence(11, 20, house.position, 80, Point2D(1, 7)),
+        permanence(12, 10, house.position, 0.001, Point2D(1, 7), Some(DurationTime(5, DAYS))),
+        permanence(13, 20, house.position, 80, Point2D(1, 7), Some(DurationTime(5, DAYS))),
+        permanence(14, 20, house.position, 80, Point2D(1, 7), Some(DurationTime(0, MINUTES)))
       )
     ),
     GenericBuilding(
@@ -151,16 +103,8 @@ object Samples:
       0.5,
       4,
       entities = Set(
-        EntityPermanence(
-          SimulationEntity(15, 21, house.position, 80, 10, position = Point2D(8, 7)),
-          TimeStamp(),
-          DurationTime(0, MINUTES)
-        ),
-        EntityPermanence(
-          SimulationEntity(16, 21, house.position, 80, 20, position = Point2D(8, 7)),
-          TimeStamp(),
-          DurationTime(11, MINUTES)
-        )
+        permanence(15, 21, house.position, 80, Point2D(8, 7), None, 10, DurationTime(0, MINUTES)),
+        permanence(16, 21, house.position, 80, Point2D(8, 7), None, 20, DurationTime(11, MINUTES))
       )
     ),
     GenericBuilding(
