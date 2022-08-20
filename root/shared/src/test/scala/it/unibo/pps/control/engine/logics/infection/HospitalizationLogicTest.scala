@@ -9,6 +9,9 @@ import it.unibo.pps.control.loader.configuration.SimulationDefaults.MIN_VALUES
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.structure.Structures.Hospital
 import it.unibo.pps.entity.common.Utils.*
+import it.unibo.pps.entity.TestUtils.*
+import it.unibo.pps.entity.entity.Entities.SimulationEntity
+import monix.eval.Task
 
 object HospitalizationLogicTest extends SimpleTaskSuite:
   val baseEnv: Environment = Samples.sampleEnv
@@ -19,52 +22,56 @@ object HospitalizationLogicTest extends SimpleTaskSuite:
   test("Without hospital infected external entities at risk can't do anything") {
     for updatedEnv <- hospitalizationLogic(baseEnv)
     yield expect(
-      updatedEnv.structures.select[Hospital].isEmpty && updatedEnv.externalEntities.count(
-        _.health < MIN_VALUES.HOSPITALIZATION_HEALTH_LIMIT
-      ) >= 0
+      updatedEnv.structures.select[Hospital].isEmpty &&
+        countEntitiesAtRisk(updatedEnv.externalEntities) == countEntitiesAtRisk(baseEnv.externalEntities)
     )
   }
 
   test("Without hospital infected internal entities at risk can't do anything") {
     for updatedEnv <- hospitalizationLogic(baseEnv)
     yield expect(
-      updatedEnv.structures.select[Hospital].isEmpty && updatedEnv.structures
-        .flatMap(_.entities)
-        .map(_.entity)
-        .count(
-          _.health < MIN_VALUES.HOSPITALIZATION_HEALTH_LIMIT
-        ) >= 0
+      updatedEnv.structures.select[Hospital].isEmpty &&
+        countEntitiesAtRisk(updatedEnv.internalEntities) == countEntitiesAtRisk(baseEnv.internalEntities)
     )
   }
 
   test("With a full Hospital infected external entities at risk can't do anything") {
-    for updatedEnv <- hospitalizationLogic(baseEnv.update(structures = baseEnv.structures + fullHospital))
-    yield expect(updatedEnv.externalEntities.count(_.health < MIN_VALUES.HOSPITALIZATION_HEALTH_LIMIT) >= 0)
+    for
+      env <- Task(baseEnv.update(structures = baseEnv.structures + fullHospital))
+      updatedEnv <- hospitalizationLogic(env)
+    yield expect(countEntitiesAtRisk(updatedEnv.externalEntities) == countEntitiesAtRisk(env.externalEntities))
   }
 
   test("With a full Hospital infected internal entities at risk can't do anything") {
-    for updatedEnv <- hospitalizationLogic(baseEnv.update(structures = baseEnv.structures + fullHospital))
+    for
+      env <- Task(baseEnv.update(structures = baseEnv.structures + fullHospital))
+      updatedEnv <- hospitalizationLogic(env)
     yield expect(
-      updatedEnv.structures
-        .filter(_.withCapabilities[Hospital].isEmpty)
-        .flatMap(_.entities)
-        .map(_.entity)
-        .count(_.health < MIN_VALUES.HOSPITALIZATION_HEALTH_LIMIT) >= 0
+      countEntitiesAtRisk(
+        updatedEnv.structures
+          .filter(!_.isInstanceOf[Hospital])
+          .flatMap(_.entities)
+          .map(_.entity)
+      ) == countEntitiesAtRisk(env.internalEntities)
     )
   }
 
   test("With a non-full Hospital infected external entities are hospitalized") {
     for updatedEnv <- hospitalizationLogic(baseEnv.update(structures = baseEnv.structures + hospital))
-    yield expect(updatedEnv.externalEntities.count(_.health < MIN_VALUES.HOSPITALIZATION_HEALTH_LIMIT) == 0)
+    yield expect(countEntitiesAtRisk(updatedEnv.externalEntities) == 0)
   }
 
   test("With a non-full Hospital infected internal entities are hospitalized") {
     for updatedEnv <- hospitalizationLogic(baseEnv.update(structures = baseEnv.structures + hospital))
     yield expect(
-      updatedEnv.structures
-        .filter(_.withCapabilities[Hospital].isEmpty)
-        .flatMap(_.entities)
-        .map(_.entity)
-        .count(_.health < MIN_VALUES.HOSPITALIZATION_HEALTH_LIMIT) == 0
+      countEntitiesAtRisk(
+        updatedEnv.structures
+          .filter(!_.isInstanceOf[Hospital])
+          .flatMap(_.entities)
+          .map(_.entity)
+      ) == 0
     )
   }
+
+  private def countEntitiesAtRisk(entities: Set[SimulationEntity]): Int =
+    entities.count(_.health < MIN_VALUES.HOSPITALIZATION_HEALTH_LIMIT)
