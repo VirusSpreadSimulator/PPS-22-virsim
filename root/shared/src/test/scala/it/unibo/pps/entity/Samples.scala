@@ -14,6 +14,7 @@ import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
 import scala.concurrent.duration.{DAYS, MINUTES}
 
 object Samples:
+  private val house = House((1, 0), 1, 2)
   val genericInfectedPermanences: Set[EntityPermanence] = Set(
     EntityPermanence(
       SimulationEntity(1, 20, house.position, 80, position = Point2D(1, 7)),
@@ -63,7 +64,6 @@ object Samples:
     GenericBuilding(Point2D(8, 7), 0.5, 4, entities = genericInfectedPermanences)
   val inhabitatedHospital: Hospital = Hospital((1, 0), 1, 2, entities = genericInfectedPermanences)
 
-  private val house = House((1, 0), 1, 2)
   private val entities: Set[SimulationEntity] = Set(
     SimulationEntity(5, 20, house.position, 80, 10, position = Point2D(1, 2)),
     SimulationEntity(6, 21, house.position, 80, 10, position = Point2D(3, 2)),
