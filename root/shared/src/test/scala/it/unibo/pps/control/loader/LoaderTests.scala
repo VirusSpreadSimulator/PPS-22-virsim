@@ -18,7 +18,9 @@ import it.unibo.pps.control.loader.configuration.ConfigurationComponent
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.given
 import it.unibo.pps.control.loader.configuration.dsl.SimulationDSL.simulation
 import it.unibo.pps.control.parser.ParserModule
+import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
+import it.unibo.pps.entity.structure.Structures.{House, SimulationStructure}
 import weaver.monixcompat.*
 import monix.eval.Task
 import monix.reactive.Observable
@@ -62,8 +64,9 @@ object LoaderTests extends SimpleTaskSuite with Matchers:
   test("Loader should be able to create the set of entities from the configuration") {
     val entityFactory: EntityFactory = EntityFactory()
     val entities: Int = 200
+    val house: SimulationStructure = House(Point2D(10, 10), 0.8, entities)
     val simulation = Simulation(numberOfEntities = entities)
-    for result <- entityFactory.create(VirsimConfiguration(simulation, virus, structures), Seq())
+    for result <- entityFactory.create(VirsimConfiguration(simulation, virus, structures), Seq(house))
     yield expect(result.size == entities)
   }
 
