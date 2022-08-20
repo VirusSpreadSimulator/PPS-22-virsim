@@ -91,4 +91,4 @@ object Time:
     def +(d: DurationTime): TimeStamp =
       TimeStamp(t.relativeTicks + d.toMinutes * TimeConfiguration.TICKS_PER_MINUTE, t.iteration)
     @targetName("plus")
-    def +(ticks: Int): TimeStamp = TimeStamp(t.relativeTicks + ticks, t.iteration)
+    def +(ticks: Long): TimeStamp = TimeStamp(t.relativeTicks + ticks, t.iteration)
