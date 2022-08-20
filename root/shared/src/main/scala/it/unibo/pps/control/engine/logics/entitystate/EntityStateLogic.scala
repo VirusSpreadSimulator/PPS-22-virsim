@@ -53,7 +53,7 @@ object EntityStateLogic:
       case Some(infection) =>
         entity
           .focus(_.health)
-          .modify(_ - VirusDefaults.HEALTH_INFECTED_LOSS * getSeverityValue(infection.severity))
+          .modify(_ - VirusDefaults.HEALTH_INFECTED_LOSS * infection.severity.value)
           .focus(_.infection)
           .modify(infection => infection.filter(inf => inf.timeOfTheInfection + inf.duration > env.time))
           .andIf(_.infection.isEmpty)(
@@ -65,9 +65,3 @@ object EntityStateLogic:
           .modify(value => Math.min(value + VirusDefaults.HEALTH_GAIN, entity.maxHealth))
           .focus(_.immunity)
           .modify(i => Math.max(MIN_VALUES.MIN_IMMUNITY, i - VirusDefaults.IMMUNITY_LOSS))
-
-    // todo: to be deleted after Severity modification
-    def getSeverityValue(s: Severity): Double = s match {
-      case Severity.SERIOUS(value) => value;
-      case Severity.LIGHT(value) => value
-    }
