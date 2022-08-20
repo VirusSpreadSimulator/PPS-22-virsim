@@ -8,6 +8,7 @@ import it.unibo.pps.entity.common.Time.Period
 import it.unibo.pps.entity.common.ProblableEvents.ProbableOps.*
 import it.unibo.pps.entity.common.ProblableEvents.ProbableGivenInstance.given
 import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
+import it.unibo.pps.entity.common.Utils.*
 import monocle.syntax.all.*
 
 object EntityGoalLogic:
@@ -15,17 +16,12 @@ object EntityGoalLogic:
   class EntityGoalUpdateLogic extends UpdateLogic:
     override def apply(env: Environment): Task[Environment] = Task {
       env.time.period match
-        case Period.START_DAY =>
-          env.update(externalEntities =
-            env.externalEntities.map(_.focus(_.movementGoal).replace(MovementGoal.RANDOM_MOVEMENT))
-          )
         case Period.START_NIGHT =>
           env.update(externalEntities =
             env.externalEntities.map(
-              _.focus(_.movementGoal).modify(oldGoal =>
-                if GlobalDefaults.ENTITY_PROBABILITY_TO_RETURN_HOME.isHappening then MovementGoal.BACK_TO_HOME
-                else oldGoal
-              )
+              _.andIf(_ => GlobalDefaults.ENTITY_PROBABILITY_TO_RETURN_HOME.isHappening) {
+                _.focus(_.movementGoal).replace(MovementGoal.BACK_TO_HOME)
+              }
             )
           )
         case _ => env
