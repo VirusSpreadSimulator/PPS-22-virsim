@@ -33,9 +33,8 @@ object EntityStateLogic:
         }
         deadEntities <- Task {
           structures
-            .flatMap(_.entities)
-            .map(_.entity)
-            .filter(entity => !updatedStructures.flatMap(_.entities).map(_.entity.id).contains(entity.id))
+            .flatMap(_.entities.map(_.entity))
+            .filter(entity => !updatedStructures.flatMap(_.entities.map(_.entity.id)).contains(entity.id))
         }
       yield env.update(structures = updatedStructures, deadEntities = env.deadEntities ++ deadEntities)
 

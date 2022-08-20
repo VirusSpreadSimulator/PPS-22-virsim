@@ -39,8 +39,7 @@ object EntityStateLogicTest extends SimpleTaskSuite:
   test("External infected entities health must be decreased") {
     for
       updatedEnv <- entityStateLogic(baseEnv)
-      entitiesToConsider = updatedEnv.externalEntities
-        .filter(_.infection.isDefined)
+      entitiesToConsider = updatedEnv.externalEntities.filter(_.infection.isDefined)
     yield expect(
       baseEnv.externalEntities
         .filter(e => entitiesToConsider.map(_.id).contains(e.id))
@@ -123,6 +122,6 @@ object EntityStateLogicTest extends SimpleTaskSuite:
     )
   }
 
-extension (entities: Set[SimulationEntity])
-  def totalHealth: Double = entities.toSeq.map(_.health).sum
-  def totalImmunity: Double = entities.toSeq.map(_.immunity).sum
+  extension (entities: Set[SimulationEntity])
+    def totalHealth: Double = entities.toSeq.map(_.health).sum
+    def totalImmunity: Double = entities.toSeq.map(_.immunity).sum
