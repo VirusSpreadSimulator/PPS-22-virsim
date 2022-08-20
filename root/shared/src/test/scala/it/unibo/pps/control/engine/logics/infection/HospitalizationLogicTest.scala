@@ -7,10 +7,11 @@ import weaver.monixcompat.SimpleTaskSuite
 import it.unibo.pps.control.engine.logics.entitystate.HospitalizationLogic.HospitalizeEntityLogic
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.MIN_VALUES
 import it.unibo.pps.entity.common.Space.Point2D
-import it.unibo.pps.entity.structure.Structures.Hospital
+import it.unibo.pps.entity.structure.Structures.{Hospital, SimulationStructure}
 import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.TestUtils.*
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
+import it.unibo.pps.entity.structure.StructureComponent.Hospitalization
 import monix.eval.Task
 
 object HospitalizationLogicTest extends SimpleTaskSuite:
@@ -22,7 +23,7 @@ object HospitalizationLogicTest extends SimpleTaskSuite:
   test("Without hospital infected external entities at risk can't do anything") {
     for updatedEnv <- hospitalizationLogic(baseEnv)
     yield expect(
-      updatedEnv.structures.select[Hospital].isEmpty &&
+      updatedEnv.structures.select[SimulationStructure with Hospitalization].isEmpty &&
         countEntitiesAtRisk(updatedEnv.externalEntities) == countEntitiesAtRisk(baseEnv.externalEntities)
     )
   }
@@ -30,7 +31,7 @@ object HospitalizationLogicTest extends SimpleTaskSuite:
   test("Without hospital infected internal entities at risk can't do anything") {
     for updatedEnv <- hospitalizationLogic(baseEnv)
     yield expect(
-      updatedEnv.structures.select[Hospital].isEmpty &&
+      updatedEnv.structures.select[SimulationStructure with Hospitalization].isEmpty &&
         countEntitiesAtRisk(updatedEnv.internalEntities) == countEntitiesAtRisk(baseEnv.internalEntities)
     )
   }
@@ -49,7 +50,7 @@ object HospitalizationLogicTest extends SimpleTaskSuite:
     yield expect(
       countEntitiesAtRisk(
         updatedEnv.structures
-          .filter(!_.isInstanceOf[Hospital])
+          .filter(!_.isInstanceOf[SimulationStructure with Hospitalization])
           .flatMap(_.entities)
           .map(_.entity)
       ) == countEntitiesAtRisk(baseEnv.internalEntities)
@@ -66,7 +67,7 @@ object HospitalizationLogicTest extends SimpleTaskSuite:
     yield expect(
       countEntitiesAtRisk(
         updatedEnv.structures
-          .filter(!_.isInstanceOf[Hospital])
+          .filter(!_.isInstanceOf[SimulationStructure with Hospitalization])
           .flatMap(_.entities)
           .map(_.entity)
       ) == 0

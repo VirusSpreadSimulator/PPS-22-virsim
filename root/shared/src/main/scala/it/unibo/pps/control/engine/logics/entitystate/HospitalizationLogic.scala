@@ -5,7 +5,8 @@ import it.unibo.pps.control.loader.configuration.SimulationDefaults.MIN_VALUES
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.common.Utils.*
-import it.unibo.pps.entity.structure.Structures.Hospital
+import it.unibo.pps.entity.structure.StructureComponent.Hospitalization
+import it.unibo.pps.entity.structure.Structures.SimulationStructure
 import monix.eval.Task
 
 object HospitalizationLogic:
@@ -21,7 +22,7 @@ object HospitalizationLogic:
         }
         updatedEnv <- Task { //Check entities inside structures
           extUpdatedEnv.structures
-            .filter(!_.isInstanceOf[Hospital])
+            .filter(!_.isInstanceOf[SimulationStructure with Hospitalization])
             .flatMap(structure =>
               structure.entities
                 .map(_.entity)
@@ -42,7 +43,9 @@ object HospitalizationLogic:
       entity: SimulationEntity
   ): Option[Environment] =
     for
-      hospital <- env.structures.select[Hospital].find(h => h.entities.size < h.capacity)
+      hospital <- env.structures
+        .select[SimulationStructure with Hospitalization]
+        .find(h => h.entities.size < h.capacity)
       hospitalUpdated = hospital.tryToEnter(entity, env.time)
       entered = hospitalUpdated.entities.map(_.entity).contains(entity)
       if entered
