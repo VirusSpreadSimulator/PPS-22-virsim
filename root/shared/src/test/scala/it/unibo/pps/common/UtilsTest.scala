@@ -5,14 +5,13 @@ import it.unibo.pps.entity.structure.StructureComponent.{Closable, Habitable, Ho
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, House, SimulationStructure}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
+import it.unibo.pps.entity.common.Utils.*
 
 class UtilsTest extends AnyFunSuite with Matchers:
-  import it.unibo.pps.entity.common.Utils.*
-
-  val infectionProbability: Double = 1
-  val capacity: Int = 2
-  val position: Point2D = Point2D(3, 0)
-  val initialSet: Set[SimulationStructure] =
+  private val infectionProbability: Double = 1
+  private val capacity: Int = 2
+  private val position: Point2D = Point2D(3, 0)
+  private val initialSet: Set[SimulationStructure] =
     Set(House(position, infectionProbability, capacity), GenericBuilding(position, infectionProbability, capacity))
 
   test("Selection on a parent type must be allowed") {

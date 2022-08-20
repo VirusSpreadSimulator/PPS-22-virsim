@@ -10,8 +10,8 @@ import it.unibo.pps.entity.TestUtils.*
 import weaver.monixcompat.SimpleTaskSuite
 
 object EntityStateLogicTest extends SimpleTaskSuite:
-  val baseEnv: Environment = Samples.sampleEnv
-  val entityStateLogic: UpdateLogic = UpdateEntityStateLogic()
+  private val baseEnv: Environment = Samples.sampleEnv
+  private val entityStateLogic: UpdateLogic = UpdateEntityStateLogic()
 
   test("The logic returns an updated env") {
     for updatedEnv <- entityStateLogic(baseEnv)

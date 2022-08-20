@@ -14,10 +14,10 @@ import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import monix.eval.Task
 
 object HospitalizationLogicTest extends SimpleTaskSuite:
-  val baseEnv: Environment = Samples.sampleEnv
-  val hospitalizationLogic: UpdateLogic = HospitalizeEntityLogic()
-  val fullHospital: Hospital = Hospital(Point2D(10, 2), 0.5, 0)
-  val hospital: Hospital = Hospital(Point2D(10, 2), 0.5, 10)
+  private val baseEnv: Environment = Samples.sampleEnv
+  private val hospitalizationLogic: UpdateLogic = HospitalizeEntityLogic()
+  private val fullHospital: Hospital = Hospital(Point2D(10, 2), 0.5, 0)
+  private val hospital: Hospital = Hospital(Point2D(10, 2), 0.5, 10)
 
   test("Without hospital infected external entities at risk can't do anything") {
     for updatedEnv <- hospitalizationLogic(baseEnv)

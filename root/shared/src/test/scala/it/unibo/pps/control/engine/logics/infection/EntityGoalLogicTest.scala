@@ -9,12 +9,12 @@ import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
 import it.unibo.pps.entity.common.Time.{TimeConfiguration, TimeStamp}
 
 object EntityGoalLogicTest extends SimpleTaskSuite:
-  val baseEnv: Environment = Samples.sampleEnv
-  val entityGoalLogic: UpdateLogic = EntityGoalUpdateLogic()
-  val day: Int = 2
-  val dayTimeStamp: TimeStamp =
+  private val baseEnv: Environment = Samples.sampleEnv
+  private val entityGoalLogic: UpdateLogic = EntityGoalUpdateLogic()
+  private val day: Int = 2
+  private val dayTimeStamp: TimeStamp =
     TimeStamp(relativeTicks = TimeConfiguration.DAY_MINUTES_UPPER_BOUND - 10, iteration = day)
-  val startNightTimeStamp: TimeStamp =
+  private val startNightTimeStamp: TimeStamp =
     TimeStamp(relativeTicks = TimeConfiguration.DAY_MINUTES_UPPER_BOUND, iteration = day)
 
   test("At the start of the day all the external entities need to move randomly") {

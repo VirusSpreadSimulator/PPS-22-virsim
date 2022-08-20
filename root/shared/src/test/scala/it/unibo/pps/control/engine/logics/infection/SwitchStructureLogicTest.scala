@@ -10,9 +10,9 @@ import it.unibo.pps.entity.structure.Structures.SimulationStructure
 
 /* Here, for simplicity, we consider a group of structures that have all the same starting opening state */
 object SwitchStructureLogicTest extends SimpleTaskSuite:
-  val env: Environment = Samples.sampleEnv
-  val analyzedGroup: String = "group1"
-  val switchLogic: EventLogic = EventLogic.switchStructureLogic(analyzedGroup)
+  private val env: Environment = Samples.sampleEnv
+  private val analyzedGroup: String = "group1"
+  private val switchLogic: EventLogic = EventLogic.switchStructureLogic(analyzedGroup)
 
   test("The logic returns an updated env") {
     for updatedEnv <- switchLogic(env)

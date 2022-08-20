@@ -10,9 +10,9 @@ import it.unibo.pps.entity.TestUtils.internalEntities
 import weaver.monixcompat.SimpleTaskSuite
 
 object InfectionLogicTest extends SimpleTaskSuite:
-  val baseEnv: Environment = Samples.sampleEnv
-  val externalInfectionLogic: ExternalInfectionLogic = ExternalInfectionLogic()
-  val internalInfectionLogic: InternalInfectionLogic = InternalInfectionLogic()
+  private val baseEnv: Environment = Samples.sampleEnv
+  private val externalInfectionLogic: ExternalInfectionLogic = ExternalInfectionLogic()
+  private val internalInfectionLogic: InternalInfectionLogic = InternalInfectionLogic()
 
   test("The external infection logic returns an updated env") {
     for updatedEnv <- externalInfectionLogic(baseEnv)

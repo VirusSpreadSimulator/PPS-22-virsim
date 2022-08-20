@@ -17,8 +17,8 @@ object CustomSwingComponents:
     import javax.swing.text.NumberFormatter
     import java.text.NumberFormat
 
-    val integerFormat: NumberFormat = NumberFormat.getIntegerInstance
-    val numberFormatter: NumberFormatter = new NumberFormatter(integerFormat):
+    private val integerFormat: NumberFormat = NumberFormat.getIntegerInstance
+    private val numberFormatter: NumberFormatter = new NumberFormatter(integerFormat):
       override def stringToValue(text: String): AnyRef = if text.isEmpty then null else super.stringToValue(text)
     numberFormatter.setAllowsInvalid(false)
     numberFormatter.setMinimum(min)
