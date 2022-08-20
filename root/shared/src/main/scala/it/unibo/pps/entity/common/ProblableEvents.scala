@@ -3,11 +3,9 @@ package it.unibo.pps.entity.common
 import it.unibo.pps.control.engine.logics.infection.InfectionLogic.{
   ExternalProbableInfection,
   InternalProbableInfection,
-  MASK_REDUCER,
   maskReduction
 }
-import it.unibo.pps.control.loader.configuration.SimulationDefaults.MAX_VALUES
-
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.{MAX_VALUES, VirusDefaults}
 import scala.util.Random
 
 object ProblableEvents:
@@ -60,6 +58,6 @@ object ProblableEvents:
           if infectedInside.nonEmpty then
             ((inf.env.virus.spreadRate * inf.structure.infectionProbability * (1 - inf.entity.immunity / MAX_VALUES.MAX_IMMUNITY)) /
               (inf.entity.maskReduction * Math
-                .max(1, MASK_REDUCER * (infectedInside.count(_.hasMask) / infectedInside.size)))) *
+                .max(1, VirusDefaults.MASK_REDUCER * (infectedInside.count(_.hasMask) / infectedInside.size)))) *
               (infectedInside.size / (inf.structure.entities.size - 1))
           else 0
