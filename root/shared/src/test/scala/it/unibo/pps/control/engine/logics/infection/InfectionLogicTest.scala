@@ -6,6 +6,7 @@ import it.unibo.pps.entity.Samples
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.common.Utils.*
+import it.unibo.pps.entity.TestUtils.internalEntities
 import weaver.monixcompat.SimpleTaskSuite
 
 object InfectionLogicTest extends SimpleTaskSuite:
@@ -22,7 +23,7 @@ object InfectionLogicTest extends SimpleTaskSuite:
     for updatedEnv <- externalInfectionLogic(baseEnv)
     yield expect(
       updatedEnv.externalEntities.size == baseEnv.externalEntities.size &&
-        updatedEnv.structures.flatMap(_.entities).size == baseEnv.structures.flatMap(_.entities).size
+        updatedEnv.internalEntities.size == baseEnv.internalEntities.size
     )
   }
 
@@ -45,7 +46,7 @@ object InfectionLogicTest extends SimpleTaskSuite:
     for updatedEnv <- internalInfectionLogic(baseEnv)
     yield expect(
       updatedEnv.externalEntities.size == baseEnv.externalEntities.size &&
-        updatedEnv.structures.flatMap(_.entities).size == baseEnv.structures.flatMap(_.entities).size
+        updatedEnv.internalEntities.size == baseEnv.internalEntities.size
     )
   }
 
@@ -79,8 +80,4 @@ object InfectionLogicTest extends SimpleTaskSuite:
     entities.count(_.infection.isDefined)
 
   private def numberOfInternalInfected(env: Environment): Int =
-    numberOfInfected(
-      env.structures
-        .flatMap(_.entities)
-        .map(_.entity)
-    )
+    numberOfInfected(env.internalEntities)

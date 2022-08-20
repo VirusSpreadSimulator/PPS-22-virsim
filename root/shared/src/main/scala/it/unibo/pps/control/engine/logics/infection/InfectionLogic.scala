@@ -1,22 +1,19 @@
 package it.unibo.pps.control.engine.logics.infection
 
 import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.VirusDefaults
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
-import it.unibo.pps.entity.entity.EntityComponent.{Infectious, Moving}
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.virus.VirusComponent.Virus
 import it.unibo.pps.entity.common.ProblableEvents.ProbableGivenInstance.given
 import it.unibo.pps.entity.common.ProblableEvents.ProbableOps.*
 import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
-import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
+import it.unibo.pps.entity.common.Utils.*
 import monix.eval.Task
-import monocle.syntax.all._
+import monocle.syntax.all.*
 
 object InfectionLogic:
-  /** The reducer on the probability due to the mask */
-  val MASK_REDUCER: Int = 2
-
   case class ExternalProbableInfection(env: Environment, entity: SimulationEntity, infectors: Set[SimulationEntity])
   case class InternalProbableInfection(env: Environment, entity: SimulationEntity, structure: SimulationStructure)
 
@@ -29,12 +26,10 @@ object InfectionLogic:
       val severity = if virus.severeDeseaseProbability.isHappening then Severity.SERIOUS() else Severity.LIGHT()
       val durationDistribution = GaussianDurationTime(virus.averagePositivityDays, virus.stdDevPositivityDays, DAYS)
       e.focus(_.infection).replace(Some(Infection(severity, timestamp, durationDistribution.next())))
-
-    def maskReduction: Int = if e.hasMask then MASK_REDUCER else 1
+    def maskReduction: Int = if e.hasMask then VirusDefaults.MASK_REDUCER else 1
 
   /** Logic that handle the infection in the environment, external to structures */
   class ExternalInfectionLogic extends UpdateLogic:
-    import it.unibo.pps.entity.common.Utils.*
     override def apply(env: Environment): Task[Environment] =
       for
         entities <- Task(env.externalEntities)
@@ -53,13 +48,10 @@ object InfectionLogic:
             .filter(_.isHappening)
             .map(i => Task(i.entity.infected(env.time, env.virus)))
         }
-      yield env.update(externalEntities =
-        env.externalEntities.filter(e => !infected.map(_.id).contains(e.id)) ++ infected.toSet
-      )
+      yield env.update(externalEntities = entities.filter(e => !infected.map(_.id).contains(e.id)) ++ infected.toSet)
 
   /** Logic that handle the infection inside the structures of the environment */
   class InternalInfectionLogic extends UpdateLogic:
-    import it.unibo.pps.entity.common.Utils.*
     override def apply(env: Environment): Task[Environment] =
       for
         structures <- Task(env.structures)
