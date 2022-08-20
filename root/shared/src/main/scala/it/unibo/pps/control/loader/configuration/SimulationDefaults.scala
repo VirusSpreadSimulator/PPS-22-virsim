@@ -32,6 +32,7 @@ object SimulationDefaults:
     val HEALTH_INFECTED_LOSS: Double = 0.01
     val IMMUNITY_LOSS: Double = 0.001
     val IMMUNITY_GAIN_RECOVERY: Double = 30
+    val MASK_REDUCER: Int = 2
 
   object StructuresDefault:
     val HOUSE_INFECTION_PROB: Double = 0.5
