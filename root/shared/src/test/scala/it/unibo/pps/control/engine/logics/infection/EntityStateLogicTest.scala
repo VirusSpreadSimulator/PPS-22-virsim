@@ -126,7 +126,3 @@ object EntityStateLogicTest extends SimpleTaskSuite:
       baseEnv.allEntities.size + baseEnv.deadEntities.size == updatedEnv.allEntities.size + updatedEnv.deadEntities.size
     )
   }
-
-  extension (entities: Set[SimulationEntity])
-    def totalHealth: Double = entities.toSeq.map(_.health).sum
-    def totalImmunity: Double = entities.toSeq.map(_.immunity).sum
