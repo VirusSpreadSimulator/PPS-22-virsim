@@ -21,6 +21,7 @@ object HospitalizationLogic:
         }
         updatedEnv <- Task { //Check entities inside structures
           extUpdatedEnv.structures
+            .filter(!_.isInstanceOf[Hospital])
             .flatMap(structure =>
               structure.entities
                 .map(_.entity)
