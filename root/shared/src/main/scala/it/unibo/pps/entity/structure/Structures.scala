@@ -60,9 +60,11 @@ object Structures:
       override val infectionProbability: Double,
       override val capacity: Int,
       override val permanenceTimeDistribution: GaussianDurationTime = defaultPermanenceTimeDistribution,
-      override val entities: Set[EntityPermanence] = Set()
+      override val entities: Set[EntityPermanence] = Set(),
+      override val visibilityDistance: Distance = defaultVisibilityDistance
   ) extends SimulationStructure
-      with Habitable:
+      with Habitable
+      with Visible:
     override val entranceStrategy: EntranceStrategy = new BaseEntranceStrategy()
       with FilterBasedStrategy(_.homePosition == this.position)
     override protected def enter(entity: SimulationEntity, timestamp: TimeStamp): SimulationStructure =
