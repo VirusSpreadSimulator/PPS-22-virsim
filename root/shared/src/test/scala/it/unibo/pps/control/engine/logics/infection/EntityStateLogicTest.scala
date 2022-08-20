@@ -6,6 +6,7 @@ import it.unibo.pps.control.engine.logics.entitystate.EntityStateLogic.UpdateEnt
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.MIN_VALUES
 import it.unibo.pps.entity.Samples
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
+import it.unibo.pps.entity.TestUtils.*
 import weaver.monixcompat.SimpleTaskSuite
 
 object EntityStateLogicTest extends SimpleTaskSuite:
@@ -125,5 +126,3 @@ object EntityStateLogicTest extends SimpleTaskSuite:
 extension (entities: Set[SimulationEntity])
   def totalHealth: Double = entities.toSeq.map(_.health).sum
   def totalImmunity: Double = entities.toSeq.map(_.immunity).sum
-extension (env: Environment)
-  def internalEntities: Set[SimulationEntity] = env.structures.flatMap(_.entities).map(_.entity)
