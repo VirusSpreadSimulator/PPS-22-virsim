@@ -82,7 +82,7 @@ object Logic:
       *   the logic
       */
     def hospitalRecoveryLogic: UpdateLogic = HospitalRecoveryLogic()
-    
+
   /** Update logic represent a logic that is associated to an event. It takes the current environment and return a task
     * that represent the computation done on that environment due to the occur of the event.
     */
