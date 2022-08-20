@@ -11,8 +11,11 @@ trait Infection:
 object Infection:
 
   enum Severity:
-    case SERIOUS(value: Double = 1.8)
-    case LIGHT(value: Double = 1.2)
+    case SERIOUS()
+    case LIGHT()
+    def value: Double = this match
+      case SERIOUS() => 1.8
+      case _ => 1.2
 
   def apply(severity: Severity, time: TimeStamp, duration: DurationTime): Infection =
     InfectionImpl(severity, time, duration)
