@@ -41,18 +41,6 @@ object Samples:
       duration
     )
 
-  val genericInfectedPermanences: Set[EntityPermanence] = Set(
-    permanence(1, 20, house.position, 80, Point2D(1, 7)),
-    permanence(2, 10, house.position, 0.001, Point2D(1, 7), Some(DurationTime(5, DAYS))),
-    permanence(3, 20, house.position, 80, Point2D(1, 7), Some(DurationTime(5, DAYS))),
-    permanence(4, 20, house.position, 80, Point2D(1, 7), Some(DurationTime(0, MINUTES)))
-  )
-
-  val inhabitatedHouse: House = House((1, 0), 1, 2, entities = genericInfectedPermanences)
-  val inhabitatedGenericBuilding: GenericBuilding =
-    GenericBuilding(Point2D(8, 7), 0.5, 4, entities = genericInfectedPermanences)
-  val inhabitatedHospital: Hospital = Hospital((1, 0), 1, 2, entities = genericInfectedPermanences)
-
   private val entities: Set[SimulationEntity] = Set(
     SimulationEntity(5, 20, house.position, 80, 10, position = Point2D(1, 2)),
     SimulationEntity(6, 21, house.position, 80, 10, position = Point2D(3, 2)),
@@ -85,7 +73,6 @@ object Samples:
       infection = Some(Infection(Severity.LIGHT(), TimeStamp(), DurationTime(0, MINUTES)))
     )
   )
-
   private val buildings: Set[SimulationStructure] = Set(
     GenericBuilding(
       Point2D(1, 7),
@@ -120,6 +107,17 @@ object Samples:
       group = "group1"
     )
   )
+
+  val genericInfectedPermanences: Set[EntityPermanence] = Set(
+    permanence(1, 20, house.position, 80, Point2D(1, 7)),
+    permanence(2, 10, house.position, 0.001, Point2D(1, 7), Some(DurationTime(5, DAYS))),
+    permanence(3, 20, house.position, 80, Point2D(1, 7), Some(DurationTime(5, DAYS))),
+    permanence(4, 20, house.position, 80, Point2D(1, 7), Some(DurationTime(0, MINUTES)))
+  )
+  val inhabitatedHouse: House = House((1, 0), 1, 2, entities = genericInfectedPermanences)
+  val inhabitatedGenericBuilding: GenericBuilding =
+    GenericBuilding(Point2D(8, 7), 0.5, 4, entities = genericInfectedPermanences)
+  val inhabitatedHospital: Hospital = Hospital((1, 0), 1, 2, entities = genericInfectedPermanences)
 
   def sampleEnv: Environment =
     object InfectedEnv extends EnvironmentModule.Interface:
