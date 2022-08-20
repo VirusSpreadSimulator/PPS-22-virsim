@@ -14,6 +14,11 @@ object SwitchStructureLogicTest extends SimpleTaskSuite:
   val analyzedGroup: String = "group1"
   val switchLogic: EventLogic = EventLogic.switchStructureLogic(analyzedGroup)
 
+  test("The logic returns an updated env") {
+    for updatedEnv <- switchLogic(env)
+    yield expect(!(updatedEnv eq env))
+  }
+
   test("When switch is performed all the structure of the same group switch") {
     for updatedEnv <- switchLogic(env)
     yield expect(getGroupStatus(env, analyzedGroup) != getGroupStatus(updatedEnv, analyzedGroup))

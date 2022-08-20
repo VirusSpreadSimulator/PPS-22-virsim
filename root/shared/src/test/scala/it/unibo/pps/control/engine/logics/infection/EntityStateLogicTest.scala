@@ -13,6 +13,11 @@ object EntityStateLogicTest extends SimpleTaskSuite:
   val baseEnv: Environment = Samples.sampleEnv
   val entityStateLogic: UpdateLogic = UpdateEntityStateLogic()
 
+  test("The logic returns an updated env") {
+    for updatedEnv <- entityStateLogic(baseEnv)
+    yield expect(!(updatedEnv eq baseEnv))
+  }
+
   test("External healthy entities health must be increased") {
     for
       updatedEnv <- entityStateLogic(baseEnv)
