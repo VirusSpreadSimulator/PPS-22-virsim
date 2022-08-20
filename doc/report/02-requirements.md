@@ -38,12 +38,11 @@ Alla luce di un approfondimento dell'intervista con il committente si evincono i
    + 2.1. Configurazione delle caratteristiche iniziali della simulazione
      + 2.1.1. Durata della simulazione in termini di giorni
      + 2.1.2. Cardinalità della popolazione di individui
-     + 2.1.3. Numero di abitanti per casa
-     + 2.1.4. Media e deviazione standard dell’età della popolazione
-     + 2.1.5. Caratteristiche virus
-       + 2.1.5.1. Tasso di diffusione del virus
-       + 2.1.5.2. Probabilità di sviluppo di una forma grave della malattia associata al virus
-       + 2.1.5.3. Periodo medio di positività al virus
+     + 2.1.3. Media e deviazione standard dell’età della popolazione
+     + 2.1.4. Caratteristiche virus
+       + 2.1.4.1. Tasso di diffusione del virus
+       + 2.1.4.2. Probabilità di sviluppo di una forma grave della malattia associata al virus
+       + 2.1.4.3. Periodo medio di positività al virus
    + 2.2. Configurazione delle caratteristiche dell’ambiente
      + 2.2.1. Dimensione della griglia che rappresenta logicamente l’ambiente
      + 2.2.2. Descrizione delle strutture presenti nell’ambiente
@@ -89,7 +88,7 @@ Infine, in seguito ai requisiti utente elencati, è emerso il seguente dominio m
      + 3.1.3. Nel corso della notte in modo randomico alcuni individui saranno costretti a tornare nella propria casa.
    + 3.2. L’ambiente della simulazione è rappresentato logicamente in due dimensioni attraverso una griglia che consente la disposizione delle strutture e lo spostamento degli individui tramite coordinate.
      + 3.2.1. All’inizio della simulazione vengono generate un numero ottimale di case e disposte in zone esterne alla griglia.
-     + 3.2.2. Ogni individuo verrà associato ad una casa da cui inizierà la giornata.
+     + 3.2.2. Ogni individuo verrà associato ad una casa.
    + 3.3. Ciascuna struttura occupa una cella della griglia ed ha un raggio di visibilità espresso in celle.
      + 3.3.1. Le strutture sono definite dalle caratteristiche espresse dall’utente (2.2.2) e dal numero attuale di persone presenti al suo interno.
      + 3.3.2. Una volta nel raggio, ogni individuo sceglie di entrare con una probabilità che dipende dalle caratteristiche della struttura stessa.
