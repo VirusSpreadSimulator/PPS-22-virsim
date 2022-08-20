@@ -18,11 +18,9 @@ object EntityGoalLogic:
       env.time.period match
         case Period.START_NIGHT =>
           env.update(externalEntities =
-            env.externalEntities.map(
-              _.andIf(_ => GlobalDefaults.ENTITY_PROBABILITY_TO_RETURN_HOME.isHappening) {
-                _.focus(_.movementGoal).replace(MovementGoal.BACK_TO_HOME)
-              }
-            )
+            env.externalEntities.map(_.andIf(_ => GlobalDefaults.ENTITY_PROBABILITY_TO_RETURN_HOME.isHappening) {
+              _.focus(_.movementGoal).replace(MovementGoal.BACK_TO_HOME)
+            })
           )
         case _ => env
     }
