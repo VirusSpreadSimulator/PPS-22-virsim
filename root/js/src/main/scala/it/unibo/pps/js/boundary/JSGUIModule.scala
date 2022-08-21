@@ -15,7 +15,7 @@ object JSGUIModule:
     class JSGUIBoundaryImpl extends ConfigBoundary:
       private val guiJs = JSGUI()
       override def init() = guiJs.init()
-      override def config(): Task[FilePath] = guiJs.config().map(StringFilePath.apply) //todo: to change
+      override def config(): Task[FilePath] = guiJs.config().map(JsFilePath.apply)
       override def error(errors: Seq[ConfigurationError]): Task[Unit] = guiJs.error(errors)
       override def start() = guiJs.start()
       override def stop() = guiJs.stop()
