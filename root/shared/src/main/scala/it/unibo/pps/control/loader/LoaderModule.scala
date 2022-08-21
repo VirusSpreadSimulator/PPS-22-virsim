@@ -176,7 +176,7 @@ object Samples:
   )
   private val buildings: Set[SimulationStructure] = Set(
     GenericBuilding(
-      Point2D(1, 7),
+      Point2D(1, 18),
       0.5,
       4,
       entities = Set(
@@ -187,7 +187,7 @@ object Samples:
       )
     ),
     GenericBuilding(
-      Point2D(8, 7),
+      Point2D(10, 7),
       0.5,
       4,
       entities = Set(
@@ -202,7 +202,7 @@ object Samples:
       group = "group1"
     ),
     GenericBuilding(
-      Point2D(1, 5),
+      Point2D(10, 20),
       0.3,
       4,
       group = "group1"
