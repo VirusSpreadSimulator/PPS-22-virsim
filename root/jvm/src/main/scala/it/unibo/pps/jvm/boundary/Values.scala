@@ -51,7 +51,7 @@ object Values:
     val GENERIC_COLOR_OPEN: Color = Color(255, 145, 0)
     val GENERIC_COLOR_CLOSED: Color = Color(255, 183, 77)
     val HOSPITAL_COLOR: Color = Color(3, 169, 244)
-    val VISIBILITY_RANGE_COLOR: Color = Color(212, 225, 87)
+    val VISIBILITY_RANGE_COLOR: Color = Color(212, 225, 87, 220)
     val STRUCTURE_CAPACITY_COLOR: Color = Color.RED
 
     def ageColor(color: Color, age: Int): Color =
