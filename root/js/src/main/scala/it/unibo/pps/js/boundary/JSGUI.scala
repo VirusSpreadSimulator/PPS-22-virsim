@@ -11,6 +11,7 @@ import it.unibo.pps.boundary.ViewUtils.*
 import it.unibo.pps.boundary.component.EventSource
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
+import it.unibo.pps.js.boundary.gui.SimulationCanvas
 import it.unibo.pps.js.boundary.component.MonadComponents.*
 import monix.reactive.subjects.PublishSubject
 
@@ -27,6 +28,7 @@ object JSGUI:
   def apply(title: String = "Virsim"): JSGUI = JSGUIImpl(title)
   private class JSGUIImpl(title: String) extends JSGUI:
     private lazy val fileChosen = PublishSubject[dom.File]()
+    private lazy val simulationCanvas = SimulationCanvas()
 
     override def init(): Task[Unit] =
       for
@@ -36,13 +38,16 @@ object JSGUI:
 
     override def config(): Task[dom.File] = Task.defer(fileChosen.consumeWith(Consumer.head))
 
-    override def error(errors: Seq[ConfigurationError]): Task[Unit] = ???
+    override def error(errors: Seq[ConfigurationError]): Task[Unit] = Task.pure {}
 
-    override def start(): Task[Unit] = Task.pure {}
+    override def start(): Task[Unit] = simulationCanvas.init()
 
     override def stop(): Task[Unit] = Task.pure {}
 
-    override def render(env: Environment): Task[Unit] = Task(dom.console.log(env))
+    override def render(env: Environment): Task[Unit] = for
+      _ <- io(dom.console.log(env))
+      _ <- simulationCanvas.update(env)
+    yield ()
 
     override def events(): Observable[Event] = Observable
       .fromIterable(Seq[EventSource]())
