@@ -17,8 +17,8 @@ trait Launch
     with LoaderModule.Interface
     with ParserModule.Interface
     with EngineModule.Interface
-    with EnvironmentModule.Interface
-    with ExporterModule.Interface:
+    with EnvironmentModule.Interface:
+  //with ExporterModule.Interface:
 
   import it.unibo.pps.control.engine.config.EngineConfiguration.given
 
@@ -26,7 +26,7 @@ trait Launch
   override val engine = EngineImpl()
   override val loader = LoaderImpl()
   override val launcher = LauncherImpl()
-  override val exporter = FileExporterImpl()
-  override val boundaries = Seq(exporter)
+  //override val exporter = FileExporterImpl()
+  //override val boundaries = Seq(exporter)
 
   def launch(): Unit = launcher.launch().runAsyncAndForget

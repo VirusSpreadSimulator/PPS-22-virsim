@@ -27,18 +27,20 @@ object LauncherModule:
       private def launcherLoop(): Task[Unit] =
         for
           path <- context.configBoundary.config()
-          configResult <- context.loader.parseConfiguration(path)
-          _ <- configResult match
-            case ERROR(errors) =>
-              for
-                _ <- context.configBoundary.error(errors)
-                _ <- launcherLoop()
-              yield ()
-            case OK(configuration) =>
-              for
-                _ <- Task.sequence(context.boundaries.map(_.start()))
-                _ <- context.loader.startEngine(configuration)
-              yield ()
+//          configResult <- context.loader.parseConfiguration(path)
+//          _ <- configResult match
+//            case ERROR(errors) =>
+//              for
+//                _ <- context.configBoundary.error(errors)
+//                _ <- launcherLoop()
+//              yield ()
+//            case OK(configuration) =>
+//              for
+//                _ <- Task.sequence(context.boundaries.map(_.start()))
+//                _ <- context.loader.startEngine(configuration)
+//              yield ()
+          _ <- Task.sequence(context.boundaries.map(_.start()))
+          _ <- context.loader.startEngine()
         yield ()
 
   trait Interface extends Provider with Component:

@@ -11,7 +11,8 @@ object Launcher extends Launch with GUIModule.Interface with ScalaParser.Interfa
 
   override val gui: ConfigBoundary = GUIBoundaryImpl()
   override val configBoundary: ConfigBoundary = gui
-  override val boundaries: Seq[BoundaryModule.Boundary] = Seq(gui, exporter)
+  //override val boundaries: Seq[BoundaryModule.Boundary] = Seq(gui, exporter)
+  override val boundaries: Seq[BoundaryModule.Boundary] = Seq(gui)
   override val scalaParser: ParserModule.Parser = ParserImpl()
   override val parser: ParserModule.Parser = scalaParser
 

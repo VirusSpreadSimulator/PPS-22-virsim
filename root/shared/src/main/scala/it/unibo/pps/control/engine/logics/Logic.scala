@@ -71,7 +71,7 @@ object Logic:
       * @return
       *   the logic
       */
-    def movementLogic: UpdateLogic = MovementLogic()
+    //def movementLogic: UpdateLogic = MovementLogic()
     /** Handle the recovery of the infected entity at risk
       * @return
       *   the logic
