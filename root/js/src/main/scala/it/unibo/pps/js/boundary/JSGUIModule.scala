@@ -17,8 +17,8 @@ object JSGUIModule:
       override def init() = guiJs.init()
       override def config(): Task[FilePath] = guiJs.config().map(StringFilePath.apply) //todo: to change
       override def error(errors: Seq[ConfigurationError]): Task[Unit] = guiJs.error(errors)
-      override def start() = Task.pure {}
-      override def stop() = Task.pure {}
-      override def consume(env: Environment) = guiJs.render(0)
+      override def start() = guiJs.start()
+      override def stop() = guiJs.stop()
+      override def consume(env: Environment) = guiJs.consume(env)
       override def events(): Observable[Event] = guiJs.events()
   trait Interface extends Provider with Component

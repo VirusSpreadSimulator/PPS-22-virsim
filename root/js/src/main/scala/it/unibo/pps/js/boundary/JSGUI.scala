@@ -9,13 +9,16 @@ import org.scalajs.dom
 import org.scalajs.dom.html.{Button, Image}
 import it.unibo.pps.boundary.ViewUtils.*
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
-import it.unibo.pps.js.boundary.component.MonadButton
+import it.unibo.pps.entity.environment.EnvironmentModule.Environment
+import it.unibo.pps.js.boundary.component.MonadComponents.*
 
 trait JSGUI:
   def init(): Task[Unit]
   def config(): Task[String]
   def error(errors: Seq[ConfigurationError]): Task[Unit]
-  def render(i: Int): Task[Unit]
+  def start(): Task[Unit]
+  def stop(): Task[Unit]
+  def consume(env: Environment): Task[Unit]
   def events(): Observable[Event]
 
 object JSGUI:
@@ -30,12 +33,16 @@ object JSGUI:
       for _ <- io(renderBtns.foreach(btn => dom.document.getElementById("div-center").appendChild(btn.button)))
       yield ()
 
-    override def render(i: Int): Task[Unit] = Task(dom.console.log(i))
+    override def start(): Task[Unit] = Task.pure {}
+
+    override def stop(): Task[Unit] = Task.pure {}
+
+    override def consume(env: Environment): Task[Unit] = Task(dom.console.log(env))
 
     override def events(): Observable[Event] = Observable
       .fromIterable(renderBtns)
       .flatMap(_.events)
 
-    override def config(): Task[String] = ???
+    override def config(): Task[String] = Task("ciao")
 
     override def error(errors: Seq[ConfigurationError]): Task[Unit] = ???
