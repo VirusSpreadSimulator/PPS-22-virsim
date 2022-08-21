@@ -20,7 +20,7 @@ trait JSGUI:
   def error(errors: Seq[ConfigurationError]): Task[Unit]
   def start(): Task[Unit]
   def stop(): Task[Unit]
-  def consume(env: Environment): Task[Unit]
+  def render(env: Environment): Task[Unit]
   def events(): Observable[Event]
 
 object JSGUI:
@@ -42,7 +42,7 @@ object JSGUI:
 
     override def stop(): Task[Unit] = Task.pure {}
 
-    override def consume(env: Environment): Task[Unit] = Task(dom.console.log(env))
+    override def render(env: Environment): Task[Unit] = Task(dom.console.log(env))
 
     override def events(): Observable[Event] = Observable
       .fromIterable(Seq[EventSource]())

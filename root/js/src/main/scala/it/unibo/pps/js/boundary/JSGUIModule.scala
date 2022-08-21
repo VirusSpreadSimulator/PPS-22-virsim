@@ -19,6 +19,6 @@ object JSGUIModule:
       override def error(errors: Seq[ConfigurationError]): Task[Unit] = guiJs.error(errors)
       override def start() = guiJs.start()
       override def stop() = guiJs.stop()
-      override def consume(env: Environment) = guiJs.consume(env)
+      override def consume(env: Environment) = guiJs.render(env)
       override def events(): Observable[Event] = guiJs.events()
   trait Interface extends Provider with Component
