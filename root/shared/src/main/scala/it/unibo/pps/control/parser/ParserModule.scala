@@ -1,5 +1,6 @@
 package it.unibo.pps.control.parser
 
+import it.unibo.pps.boundary.FilePath
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.{
   Configuration,
   ConfigurationError,
@@ -26,7 +27,7 @@ object ParserModule:
       * @return
       *   The content of the file as a String.
       */
-    def readFile(path: String): Task[String]
+    def readFile(path: FilePath): Task[String]
 
     /** @param program
       *   The configuration file.

@@ -1,5 +1,6 @@
 package it.unibo.pps.jvm.parser
 
+import it.unibo.pps.boundary.{FilePath, StringFilePath}
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.{
   Configuration,
@@ -24,9 +25,9 @@ object ScalaParser:
   trait Component:
     class ParserImpl extends Parser:
 
-      override def readFile(path: String): Task[String] =
+      override def readFile(path: FilePath): Task[String] =
         for
-          source <- Task(Source.fromFile(path))
+          source <- Task(Source.fromFile(path.asInstanceOf[StringFilePath].path))
           fileContent <- Task(GlobalDefaults.DSL_IMPORTS + source.mkString)
           _ <- Task(source.close())
         yield fileContent

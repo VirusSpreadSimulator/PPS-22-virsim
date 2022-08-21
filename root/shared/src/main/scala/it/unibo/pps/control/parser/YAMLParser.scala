@@ -1,5 +1,6 @@
 package it.unibo.pps.control.parser
 
+import it.unibo.pps.boundary.{FilePath, StringFilePath}
 import it.unibo.pps.control.engine.SimulationComponent.Simulation
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.{Configuration, VirsimConfiguration}
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
@@ -24,9 +25,9 @@ object YAMLParser:
 
     class ParserImpl extends Parser:
 
-      override def readFile(path: String): Task[String] =
+      override def readFile(path: FilePath): Task[String] =
         for
-          source <- Task(Source.fromFile(path))
+          source <- Task(Source.fromFile(path.asInstanceOf[StringFilePath].path))
           fileContent <- Task(source.mkString)
           _ <- Task(source.close())
         yield fileContent

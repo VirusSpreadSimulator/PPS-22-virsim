@@ -1,5 +1,6 @@
 package it.unibo.pps.control.loader
 
+import it.unibo.pps.boundary.FilePath
 import it.unibo.pps.control.engine.EngineModule
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.{
   Configuration,
@@ -43,7 +44,7 @@ object LoaderModule:
       * @return
       *   the result of the configuration parsing.
       */
-    def parseConfiguration(configurationFile: String): Task[ConfigurationResult]
+    def parseConfiguration(configurationFile: FilePath): Task[ConfigurationResult]
 
     /** @param configuration
       *   The configuration of the simulation, structures and virus.
@@ -67,7 +68,7 @@ object LoaderModule:
 
     class LoaderImpl extends Loader:
 
-      override def parseConfiguration(filePath: String): Task[ConfigurationResult] =
+      override def parseConfiguration(filePath: FilePath): Task[ConfigurationResult] =
         for
           program <- context.parser.readFile(filePath)
           configuration <- context.parser.loadConfiguration(program)

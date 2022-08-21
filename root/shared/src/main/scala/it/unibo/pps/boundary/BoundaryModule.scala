@@ -47,7 +47,7 @@ object BoundaryModule:
       * @return
       *   the task
       */
-    def config(): Task[String]
+    def config(): Task[FilePath]
     /** This task allow the caller to report an error in the configuration to the boundary
       * @param error
       *   the error in the configuration

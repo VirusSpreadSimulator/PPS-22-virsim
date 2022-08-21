@@ -3,7 +3,7 @@ package it.unibo.pps.control.loader
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import it.unibo.pps.control.engine.EngineModule
-import it.unibo.pps.boundary.BoundaryModule
+import it.unibo.pps.boundary.{BoundaryModule, FilePath, StringFilePath}
 import it.unibo.pps.boundary.BoundaryModule.ConfigBoundary
 import it.unibo.pps.boundary.component.Events
 import it.unibo.pps.control.engine.SimulationComponent.Simulation
@@ -36,12 +36,12 @@ object LoaderTests extends SimpleTaskSuite with Matchers:
     override def stop(): Task[Unit] = Task.pure {}
     override def consume(env: EnvironmentModule.Environment): Task[Unit] = Task.pure {}
     override def events(): Observable[Events.Event] = Observable.empty
-    override def config(): Task[String] = Task.pure("")
+    override def config(): Task[FilePath] = Task.pure(StringFilePath(""))
     override def error(error: Seq[ConfigurationComponent.ConfigurationError]): Task[Unit] = Task.pure {}
 
   class FakeParser extends ParserModule.Parser:
     override def loadConfiguration(program: String): Task[Option[Configuration]] = Task(None)
-    override def readFile(path: String): Task[String] = Task("")
+    override def readFile(path: FilePath): Task[String] = Task("")
     override def checkErrors(configuration: Configuration): Task[ConfigurationComponent.ConfigurationResult] = Task(
       ConfigurationComponent.ConfigurationResult.OK(VirsimConfiguration(simulation, virus, structures))
     )

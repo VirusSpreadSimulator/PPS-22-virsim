@@ -1,6 +1,7 @@
 package it.unibo.pps.jvm.boundary
 
 import it.unibo.pps.boundary.BoundaryModule.{Boundary, ConfigBoundary}
+import it.unibo.pps.boundary.{FilePath, StringFilePath}
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
@@ -17,7 +18,7 @@ object GUIModule:
       private val initSimulationScreen: InitGUI = InitGUI()
       private val simulationScreen: SimulationGUI = SimulationGUI()
       override def init(): Task[Unit] = initSimulationScreen.init()
-      override def config(): Task[String] = initSimulationScreen.config()
+      override def config(): Task[FilePath] = initSimulationScreen.config().map(StringFilePath.apply)
       override def error(errors: Seq[ConfigurationError]): Task[Unit] = initSimulationScreen.error(errors)
       override def start(): Task[Unit] = initSimulationScreen.start(simulationScreen)
       override def stop(): Task[Unit] = simulationScreen.stop()

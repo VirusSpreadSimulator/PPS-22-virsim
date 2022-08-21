@@ -1,5 +1,6 @@
 package it.unibo.pps.control.loader.parser
 
+import it.unibo.pps.boundary.StringFilePath
 import it.unibo.pps.control.parser.ParserModule.Parser
 import it.unibo.pps.control.parser.YAMLParser.*
 import it.unibo.pps.control.parser.{ParserModule, YAMLParser}
@@ -15,13 +16,13 @@ object YAMLParserTest extends SimpleTaskSuite with Matchers:
   val yamlParser: Parser = FakeYAMLParser.YAMLParser
 
   test("YAMLParser should be able to read a YAML configuration file") {
-    for yamlFile <- yamlParser.readFile(getClass.getResource("/configuration.yml").getFile)
+    for yamlFile <- yamlParser.readFile(StringFilePath(getClass.getResource("/configuration.yml").getFile))
     yield expect(yamlFile.nonEmpty)
   }
 
   test("YAMLParser should be able to parse the YAML configuration file") {
     for
-      yamlFile <- yamlParser.readFile(getClass.getResource("/configuration.yml").getFile)
+      yamlFile <- yamlParser.readFile(StringFilePath(getClass.getResource("/configuration.yml").getFile))
       configuration <- yamlParser.loadConfiguration(yamlFile)
     yield expect(configuration.nonEmpty)
   }

@@ -1,5 +1,6 @@
 package it.unibo.pps.jvm.control.parser
 
+import it.unibo.pps.boundary.StringFilePath
 import it.unibo.pps.control.engine.SimulationComponent.Simulation
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.VirsimConfiguration
 import it.unibo.pps.control.parser.ParserModule
@@ -21,7 +22,7 @@ object ScalaParserTest extends SimpleTaskSuite with Matchers:
   val scalaParser: Parser = MockScalaParser.scalaParser
 
   test("ScalaParser should be able to read the configuration file") {
-    for configFile <- scalaParser.readFile(getClass.getResource("/configuration.scala").getFile)
+    for configFile <- scalaParser.readFile(StringFilePath(getClass.getResource("/configuration.scala").getFile))
     yield expect(configFile.nonEmpty)
   }
 
