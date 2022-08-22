@@ -5,6 +5,7 @@ import it.unibo.pps.boundary.{FilePath, StringFilePath}
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
+import it.unibo.pps.js.boundary.gui.JSGUI
 import monix.eval.Task
 import monix.reactive.Observable
 

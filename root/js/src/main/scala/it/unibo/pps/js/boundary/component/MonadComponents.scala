@@ -13,12 +13,26 @@ object MonadComponents:
   trait MonadButton extends EventSource:
     def button: Button
   object MonadButton:
-    def apply(title: String, event: Event): MonadButton =
+    def apply(
+        title: String,
+        event: Event,
+        cssClass: String = "btn",
+        logicOnClick: (dom.MouseEvent, Button) => Unit = (_, _) => {}
+    ): MonadButton =
       val button = dom.document.createElement("button").asInstanceOf[Button]
       button.textContent = title
-      MonadButtonImpl(button, event)
-    private class MonadButtonImpl(override val button: Button, event: Event) extends MonadButton:
+      button.className = cssClass
+      MonadButtonImpl(button, event, logicOnClick)
+    private class MonadButtonImpl(
+        override val button: Button,
+        event: Event,
+        logicOnClick: (dom.MouseEvent, Button) => Unit
+    ) extends MonadButton:
       override lazy val events: Observable[Event] = Observable.create(OverflowStrategy.Unbounded) { out =>
-        button.addEventListener("click", (e: dom.MouseEvent) => out.onNext(event))
+        button.addEventListener(
+          "click",
+          (e: dom.MouseEvent) =>
+            logicOnClick(e, button); out.onNext(event)
+        )
         Cancelable.empty
       }

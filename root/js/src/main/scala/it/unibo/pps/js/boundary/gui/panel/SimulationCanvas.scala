@@ -1,9 +1,9 @@
-package it.unibo.pps.js.boundary.gui
+package it.unibo.pps.js.boundary.gui.panel
 
 import it.unibo.pps.boundary.ViewUtils.io
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.js.boundary.Values.SimulationColor
-import it.unibo.pps.js.boundary.gui.Panels.UpdatablePanel
+import it.unibo.pps.js.boundary.gui.panel.Panels.UpdatablePanel
 import monix.eval.Task
 import org.scalajs.dom
 
@@ -28,5 +28,6 @@ class SimulationCanvas extends UpdatablePanel:
     yield ()
 
   private def setCanvasSize(): Unit =
-    canvas.width = canvas.parentElement.clientWidth
+    canvas.style.width = "100%"
+    canvas.width = canvas.offsetWidth.toInt
     canvas.height = (dom.window.innerHeight - canvas.offsetTop).toInt

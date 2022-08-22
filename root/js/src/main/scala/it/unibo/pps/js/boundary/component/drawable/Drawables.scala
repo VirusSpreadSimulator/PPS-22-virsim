@@ -45,7 +45,21 @@ object Drawables:
             drawStructureVisibility(g, hospital, scale)
             g.fillStyle = SimulationColor.HOSPITAL_COLOR
         g.fillRect(scaleToView(structure.position.x, scale), scaleToView(structure.position.y, scale), scale, scale)
-    //drawRemainedCapacity(g, structure, scale)
+        drawRemainedCapacity(g, structure, scale)
+
+    private def drawRemainedCapacity(
+        g: dom.CanvasRenderingContext2D,
+        structure: SimulationStructure,
+        scale: Int
+    ): Unit =
+      val message = s"${structure.capacity - structure.entities.size}"
+      g.font = s"${scale}px sans-serif"
+      g.fillStyle = SimulationColor.STRUCTURE_CAPACITY_COLOR
+      g.fillText(
+        message,
+        scaleToView(structure.position.x, scale),
+        scaleToView(structure.position.y, scale)
+      )
 
     private def drawStructureVisibility(
         g: dom.CanvasRenderingContext2D,

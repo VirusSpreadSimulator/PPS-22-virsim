@@ -1,6 +1,19 @@
 package it.unibo.pps.js.boundary
 
 object Values:
+  object Text:
+    val PAUSE_BTN: String = "Pause"
+    val RESUME_BTN: String = "Resume"
+    val STOP_BTN: String = "Stop"
+    val INVALID_FILE_LABEL: String = "Invalid file "
+    val WRONG_PARAMETER_LABEL: String = "Wrong Parameter "
+
+  object BootstrapClasses:
+    val BTN: String = "btn"
+    val PAUSE_BTN: String = s"$BTN btn-warning"
+    val RESUME_BTN: String = s"$BTN btn-success"
+    val STOP_BTN: String = s"$BTN btn-danger"
+
   object SimulationColor:
     val BACKGROUND_COLOR: String = "rgb(56, 142, 60)"
     val HEALTHY_ENTITY_COLOR: String = "rgb(118, 255, 3)"
