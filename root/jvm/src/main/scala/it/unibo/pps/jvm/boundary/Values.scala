@@ -25,6 +25,12 @@ object Values:
     val DEATHS_LABEL_TITLE: String = "Deaths: "
     val HOSPITAL_PRESSURE_LABEL_TITLE: String = "Hospital Pressure: "
     val ALIVE_LABEL_TITLE: String = "Alive: "
+    val OPEN_STRUCTURE: String = "<i>open</i>"
+    val CLOSED_STRUCTURE: String = "<i>close</i>"
+    val MASK_STATUS_TITLE: String = "<b>Mask</b>"
+    val STRUCTURES_GROUP_STATUS_TITLE = "<b>Group of structures</b>"
+    val YES: String = "yes"
+    val NO: String = "no"
 
   object Dimension:
     import java.awt.Dimension
