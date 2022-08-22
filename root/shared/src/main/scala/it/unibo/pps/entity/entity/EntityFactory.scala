@@ -47,8 +47,10 @@ object EntityFactory:
             Random.nextInt(configuration.simulation.gridSide),
             Random.nextInt(configuration.simulation.gridSide)
           )
+          numberOfinfected =
+            configuration.simulation.numberOfEntities * configuration.simulation.startingInfectedPercentage / 100
           infected =
-            if i % configuration.simulation.startingInfectedPercentage == 0 then
+            if i < numberOfinfected then
               Some(
                 Infection(
                   configuration.virusConfiguration.severeDeseaseProbability.isHappening match
