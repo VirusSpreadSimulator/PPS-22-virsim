@@ -19,6 +19,12 @@ object Values:
     val CONFIG_ERROR_TITLE: String = "Configuration error"
     val INVALID_FILE_LABEL: String = "Invalid file "
     val WRONG_PARAMETER_LABEL: String = "Wrong Parameter "
+    val DAYS_LABEL_TITLE: String = "Days elapses: "
+    val INFECTED_LABEL_TITLE: String = "Infected: "
+    val SICK_LABEL_TITLE: String = "Sick: "
+    val DEATHS_LABEL_TITLE: String = "Deaths: "
+    val HOSPITAL_PRESSURE_LABEL_TITLE: String = "Hospital Pressure: "
+    val ALIVE_LABEL_TITLE: String = "Alive: "
 
   object Dimension:
     import java.awt.Dimension

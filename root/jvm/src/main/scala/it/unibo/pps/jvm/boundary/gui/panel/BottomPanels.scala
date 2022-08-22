@@ -8,10 +8,19 @@ import it.unibo.pps.jvm.boundary.gui.panel.Panels.{DisplayblePanel, EventablePan
 import monix.reactive.Observable
 import monix.eval.Task
 import it.unibo.pps.boundary.ViewUtils.io
+import it.unibo.pps.jvm.boundary.exporter.Extractors.{
+  DataExtractor,
+  Deaths,
+  HospitalPressure,
+  Days,
+  Infected,
+  Sick,
+  Alive
+}
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 
 import java.awt.{BorderLayout, Component, Font}
-import javax.swing.{BoxLayout, JLabel, JPanel, JScrollPane, JTextArea, ScrollPaneConstants}
+import javax.swing.{BoxLayout, JLabel, JPanel, JScrollPane, JTextArea, JTextField, ScrollPaneConstants}
 
 /** Module that wrap all the panels that are in the bottom area of the simulation gui */
 object BottomPanels:
@@ -105,20 +114,44 @@ object BottomPanels:
 
   /** StatsPanel. It is the panel that show the main statistics about the simulation data. */
   class StatsPanel extends UpdateblePanel:
-    private lazy val textArea = JTextArea("a \n a \n a \n")
-    private lazy val scrollTextArea = JScrollPane(textArea)
+    private lazy val daysLabel: JLabel = new JLabel(Text.DAYS_LABEL_TITLE)
+    private lazy val aliveLabel: JLabel = new JLabel(Text.ALIVE_LABEL_TITLE)
+    private lazy val deathsLabel: JLabel = new JLabel(Text.DEATHS_LABEL_TITLE)
+    private lazy val infectedLabel: JLabel = new JLabel(Text.INFECTED_LABEL_TITLE)
+    private lazy val sickLabel: JLabel = new JLabel(Text.SICK_LABEL_TITLE)
+    private lazy val hospitalPressure: JLabel = new JLabel(Text.HOSPITAL_PRESSURE_LABEL_TITLE)
+
+    private val daysExtractor: DataExtractor[Long] = Days()
+    private val aliveExtractor: DataExtractor[Int] = Alive()
+    private val deathsExtractor: DataExtractor[Int] = Deaths()
+    private val infectedExtractor: DataExtractor[Int] = Infected()
+    private val sickExtractor: DataExtractor[Int] = Sick()
+    private val hospitalPressureExtractor: DataExtractor[Double] = HospitalPressure()
 
     override def init(): Task[Unit] =
       for
-        _ <- io(setLayout(BorderLayout()))
+        _ <- io(setLayout(BoxLayout(this, BoxLayout.Y_AXIS)))
         titleLabel = JLabel(Text.STATS_LABEL)
         _ <- io(titleLabel.setFont(titleLabel.getFont.deriveFont(Font.BOLD)))
-        _ <- io(add(titleLabel, BorderLayout.NORTH))
-        _ <- io(textArea.setEditable(false))
-        _ <- io(scrollTextArea.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED))
-        _ <- io(add(scrollTextArea, BorderLayout.CENTER))
+        _ <- io(add(titleLabel, Component.TOP_ALIGNMENT))
+        elems = Seq(daysLabel, aliveLabel, deathsLabel, infectedLabel, sickLabel, hospitalPressure)
+        _ <- io {
+          for elem <- elems do
+            add(elem)
+            elem.setAlignmentX(Component.LEFT_ALIGNMENT)
+        }
       yield ()
 
-    override def update(env: Environment): Task[Unit] = io(
-      textArea.setText((for i <- 1 to 30 yield "b \n b \n b").reduce(_ + _))
-    )
+    override def update(env: Environment): Task[Unit] =
+      for
+        _ <- io(daysLabel.setText(Text.DAYS_LABEL_TITLE + daysExtractor.extractData(env)).toString)
+        _ <- io(aliveLabel.setText(Text.ALIVE_LABEL_TITLE + aliveExtractor.extractData(env).toString))
+        _ <- io(deathsLabel.setText(Text.DEATHS_LABEL_TITLE + deathsExtractor.extractData(env).toString))
+        _ <- io(infectedLabel.setText(Text.INFECTED_LABEL_TITLE + infectedExtractor.extractData(env).toString))
+        _ <- io(sickLabel.setText(Text.SICK_LABEL_TITLE + sickExtractor.extractData(env).toString))
+        _ <- io(
+          hospitalPressure.setText(
+            Text.HOSPITAL_PRESSURE_LABEL_TITLE + hospitalPressureExtractor.extractData(env).toString
+          )
+        )
+      yield ()
