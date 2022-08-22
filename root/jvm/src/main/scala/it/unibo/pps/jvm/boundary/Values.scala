@@ -19,6 +19,12 @@ object Values:
     val CONFIG_ERROR_TITLE: String = "Configuration error"
     val INVALID_FILE_LABEL: String = "Invalid file "
     val WRONG_PARAMETER_LABEL: String = "Wrong Parameter "
+    val OPEN_STRUCTURE: String = "<i>open</i>"
+    val CLOSED_STRUCTURE: String = "<i>close</i>"
+    val MASK_STATUS_TITLE: String = "<b>Mask</b>"
+    val STRUCTURES_GROUP_STATUS_TITLE = "<b>Group of structures</b>"
+    val YES: String = "yes"
+    val NO: String = "no"
 
   object Dimension:
     import java.awt.Dimension
