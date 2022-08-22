@@ -1,6 +1,4 @@
 ThisBuild / scalaVersion := "3.1.1"
-ThisBuild / wartremoverWarnings ++= Warts.all
-ThisBuild / wartremoverErrors += Wart.Nothing
 
 lazy val startupTransition: State => State = "writeHooks" :: _
 
