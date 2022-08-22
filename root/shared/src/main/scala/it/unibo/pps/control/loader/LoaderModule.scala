@@ -87,7 +87,7 @@ object LoaderModule:
           yield House(
             (i, configuration.simulation.gridSide),
             StructuresDefault.HOUSE_INFECTION_PROB,
-            configuration.simulation.numberOfEntities / configuration.simulation.gridSide
+            Math.ceil(configuration.simulation.numberOfEntities.toDouble / configuration.simulation.gridSide).toInt
           )
         for
           entities <- factory.create(configuration, houses)

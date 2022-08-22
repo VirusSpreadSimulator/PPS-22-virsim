@@ -42,7 +42,7 @@ object EntityFactory:
             configuration.simulation.averagePopulationAge,
             configuration.simulation.stdDevPopulationAge
           ).next()
-          homePosition = houses(i % houses.size).position
+          homePosition = houses(i / houses.head.capacity).position
           position = Point2D(
             Random.nextInt(configuration.simulation.gridSide),
             Random.nextInt(configuration.simulation.gridSide)
