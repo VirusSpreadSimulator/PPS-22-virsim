@@ -13,3 +13,6 @@ object StructuresDSL:
     def and(variable: A): Set[A] = set + variable
 
   class Point(x: Int, y: Int) extends Point2D(x * GlobalDefaults.GRID_MULTIPLIER, y * GlobalDefaults.GRID_MULTIPLIER)
+
+  given Conversion[(Int, Int), Point] with
+    def apply(p: (Int, Int)): Point = Point(p._1, p._2)

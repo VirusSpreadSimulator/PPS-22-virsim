@@ -15,6 +15,7 @@ object SimulationDefaults:
         "import it.unibo.pps.control.loader.configuration.dsl.SimulationDSL.*\n" +
         "import it.unibo.pps.control.loader.configuration.dsl.VirusDSL.*\n" +
         "import it.unibo.pps.entity.structure.Structures.*\n" +
+        "import it.unibo.pps.control.loader.configuration.dsl.StructuresDSL.given\n" +
         "import it.unibo.pps.control.loader.configuration.dsl.StructuresDSL.*\n\n"
     val ENTITY_PROBABILITY_TO_RETURN_HOME: Double = 0.35
     val MIN_HEALTH_TO_GET_SICK: Double = 20.0
