@@ -8,8 +8,8 @@ import it.unibo.pps.control.loader.configuration.ConfigurationComponent.Configur
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.js.boundary.Values.Text
 import it.unibo.pps.js.boundary.component.MonadComponents.*
+import it.unibo.pps.js.boundary.gui.panel.BottomPanels.{CommandPanel, DynamicConfigPanel}
 import it.unibo.pps.js.boundary.gui.panel.SimulationCanvas
-import it.unibo.pps.js.boundary.gui.panel.BottomPanels.CommandPanel
 import monix.eval.Task
 import monix.reactive.subjects.PublishSubject
 import monix.reactive.{Consumer, Observable, OverflowStrategy}
@@ -31,6 +31,7 @@ object JSGUI:
     private lazy val fileChosen = PublishSubject[dom.File]()
     private lazy val simulationCanvas = SimulationCanvas()
     private lazy val commandPanel = CommandPanel()
+    private lazy val dynamicConfigPanel = DynamicConfigPanel()
     private lazy val fileInput = dom.document.getElementById("file_input").asInstanceOf[dom.html.Input]
 
     override def init(): Task[Unit] = io(fileInput.onchange = e => fileChosen.onNext(fileInput.files(0)))
@@ -54,10 +55,12 @@ object JSGUI:
       _ <- io(fileInput.disabled = true)
       _ <- simulationCanvas.init()
       _ <- commandPanel.init()
+      _ <- dynamicConfigPanel.init()
     yield ()
 
     override def stop(): Task[Unit] = commandPanel.stop()
 
     override def render(env: Environment): Task[Unit] = simulationCanvas.update(env)
 
-    override def events(): Observable[Event] = commandPanel.events
+    override def events(): Observable[Event] =
+      Observable.fromIterable(Seq(commandPanel, dynamicConfigPanel)).mergeMap(_.events)

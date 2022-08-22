@@ -30,4 +30,4 @@ class SimulationCanvas extends UpdatablePanel:
   private def setCanvasSize(): Unit =
     canvas.style.width = "100%"
     canvas.width = canvas.offsetWidth.toInt
-    canvas.height = (dom.window.innerHeight - canvas.offsetTop).toInt
+    canvas.height = (dom.window.innerHeight - canvas.offsetTop - 20).toInt

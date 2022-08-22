@@ -7,12 +7,17 @@ object Values:
     val STOP_BTN: String = "Stop"
     val INVALID_FILE_LABEL: String = "Invalid file "
     val WRONG_PARAMETER_LABEL: String = "Wrong Parameter "
+    val SWITCH_MASK_OBLIGATION: String = "Switch mask obligation"
+    val VACCINE_ROUND: String = "Vaccine round"
+    val SWITCH_STRUCTURE_OPEN: String = " Switch group "
 
   object BootstrapClasses:
     val BTN: String = "btn"
+    val BTN_SECONDARY: String = s"$BTN btn-secondary"
     val PAUSE_BTN: String = s"$BTN btn-warning"
     val RESUME_BTN: String = s"$BTN btn-success"
     val STOP_BTN: String = s"$BTN btn-danger"
+    val MARGIN_TOP_1: String = "mt-1"
 
   object SimulationColor:
     val BACKGROUND_COLOR: String = "rgb(56, 142, 60)"
