@@ -1,8 +1,8 @@
 package it.unibo.pps.jvm.boundary.gui.panel.charts
 
 import it.unibo.pps.boundary.ViewUtils.io
-import it.unibo.pps.boundary.exporter.Extractors.{DataExtractor, Deaths, Sick, Days}
-import it.unibo.pps.boundary.exporter.StatisticalData.Stats
+import it.unibo.pps.jvm.boundary.exporter.Extractors.{DataExtractor, Deaths, Sick, Days}
+import it.unibo.pps.jvm.boundary.exporter.StatisticalData.Stats
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.jvm.boundary.Values.SimulationColor
 import it.unibo.pps.jvm.boundary.gui.panel.charts.Charts.{Chart, MyChartPanel}
