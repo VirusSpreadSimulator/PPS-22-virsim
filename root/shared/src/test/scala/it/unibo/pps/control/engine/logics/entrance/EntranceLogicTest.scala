@@ -1,16 +1,11 @@
-package it.unibo.pps.control.engine.logics.infection
+package it.unibo.pps.control.engine.logics.entrance
 
-import it.unibo.pps.control.engine.logics.entrance.EntranceLogic
-import it.unibo.pps.entity.common.Utils.*
+import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.entity.common.Space.Point2D
-import it.unibo.pps.entity.common.Time.{DurationTime, TimeStamp}
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, House, SimulationStructure}
-import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
 import weaver.monixcompat.SimpleTaskSuite
-import scala.concurrent.duration.MINUTES
 
 object EntranceLogicTest extends SimpleTaskSuite:
 

@@ -1,18 +1,18 @@
-package it.unibo.pps.control.engine.logics.infection
+package it.unibo.pps.control.engine.logics.entitystate
 
 import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
-import it.unibo.pps.entity.Samples
-import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import weaver.monixcompat.SimpleTaskSuite
-import it.unibo.pps.control.engine.logics.entitystate.HospitalizationLogic.HospitalizeEntityLogic
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.MIN_VALUES
-import it.unibo.pps.entity.common.Space.Point2D
-import it.unibo.pps.entity.structure.Structures.{Hospital, SimulationStructure}
+import it.unibo.pps.control.engine.logics.entitystate.HospitalizationLogic.HospitalizeEntityLogic
+import it.unibo.pps.entity.Samples
 import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.TestUtils.*
+import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
+import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.StructureComponent.Hospitalization
+import it.unibo.pps.entity.structure.Structures.{Hospital, SimulationStructure}
 import monix.eval.Task
+import weaver.monixcompat.SimpleTaskSuite
 
 object HospitalizationLogicTest extends SimpleTaskSuite:
   private val baseEnv: Environment = Samples.sampleEnv

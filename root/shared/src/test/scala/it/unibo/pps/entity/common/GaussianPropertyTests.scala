@@ -1,4 +1,4 @@
-package it.unibo.pps.common
+package it.unibo.pps.entity.common
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers

@@ -1,4 +1,4 @@
-package it.unibo.pps.structure
+package it.unibo.pps.entity.structure
 
 import it.unibo.pps.entity.Samples
 import it.unibo.pps.entity.common.Space.Point2D

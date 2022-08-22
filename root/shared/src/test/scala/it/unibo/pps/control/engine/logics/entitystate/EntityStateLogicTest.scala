@@ -1,11 +1,10 @@
-package it.unibo.pps.control.engine.logics.infection
+package it.unibo.pps.control.engine.logics.entitystate
 
-import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
-import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.control.engine.logics.entitystate.EntityStateLogic.UpdateEntityStateLogic
+import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.MIN_VALUES
 import it.unibo.pps.entity.Samples
-import it.unibo.pps.entity.entity.Entities.SimulationEntity
+import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.TestUtils.*
 import weaver.monixcompat.SimpleTaskSuite
 

@@ -9,9 +9,12 @@ import monix.reactive.Observable
 import monix.eval.Task
 import it.unibo.pps.boundary.ViewUtils.io
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-
+import it.unibo.pps.entity.structure.StructureComponent.{Closable, Groupable}
+import it.unibo.pps.entity.common.Utils.*
+import it.unibo.pps.entity.structure.Structures.SimulationStructure
 import java.awt.{BorderLayout, Component, Font}
-import javax.swing.{BoxLayout, JLabel, JPanel, JScrollPane, JTextArea, ScrollPaneConstants}
+import javax.swing.text.DefaultCaret
+import javax.swing.{BoxLayout, JEditorPane, JLabel, JPanel, JScrollPane, JTextArea, ScrollPaneConstants}
 
 /** Module that wrap all the panels that are in the bottom area of the simulation gui */
 object BottomPanels:
@@ -85,7 +88,7 @@ object BottomPanels:
 
   /** DynamicActionsLog. It is the panel that show all the information about the dynamic configurations. */
   class DynamicActionsLog extends UpdateblePanel:
-    private lazy val textArea = JTextArea("a \n a \n a \n")
+    private lazy val textArea = JEditorPane("text/html", "")
     private lazy val scrollTextArea = JScrollPane(textArea)
 
     override def init(): Task[Unit] =
@@ -96,12 +99,26 @@ object BottomPanels:
         _ <- io(add(titleLabel, BorderLayout.NORTH))
         _ <- io(textArea.setEditable(false))
         _ <- io(scrollTextArea.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED))
+        _ <- io(textArea.getCaret.asInstanceOf[DefaultCaret].setUpdatePolicy(DefaultCaret.NEVER_UPDATE))
         _ <- io(add(scrollTextArea, BorderLayout.CENTER))
       yield ()
 
-    override def update(env: Environment): Task[Unit] = io(
-      textArea.setText((for i <- 1 to 30 yield "a \n a \n a").reduce(_ + _))
-    )
+    override def update(env: Environment): Task[Unit] = for
+      maskStatus <- io(if env.allEntities.map(_.hasMask).reduce(_ && _) then Text.YES else Text.NO)
+      groupStatus <- io(
+        env.structures
+          .select[SimulationStructure with Closable with Groupable]
+          .groupMap(_.group)(_.isOpen)
+          .map((k, v) => (k, v.reduce(_ & _)))
+          .map((k, v) => (k, if v then Text.OPEN_STRUCTURE else Text.CLOSED_STRUCTURE))
+      )
+      _ <- io(
+        textArea.setText(
+          s"${Text.MASK_STATUS_TITLE}: $maskStatus<br>${Text.STRUCTURES_GROUP_STATUS_TITLE}:<br>${groupStatus
+            .mkString("- ", "<br>- ", "")}"
+        )
+      )
+    yield ()
 
   /** StatsPanel. It is the panel that show the main statistics about the simulation data. */
   class StatsPanel extends UpdateblePanel:

@@ -1,12 +1,12 @@
-package it.unibo.pps.control.engine.logics.infection
+package it.unibo.pps.control.engine.logics
 
 import it.unibo.pps.control.engine.logics.Logic.EventLogic
 import it.unibo.pps.entity.Samples
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import weaver.monixcompat.SimpleTaskSuite
-import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.structure.StructureComponent.{Closable, Groupable}
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
+import it.unibo.pps.entity.common.Utils.*
+import weaver.monixcompat.SimpleTaskSuite
 
 /* Here, for simplicity, we consider a group of structures that have all the same starting opening state */
 object SwitchStructureLogicTest extends SimpleTaskSuite:
