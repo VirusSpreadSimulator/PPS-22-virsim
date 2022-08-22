@@ -2,7 +2,7 @@ package it.unibo.pps.entities
 
 import it.unibo.pps.control.engine.SimulationComponent.Simulation
 import it.unibo.pps.control.engine.logics.entrance.EntranceLogic
-import it.unibo.pps.control.engine.logics.infection.EntranceLogicTest.{
+import it.unibo.pps.control.engine.logics.entrance.EntranceLogicTest.{
   buildings,
   enterIntoStructureLogic,
   entitiesNear,

@@ -1,4 +1,4 @@
-package it.unibo.pps.common
+package it.unibo.pps.entity.common
 
 import it.unibo.pps.entity.common.Time.DurationTime
 import it.unibo.pps.entity.common.Time.TimeStamp

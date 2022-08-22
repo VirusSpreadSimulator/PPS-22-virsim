@@ -1,4 +1,4 @@
-package it.unibo.pps.structure.entrance
+package it.unibo.pps.entity.structure.entrance
 
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.structure.Structures.House

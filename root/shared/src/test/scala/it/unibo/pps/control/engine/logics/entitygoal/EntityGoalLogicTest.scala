@@ -1,12 +1,12 @@
-package it.unibo.pps.control.engine.logics.infection
+package it.unibo.pps.control.engine.logics.entitygoal
 
+import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
+import it.unibo.pps.entity.Samples
+import it.unibo.pps.control.engine.logics.entitygoal.EntityGoalLogic.EntityGoalUpdateLogic
+import it.unibo.pps.entity.common.Time.{TimeConfiguration, TimeStamp}
+import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import weaver.monixcompat.SimpleTaskSuite
-import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
-import it.unibo.pps.control.engine.logics.entitygoal.EntityGoalLogic.EntityGoalUpdateLogic
-import it.unibo.pps.entity.Samples
-import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
-import it.unibo.pps.entity.common.Time.{TimeConfiguration, TimeStamp}
 
 object EntityGoalLogicTest extends SimpleTaskSuite:
   private val baseEnv: Environment = Samples.sampleEnv

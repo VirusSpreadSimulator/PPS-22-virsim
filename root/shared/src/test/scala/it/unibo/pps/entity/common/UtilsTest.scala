@@ -1,4 +1,4 @@
-package it.unibo.pps.common
+package it.unibo.pps.entity.common
 
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.structure.StructureComponent.{Closable, Habitable, Hospitalization, Structure}
