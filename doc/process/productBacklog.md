@@ -10,7 +10,7 @@
 | 6        | Implementazione del modulo per il caricamento della configurazione fornita dall'utente |         | 14                    | 14   | 14   | 7    | 0    | 0    |      |
 | 7        | Sviluppo della logica di movimento degli individui           |         | 7                     | 7    | 7    | 7    | 0    | 0    |      |
 | 8        | Sviluppo della logica di interazione tra gli individui       |         | 5                     | 5    | 5    | 5    | 4    | 0    |      |
-| 9        | Sviluppo della logica di interazione tra individui e strutture |         | 12                    | 12   | 12   | 12   | 12   | 6    |      |
+| 9        | Sviluppo della logica di interazione tra individui e strutture |         | 12                    | 12   | 12   | 12   | 12   | 0    |      |
 | 10       | Sviluppo della logica di contagio degli individui            |         | 15                    | 15   | 15   | 14   | 14   | 0    |      |
 | 11       | Sviluppo della logica per l'aggiornamento dello stato degli individui |         | 4                     | 4    | 4    | 4    | 4    | 0    |      |
 | 12       | Sviluppo della logica di interazione dinamica dell'utente con la simulazione |         | 10                    | 10   | 10   | 10   | 8    | 2    |      |
