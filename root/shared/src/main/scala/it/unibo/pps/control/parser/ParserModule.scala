@@ -5,7 +5,7 @@ import it.unibo.pps.control.loader.configuration.ConfigurationComponent.{
   ConfigurationError,
   ConfigurationResult
 }
-import it.unibo.pps.control.loader.configuration.SimulationDefaults.{MAX_VALUES, MIN_VALUES}
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.{GlobalDefaults, MAX_VALUES, MIN_VALUES}
 import monix.eval.Task
 
 object ParserModule:
@@ -46,7 +46,15 @@ object ParserModule:
           (configuration.simulation.gridSide shouldBeWithin (MIN_VALUES.MIN_GRID_SIZE, MAX_VALUES.MAX_GRID_SIZE) andIfNot "Error: invalid parameter gridSide!") :::
             (configuration.simulation.numberOfEntities shouldBeWithin (MIN_VALUES.MIN_NUMBER_OF_ENTITIES, MAX_VALUES.MAX_NUMBER_OF_ENTITIES) andIfNot "Error: invalid parameter numberOfEntities!") :::
             (configuration.virusConfiguration.severeDeseaseProbability shouldBeWithin (0, 1) andIfNot "Error: probability must be in range (0, 1)!") :::
-            (configuration.virusConfiguration.spreadRate shouldBeWithin (0, 1) andIfNot "Error: spreadRate must be in range (0, 1)!")
+            (configuration.virusConfiguration.spreadRate shouldBeWithin (0, 1) andIfNot "Error: spreadRate must be in range (0, 1)!") :::
+            (configuration.structuresConfiguration.forall(struc =>
+              struc.position.x <= configuration.simulation.gridSide &&
+                struc.position.y <= configuration.simulation.gridSide
+            ) andIfNot "Error: invalid structure position!") :::
+            (configuration.structuresConfiguration
+              .map(_.position)
+              .size == configuration.structuresConfiguration.size andIfNot "Error: multiples structures in same position !")
+
         }
         result <- errors.size match
           case 0 => Task(ConfigurationResult.OK(configuration))
