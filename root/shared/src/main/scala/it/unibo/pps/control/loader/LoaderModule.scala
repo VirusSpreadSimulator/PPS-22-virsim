@@ -83,9 +83,9 @@ object LoaderModule:
 
       override def createEnvironment(configuration: Configuration)(using factory: EntityFactory): Task[Environment] =
         val houses: Seq[SimulationStructure] =
-          for _ <- 0 until configuration.simulation.gridSide
+          for i <- 0 until configuration.simulation.gridSide
           yield House(
-            (Random.nextInt(configuration.simulation.gridSide + 1), configuration.simulation.gridSide),
+            (i, configuration.simulation.gridSide),
             StructuresDefault.HOUSE_INFECTION_PROB,
             configuration.simulation.numberOfEntities / configuration.simulation.gridSide
           )

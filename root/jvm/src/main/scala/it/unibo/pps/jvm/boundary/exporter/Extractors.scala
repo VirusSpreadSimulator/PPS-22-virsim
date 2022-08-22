@@ -1,4 +1,4 @@
-package it.unibo.pps.boundary.exporter
+package it.unibo.pps.jvm.boundary.exporter
 
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.Structures.Hospital
@@ -17,10 +17,13 @@ object Extractors:
   case class Days(override val name: String = "Days") extends DataExtractor[Long]:
     override def extractData(env: Environment): Long = env.time.iteration
 
+  case class Hours(override val name: String = "Hour") extends DataExtractor[Long]:
+    override def extractData(env: Environment): Long = env.time.toHours
+
   case class HospitalPressure(override val name: String = "HospitalPressure") extends DataExtractor[Double]:
     override def extractData(env: Environment): Double =
       env.structures
-        .filter(struct => struct.isInstanceOf[Hospital] && struct.entities.size > 0)
+        .filter(struct => struct.isInstanceOf[Hospital] && struct.entities.nonEmpty)
         .foldLeft(0)((pressure, hospital) => pressure + (hospital.capacity / hospital.entities.size))
 
   case class HospitalsCapacity(override val name: String = "HospitalsCapacity") extends DataExtractor[Int]:
@@ -40,6 +43,9 @@ object Extractors:
       env.structures
         .filter(struct => struct.isInstanceOf[Hospital])
         .foldLeft(0)((hospitalized, hospital) => hospitalized + hospital.entities.size)
+
+  case class Alive(override val name: String = "Alive") extends DataExtractor[Int]:
+    override def extractData(env: Environment): Int = env.allEntities.size
 
   case class Deaths(override val name: String = "Deaths") extends DataExtractor[Int]:
     override def extractData(env: Environment): Int = env.deadEntities.size

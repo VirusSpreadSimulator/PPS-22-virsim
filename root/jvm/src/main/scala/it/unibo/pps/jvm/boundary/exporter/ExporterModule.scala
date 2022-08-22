@@ -1,16 +1,17 @@
-package it.unibo.pps.boundary.exporter
+package it.unibo.pps.jvm.boundary.exporter
 
 import it.unibo.pps.boundary.BoundaryModule.Boundary
 import it.unibo.pps.boundary.component.Events
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.boundary.exporter.Extractors.DataExtractor
-import it.unibo.pps.boundary.exporter.StatisticalData.Stats
+import Extractors.DataExtractor
+import StatisticalData.Stats
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
 import it.unibo.pps.entity.common.Time.TimeStamp
 import monix.eval.Task
 import monix.reactive.Observable
 
 import java.io.{File, FileWriter}
+import java.nio.file.Files
 
 object ExporterModule:
 
@@ -19,6 +20,7 @@ object ExporterModule:
   trait Component:
     class FileExporterImpl(
         val extractors: List[DataExtractor[_]] = List(
+          Stats.HOURS,
           Stats.DAYS,
           Stats.INFECTED,
           Stats.SICK,
@@ -28,8 +30,9 @@ object ExporterModule:
           Stats.HOSPITAL_PRESSURE
         )
     ) extends Boundary:
-      private val file: File = new File(GlobalDefaults.EXPORT_FILE_PATH)
-      private val fileWriter: FileWriter = new FileWriter(file)
+      private val file: File = new File(GlobalDefaults.EXPORT_DIR_NAME)
+      private val tempDir = Files.createTempDirectory(GlobalDefaults.EXPORT_DIR_NAME)
+      private val fileWriter = new FileWriter(tempDir.toFile.getPath + '/' + GlobalDefaults.EXPORT_FILE_NAME)
 
       override def init(): Task[Unit] =
         for _ <- Task(fileWriter.write("VirSim Simulation Statistics\n\n"))
@@ -38,7 +41,7 @@ object ExporterModule:
       override def start(): Task[Unit] =
         for
           _ <- Task {
-            fileWriter.write(extractors.foldLeft("")((columns, ex) => columns + ex.name + "\t\t") + "\n")
+            fileWriter.write(extractors.foldLeft("")((columns, ex) => columns + ex.name + ",") + "\n")
           }
         yield ()
 
@@ -48,7 +51,7 @@ object ExporterModule:
           _ <- Task {
             if isTimeToExport then
               fileWriter.write(
-                extractors.foldLeft("")((data, ext) => data + ext.extractData(env).toString + "\t\t") + "\n"
+                extractors.foldLeft("")((data, ext) => data + ext.extractData(env).toString + ",") + "\n"
               )
           }
         yield ()
