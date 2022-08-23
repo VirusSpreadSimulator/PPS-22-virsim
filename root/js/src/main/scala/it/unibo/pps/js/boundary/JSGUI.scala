@@ -11,7 +11,7 @@ import it.unibo.pps.boundary.ViewUtils.*
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
 import it.unibo.pps.control.parser.ReaderModule.FilePath
 import it.unibo.pps.js.boundary.component.MonadButton
-import it.unibo.pps.js.boundary.parser.JSReader.DomFile
+import it.unibo.pps.js.boundary.parser.JSReader.JSFilePath
 
 trait JSGUI:
   def init(): Task[Unit]
