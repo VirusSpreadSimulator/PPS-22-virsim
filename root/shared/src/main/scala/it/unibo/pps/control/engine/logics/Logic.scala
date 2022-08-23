@@ -49,7 +49,8 @@ object Logic:
     def iterationLogic(config: SimulationConfig): UpdateLogic = env =>
       for
         over <- Task(env.time >= TimeStamp() + env.environmentDuration)
-        _ <- Task(if over then config.engineStatus = EngineStatus.STOPPED)
+        allDead <- Task(env.allEntities.isEmpty)
+        _ <- Task(if over || allDead then config.engineStatus = EngineStatus.STOPPED)
       yield env
     /** Handle the infection in the environment, external to structures
       * @return
