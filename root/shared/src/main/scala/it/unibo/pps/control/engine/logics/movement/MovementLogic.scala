@@ -4,7 +4,8 @@ import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
-import it.unibo.pps.entity.entity.EntityComponent.{Infectious, Moving}
+import it.unibo.pps.entity.entity.EntityComponent.Moving
+import it.unibo.pps.entity.entity.EntityComponent.Infectious
 import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
 import it.unibo.pps.entity.entity.Infection
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
@@ -17,7 +18,7 @@ class MovementLogic extends UpdateLogic:
     for
       entities <- Task(environment.externalEntities)
       moved <- Task {
-        entities.map(e => e.focus(_.position).replace(calculateNewPosition(e, environment.gridSide, environment)))
+        entities.map(e => e.focus(_.position).replace(calculateNewPosition(e, environment.gridSide)))
       }
     yield environment.update(externalEntities = moved.select[SimulationEntity])
 
@@ -39,20 +40,20 @@ class MovementLogic extends UpdateLogic:
     * @return
     *   the updated position of the entity
     */
-  private def calculateNewPosition(entity: SimulationEntity, gridSide: Int, environment: Environment): Point2D =
+  private def calculateNewPosition(entity: SimulationEntity, gridSide: Int): Point2D =
     entity.movementGoal match
       case MovementGoal.RANDOM_MOVEMENT =>
         extractRandomPosition(
           calculateNextMovement(entity.position, gridSide, gridSide, 1)
         )
       case MovementGoal.BACK_TO_HOME =>
-        calculateNextMovementToGoHome(
+        extractRandomPosition(calculateNextMovementToGoHome(
           entity.position,
           gridSide,
           gridSide,
           1,
           entity.homePosition
-        )
+        ))
 
       case _ => entity.position
 
