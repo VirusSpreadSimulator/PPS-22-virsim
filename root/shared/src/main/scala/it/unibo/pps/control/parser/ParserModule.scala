@@ -1,11 +1,14 @@
 package it.unibo.pps.control.parser
 
+import it.unibo.pps.control.engine.EngineModule.Requirements
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.{
   Configuration,
   ConfigurationError,
   ConfigurationResult
 }
+import it.unibo.pps.control.parser.ReaderModule
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.{GlobalDefaults, MAX_VALUES, MIN_VALUES}
+import it.unibo.pps.control.parser.ReaderModule.FilePath
 import monix.eval.Task
 
 object ParserModule:
@@ -21,12 +24,13 @@ object ParserModule:
     * compatible. Every module (jvm, js) has to implement its own configuration parser.
     */
   trait Parser:
+
     /** @param path
       *   The path of the file.
       * @return
       *   The content of the file as a String.
       */
-    def readFile(path: String): Task[String]
+    def readFile(filePath: FilePath): Task[String]
 
     /** @param program
       *   The configuration file.
