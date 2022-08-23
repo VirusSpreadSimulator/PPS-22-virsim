@@ -1,6 +1,6 @@
 package it.unibo.pps.jvm.boundary.gui.panel.charts
 
-import it.unibo.pps.jvm.boundary.exporter.Extractors.DataExtractor
+import it.unibo.pps.control.loader.extractor.Extractor.DataExtractor
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import monix.eval.Task
 import org.jfree.chart.{ChartPanel, JFreeChart}

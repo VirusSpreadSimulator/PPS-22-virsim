@@ -3,7 +3,7 @@ package it.unibo.pps.jvm.boundary.gui.panel
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.jvm.boundary.gui.Values.SimulationColor
 import it.unibo.pps.jvm.boundary.gui.panel.Panels.{DisplayblePanel, UpdateblePanel}
-import it.unibo.pps.jvm.boundary.gui.panel.charts.{BarChart, LineChart, PieChart}
+import it.unibo.pps.jvm.boundary.gui.panel.charts.{DeathSickHealthyChart, InfectedBarChart, PieChart}
 import it.unibo.pps.jvm.boundary.gui.panel.charts.Charts.Chart
 import org.jfree.chart.JFreeChart
 import org.jfree.chart.ChartPanel
@@ -16,7 +16,7 @@ import monix.eval.Task
 class ChartsPanel extends UpdateblePanel:
 
   setBackground(SimulationColor.BACKGROUND_CHART_PANEL_COLOR)
-  private val charts: List[Chart] = List(BarChart(), LineChart(), PieChart())
+  private val charts: List[Chart] = List(DeathSickHealthyChart(), InfectedBarChart(), PieChart())
 
   override def init(): Task[Unit] =
     for
