@@ -52,8 +52,8 @@ class ExitLogic extends UpdateLogic:
   ): Point2D =
     def getAllPossiblePosition(width: Int, height: Int, position: Point2D, visibilityDistance: Double): Set[Point2D] =
       (for
-        x <- List(-visibilityDistance.toInt - 1, 0, visibilityDistance.toInt + 1)
-        y <- List(-visibilityDistance.toInt - 1, 0, visibilityDistance.toInt + 1)
+        x <- List(-visibilityDistance.toInt - 10, 0, visibilityDistance.toInt + 10)
+        y <- List(-visibilityDistance.toInt - 10, 0, visibilityDistance.toInt + 10)
       yield position + Point2D(x, y))
         .filter(point =>
           point.x >= 0 && point.y >= 0 && point.x <= width && point.y <= height && (point.x != position.x || point.y != position.y)
