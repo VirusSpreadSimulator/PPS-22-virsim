@@ -1,4 +1,6 @@
-package it.unibo.pps.jvm.boundary
+package it.unibo.pps.jvm.boundary.gui
+
+import it.unibo.pps.jvm.boundary.gui.Utils
 
 object Values:
   object Text:
@@ -33,8 +35,9 @@ object Values:
     val NO: String = "no"
 
   object Dimension:
-    import java.awt.Dimension
     import Utils.given
+
+    import java.awt.Dimension
 
     val INITGUI_WIDTH: Int = 500
     val INITGUI_HEIGHT: Int = 800
@@ -46,7 +49,8 @@ object Values:
     val SIMULATION_GUI_BOTTOM_DIMENSION: Dimension = (800, 200)
 
   object Margin:
-    import it.unibo.pps.jvm.boundary.Utils.given
+    import it.unibo.pps.jvm.boundary.gui.Utils.given
+
     import java.awt.Dimension
 
     val DEFAULT_HMARGIN: Dimension = (10, 0)

@@ -1,4 +1,4 @@
-package it.unibo.pps.jvm.boundary.component.drawable
+package it.unibo.pps.jvm.boundary.gui.component.drawable
 
 import it.unibo.pps.boundary.component.drawable.Drawable
 import java.awt.Graphics2D

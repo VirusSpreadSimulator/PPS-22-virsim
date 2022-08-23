@@ -5,8 +5,8 @@ import it.unibo.pps.boundary.BoundaryModule.Boundary
 import it.unibo.pps.boundary.BoundaryModule.ConfigBoundary
 import it.unibo.pps.control.launcher.Launch
 import it.unibo.pps.control.parser.{ParserModule, ReaderModule}
-import it.unibo.pps.jvm.boundary.GUIModule
 import it.unibo.pps.jvm.boundary.exporter.ExporterModule
+import it.unibo.pps.jvm.boundary.gui.GUIModule
 import it.unibo.pps.jvm.parser.ScalaParser
 import it.unibo.pps.jvm.parser.JVMReader
 

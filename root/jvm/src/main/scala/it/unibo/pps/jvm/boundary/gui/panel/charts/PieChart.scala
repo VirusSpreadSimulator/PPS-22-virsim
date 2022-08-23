@@ -5,7 +5,7 @@ import it.unibo.pps.jvm.boundary.exporter.Extractors.{DataExtractor, Hospitalize
 import it.unibo.pps.jvm.boundary.exporter.StatisticalData.Stats
 import it.unibo.pps.jvm.boundary.exporter.StatisticalData.given
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.jvm.boundary.Values.SimulationColor
+import it.unibo.pps.jvm.boundary.gui.Values.SimulationColor
 import it.unibo.pps.jvm.boundary.gui.panel.charts.Charts.{Chart, MyChartPanel}
 import monix.eval.Task
 import org.jfree.chart.labels.BubbleXYItemLabelGenerator

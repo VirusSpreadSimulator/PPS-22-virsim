@@ -1,7 +1,7 @@
 package it.unibo.pps.jvm.boundary.gui.panel
 
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.jvm.boundary.Values.SimulationColor
+import it.unibo.pps.jvm.boundary.gui.Values.SimulationColor
 import it.unibo.pps.jvm.boundary.gui.panel.Panels.{DisplayblePanel, UpdateblePanel}
 import it.unibo.pps.jvm.boundary.gui.panel.charts.{BarChart, LineChart, PieChart}
 import it.unibo.pps.jvm.boundary.gui.panel.charts.Charts.Chart

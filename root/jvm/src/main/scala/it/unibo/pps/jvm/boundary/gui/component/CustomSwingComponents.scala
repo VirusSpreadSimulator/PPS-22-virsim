@@ -1,4 +1,4 @@
-package it.unibo.pps.jvm.boundary.component
+package it.unibo.pps.jvm.boundary.gui.component
 
 import javax.swing.JFormattedTextField
 import javax.swing.text.DefaultFormatterFactory

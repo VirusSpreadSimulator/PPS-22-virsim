@@ -1,4 +1,4 @@
-package it.unibo.pps.jvm.boundary
+package it.unibo.pps.jvm.boundary.gui
 
 import monix.execution.Scheduler
 

@@ -1,7 +1,7 @@
 package it.unibo.pps.jvm.boundary.gui.panel
 
-import it.unibo.pps.jvm.boundary.component.MonadComponents.{MonadButton, MonadCombobox, MonadConfigButton}
-import it.unibo.pps.jvm.boundary.Values.Text
+import it.unibo.pps.jvm.boundary.gui.component.MonadComponents.{MonadButton, MonadCombobox, MonadConfigButton}
+import it.unibo.pps.jvm.boundary.gui.Values.Text
 import it.unibo.pps.boundary.component.Events.{Event, Params}
 import it.unibo.pps.boundary.component.Events.Event.*
 import it.unibo.pps.jvm.boundary.gui.panel.Panels.{DisplayblePanel, EventablePanel, UpdateblePanel}

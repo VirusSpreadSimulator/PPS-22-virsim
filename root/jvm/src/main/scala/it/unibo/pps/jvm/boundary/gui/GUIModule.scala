@@ -1,11 +1,11 @@
-package it.unibo.pps.jvm.boundary
+package it.unibo.pps.jvm.boundary.gui
 
-import it.unibo.pps.boundary.BoundaryModule.{Boundary, ConfigBoundary}
+import it.unibo.pps.boundary.BoundaryModule.ConfigBoundary
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
 import it.unibo.pps.control.parser.ReaderModule.FilePath
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.jvm.boundary.gui.{InitGUI, SimulationGUI}
+import it.unibo.pps.jvm.boundary.gui.frame.{InitGUI, SimulationGUI}
 import monix.eval.Task
 import monix.reactive.Observable
 

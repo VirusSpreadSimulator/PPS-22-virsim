@@ -1,4 +1,4 @@
-package it.unibo.pps.jvm.boundary.component
+package it.unibo.pps.jvm.boundary.gui.component
 
 import it.unibo.pps.boundary.component.EventSource
 import it.unibo.pps.boundary.component.Events.Event
@@ -7,7 +7,7 @@ import monix.execution.Cancelable
 import monix.reactive.{Observable, OverflowStrategy}
 import it.unibo.pps.boundary.ViewUtils.io
 import CustomSwingComponents.JNumericTextField
-import it.unibo.pps.jvm.boundary.Values.Margin
+import it.unibo.pps.jvm.boundary.gui.Values.Margin
 import javax.swing.{Box, BoxLayout, JButton, JComboBox, JPanel, JTextField}
 import java.awt.event.ActionEvent
 

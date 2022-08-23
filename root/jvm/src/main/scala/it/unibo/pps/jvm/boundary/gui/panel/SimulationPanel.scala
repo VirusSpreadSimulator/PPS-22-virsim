@@ -5,7 +5,7 @@ import it.unibo.pps.jvm.boundary.gui.panel.Panels.UpdateblePanel
 import java.awt.{Graphics, Graphics2D, RenderingHints}
 import it.unibo.pps.boundary.ViewUtils.io
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.jvm.boundary.Values.SimulationColor
+import it.unibo.pps.jvm.boundary.gui.Values.SimulationColor
 import monix.eval.Task
 
 /** The Simulation Panel is the panel that handle the visualization of the simulation status. For this reason it extends
@@ -26,7 +26,7 @@ class SimulationPanel() extends UpdateblePanel:
       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
       g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)
 
-      import it.unibo.pps.jvm.boundary.component.drawable.Drawables.given
+      import it.unibo.pps.jvm.boundary.gui.component.drawable.Drawables.given
       environment.draw(g2, scale)
 
   override def init(): Task[Unit] = io(setOpaque(true))
