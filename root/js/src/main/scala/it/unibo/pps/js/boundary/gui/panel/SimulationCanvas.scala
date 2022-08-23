@@ -2,7 +2,7 @@ package it.unibo.pps.js.boundary.gui.panel
 
 import it.unibo.pps.boundary.ViewUtils.io
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.js.boundary.Values.SimulationColor
+import it.unibo.pps.js.boundary.gui.Values.SimulationColor
 import it.unibo.pps.js.boundary.gui.panel.Panels.UpdatablePanel
 import monix.eval.Task
 import org.scalajs.dom
@@ -18,7 +18,7 @@ class SimulationCanvas extends UpdatablePanel:
   yield ()
 
   override def update(newEnv: Environment): Task[Unit] =
-    import it.unibo.pps.js.boundary.component.drawable.Drawables.given
+    import it.unibo.pps.js.boundary.gui.component.drawable.Drawables.given
     for
       _ <- io(ctx.fillStyle = SimulationColor.BACKGROUND_COLOR)
       _ <- io(ctx.fillRect(0, 0, canvas.width, canvas.height))

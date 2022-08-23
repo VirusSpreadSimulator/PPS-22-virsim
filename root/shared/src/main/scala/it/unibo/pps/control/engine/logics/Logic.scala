@@ -11,7 +11,7 @@ import it.unibo.pps.control.engine.logics.infection.InfectionLogic.InternalInfec
 import it.unibo.pps.control.engine.logics.entitystate.EntityStateLogic.UpdateEntityStateLogic
 import it.unibo.pps.control.engine.logics.entitystate.HospitalizationLogic.HospitalizeEntityLogic
 import it.unibo.pps.control.engine.logics.entitystate.HospitalRecoveryLogic
-import it.unibo.pps.control.engine.logics.movement.MovementLogic
+//import it.unibo.pps.control.engine.logics.movement.MovementLogic
 import monix.eval.Task
 import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.structure.StructureComponent.{Closable, Groupable}
@@ -71,7 +71,7 @@ object Logic:
       * @return
       *   the logic
       */
-    def movementLogic: UpdateLogic = MovementLogic()
+    //def movementLogic: UpdateLogic = MovementLogic()
     /** Handle the recovery of the infected entity at risk
       * @return
       *   the logic

@@ -1,4 +1,4 @@
-package it.unibo.pps.js.boundary
+package it.unibo.pps.js.boundary.gui
 
 object Values:
   object Text:

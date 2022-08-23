@@ -1,19 +1,19 @@
-package it.unibo.pps.js.boundary.component.drawable
+package it.unibo.pps.js.boundary.gui.component.drawable
 
 import it.unibo.pps.boundary.ViewUtils.scaleToView
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.StructureComponent.Visible
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, Hospital, House, SimulationStructure}
-import it.unibo.pps.js.boundary.Values.SimulationColor
-import it.unibo.pps.js.boundary.component.drawable.DrawableConcept.DrawableJS
+import it.unibo.pps.js.boundary.gui.Values.SimulationColor
+import it.unibo.pps.js.boundary.gui.component.drawable.DrawableConcept.DrawableJS
 import org.scalajs.dom
 
 object Drawables:
 
   /** Extend [[Environment]] with js draw capabilities */
   given DrawableJS[Environment] with
-    import it.unibo.pps.js.boundary.component.drawable.DrawableConcept.DrawableOps.*
+    import it.unibo.pps.js.boundary.gui.component.drawable.DrawableConcept.DrawableOps.*
 
     extension (env: Environment)
       def draw(g: dom.CanvasRenderingContext2D, scale: Int): Unit =

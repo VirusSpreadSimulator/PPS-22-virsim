@@ -1,4 +1,4 @@
-package it.unibo.pps.js.boundary.parser
+package it.unibo.pps.js.parser
 
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
 import it.unibo.pps.control.parser.ReaderModule

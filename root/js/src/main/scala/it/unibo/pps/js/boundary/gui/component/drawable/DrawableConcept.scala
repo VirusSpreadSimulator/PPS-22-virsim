@@ -1,4 +1,4 @@
-package it.unibo.pps.js.boundary.component.drawable
+package it.unibo.pps.js.boundary.gui.component.drawable
 
 import it.unibo.pps.boundary.component.drawable.Drawable
 import org.scalajs.dom

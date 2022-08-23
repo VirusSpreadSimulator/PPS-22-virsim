@@ -7,11 +7,11 @@ import it.unibo.pps.boundary.component.Events.Event.*
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
 import it.unibo.pps.control.parser.ReaderModule.FilePath
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.js.boundary.Values.Text
-import it.unibo.pps.js.boundary.component.MonadComponents.*
+import Values.Text
+import it.unibo.pps.js.boundary.gui.component.MonadComponents.*
 import it.unibo.pps.js.boundary.gui.panel.BottomPanels.{CommandPanel, DynamicConfigPanel}
 import it.unibo.pps.js.boundary.gui.panel.SimulationCanvas
-import it.unibo.pps.js.boundary.parser.JSReader.JSFilePath
+import it.unibo.pps.js.parser.JSReader.JSFilePath
 import monix.eval.Task
 import monix.reactive.subjects.PublishSubject
 import monix.reactive.{Consumer, Observable, OverflowStrategy}

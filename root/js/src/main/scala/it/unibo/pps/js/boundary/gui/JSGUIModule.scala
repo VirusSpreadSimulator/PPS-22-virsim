@@ -1,11 +1,10 @@
-package it.unibo.pps.js.boundary
+package it.unibo.pps.js.boundary.gui
 
 import it.unibo.pps.boundary.BoundaryModule.ConfigBoundary
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
 import it.unibo.pps.control.parser.ReaderModule.FilePath
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.js.boundary.gui.JSGUI
 import monix.eval.Task
 import monix.reactive.Observable
 

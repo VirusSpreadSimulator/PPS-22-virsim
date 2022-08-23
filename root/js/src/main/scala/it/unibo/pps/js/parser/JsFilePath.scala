@@ -1,4 +1,4 @@
-package it.unibo.pps.js.boundary
+package it.unibo.pps.js.parser
 
 import it.unibo.pps.control.parser.ReaderModule.FilePath
 import org.scalajs.dom

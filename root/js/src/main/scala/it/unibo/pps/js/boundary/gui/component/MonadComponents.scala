@@ -1,8 +1,8 @@
-package it.unibo.pps.js.boundary.component
+package it.unibo.pps.js.boundary.gui.component
 
 import it.unibo.pps.boundary.component.EventSource
 import it.unibo.pps.boundary.component.Events.Event
-import it.unibo.pps.js.boundary.Values.BootstrapClasses
+import it.unibo.pps.js.boundary.gui.Values.BootstrapClasses
 import monix.execution.Cancelable
 import monix.reactive.{Observable, OverflowStrategy}
 import org.scalajs.dom
@@ -12,7 +12,7 @@ import org.scalajs.dom.html.{Button, Input, Select}
 import java.awt.event.ActionEvent
 
 object MonadComponents:
-  import it.unibo.pps.js.boundary.component.MonadComponents.Utils.{createButton, createInput}
+  import it.unibo.pps.js.boundary.gui.component.MonadComponents.Utils.{createButton, createInput}
 
   trait MonadButton extends EventSource:
     def button: Button

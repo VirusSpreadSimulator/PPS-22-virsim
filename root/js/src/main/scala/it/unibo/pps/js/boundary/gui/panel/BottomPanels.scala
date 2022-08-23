@@ -3,8 +3,8 @@ package it.unibo.pps.js.boundary.gui.panel
 import it.unibo.pps.boundary.ViewUtils.io
 import it.unibo.pps.boundary.component.Events.Event.*
 import it.unibo.pps.boundary.component.Events.{Event, Params}
-import it.unibo.pps.js.boundary.Values.{BootstrapClasses, Text}
-import it.unibo.pps.js.boundary.component.MonadComponents.{MonadButton, MonadConfigButton, MonadSelect}
+import it.unibo.pps.js.boundary.gui.Values.{BootstrapClasses, Text}
+import it.unibo.pps.js.boundary.gui.component.MonadComponents.{MonadButton, MonadConfigButton, MonadSelect}
 import it.unibo.pps.js.boundary.gui.panel.Panels.{BasePanel, EventablePanel}
 import monix.eval.Task
 import monix.reactive.Observable
