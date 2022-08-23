@@ -44,16 +44,34 @@ class MovementLogic extends UpdateLogic:
     entity.movementGoal match
       case MovementGoal.RANDOM_MOVEMENT =>
         extractRandomPosition(
-          PrologNextMovement.calculateNextMovement(entity.position, gridSide, gridSide + 1, 1)
+          calculateNextMovement(entity.position, gridSide, gridSide, 1)
         )
       case MovementGoal.BACK_TO_HOME =>
-        extractRandomPosition(
-          PrologNextMovement.calculateNextMovementToGoHome(
-            entity.position,
-            gridSide,
-            gridSide,
-            1,
-            entity.homePosition
-          )
-        )
+        extractRandomPosition(calculateNextMovementToGoHome(
+          entity.position,
+          gridSide,
+          gridSide,
+          1,
+          entity.homePosition
+        ))
+
       case _ => entity.position
+
+  private def calculateNextMovement(position: Point2D, width: Int, height: Int, step: Int): Set[Point2D] =
+    (for x <- List(-step, 0, step)
+         y <- List(-step, 0, step)
+    yield position + Point2D(x, y)).filter(point =>
+      point.x >= 0 && point.y >= 0 && point.x <= width && point.y <= height && (point.x != position.x || point.y != position.y)
+    )
+    .toSet
+
+  private def calculateNextMovementToGoHome(
+      position: Point2D,
+      width: Int,
+      height: Int,
+      step: Int,
+      homePosition: Point2D
+  ): Set[Point2D] =
+    calculateNextMovement(position, width, height, step).filter(point =>
+      point.distanceTo(homePosition) < position.distanceTo(homePosition)
+    )

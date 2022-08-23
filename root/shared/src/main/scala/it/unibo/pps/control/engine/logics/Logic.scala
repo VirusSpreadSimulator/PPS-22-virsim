@@ -4,18 +4,20 @@ import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.control.engine.config.Configurations.EngineStatus
 import it.unibo.pps.control.engine.config.EngineConfiguration.SimulationConfig
 import it.unibo.pps.control.engine.logics.entitygoal.EntityGoalLogic.EntityGoalUpdateLogic
-import it.unibo.pps.entity.common.Time.TimeStamp
-import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.control.engine.logics.infection.InfectionLogic.ExternalInfectionLogic
-import it.unibo.pps.control.engine.logics.infection.InfectionLogic.InternalInfectionLogic
 import it.unibo.pps.control.engine.logics.entitystate.EntityStateLogic.UpdateEntityStateLogic
-import it.unibo.pps.control.engine.logics.entitystate.HospitalizationLogic.HospitalizeEntityLogic
 import it.unibo.pps.control.engine.logics.entitystate.HospitalRecoveryLogic
-//import it.unibo.pps.control.engine.logics.movement.MovementLogic
-import monix.eval.Task
+import it.unibo.pps.control.engine.logics.entitystate.HospitalizationLogic.HospitalizeEntityLogic
+import it.unibo.pps.control.engine.logics.entrance.EntranceLogic
+import it.unibo.pps.control.engine.logics.exit.ExitLogic
+import it.unibo.pps.control.engine.logics.infection.InfectionLogic.{ExternalInfectionLogic, InternalInfectionLogic}
+import it.unibo.pps.control.engine.logics.movement.MovementLogic
+import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.common.Utils.*
+import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.StructureComponent.{Closable, Groupable}
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, SimulationStructure}
+import it.unibo.pps.entity.structure.entrance.Entrance
+import monix.eval.Task
 import monocle.syntax.all.*
 
 /** Module that wrap all the logic types that are needed to update the simulation [[Environment]] */
@@ -71,7 +73,7 @@ object Logic:
       * @return
       *   the logic
       */
-    //def movementLogic: UpdateLogic = MovementLogic()
+    def movementLogic: UpdateLogic = MovementLogic()
     /** Handle the recovery of the infected entity at risk
       * @return
       *   the logic
@@ -82,6 +84,10 @@ object Logic:
       *   the logic
       */
     def hospitalRecoveryLogic: UpdateLogic = HospitalRecoveryLogic()
+
+    def entranceInStructureLogic: UpdateLogic = EntranceLogic()
+
+    def exitStructureLogic: UpdateLogic = ExitLogic()
 
   /** Update logic represent a logic that is associated to an event. It takes the current environment and return a task
     * that represent the computation done on that environment due to the occur of the event.
