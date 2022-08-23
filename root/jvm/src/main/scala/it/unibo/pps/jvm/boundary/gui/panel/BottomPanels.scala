@@ -114,7 +114,7 @@ object BottomPanels:
       yield ()
 
     override def update(env: Environment): Task[Unit] = for
-      maskStatus <- io(if env.allEntities.map(_.hasMask).reduce(_ && _) then Text.YES else Text.NO)
+      maskStatus <- io(if env.allEntities.forall(_.hasMask) then Text.YES else Text.NO)
       groupStatus <- io(
         env.structures
           .select[SimulationStructure with Closable with Groupable]
