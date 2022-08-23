@@ -97,7 +97,10 @@ object InitGUI:
         panel <- io(JPanel())
         startBtn <- io(JButton(Text.START_BTN))
         _ <- io(
-          startBtn.addActionListener((e: ActionEvent) => fileChosen.onNext(StringFilePath(fileSrcTextField.getText)))
+          startBtn.addActionListener(_ =>
+            val text = fileSrcTextField.getText
+            if text.nonEmpty then fileChosen.onNext(StringFilePath(text))
+          )
         )
         _ <- io(panel.add(startBtn))
       yield panel
