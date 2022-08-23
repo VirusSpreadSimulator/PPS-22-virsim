@@ -60,6 +60,8 @@ object EngineConfiguration:
         UpdateLogic.hospitalizationLogic,
         UpdateLogic.entityGoalLogic,
         UpdateLogic.movementLogic,
+        UpdateLogic.exitStructureLogic,
+        UpdateLogic.entranceInStructureLogic,
         UpdateLogic.externalInfectionLogic,
         UpdateLogic.internalInfectionLogic,
         UpdateLogic.logicTimeUpdate,
@@ -70,6 +72,6 @@ object EngineConfiguration:
       case Event.Resume => EventLogic.resumeLogic(this)
       case Event.Stop => EventLogic.stopLogic(this)
       case Event.ChangeSpeed(speed) => EventLogic.simulationSpeedLogic(this, EngineSpeed.fromEvent(speed))
-      case Event.SwitchMaskObligation => EventLogic.identity
+      case Event.SwitchMaskObligation => EventLogic.switchMaskLogic
       case Event.VaccineRound(percentage) => EventLogic.vaccineRound(percentage)
       case Event.SwitchStructure(group) => EventLogic.switchStructureLogic(group)

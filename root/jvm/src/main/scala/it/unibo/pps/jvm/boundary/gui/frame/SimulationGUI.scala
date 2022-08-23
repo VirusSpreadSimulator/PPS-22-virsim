@@ -1,34 +1,23 @@
-package it.unibo.pps.jvm.boundary.gui
+package it.unibo.pps.jvm.boundary.gui.frame
 
 import it.unibo.pps.boundary.ViewUtils.io
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.jvm.boundary.Utils
-import it.unibo.pps.jvm.boundary.Values.{Dimension, Text}
-import it.unibo.pps.jvm.boundary.gui.SimulationGUI
-import it.unibo.pps.jvm.boundary.gui.panel.SimulationPanel
-import it.unibo.pps.jvm.boundary.gui.panel.charts.Charts
-import it.unibo.pps.jvm.boundary.gui.panel.ChartsPanel
+import it.unibo.pps.jvm.boundary.gui.Values.{Dimension, Text}
 import it.unibo.pps.jvm.boundary.gui.panel.BottomPanels.{
   CommandPanel,
   DynamicActionsLog,
   DynamicConfigPanel,
   StatsPanel
 }
-import monix.reactive.Observable
+import it.unibo.pps.jvm.boundary.gui.panel.charts.Charts
+import it.unibo.pps.jvm.boundary.gui.panel.{ChartsPanel, SimulationPanel}
+import it.unibo.pps.jvm.boundary.gui.Utils
 import monix.eval.Task
+import monix.reactive.Observable
 
 import java.awt.{BorderLayout, GridLayout}
-import javax.swing.{
-  BoxLayout,
-  JFrame,
-  JPanel,
-  JScrollPane,
-  JSplitPane,
-  ScrollPaneConstants,
-  SwingUtilities,
-  WindowConstants
-}
+import javax.swing.*
 
 /** Interface that describe the user interface for the simulation */
 trait SimulationGUI:

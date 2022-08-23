@@ -18,6 +18,7 @@ import monocle.syntax.all.*
   */
 object Structures:
   private val defaultVisibilityDistance = 2
+  private val defaultHouseVisibilityDistance = 0
   private val defaultGroup = "base"
   private val defaultPermanenceTimeDistribution = GaussianDurationTime(20, 5, MINUTES)
 
@@ -61,7 +62,7 @@ object Structures:
       override val capacity: Int,
       override val permanenceTimeDistribution: GaussianDurationTime = defaultPermanenceTimeDistribution,
       override val entities: Set[EntityPermanence] = Set(),
-      override val visibilityDistance: Distance = defaultVisibilityDistance
+      override val visibilityDistance: Distance = defaultHouseVisibilityDistance
   ) extends SimulationStructure
       with Habitable
       with Visible:

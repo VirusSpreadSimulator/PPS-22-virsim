@@ -11,7 +11,7 @@ import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaul
 import it.unibo.pps.control.parser.ParserModule.Parser
 import it.unibo.pps.control.parser.ReaderModule
 import it.unibo.pps.control.parser.ReaderModule.FilePath
-import it.unibo.pps.jvm.boundary.GUIModule.{Component, Provider}
+import it.unibo.pps.jvm.boundary.gui.GUIModule.{Component, Provider}
 import monix.eval.Task
 
 import javax.script.ScriptEngineManager

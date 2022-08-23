@@ -1,15 +1,13 @@
-package it.unibo.pps.jvm.boundary.gui
+package it.unibo.pps.jvm.boundary.gui.frame
 
 import it.unibo.pps.boundary.ViewUtils.io
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
 import it.unibo.pps.control.parser.ReaderModule.{FilePath, StringFilePath}
-import it.unibo.pps.jvm.boundary.Values.{Dimension, Text}
-import it.unibo.pps.jvm.boundary.Utils
-import it.unibo.pps.jvm.boundary.gui.InitGUI
+import it.unibo.pps.jvm.boundary.gui.Values.{Dimension, Text}
+import it.unibo.pps.jvm.boundary.gui.Utils
 import monix.eval.Task
 import monix.reactive.Consumer
 import monix.reactive.subjects.PublishSubject
-
 import java.awt.event.ActionEvent
 import java.awt.{FlowLayout, Font, GridLayout}
 import javax.swing.*
@@ -99,7 +97,10 @@ object InitGUI:
         panel <- io(JPanel())
         startBtn <- io(JButton(Text.START_BTN))
         _ <- io(
-          startBtn.addActionListener((e: ActionEvent) => fileChosen.onNext(StringFilePath(fileSrcTextField.getText)))
+          startBtn.addActionListener(_ =>
+            val text = fileSrcTextField.getText
+            if text.nonEmpty then fileChosen.onNext(StringFilePath(text))
+          )
         )
         _ <- io(panel.add(startBtn))
       yield panel

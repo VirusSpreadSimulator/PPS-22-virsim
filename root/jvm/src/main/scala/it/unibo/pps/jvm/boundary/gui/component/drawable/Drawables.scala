@@ -1,47 +1,45 @@
-package it.unibo.pps.jvm.boundary.component.drawable
+package it.unibo.pps.jvm.boundary.gui.component.drawable
 
+import it.unibo.pps.boundary.ViewUtils.scaleToView
 import it.unibo.pps.boundary.component.drawable.Drawable
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.StructureComponent.Visible
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, Hospital, House, SimulationStructure}
-import it.unibo.pps.jvm.boundary.Values.SimulationColor
+import it.unibo.pps.jvm.boundary.gui.Values.SimulationColor
+import DrawableConcept.DrawableSwing
 
 import java.awt.geom.AffineTransform
-import java.awt.{Color, Font}
-import scala.swing.Graphics2D
+import java.awt.{Color, Font, Graphics2D}
 
 /** Define given instances for drawable types */
 object Drawables:
-  import Utils.scaleToView
 
-  /** Extend [[Environment]] with draw capabilities */
-  given Drawable[Environment] with
-    import it.unibo.pps.boundary.component.drawable.DrawableOps.*
+  /** Extend [[Environment]] with jvm-swing draw capabilities */
+  given DrawableSwing[Environment] with
+    import DrawableConcept.DrawableOps.*
     extension (env: Environment)
       def draw(g: Graphics2D, scale: Int): Unit =
         env.structures.drawAll(g, scale)
         env.externalEntities.drawAll(g, scale)
 
-  /** Extend [[SimulationEntity]] with draw capabilities */
-  given Drawable[SimulationEntity] with
-    extension (elem: SimulationEntity)
+  /** Extend [[SimulationEntity]] with jvm-swing draw capabilities */
+  given DrawableSwing[SimulationEntity] with
+    extension (entity: SimulationEntity)
       def draw(g: Graphics2D, scale: Int): Unit =
-        elem match
-          case entity: SimulationEntity =>
-            g.setColor(
-              SimulationColor.ageColor(
-                if entity.infection.isDefined then SimulationColor.INFECTED_ENTITY_COLOR
-                else SimulationColor.HEALTHY_ENTITY_COLOR,
-                entity.age
-              )
-            )
-            g.fillOval(scaleToView(entity.position.x, scale), scaleToView(entity.position.y, scale), scale, scale)
-            g.setColor(if entity.immunity > 0 then SimulationColor.IMMUNITY_COLOR else Color.WHITE)
-            g.drawOval(scaleToView(entity.position.x, scale), scaleToView(entity.position.y, scale), scale, scale)
+        g.setColor(
+          SimulationColor.ageColor(
+            if entity.infection.isDefined then SimulationColor.INFECTED_ENTITY_COLOR
+            else SimulationColor.HEALTHY_ENTITY_COLOR,
+            entity.age
+          )
+        )
+        g.fillOval(scaleToView(entity.position.x, scale), scaleToView(entity.position.y, scale), scale, scale)
+        g.setColor(if entity.immunity > 0 then SimulationColor.IMMUNITY_COLOR else Color.WHITE)
+        g.drawOval(scaleToView(entity.position.x, scale), scaleToView(entity.position.y, scale), scale, scale)
 
-  /** Extend [[SimulationStructure]] with draw capabilities */
-  given Drawable[SimulationStructure] with
+  /** Extend [[SimulationStructure]] with jvm-swing draw capabilities */
+  given DrawableSwing[SimulationStructure] with
     extension (structure: SimulationStructure)
       def draw(g: Graphics2D, scale: Int): Unit =
         structure match
@@ -82,6 +80,3 @@ object Drawables:
         scaleToView(structure.visibilityDistance.toInt * 2 + 1, scale),
         scaleToView(structure.visibilityDistance.toInt * 2 + 1, scale)
       )
-
-  private object Utils:
-    def scaleToView(coordinate: Int, scale: Int): Int = coordinate * scale
