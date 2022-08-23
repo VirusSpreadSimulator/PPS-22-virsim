@@ -16,6 +16,7 @@ import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.StructureComponent.{Closable, Groupable}
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, SimulationStructure}
+import it.unibo.pps.control.engine.logics.maskObligation.MaskObligationLogic.SwitchMaskObligationLogic
 import it.unibo.pps.entity.structure.entrance.Entrance
 import monix.eval.Task
 import monocle.syntax.all.*
@@ -154,3 +155,8 @@ object Logic:
             case _ => struct
         }
       yield env.update(structures = structures -- structuresToUpdate ++ updatedStructures)
+    /** Logic to switch the obligation to wear a mask.
+      * @return
+      *   the event logic
+      */
+    def switchMaskLogic: EventLogic = SwitchMaskObligationLogic()
