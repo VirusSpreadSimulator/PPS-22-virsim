@@ -1,6 +1,6 @@
 package it.unibo.pps.control.engine.logics.maskObligation
 
-import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
+import it.unibo.pps.control.engine.logics.Logic.{EventLogic, UpdateLogic}
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.*
 import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
@@ -8,38 +8,31 @@ import it.unibo.pps.entity.entity.EntityComponent.{Infectious, Moving}
 import it.unibo.pps.entity.entity.Infection.Severity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import monix.eval.Task
-import monocle.syntax.all.*
+import monocle.syntax.all._
 
 object MaskObligationLogic:
-  class AddMaskObligationLogic extends UpdateLogic:
+  class SwitchMaskObligationLogic extends EventLogic:
     override def apply(environment: Environment): Task[Environment] =
       for
-        environmentExternalUpdated <- handleMaskForExternalEntities(environment, true)
-        environmentExtIntUpdated <- handleMaskForInternalEntities(environmentExternalUpdated, true)
+        environmentExternalUpdated <- handleMaskForExternalEntities(environment)
+        environmentExtIntUpdated <- handleMaskForInternalEntities(environmentExternalUpdated)
       yield environmentExtIntUpdated
 
-  class RemoveMaskObligationLogic extends UpdateLogic:
-    override def apply(environment: Environment): Task[Environment] =
+    def handleMaskForExternalEntities(environment: Environment): Task[Environment] =
       for
-        environmentExternalUpdated <- handleMaskForExternalEntities(environment, false)
-        environmentExtIntUpdated <- handleMaskForInternalEntities(environmentExternalUpdated, false)
-      yield environmentExtIntUpdated
+        structures <- Task(environment.structures)
+        updatedStructures <- Task {
+          for struct <- structures
+          yield struct.updateEntitiesInside(entity => Some(handleMaskObligation(entity)))
+        }
+      yield environment.update(structures = updatedStructures)
 
-  def handleMaskForExternalEntities(environment: Environment, obligation: Boolean): Task[Environment] =
-    for
-      structures <- Task(environment.structures)
-      updatedStructures <- Task {
-        for struct <- structures
-        yield struct.updateEntitiesInside(entity => Some(handleMaskObligation(entity, obligation)))
-      }
-    yield environment.update(structures = updatedStructures)
-
-  def handleMaskForInternalEntities(env: Environment, obligation: Boolean): Task[Environment] =
+  def handleMaskForInternalEntities(env: Environment): Task[Environment] =
     for
       entities <- Task(env.externalEntities)
-      updatedEntities <- Task(entities.map(handleMaskObligation(_, obligation)))
+      updatedEntities <- Task(entities.map(handleMaskObligation _))
     yield env.update(
       externalEntities = updatedEntities
     )
-  def handleMaskObligation(entity: SimulationEntity, obligation: Boolean): SimulationEntity =
-    entity.focus(_.hasMask).replace(obligation)
+  def handleMaskObligation(entity: SimulationEntity): SimulationEntity =
+    entity.focus(_.hasMask).modify(!_)
