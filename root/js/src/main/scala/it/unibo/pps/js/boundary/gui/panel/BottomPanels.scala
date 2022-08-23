@@ -17,7 +17,6 @@ import monix.eval.Task
 import monix.reactive.Observable
 import org.scalajs.dom
 
-
 /** Module that wrap all the panels that are in the bottom area of the simulation gui */
 object BottomPanels:
   class CommandPanel extends BasePanel with EventablePanel:
