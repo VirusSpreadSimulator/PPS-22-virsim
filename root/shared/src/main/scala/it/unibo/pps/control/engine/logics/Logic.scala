@@ -12,6 +12,7 @@ import it.unibo.pps.control.engine.logics.entitystate.EntityStateLogic.UpdateEnt
 import it.unibo.pps.control.engine.logics.entitystate.HospitalizationLogic.HospitalizeEntityLogic
 import it.unibo.pps.control.engine.logics.entitystate.HospitalRecoveryLogic
 import it.unibo.pps.control.engine.logics.movement.MovementLogic
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.{MAX_VALUES, VirusDefaults}
 import monix.eval.Task
 import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.structure.StructureComponent.{Closable, Groupable}
@@ -148,3 +149,23 @@ object Logic:
             case _ => struct
         }
       yield env.update(structures = structures -- structuresToUpdate ++ updatedStructures)
+
+    /** Logic to increase the immunity of a percentage of entities by vaccinate them.
+      * @param percentage
+      *   the percentage of entities to vaccinate.
+      * @return
+      *   the event logic
+      */
+    def vaccineRound(percentage: Double): EventLogic = env =>
+      for
+        externalEntities <- Task(env.externalEntities)
+        numberOfEntitiesToVaccinate = (externalEntities.size * percentage / 100).toInt
+        entitiesToUpdate <- Task(externalEntities.filter(_.immunity < 100).take(numberOfEntitiesToVaccinate))
+        updatedEntities <- Task {
+          entitiesToUpdate.map(entity =>
+            entity
+              .focus(_.immunity)
+              .replace(Math.min(entity.immunity + VirusDefaults.IMMUNITY_GAIN_VACCINATION, MAX_VALUES.MAX_IMMUNITY))
+          )
+        }
+      yield env.update(externalEntities = externalEntities -- entitiesToUpdate ++ updatedEntities)
