@@ -35,8 +35,6 @@ class EntranceLogic extends UpdateLogic:
     if oldStruct.isDefined then
       val updatedStruct = oldStruct.get.tryToEnter(entity, environment.time)
       if updatedStruct.entities.map(_.entity).contains(entity) then
-        if updatedStruct.isInstanceOf[House] then
-          println("entity entered in home = " + updatedStruct + " is " + entity.id)
         Some(
           environment.update(
             externalEntities = environment.externalEntities - entity,
