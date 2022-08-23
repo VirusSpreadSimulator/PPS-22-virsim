@@ -1,5 +1,6 @@
 package it.unibo.pps.js.boundary.component.drawable
 
+import it.unibo.pps.boundary.ViewUtils.scaleToView
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.StructureComponent.Visible
@@ -9,7 +10,6 @@ import it.unibo.pps.js.boundary.component.drawable.DrawableConcept.DrawableJS
 import org.scalajs.dom
 
 object Drawables:
-  import Utils.scaleToView
 
   /** Extend [[Environment]] with js draw capabilities */
   given DrawableJS[Environment] with
@@ -78,6 +78,3 @@ object Drawables:
       g.fill()
       g.strokeStyle = SimulationColor.VISIBILITY_RANGE_COLOR
       g.stroke()
-
-  private object Utils:
-    def scaleToView(coordinate: Int, scale: Int): Int = coordinate * scale

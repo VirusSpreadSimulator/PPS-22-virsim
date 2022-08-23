@@ -1,5 +1,6 @@
 package it.unibo.pps.jvm.boundary.component.drawable
 
+import it.unibo.pps.boundary.ViewUtils.scaleToView
 import it.unibo.pps.boundary.component.drawable.Drawable
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
@@ -13,7 +14,6 @@ import java.awt.{Color, Font, Graphics2D}
 
 /** Define given instances for drawable types */
 object Drawables:
-  import Utils.scaleToView
 
   /** Extend [[Environment]] with jvm-swing draw capabilities */
   given DrawableSwing[Environment] with
@@ -80,6 +80,3 @@ object Drawables:
         scaleToView(structure.visibilityDistance.toInt * 2 + 1, scale),
         scaleToView(structure.visibilityDistance.toInt * 2 + 1, scale)
       )
-
-  private object Utils:
-    def scaleToView(coordinate: Int, scale: Int): Int = coordinate * scale
