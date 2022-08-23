@@ -2,6 +2,7 @@ package it.unibo.pps.jvm.boundary.gui
 
 import it.unibo.pps.boundary.ViewUtils.io
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
+import it.unibo.pps.control.parser.ReaderModule.{FilePath, StringFilePath}
 import it.unibo.pps.jvm.boundary.Values.{Dimension, Text}
 import it.unibo.pps.jvm.boundary.Utils
 import it.unibo.pps.jvm.boundary.gui.InitGUI
@@ -27,7 +28,7 @@ trait InitGUI:
     * @return
     *   the task
     */
-  def config(): Task[String]
+  def config(): Task[FilePath]
   /** This task allow the caller to show an error in the configuration. Useful for
     * [[it.unibo.pps.boundary.BoundaryModule.ConfigBoundary.error()]]
     * @param errors
@@ -66,7 +67,7 @@ object InitGUI:
     private lazy val frame = JFrame(title)
     private lazy val fileChooser = JFileChooser()
     private lazy val fileSrcTextField: JTextField = JTextField(width / 25)
-    private lazy val fileChosen = PublishSubject[String]() // Instead of a var with a Promise
+    private lazy val fileChosen = PublishSubject[FilePath]() // Instead of a var with a Promise
 
     private lazy val container: Task[JFrame] =
       for
@@ -97,7 +98,9 @@ object InitGUI:
       for
         panel <- io(JPanel())
         startBtn <- io(JButton(Text.START_BTN))
-        _ <- io(startBtn.addActionListener((e: ActionEvent) => fileChosen.onNext(fileSrcTextField.getText)))
+        _ <- io(
+          startBtn.addActionListener((e: ActionEvent) => fileChosen.onNext(StringFilePath(fileSrcTextField.getText)))
+        )
         _ <- io(panel.add(startBtn))
       yield panel
 
@@ -125,7 +128,7 @@ object InitGUI:
         _ <- Task.shift
       yield ()
 
-    override def config(): Task[String] = Task.defer(fileChosen.consumeWith(Consumer.head))
+    override def config(): Task[FilePath] = Task.defer(fileChosen.consumeWith(Consumer.head))
 
     override def error(errors: Seq[ConfigurationError]): Task[Unit] = for
       _ <- Task.pure {}.asyncBoundary(Utils.swingScheduler)
