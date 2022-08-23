@@ -1,5 +1,6 @@
 package it.unibo.pps.jvm.parser
 
+import it.unibo.pps.control.loader.LoaderModule.Requirements
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.{
   Configuration,
@@ -8,6 +9,8 @@ import it.unibo.pps.control.loader.configuration.ConfigurationComponent.{
 }
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
 import it.unibo.pps.control.parser.ParserModule.Parser
+import it.unibo.pps.control.parser.ReaderModule
+import it.unibo.pps.control.parser.ReaderModule.FilePath
 import it.unibo.pps.jvm.boundary.GUIModule.{Component, Provider}
 import monix.eval.Task
 
@@ -21,15 +24,14 @@ object ScalaParser:
 
   trait Provider:
     val scalaParser: Parser
+
+  type Requirements = ReaderModule.Provider
+
   trait Component:
+    context: Requirements =>
     class ParserImpl extends Parser:
 
-      override def readFile(path: String): Task[String] =
-        for
-          source <- Task(Source.fromFile(path))
-          fileContent <- Task(GlobalDefaults.DSL_IMPORTS + source.mkString)
-          _ <- Task(source.close())
-        yield fileContent
+      override def readFile(filePath: FilePath): Task[String] = context.reader.read(filePath)
 
       override def loadConfiguration(program: String): Task[Option[Configuration]] =
         for
@@ -41,4 +43,5 @@ object ScalaParser:
           }
         yield configuration
 
-  trait Interface extends Provider with Component
+  trait Interface extends Provider with Component:
+    self: Requirements =>
