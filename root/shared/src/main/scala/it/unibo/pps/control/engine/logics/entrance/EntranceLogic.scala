@@ -31,7 +31,12 @@ class EntranceLogic extends UpdateLogic:
   private def tryToEnter(environment: Environment, entity: SimulationEntity): Option[Environment] =
     val oldStruct = environment.structures
       .select[VisibleStructure]
-      .find(structure => entity.position.distanceTo(structure.position) <= structure.visibilityDistance)
+      .find(structure =>
+        (entity.movementGoal != MovementGoal.BACK_TO_HOME && entity.position.distanceTo(
+          structure.position
+        ) <= structure.visibilityDistance) || (entity.movementGoal == MovementGoal.BACK_TO_HOME && entity.homePosition == structure.position && entity.position
+          .distanceTo(structure.position) <= structure.visibilityDistance)
+      )
     if oldStruct.isDefined then
       val updatedStruct = oldStruct.get.tryToEnter(entity, environment.time)
       if updatedStruct.entities.map(_.entity).contains(entity) then
