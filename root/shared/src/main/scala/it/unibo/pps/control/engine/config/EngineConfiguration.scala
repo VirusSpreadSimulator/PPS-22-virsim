@@ -60,6 +60,8 @@ object EngineConfiguration:
         UpdateLogic.hospitalizationLogic,
         UpdateLogic.entityGoalLogic,
         UpdateLogic.movementLogic,
+        UpdateLogic.exitStructureLogic,
+        UpdateLogic.entranceInStructureLogic,
         UpdateLogic.externalInfectionLogic,
         UpdateLogic.internalInfectionLogic,
         UpdateLogic.logicTimeUpdate,
