@@ -18,6 +18,7 @@ import it.unibo.pps.control.loader.configuration.ConfigurationComponent
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.given
 import it.unibo.pps.control.loader.configuration.dsl.SimulationDSL.simulation
 import it.unibo.pps.control.parser.ParserModule
+import it.unibo.pps.control.parser.ReaderModule.{FilePath, StringFilePath}
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.structure.Structures.{House, SimulationStructure}
@@ -36,12 +37,12 @@ object LoaderTests extends SimpleTaskSuite with Matchers:
     override def stop(): Task[Unit] = Task.pure {}
     override def consume(env: EnvironmentModule.Environment): Task[Unit] = Task.pure {}
     override def events(): Observable[Events.Event] = Observable.empty
-    override def config(): Task[String] = Task.pure("")
+    override def config(): Task[FilePath] = Task.pure(StringFilePath(""))
     override def error(error: Seq[ConfigurationComponent.ConfigurationError]): Task[Unit] = Task.pure {}
 
   class FakeParser extends ParserModule.Parser:
     override def loadConfiguration(program: String): Task[Option[Configuration]] = Task(None)
-    override def readFile(path: String): Task[String] = Task("")
+    override def readFile(path: FilePath): Task[String] = Task("")
     override def checkErrors(configuration: Configuration): Task[ConfigurationComponent.ConfigurationResult] = Task(
       ConfigurationComponent.ConfigurationResult.OK(VirsimConfiguration(simulation, virus, structures))
     )
