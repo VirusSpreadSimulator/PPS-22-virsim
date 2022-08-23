@@ -1,5 +1,6 @@
 package it.unibo.pps.boundary
 
+import it.unibo.pps.control.loader.extractor.Extractor.DataExtractor
 import monix.eval.Task
 import monix.execution.Scheduler
 
@@ -24,3 +25,14 @@ object ViewUtils:
     *   a scaled coordinate.
     */
   def scaleToView(coordinate: Int, scale: Int): Int = coordinate * scale
+  /** Case class that is useful in gui to display stats associated to its label
+    * @param label
+    *   the label in which display the stat
+    * @param extractor
+    *   the extractor to use
+    * @tparam E
+    *   the type of the label
+    * @tparam A
+    *   the type of data to extract
+    */
+  case class StatsDisplayer[E, A](label: E, extractor: DataExtractor[A])
