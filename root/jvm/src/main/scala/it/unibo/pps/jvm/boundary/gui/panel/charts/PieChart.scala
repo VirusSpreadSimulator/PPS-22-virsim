@@ -1,9 +1,10 @@
 package it.unibo.pps.jvm.boundary.gui.panel.charts
 
 import it.unibo.pps.boundary.ViewUtils.io
-import it.unibo.pps.jvm.boundary.exporter.Extractors.{DataExtractor, Hospitalized, HospitalFreeSeats}
-import it.unibo.pps.jvm.boundary.exporter.StatisticalData.Stats
-import it.unibo.pps.jvm.boundary.exporter.StatisticalData.given
+import it.unibo.pps.control.loader.extractor.Extractor.DataExtractor
+import it.unibo.pps.control.loader.extractor.HospitalStats.{Hospitalized, HospitalFreeSeats}
+import it.unibo.pps.control.loader.extractor.StatisticalData.Stats
+import it.unibo.pps.control.loader.extractor.StatisticalData.given
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.jvm.boundary.gui.Values.SimulationColor
 import it.unibo.pps.jvm.boundary.gui.panel.charts.Charts.{Chart, MyChartPanel}
@@ -29,7 +30,7 @@ class PieChart extends Chart:
       _ <- io(pieChart.getTitle.setFont(new Font("Times New Roman", Font.BOLD, 16)))
       _ <- io(pieChart.getPlot.asInstanceOf[PiePlot[String]].setSimpleLabels(true))
       _ <- io(pieChart.getPlot.asInstanceOf[PiePlot[String]].setSectionPaint(extractors.head.name, Color.RED))
-      _ <- io(pieChart.getPlot.asInstanceOf[PiePlot[String]].setSectionPaint(extractors(1).name, Color.YELLOW))
+      _ <- io(pieChart.getPlot.asInstanceOf[PiePlot[String]].setSectionPaint(extractors(1).name, Color.ORANGE))
       _ <- io(pieChart.getPlot.setBackgroundPaint(Color.WHITE))
       _ <- io(pieChart.setBackgroundPaint(SimulationColor.BACKGROUND_CHART_PANEL_COLOR))
       _ <- io(pieChartPanel.setBackground(SimulationColor.BACKGROUND_CHART_PANEL_COLOR))
