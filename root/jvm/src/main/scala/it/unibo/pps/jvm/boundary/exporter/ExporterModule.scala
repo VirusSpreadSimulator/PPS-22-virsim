@@ -3,8 +3,8 @@ package it.unibo.pps.jvm.boundary.exporter
 import it.unibo.pps.boundary.BoundaryModule.Boundary
 import it.unibo.pps.boundary.component.Events
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import Extractors.DataExtractor
-import StatisticalData.Stats
+import it.unibo.pps.control.loader.extractor.Extractor.DataExtractor
+import it.unibo.pps.control.loader.extractor.StatisticalData.Stats
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
 import it.unibo.pps.entity.common.Time.TimeStamp
 import monix.eval.Task
@@ -30,7 +30,6 @@ object ExporterModule:
           Stats.HOSPITAL_PRESSURE
         )
     ) extends Boundary:
-      private val file: File = new File(GlobalDefaults.EXPORT_DIR_NAME)
       private val tempDir = Files.createTempDirectory(GlobalDefaults.EXPORT_DIR_NAME)
       private val fileWriter = new FileWriter(tempDir.toFile.getPath + '/' + GlobalDefaults.EXPORT_FILE_NAME)
 
