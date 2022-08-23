@@ -24,6 +24,7 @@ import it.unibo.pps.control.loader.configuration.SimulationDefaults.MIN_VALUES
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError.*
 import it.unibo.pps.control.parser.ParserModule
+import it.unibo.pps.control.parser.ReaderModule.FilePath
 import it.unibo.pps.entity.common.Time.DurationTime
 import it.unibo.pps.entity.entity.{EntityFactory, Infection}
 import it.unibo.pps.entity.entity.Infection
@@ -43,7 +44,7 @@ object LoaderModule:
       * @return
       *   the result of the configuration parsing.
       */
-    def parseConfiguration(configurationFile: String): Task[ConfigurationResult]
+    def parseConfiguration(filePath: FilePath): Task[ConfigurationResult]
 
     /** @param configuration
       *   The configuration of the simulation, structures and virus.
@@ -60,6 +61,7 @@ object LoaderModule:
 
   trait Provider:
     val loader: Loader
+
   type Requirements = EngineModule.Provider with EnvironmentModule.Provider with ParserModule.Provider
 
   trait Component:
@@ -67,7 +69,7 @@ object LoaderModule:
 
     class LoaderImpl extends Loader:
 
-      override def parseConfiguration(filePath: String): Task[ConfigurationResult] =
+      override def parseConfiguration(filePath: FilePath): Task[ConfigurationResult] =
         for
           program <- context.parser.readFile(filePath)
           configuration <- context.parser.loadConfiguration(program)
