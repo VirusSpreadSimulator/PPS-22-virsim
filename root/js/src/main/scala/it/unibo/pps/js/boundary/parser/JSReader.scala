@@ -26,7 +26,7 @@ object JSReader:
         reader.onload = _ => filePS.onNext(s"${reader.result}")
         Task.defer(filePS.consumeWith(Consumer.head))
 
-  case class DomFile(path: File) extends FilePath:
+  case class JSFilePath(path: File) extends FilePath:
     override type Path = File
 
   trait Interface extends Provider with Component
