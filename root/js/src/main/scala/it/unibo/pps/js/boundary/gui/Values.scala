@@ -10,6 +10,10 @@ object Values:
     val SWITCH_MASK_OBLIGATION: String = "Switch mask obligation"
     val VACCINE_ROUND: String = "Vaccine round"
     val SWITCH_STRUCTURE_OPEN: String = " Switch group "
+    val OPEN_STRUCTURE: String = "<i>open</i>"
+    val CLOSED_STRUCTURE: String = "<i>close</i>"
+    val YES: String = "yes"
+    val NO: String = "no"
 
   object BootstrapClasses:
     val BTN: String = "btn"

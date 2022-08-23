@@ -27,10 +27,23 @@
     <div class="row m-0">
         <div class="col-9 p-0" id="simulation">
         </div>
-        <div class="col-3" id="dynamic-actions-group">
+        <div class="col-3" id="lateral-panel" style="display: none">
+            <div id="dynamic-actions-group"></div>
+            <div id="dynamic-actions-log" class="mt-5">
+                <p><span class="fw-bold">Mask: </span><span id="mask-status"></span></p>
+                <p><span class="fw-bold">Group of structures: </span><span id="groups-status"></span></p>
+            </div>
+            <div id="statistics" class="mt-5">
+                <p><span class="fw-bold">Days elapsed: </span><span id="days"></span></p>
+                <p><span class="fw-bold">Alive: </span><span id="alive"></span></p>
+                <p><span class="fw-bold">Deaths: </span><span id="deaths"></span></p>
+                <p><span class="fw-bold">Infected: </span><span id="infected"></span></p>
+                <p><span class="fw-bold">Sick: </span><span id="sick"></span></p>
+                <p><span class="fw-bold">Hospital pressure: </span><span id="hospital-pressure"></span></p>
+                <p><span class="fw-bold">Now at home: </span><span id="at-home"></span></p>
+            </div>
         </div>
     </div>
-
 </div>
 <!-- Include Scala.js compiled code -->
 <script type="text/javascript" src="js/target/scala-3.1.1/pps-22-virsim-fastopt.js"></script>

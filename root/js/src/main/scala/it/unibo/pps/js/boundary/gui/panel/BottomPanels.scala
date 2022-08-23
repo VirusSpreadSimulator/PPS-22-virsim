@@ -1,14 +1,22 @@
 package it.unibo.pps.js.boundary.gui.panel
 
-import it.unibo.pps.boundary.ViewUtils.io
+import it.unibo.pps.boundary.ViewUtils.{StatsDisplayer, io}
 import it.unibo.pps.boundary.component.Events.Event.*
 import it.unibo.pps.boundary.component.Events.{Event, Params}
+import it.unibo.pps.control.loader.extractor.Extractor.DataExtractor
+import it.unibo.pps.control.loader.extractor.HospitalStats.HospitalPressure
+import it.unibo.pps.entity.environment.EnvironmentModule.Environment
+import it.unibo.pps.entity.structure.StructureComponent.{Closable, Groupable}
+import it.unibo.pps.entity.structure.Structures.SimulationStructure
 import it.unibo.pps.js.boundary.gui.Values.{BootstrapClasses, Text}
 import it.unibo.pps.js.boundary.gui.component.MonadComponents.{MonadButton, MonadConfigButton, MonadSelect}
-import it.unibo.pps.js.boundary.gui.panel.Panels.{BasePanel, EventablePanel}
+import it.unibo.pps.js.boundary.gui.panel.Panels.{BasePanel, EventablePanel, UpdatablePanel}
+import it.unibo.pps.entity.common.Utils.select
+import org.scalajs.dom.html.Span
 import monix.eval.Task
 import monix.reactive.Observable
 import org.scalajs.dom
+
 
 /** Module that wrap all the panels that are in the bottom area of the simulation gui */
 object BottomPanels:
@@ -74,3 +82,41 @@ object BottomPanels:
 
     override lazy val events: Observable[Event] =
       Observable.fromIterable(Seq(switchMask, switchStructure, vaccineRound)).mergeMap(_.events)
+
+  class DynamicActionsLog extends UpdatablePanel:
+    private lazy val maskLabel = dom.document.getElementById("mask-status").asInstanceOf[Span]
+    private lazy val structuresLabel = dom.document.getElementById("groups-status").asInstanceOf[Span]
+
+    override def init(): Task[Unit] = Task.pure {}
+
+    override def update(env: Environment): Task[Unit] = for
+      maskStatus <- io(if env.allEntities.forall(_.hasMask) then Text.YES else Text.NO)
+      groupStatus <- io(
+        env.structures
+          .select[SimulationStructure with Closable with Groupable]
+          .groupMap(_.group)(_.isOpen)
+          .map((k, v) => (k, v.reduce(_ & _)))
+          .map((k, v) => (k, if v then Text.OPEN_STRUCTURE else Text.CLOSED_STRUCTURE))
+      )
+      _ <- io(maskLabel.textContent = maskStatus)
+      _ <- io(structuresLabel.innerHTML = groupStatus.mkString("<br>- ", "<br>- ", ""))
+    yield ()
+
+  class StatsPanel extends UpdatablePanel:
+    import it.unibo.pps.control.loader.extractor.EntitiesStats.{Alive, AtHome, Deaths, Infected, Sick}
+    import it.unibo.pps.control.loader.extractor.EnvironmentStats.{Days, Hours}
+
+    private lazy val stats = Seq(
+      StatsDisplayer(dom.document.getElementById("days").asInstanceOf[Span], Days()),
+      StatsDisplayer(dom.document.getElementById("alive").asInstanceOf[Span], Alive()),
+      StatsDisplayer(dom.document.getElementById("deaths").asInstanceOf[Span], Deaths()),
+      StatsDisplayer(dom.document.getElementById("infected").asInstanceOf[Span], Infected()),
+      StatsDisplayer(dom.document.getElementById("sick").asInstanceOf[Span], Sick()),
+      StatsDisplayer(dom.document.getElementById("hospital-pressure").asInstanceOf[Span], HospitalPressure()),
+      StatsDisplayer(dom.document.getElementById("at-home").asInstanceOf[Span], AtHome())
+    )
+
+    override def init(): Task[Unit] = Task.pure {}
+
+    override def update(env: Environment): Task[Unit] =
+      io(stats.foreach(stat => stat.label.textContent = stat.extractor.extractData(env).toString))
