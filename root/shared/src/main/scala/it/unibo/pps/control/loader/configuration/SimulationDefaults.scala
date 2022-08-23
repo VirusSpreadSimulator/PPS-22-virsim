@@ -35,6 +35,7 @@ object SimulationDefaults:
     val HEALTH_INFECTED_LOSS: Double = 0.01
     val IMMUNITY_LOSS: Double = 0.001
     val IMMUNITY_GAIN_RECOVERY: Double = 30
+    val IMMUNITY_GAIN_VACCINATION: Double = 30
     val MASK_REDUCER: Int = 2
 
   object StructuresDefault:
@@ -45,7 +46,7 @@ object SimulationDefaults:
     val MAX_GRID_SIZE: Int = 100
     val MAX_NUMBER_OF_ENTITIES: Int = 1000
     val MAX_HEALTH: Int = 100
-    val MAX_IMMUNITY: Int = 100
+    val MAX_IMMUNITY: Double = 100
 
   object MIN_VALUES:
     val MIN_GRID_SIZE: Int = 5
