@@ -15,11 +15,11 @@ object JSGUIModule:
   trait Component:
     class JSGUIBoundaryImpl extends ConfigBoundary:
       private val guiJs = JSGUI()
-      override def init() = guiJs.init()
+      override def init(): Task[Unit] = guiJs.init()
       override def config(): Task[FilePath] = guiJs.config().map(JsFilePath.apply)
       override def error(errors: Seq[ConfigurationError]): Task[Unit] = guiJs.error(errors)
-      override def start() = guiJs.start()
-      override def stop() = guiJs.stop()
-      override def consume(env: Environment) = guiJs.render(env)
+      override def start(): Task[Unit] = guiJs.start()
+      override def stop(): Task[Unit] = guiJs.stop()
+      override def consume(env: Environment): Task[Unit] = guiJs.render(env)
       override def events(): Observable[Event] = guiJs.events()
   trait Interface extends Provider with Component

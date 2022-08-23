@@ -59,7 +59,7 @@ object BottomPanels:
         5,
         0,
         100,
-        p => VaccineRound(Some(p).filter(_.nonEmpty).map(_.toDouble).getOrElse(0))
+        p => VaccineRound(Some(p).filter(_.nonEmpty).map(_.toDouble).filter(n => n >= 0 && n <= 100).getOrElse(0))
       )
 
     override def init(): Task[Unit] = for

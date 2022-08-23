@@ -2,7 +2,6 @@ package it.unibo.pps.js.boundary.gui.panel
 
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.prolog.PrologEngine
 import monix.eval.Task
 import monix.reactive.Observable
 

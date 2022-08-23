@@ -58,7 +58,10 @@ object JSGUI:
       _ <- dynamicConfigPanel.init()
     yield ()
 
-    override def stop(): Task[Unit] = commandPanel.stop()
+    override def stop(): Task[Unit] = for
+      _ <- commandPanel.stop()
+      _ <- dynamicConfigPanel.stop()
+    yield ()
 
     override def render(env: Environment): Task[Unit] = simulationCanvas.update(env)
 

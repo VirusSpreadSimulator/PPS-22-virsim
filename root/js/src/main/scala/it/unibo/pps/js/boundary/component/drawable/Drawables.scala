@@ -52,11 +52,10 @@ object Drawables:
         structure: SimulationStructure,
         scale: Int
     ): Unit =
-      val message = s"${structure.capacity - structure.entities.size}"
       g.font = s"${scale}px sans-serif"
       g.fillStyle = SimulationColor.STRUCTURE_CAPACITY_COLOR
       g.fillText(
-        message,
+        s"${structure.capacity - structure.entities.size}",
         scaleToView(structure.position.x, scale),
         scaleToView(structure.position.y, scale)
       )
