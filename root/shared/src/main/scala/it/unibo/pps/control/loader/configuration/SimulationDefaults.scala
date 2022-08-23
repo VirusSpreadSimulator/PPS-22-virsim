@@ -18,7 +18,7 @@ object SimulationDefaults:
         "import it.unibo.pps.control.loader.configuration.dsl.StructuresDSL.given\n" +
         "import it.unibo.pps.control.loader.configuration.dsl.StructuresDSL.*\n\n"
     val ENTITY_PROBABILITY_TO_RETURN_HOME: Double = 0.35
-    val MIN_HEALTH_TO_GET_SICK: Double = 20.0
+    val MIN_HEALTH_TO_GET_SICK: Double = 50.0
     val EXPORT_DIR_NAME: String = "virsim-export"
     val EXPORT_FILE_NAME: String = "simulation_stats.csv"
 
