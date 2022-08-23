@@ -10,6 +10,7 @@ import it.unibo.pps.entity.virus.VirusComponent.Virus
 import it.unibo.pps.control.loader.configuration.dsl.SimulationDSL.*
 import it.unibo.pps.control.loader.configuration.dsl.VirusDSL.*
 import it.unibo.pps.control.loader.configuration.dsl.StructuresDSL.*
+import it.unibo.pps.control.parser.ReaderModule.FilePath
 import monix.eval.Task
 import org.virtuslab.yaml.*
 
@@ -20,16 +21,13 @@ object YAMLParser:
   trait Provider:
     val YAMLParser: Parser
 
-  trait Component:
+  type Requirements = ReaderModule.Provider
 
+  trait Component:
+    context: Requirements =>
     class ParserImpl extends Parser:
 
-      override def readFile(path: String): Task[String] =
-        for
-          source <- Task(Source.fromFile(path))
-          fileContent <- Task(source.mkString)
-          _ <- Task(source.close())
-        yield fileContent
+      override def readFile(filePath: FilePath): Task[String] = context.reader.read(filePath)
 
       override def loadConfiguration(program: String): Task[Option[Configuration]] =
         for
@@ -126,4 +124,5 @@ object YAMLParser:
           )
         Task(structures)
 
-  trait Interface extends Provider with Component
+  trait Interface extends Provider with Component:
+    self: Requirements =>
