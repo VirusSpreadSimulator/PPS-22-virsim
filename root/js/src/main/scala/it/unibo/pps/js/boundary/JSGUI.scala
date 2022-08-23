@@ -9,11 +9,13 @@ import org.scalajs.dom
 import org.scalajs.dom.html.{Button, Image}
 import it.unibo.pps.boundary.ViewUtils.*
 import it.unibo.pps.control.loader.configuration.ConfigurationComponent.ConfigurationError
+import it.unibo.pps.control.parser.ReaderModule.FilePath
 import it.unibo.pps.js.boundary.component.MonadButton
+import it.unibo.pps.js.boundary.parser.JSReader.DomFile
 
 trait JSGUI:
   def init(): Task[Unit]
-  def config(): Task[String]
+  def config(): Task[FilePath]
   def error(errors: Seq[ConfigurationError]): Task[Unit]
   def render(i: Int): Task[Unit]
   def events(): Observable[Event]
@@ -36,6 +38,6 @@ object JSGUI:
       .fromIterable(renderBtns)
       .flatMap(_.events)
 
-    override def config(): Task[String] = ???
+    override def config(): Task[FilePath] = ???
 
     override def error(errors: Seq[ConfigurationError]): Task[Unit] = ???
