@@ -5,7 +5,7 @@ import it.unibo.pps.prolog.PrologNextMovement
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class MovementLogicTest extends AnyFunSuite with Matchers:
+class MovementLogicTest2 extends AnyFunSuite with Matchers:
   val worldWidth = 50
   val worldHeight = 50
   val step = 1
