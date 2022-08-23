@@ -1,29 +1,30 @@
 package it.unibo.pps.jvm.boundary.gui.panel
 
-import it.unibo.pps.jvm.boundary.gui.component.MonadComponents.{MonadButton, MonadCombobox, MonadConfigButton}
-import it.unibo.pps.jvm.boundary.gui.Values.Text
-import it.unibo.pps.boundary.component.Events.{Event, Params}
-import it.unibo.pps.boundary.component.Events.Event.*
-import it.unibo.pps.jvm.boundary.gui.panel.Panels.{DisplayblePanel, EventablePanel, UpdateblePanel}
-import monix.reactive.Observable
-import monix.eval.Task
 import it.unibo.pps.boundary.ViewUtils.io
-import it.unibo.pps.jvm.boundary.exporter.Extractors.{
-  DataExtractor,
-  Deaths,
+import it.unibo.pps.boundary.component.Events.Event.*
+import it.unibo.pps.boundary.component.Events.{Event, Params}
+import it.unibo.pps.control.loader.extractor.EntitiesStats.{Alive, AtHome, Deaths, Infected, Sick}
+import it.unibo.pps.control.loader.extractor.EnvironmentStats.{Days, Hours}
+import it.unibo.pps.control.loader.extractor.Extractor.DataExtractor
+import it.unibo.pps.control.loader.extractor.HospitalStats.{
+  HospitalFreeSeats,
   HospitalPressure,
-  Days,
-  Infected,
-  Sick,
-  Alive
+  Hospitalized,
+  HospitalsCapacity
 }
+import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.StructureComponent.{Closable, Groupable}
-import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
+import it.unibo.pps.jvm.boundary.gui.Values.Text
+import it.unibo.pps.jvm.boundary.gui.component.MonadComponents.{MonadButton, MonadCombobox, MonadConfigButton}
+import it.unibo.pps.jvm.boundary.gui.panel.Panels.{DisplayblePanel, EventablePanel, UpdateblePanel}
+import monix.eval.Task
+import monix.reactive.Observable
+
 import java.awt.{BorderLayout, Component, Font}
 import javax.swing.text.DefaultCaret
-import javax.swing.{BoxLayout, JEditorPane, JLabel, JPanel, JScrollPane, JTextArea, ScrollPaneConstants}
+import javax.swing.*
 
 /** Module that wrap all the panels that are in the bottom area of the simulation gui */
 object BottomPanels:
@@ -137,6 +138,7 @@ object BottomPanels:
     private lazy val infectedLabel: JLabel = new JLabel(Text.INFECTED_LABEL_TITLE)
     private lazy val sickLabel: JLabel = new JLabel(Text.SICK_LABEL_TITLE)
     private lazy val hospitalPressure: JLabel = new JLabel(Text.HOSPITAL_PRESSURE_LABEL_TITLE)
+    private lazy val atHomeLabel: JLabel = new JLabel(Text.AT_HOME_LABEL_TITLE)
 
     private val daysExtractor: DataExtractor[Long] = Days()
     private val aliveExtractor: DataExtractor[Int] = Alive()
@@ -144,6 +146,7 @@ object BottomPanels:
     private val infectedExtractor: DataExtractor[Int] = Infected()
     private val sickExtractor: DataExtractor[Int] = Sick()
     private val hospitalPressureExtractor: DataExtractor[Double] = HospitalPressure()
+    private val atHomeExtractor: DataExtractor[Int] = AtHome()
 
     override def init(): Task[Unit] =
       for
@@ -151,7 +154,7 @@ object BottomPanels:
         titleLabel = JLabel(Text.STATS_LABEL)
         _ <- io(titleLabel.setFont(titleLabel.getFont.deriveFont(Font.BOLD)))
         _ <- io(add(titleLabel, Component.TOP_ALIGNMENT))
-        elems = Seq(daysLabel, aliveLabel, deathsLabel, infectedLabel, sickLabel, hospitalPressure)
+        elems = Seq(daysLabel, aliveLabel, deathsLabel, infectedLabel, sickLabel, hospitalPressure, atHomeLabel)
         _ <- io {
           for elem <- elems do
             add(elem)
@@ -169,6 +172,11 @@ object BottomPanels:
         _ <- io(
           hospitalPressure.setText(
             Text.HOSPITAL_PRESSURE_LABEL_TITLE + hospitalPressureExtractor.extractData(env).toString
+          )
+        )
+        _ <- io(
+          atHomeLabel.setText(
+            Text.AT_HOME_LABEL_TITLE + atHomeExtractor.extractData(env).toString
           )
         )
       yield ()

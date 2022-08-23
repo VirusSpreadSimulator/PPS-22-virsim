@@ -23,10 +23,7 @@ class EntranceLogic extends UpdateLogic:
           .foldLeft(environment)((env, entity) => tryToEnter(env, entity).getOrElse(env))
 
       }
-    yield {
-      println("size = " + updateEnv.externalEntities.size)
-      updateEnv
-    }
+    yield updateEnv
 
   private def tryToEnter(environment: Environment, entity: SimulationEntity): Option[Environment] =
     val oldStruct = environment.structures
