@@ -24,13 +24,11 @@ object EntityStateLogic:
     def updateInternalEntitiesHealth(env: Environment): Task[Environment] =
       for
         structures <- Task(env.structures)
-        updatedHealthStructures <- Task { // no check on dead
-          for struct <- structures
-          yield struct.updateEntitiesInside(entity => Some(handleSingleEntity(entity, env)))
+        updatedHealthStructures <- Task { //no check on dead
+          structures.map(_.updateEntitiesInside(entity => Some(handleSingleEntity(entity, env))))
         }
         updatedStructures <- Task { // check on dead
-          for struct <- updatedHealthStructures
-          yield struct.updateEntitiesInside(Some(_).filter(_.health > MIN_VALUES.MIN_HEALTH))
+          updatedHealthStructures.map(_.updateEntitiesInside(Some(_).filter(_.health > MIN_VALUES.MIN_HEALTH)))
         }
         deadEntities <- Task { // now it's possible to understand who is dead in the update obtaining the updated entity
           updatedHealthStructures
