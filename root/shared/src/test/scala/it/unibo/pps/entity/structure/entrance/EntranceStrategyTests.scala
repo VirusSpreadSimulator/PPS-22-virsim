@@ -15,29 +15,26 @@ class EntranceStrategyTests extends AnyFunSuite with Matchers:
   }
 
   test("Filter based entrance strategy should respect the filter, true case") {
-    class FilteredStrategy extends BaseEntranceStrategy with FilterBasedStrategy(_.age > 18)
-    FilteredStrategy().canEnter(entity) shouldBe true
+    val strategy = new BaseEntranceStrategy() with FilterBasedStrategy(_.age > 18)
+    strategy.canEnter(entity) shouldBe true
   }
 
   test("Filter based entrance strategy should respect the filter, false case") {
-    class FilteredStrategy extends BaseEntranceStrategy with FilterBasedStrategy(_.age < 18)
-    FilteredStrategy().canEnter(entity) shouldBe false
+    val strategy = new BaseEntranceStrategy with FilterBasedStrategy(_.age < 18)
+    strategy.canEnter(entity) shouldBe false
   }
 
   test("Probability based entrance strategy with probability 1 should let everyone to enter") {
-    class ProbabilityStrategy extends BaseEntranceStrategy with ProbabilityBasedStrategy(1)
-    ProbabilityStrategy().canEnter(entity) shouldBe true
+    val strategy = new BaseEntranceStrategy with ProbabilityBasedStrategy(1)
+    strategy.canEnter(entity) shouldBe true
   }
 
-  test("Probability based entrance strategy with probability 0 should let noone to enter") {
-    class ProbabilityStrategy extends BaseEntranceStrategy with ProbabilityBasedStrategy(0)
-    ProbabilityStrategy().canEnter(entity) shouldBe false
+  test("Probability based entrance strategy with probability 0 should let no-one to enter") {
+    val strategy = new BaseEntranceStrategy with ProbabilityBasedStrategy(0)
+    strategy.canEnter(entity) shouldBe false
   }
 
   test("We can mix different strategies") {
-    class MixedStrategy
-        extends BaseEntranceStrategy
-        with FilterBasedStrategy(_.age > 18)
-        with ProbabilityBasedStrategy(0)
-    MixedStrategy().canEnter(entity) shouldBe false
+    val strategy = new BaseEntranceStrategy with FilterBasedStrategy(_.age > 18) with ProbabilityBasedStrategy(0)
+    strategy.canEnter(entity) shouldBe false
   }
