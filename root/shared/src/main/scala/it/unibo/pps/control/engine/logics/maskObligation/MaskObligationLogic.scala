@@ -23,16 +23,14 @@ object MaskObligationLogic:
         structures <- Task(environment.structures)
         updatedStructures <- Task {
           for struct <- structures
-          yield struct.updateEntitiesInside(entity => Some(handleMaskObligation(entity)))
+          yield struct.updateEntitiesInside(entity => Some(entity.focus(_.hasMask).modify(!_)))
         }
       yield environment.update(structures = updatedStructures)
 
   def handleMaskForInternalEntities(env: Environment): Task[Environment] =
     for
       entities <- Task(env.externalEntities)
-      updatedEntities <- Task(entities.map(handleMaskObligation _))
+      updatedEntities <- Task(entities.map(_.focus(_.hasMask).modify(!_)))
     yield env.update(
       externalEntities = updatedEntities
     )
-  def handleMaskObligation(entity: SimulationEntity): SimulationEntity =
-    entity.focus(_.hasMask).modify(!_)
