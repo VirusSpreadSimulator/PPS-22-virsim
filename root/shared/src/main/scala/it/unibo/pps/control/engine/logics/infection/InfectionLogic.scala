@@ -13,11 +13,16 @@ import it.unibo.pps.entity.common.Utils.*
 import monix.eval.Task
 import monocle.syntax.all.*
 
+/** Module that contains the entity infection logic concepts. */
 object InfectionLogic:
+  /** It models a probable infection of an entity in the environment, outside to structures. */
   case class ExternalProbableInfection(env: Environment, entity: SimulationEntity, infectors: Set[SimulationEntity])
+  /** It models a probable infection of an entity inside a structure. */
   case class InternalProbableInfection(env: Environment, entity: SimulationEntity, structure: SimulationStructure)
 
+  /** Extension methods useful during the computations. */
   extension (e: SimulationEntity)
+    /** It allow to create and set the infection on an entity. */
     def infected(timestamp: TimeStamp, virus: Virus): SimulationEntity =
       import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
       import it.unibo.pps.entity.entity.Infection.Severity
@@ -26,9 +31,10 @@ object InfectionLogic:
       val severity = if virus.severeDeseaseProbability.isHappening then Severity.SERIOUS() else Severity.LIGHT()
       val durationDistribution = GaussianDurationTime(virus.averagePositivityDays, virus.stdDevPositivityDays, DAYS)
       e.focus(_.infection).replace(Some(Infection(severity, timestamp, durationDistribution.next())))
+    /** It allow to obtain the reduction on the spread of the virus based on the current state of the mask. */
     def maskReduction: Int = if e.hasMask then VirusDefaults.MASK_REDUCER else 1
 
-  /** Logic that handle the infection in the environment, external to structures */
+  /** Logic that handle the infection in the environment, external to structures. */
   class ExternalInfectionLogic extends UpdateLogic:
     override def apply(env: Environment): Task[Environment] =
       for
@@ -50,7 +56,7 @@ object InfectionLogic:
         }
       yield env.update(externalEntities = entities.filter(e => !infected.map(_.id).contains(e.id)) ++ infected.toSet)
 
-  /** Logic that handle the infection inside the structures of the environment */
+  /** Logic that handle the infection inside the structures of the environment. */
   class InternalInfectionLogic extends UpdateLogic:
     override def apply(env: Environment): Task[Environment] =
       for
