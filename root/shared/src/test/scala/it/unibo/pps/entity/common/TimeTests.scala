@@ -27,6 +27,10 @@ class TimeTests extends AnyFunSuite with Matchers:
     timeStamp.toMinutes shouldBe (time / TimeConfiguration.TICKS_PER_MINUTE)
   }
 
+  test("A timestamp tick value should be convertible to hours") {
+    timeStamp.toHours shouldBe (time / TimeConfiguration.TICKS_PER_MINUTE / TimeConfiguration.MINUTES_PER_HOUR)
+  }
+
   test("We can get the current iteration number from a timestamp") {
     timeStamp.iteration shouldBe iterationNumber
   }
@@ -65,8 +69,8 @@ class TimeTests extends AnyFunSuite with Matchers:
   test(
     "Two timestamp should be comparable in order to understand which one is the latest, equal"
   ) {
-    val higherTimestamp = TimeStamp(time, iterationNumber)
-    timeStamp == higherTimestamp shouldBe true
+    val equalTimestamp = TimeStamp(time, iterationNumber)
+    timeStamp == equalTimestamp shouldBe true
   }
 
   test(
