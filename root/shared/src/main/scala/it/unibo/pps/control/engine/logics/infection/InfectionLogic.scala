@@ -39,7 +39,7 @@ object InfectionLogic:
     override def apply(env: Environment): Task[Environment] =
       for
         entities <- Task(env.externalEntities)
-        infected <- Task.sequence {
+        infected <- Task {
           entities
             .filter(_.infection.isEmpty)
             .map(e =>
@@ -52,7 +52,7 @@ object InfectionLogic:
               )
             )
             .filter(_.isHappening)
-            .map(i => Task(i.entity.infected(env.time, env.virus)))
+            .map(i => i.entity.infected(env.time, env.virus))
         }
       yield env.update(externalEntities = entities.filter(e => !infected.map(_.id).contains(e.id)) ++ infected.toSet)
 
