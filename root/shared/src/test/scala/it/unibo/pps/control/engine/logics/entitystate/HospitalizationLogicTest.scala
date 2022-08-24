@@ -53,8 +53,7 @@ object HospitalizationLogicTest extends SimpleTaskSuite:
       countEntitiesAtRisk(
         updatedEnv.structures
           .filter(!_.isInstanceOf[SimulationStructure with Hospitalization])
-          .flatMap(_.entities)
-          .map(_.entity)
+          .flatMap(_.entities.map(_.entity))
       ) == countEntitiesAtRisk(baseEnv.internalEntities)
     )
   }
@@ -70,8 +69,7 @@ object HospitalizationLogicTest extends SimpleTaskSuite:
       countEntitiesAtRisk(
         updatedEnv.structures
           .filter(!_.isInstanceOf[SimulationStructure with Hospitalization])
-          .flatMap(_.entities)
-          .map(_.entity)
+          .flatMap(_.entities.map(_.entity))
       ) == 0
     )
   }
@@ -81,12 +79,25 @@ object HospitalizationLogicTest extends SimpleTaskSuite:
     yield expect(
       updatedEnv.structures
         .select[SimulationStructure with Hospitalization]
-        .forall(s => s.entities.size == s.capacity) && countEntitiesAtRisk(
-        updatedEnv.externalEntities
-      ) + countEntitiesAtRisk(
-        updatedEnv.structures.filter(!_.isInstanceOf[Hospitalization]).flatMap(_.entities.map(_.entity))
-      ) > 0
+        .forall(s => s.entities.size == s.capacity) &&
+        countEntitiesAtRisk(updatedEnv.externalEntities) + countEntitiesAtRisk(
+          updatedEnv.structures.filter(!_.isInstanceOf[Hospitalization]).flatMap(_.entities.map(_.entity))
+        ) > 0
     )
+  }
+
+  test("No spurious structures are created") {
+    for
+      env <- Task(baseEnv.update(structures = baseEnv.structures + hospital))
+      updatedEnv <- hospitalizationLogic(env)
+    yield expect(updatedEnv.structures.size == env.structures.size)
+  }
+
+  test("No spurious entities are created") {
+    for
+      env <- Task(baseEnv.update(structures = baseEnv.structures + hospital))
+      updatedEnv <- hospitalizationLogic(env)
+    yield expect(updatedEnv.allEntities.size == env.allEntities.size)
   }
 
   private def countEntitiesAtRisk(entities: Set[SimulationEntity]): Int =
