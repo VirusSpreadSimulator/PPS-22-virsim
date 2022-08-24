@@ -1,5 +1,6 @@
 package it.unibo.pps.entity
 
+import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.StructureComponent.Hospitalization
@@ -15,3 +16,9 @@ object TestUtils:
   extension (entities: Set[SimulationEntity])
     def totalHealth: Double = entities.toSeq.map(_.health).sum
     def totalImmunity: Double = entities.toSeq.map(_.immunity).sum
+
+  extension (structure: SimulationStructure)
+    def tryToEnterMultiple(entities: Seq[SimulationEntity], timeStamp: TimeStamp): SimulationStructure =
+      var s = structure
+      for entity <- entities do s = s.tryToEnter(entity, timeStamp)
+      s

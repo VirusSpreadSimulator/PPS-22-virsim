@@ -7,13 +7,14 @@ import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.structure.StructureComponent.Hospitalization
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, Hospital, House, SimulationStructure}
 import it.unibo.pps.entity.structure.entrance.Entrance.{BaseEntranceStrategy, FilterBasedStrategy}
+import it.unibo.pps.entity.TestUtils.tryToEnterMultiple
 import monocle.syntax.all.*
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 class StructuresTest extends AnyFunSuite with Matchers:
-  private class FilteredStrategyTrue extends BaseEntranceStrategy with FilterBasedStrategy(_.age > 18)
-  private class FilteredStrategyFalse extends BaseEntranceStrategy with FilterBasedStrategy(_.age > 24)
+  private val filteredStrategyTrue = new BaseEntranceStrategy() with FilterBasedStrategy(_.age > 18)
+  private val filteredStrategyFalse = new BaseEntranceStrategy() with FilterBasedStrategy(_.age > 24)
   private val infectionProbability = 1
   private val capacity = 2
   private val position = Point2D(3, 0)
@@ -40,7 +41,7 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("No more entities than capacity can enter in a House") {
-    var houseCopy: SimulationStructure = tryToEnterMultiple(house, entities)
+    var houseCopy: SimulationStructure = house.tryToEnterMultiple(entities, timeStamp)
     houseCopy.entities.size shouldBe capacity
   }
 
@@ -66,13 +67,13 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("In a generic building the strategy must be considered, true case") {
-    var buildingCopy: SimulationStructure = building.copy(entranceStrategy = FilteredStrategyTrue())
+    var buildingCopy: SimulationStructure = building.copy(entranceStrategy = filteredStrategyTrue)
     buildingCopy = buildingCopy.tryToEnter(entities.head, timeStamp)
     buildingCopy.entities.size shouldBe 1
   }
 
   test("In a generic building the strategy must be considered, false case") {
-    var buildingCopy: SimulationStructure = building.copy(entranceStrategy = FilteredStrategyFalse())
+    var buildingCopy: SimulationStructure = building.copy(entranceStrategy = filteredStrategyFalse)
     buildingCopy = buildingCopy.tryToEnter(entities.head, timeStamp)
     buildingCopy.entities.size shouldBe 0
   }
@@ -83,8 +84,8 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("In a generic building even if the strategy allow the entity, the capacity must be respected") {
-    var buildingCopy: SimulationStructure = building.copy(entranceStrategy = FilteredStrategyTrue())
-    buildingCopy = tryToEnterMultiple(buildingCopy, entities)
+    var buildingCopy: SimulationStructure = building.copy(entranceStrategy = filteredStrategyTrue)
+    buildingCopy = buildingCopy.tryToEnterMultiple(entities, timeStamp)
     buildingCopy.entities.size shouldBe capacity
   }
 
@@ -110,20 +111,20 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("In a hospital the strategy must be considered, true case") {
-    var hospitalCopy: SimulationStructure = hospital.copy(entranceStrategy = FilteredStrategyTrue())
+    var hospitalCopy: SimulationStructure = hospital.copy(entranceStrategy = filteredStrategyTrue)
     hospitalCopy = hospitalCopy.tryToEnter(entities.head, timeStamp)
     hospitalCopy.entities.size shouldBe 1
   }
 
   test("In a hospital the strategy must be considered, false case") {
-    var hospitalCopy: SimulationStructure = hospital.copy(entranceStrategy = FilteredStrategyFalse())
+    var hospitalCopy: SimulationStructure = hospital.copy(entranceStrategy = filteredStrategyFalse)
     hospitalCopy = hospitalCopy.tryToEnter(entities.head, timeStamp)
     hospitalCopy.entities.size shouldBe 0
   }
 
   test("In a hospital even if the strategy allow the entity, the capacity must be respected") {
-    var hospitalCopy: SimulationStructure = hospital.copy(entranceStrategy = FilteredStrategyTrue())
-    hospitalCopy = tryToEnterMultiple(hospitalCopy, entities)
+    var hospitalCopy: SimulationStructure = hospital.copy(entranceStrategy = filteredStrategyTrue)
+    hospitalCopy = hospitalCopy.tryToEnterMultiple(entities, timeStamp)
     hospitalCopy.entities.size shouldBe capacity
   }
 
@@ -143,8 +144,3 @@ class StructuresTest extends AnyFunSuite with Matchers:
       Samples.inhabitatedHospital.updateEntitiesInside(entity => Some(entity.focus(_.age).modify(_ + 1)))
     resultingHouse.entities.size shouldBe Samples.inhabitatedHospital.entities.size
   }
-
-  private def tryToEnterMultiple(structure: SimulationStructure, entities: Seq[SimulationEntity]): SimulationStructure =
-    var s = structure
-    for entity <- entities do s = s.tryToEnter(entity, timeStamp)
-    s
