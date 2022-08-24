@@ -69,12 +69,17 @@ object EntityStateLogicTest extends SimpleTaskSuite:
 
   test("Alive entities must have health greater than min health") {
     for updatedEnv <- entityStateLogic(baseEnv)
-    yield expect(updatedEnv.allEntities.forall(e => e.health > MIN_VALUES.MIN_HEALTH))
+    yield expect(updatedEnv.allEntities.forall(_.health > MIN_VALUES.MIN_HEALTH))
   }
 
   test("Dead entities cardinality must be greater or equal than before") {
     for updatedEnv <- entityStateLogic(baseEnv)
     yield expect(updatedEnv.deadEntities.size >= baseEnv.deadEntities.size)
+  }
+
+  test("Dead entities must have health equal or less to min") {
+    for updatedEnv <- entityStateLogic(baseEnv)
+    yield expect(updatedEnv.deadEntities.forall(_.health <= MIN_VALUES.MIN_HEALTH))
   }
 
   test("External healthy entities immunity must be decreased") {
@@ -98,6 +103,26 @@ object EntityStateLogicTest extends SimpleTaskSuite:
         .totalImmunity
     )
   }
+
+  //todo: when recovered the immunity must increase
+  test("When an entity recover from virus then the immunity must increase") {
+    for
+      updatedEnv <- entityStateLogic(baseEnv)
+      entitiesToConsider = updatedEnv.allEntities.filter(e =>
+        e.infection.isEmpty && baseEnv.allEntities.filter(_.infection.isDefined).map(_.id).contains(e.id)
+      )
+    yield expect(
+      baseEnv.allEntities
+        .filter(e => entitiesToConsider.map(_.id).contains(e.id))
+        .totalImmunity < entitiesToConsider.totalImmunity
+    )
+  }
+
+  // todo: during the infection the immunity must remain the same
+
+  //todo: immunity >= min
+
+  //todo: immunity <= max
 
   test("It must not exist an infection that is over in external entities") {
     for updatedEnv <- entityStateLogic(baseEnv)
@@ -125,3 +150,5 @@ object EntityStateLogicTest extends SimpleTaskSuite:
       baseEnv.allEntities.size + baseEnv.deadEntities.size == updatedEnv.allEntities.size + updatedEnv.deadEntities.size
     )
   }
+
+//todo: not created spurious structures

@@ -1,18 +1,16 @@
 package it.unibo.pps.control.engine.logics.entitystate
 
 import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
-
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.*
+import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.entity.common.Utils.*
-import it.unibo.pps.entity.entity.EntityComponent.{Infectious, Moving}
 import monix.eval.Task
-import it.unibo.pps.control.loader.configuration.SimulationDefaults.*
-import it.unibo.pps.entity.entity.Infection.Severity
 import monocle.syntax.all.*
 
+/** Module that contains the entity state logic concepts. */
 object EntityStateLogic:
-  /** Logic to update the state of all the entities inside the environment */
+  /** Logic to update the state of all the entities inside the environment. */
   class UpdateEntityStateLogic extends UpdateLogic:
     import it.unibo.pps.control.engine.logics.entitystate.EntityStateLogic.Updates.*
     override def apply(env: Environment): Task[Environment] =
@@ -22,22 +20,26 @@ object EntityStateLogic:
       yield environmentExtIntUpdated
 
   private object Updates:
+    /** Update the state of entities that are inside the structures. */
     def updateInternalEntitiesHealth(env: Environment): Task[Environment] =
       for
         structures <- Task(env.structures)
-        updatedStructures <- Task {
+        updatedHealthStructures <- Task { // no check on dead
           for struct <- structures
-          yield struct.updateEntitiesInside(entity =>
-            Some(handleSingleEntity(entity, env)).filter(_.health > MIN_VALUES.MIN_HEALTH)
-          )
+          yield struct.updateEntitiesInside(entity => Some(handleSingleEntity(entity, env)))
         }
-        deadEntities <- Task {
-          structures
+        updatedStructures <- Task { // check on dead
+          for struct <- updatedHealthStructures
+          yield struct.updateEntitiesInside(Some(_).filter(_.health > MIN_VALUES.MIN_HEALTH))
+        }
+        deadEntities <- Task { // now it's possible to understand who is dead in the update obtaining the updated entity
+          updatedHealthStructures
             .flatMap(_.entities.map(_.entity))
-            .filter(entity => !updatedStructures.flatMap(_.entities.map(_.entity.id)).contains(entity.id))
+            .diff(updatedStructures.flatMap(_.entities.map(_.entity)))
         }
       yield env.update(structures = updatedStructures, deadEntities = env.deadEntities ++ deadEntities)
 
+    /** Update the state of external entities. */
     def updateExternalEntitiesHealth(env: Environment): Task[Environment] =
       for
         entities <- Task(env.externalEntities)
@@ -48,11 +50,14 @@ object EntityStateLogic:
         deadEntities = env.deadEntities ++ deadEntities
       )
 
+    /** Method to handle the single entity not depending on where it is. */
     def handleSingleEntity(entity: SimulationEntity, env: Environment): SimulationEntity = entity.infection match
       case Some(infection) =>
         entity
           .focus(_.health)
-          .modify(_ - VirusDefaults.HEALTH_INFECTED_LOSS * infection.severity.value)
+          .modify(h =>
+            Math.max(MIN_VALUES.MIN_HEALTH, h - VirusDefaults.HEALTH_INFECTED_LOSS * infection.severity.value)
+          )
           .focus(_.infection)
           .modify(infection => infection.filter(inf => inf.timeOfTheInfection + inf.duration > env.time))
           .andIf(_.infection.isEmpty)(
