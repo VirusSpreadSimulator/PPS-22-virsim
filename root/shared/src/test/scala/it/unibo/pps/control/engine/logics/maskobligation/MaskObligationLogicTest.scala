@@ -1,9 +1,9 @@
-package it.unibo.pps.control.engine.logics.maskObligation
+package it.unibo.pps.control.engine.logics.maskobligation
 
 import it.unibo.pps.entity.Samples
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import weaver.monixcompat.SimpleTaskSuite
-import it.unibo.pps.control.engine.logics.maskObligation.MaskObligationLogic.SwitchMaskObligationLogic
+import it.unibo.pps.control.engine.logics.maskobligation.MaskObligationLogic.SwitchMaskObligationLogic
 
 object MaskObligationLogicTest extends SimpleTaskSuite:
   private val baseEnv: Environment = Samples.sampleEnv

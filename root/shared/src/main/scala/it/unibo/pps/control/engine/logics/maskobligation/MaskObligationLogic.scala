@@ -1,4 +1,4 @@
-package it.unibo.pps.control.engine.logics.maskObligation
+package it.unibo.pps.control.engine.logics.maskobligation
 
 import it.unibo.pps.control.engine.logics.Logic.{EventLogic, UpdateLogic}
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.*

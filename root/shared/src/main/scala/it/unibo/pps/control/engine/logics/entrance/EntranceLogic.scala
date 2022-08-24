@@ -26,30 +26,26 @@ class EntranceLogic extends UpdateLogic:
     yield updateEnv
 
   private def tryToEnter(environment: Environment, entity: SimulationEntity): Option[Environment] =
-    val oldStruct = environment.structures
-      .select[VisibleStructure]
-      .find(structure =>
-        (entity.movementGoal != MovementGoal.BACK_TO_HOME && entity.position.distanceTo(
-          structure.position
-        ) <= structure.visibilityDistance) || (entity.movementGoal == MovementGoal.BACK_TO_HOME && entity.homePosition == structure.position && entity.position
-          .distanceTo(structure.position) <= structure.visibilityDistance)
-      )
-    if oldStruct.isDefined then
-      val updatedStruct = oldStruct.get.tryToEnter(entity, environment.time)
-      if updatedStruct.entities.map(_.entity).contains(entity) then
-        Some(
-          environment.update(
-            externalEntities = environment.externalEntities - entity,
-            structures = environment.structures - oldStruct.get + updatedStruct.updateEntitiesInside(entity =>
-              Some(
-                entity
-                  .focus(_.movementGoal)
-                  .replace(MovementGoal.NO_MOVEMENT)
-                  .focus(_.position)
-                  .replace(updatedStruct.position)
-              )
-            )
-          )
+    for
+      oldStruct <- environment.structures
+        .select[VisibleStructure]
+        .find(structure =>
+          (entity.movementGoal != MovementGoal.BACK_TO_HOME && entity.position.distanceTo(
+            structure.position
+          ) <= structure.visibilityDistance) || (entity.movementGoal == MovementGoal.BACK_TO_HOME && entity.homePosition == structure.position && entity.position
+            .distanceTo(structure.position) <= structure.visibilityDistance)
         )
-      else None
-    else None
+      updatedStruct = oldStruct.tryToEnter(entity, environment.time)
+      if updatedStruct.entities.map(_.entity).contains(entity)
+    yield environment.update(
+      externalEntities = environment.externalEntities - entity,
+      structures = environment.structures - oldStruct + updatedStruct.updateEntitiesInside(entity =>
+        Some(
+          entity
+            .focus(_.movementGoal)
+            .replace(MovementGoal.NO_MOVEMENT)
+            .focus(_.position)
+            .replace(updatedStruct.position)
+        )
+      )
+    )
