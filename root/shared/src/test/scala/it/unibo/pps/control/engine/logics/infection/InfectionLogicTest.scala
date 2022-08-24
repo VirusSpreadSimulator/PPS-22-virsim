@@ -1,18 +1,16 @@
 package it.unibo.pps.control.engine.logics.infection
 
-import it.unibo.pps.entity.environment.EnvironmentModule
+import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
 import it.unibo.pps.control.engine.logics.infection.InfectionLogic.{ExternalInfectionLogic, InternalInfectionLogic}
 import it.unibo.pps.entity.Samples
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.entity.common.Utils.*
-import it.unibo.pps.entity.TestUtils.internalEntities
 import weaver.monixcompat.SimpleTaskSuite
 
 object InfectionLogicTest extends SimpleTaskSuite:
   private val baseEnv: Environment = Samples.sampleEnv
-  private val externalInfectionLogic: ExternalInfectionLogic = ExternalInfectionLogic()
-  private val internalInfectionLogic: InternalInfectionLogic = InternalInfectionLogic()
+  private val externalInfectionLogic: UpdateLogic = ExternalInfectionLogic()
+  private val internalInfectionLogic: UpdateLogic = InternalInfectionLogic()
 
   test("The external infection logic returns an updated env") {
     for updatedEnv <- externalInfectionLogic(baseEnv)
@@ -21,10 +19,7 @@ object InfectionLogicTest extends SimpleTaskSuite:
 
   test("External infection logic doesn't create spurious entities") {
     for updatedEnv <- externalInfectionLogic(baseEnv)
-    yield expect(
-      updatedEnv.externalEntities.size == baseEnv.externalEntities.size &&
-        updatedEnv.internalEntities.size == baseEnv.internalEntities.size
-    )
+    yield expect(updatedEnv.allEntities.size == updatedEnv.allEntities.size)
   }
 
   test("When the external infection logic is applied the number of external infected is more or equal") {
@@ -44,10 +39,7 @@ object InfectionLogicTest extends SimpleTaskSuite:
 
   test("Internal infection logic doesn't create spurious entities") {
     for updatedEnv <- internalInfectionLogic(baseEnv)
-    yield expect(
-      updatedEnv.externalEntities.size == baseEnv.externalEntities.size &&
-        updatedEnv.internalEntities.size == baseEnv.internalEntities.size
-    )
+    yield expect(updatedEnv.allEntities.size == baseEnv.allEntities.size)
   }
 
   test("Internal infection logic doesn't create spurious structures") {
@@ -80,4 +72,5 @@ object InfectionLogicTest extends SimpleTaskSuite:
     entities.count(_.infection.isDefined)
 
   private def numberOfInternalInfected(env: Environment): Int =
+    import it.unibo.pps.entity.TestUtils.internalEntities
     numberOfInfected(env.internalEntities)
