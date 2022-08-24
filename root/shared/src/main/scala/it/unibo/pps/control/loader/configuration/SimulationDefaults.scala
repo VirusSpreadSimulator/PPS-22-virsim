@@ -52,6 +52,6 @@ object SimulationDefaults:
     val MIN_GRID_SIZE: Int = 5
     val MIN_NUMBER_OF_ENTITIES = 2
     val MIN_HEALTH: Int = 0
-    val MIN_INITIAL_HEALTH: Int = 0
+    val MIN_INITIAL_HEALTH: Int = 70
     val MIN_IMMUNITY: Int = 0
     val HOSPITALIZATION_HEALTH_LIMIT = 15
