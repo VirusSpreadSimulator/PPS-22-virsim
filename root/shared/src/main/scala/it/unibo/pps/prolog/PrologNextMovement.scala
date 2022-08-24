@@ -1,7 +1,8 @@
 package it.unibo.pps.prolog
 
+import PrologEngine.{*, given}
+import alice.tuprolog.{Prolog, SolveInfo, Term, Theory, Struct, Var}
 import it.unibo.pps.entity.common.Space.Point2D
-import it.unibo.pps.prolog.PrologEngine.{*, given}
 
 object PrologNextMovement:
   val newX: Var = Var("Xn")
