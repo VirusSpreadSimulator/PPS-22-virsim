@@ -82,7 +82,7 @@ object Samples:
         permanence(11, 20, house.position, 80, Point2D(1, 7)),
         permanence(12, 10, house.position, 0.001, Point2D(1, 7), Some(DurationTime(5, DAYS))),
         permanence(13, 20, house.position, 80, Point2D(1, 7), Some(DurationTime(5, DAYS))),
-        permanence(14, 20, house.position, 80, Point2D(1, 7), Some(DurationTime(0, MINUTES)))
+        permanence(14, 20, house.position, 0.001, Point2D(1, 7), Some(DurationTime(0, MINUTES)))
       )
     ),
     GenericBuilding(
