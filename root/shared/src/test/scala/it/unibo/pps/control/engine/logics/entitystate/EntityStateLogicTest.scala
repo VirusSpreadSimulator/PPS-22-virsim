@@ -2,7 +2,7 @@ package it.unibo.pps.control.engine.logics.entitystate
 
 import it.unibo.pps.control.engine.logics.entitystate.EntityStateLogic.UpdateEntityStateLogic
 import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
-import it.unibo.pps.control.loader.configuration.SimulationDefaults.MIN_VALUES
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.{MAX_VALUES, MIN_VALUES}
 import it.unibo.pps.entity.Samples
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.TestUtils.*
@@ -104,7 +104,6 @@ object EntityStateLogicTest extends SimpleTaskSuite:
     )
   }
 
-  //todo: when recovered the immunity must increase
   test("When an entity recover from virus then the immunity must increase") {
     for
       updatedEnv <- entityStateLogic(baseEnv)
@@ -118,11 +117,26 @@ object EntityStateLogicTest extends SimpleTaskSuite:
     )
   }
 
-  // todo: during the infection the immunity must remain the same
+  test("Infected entities immunity remains constant during infection") {
+    for
+      updatedEnv <- entityStateLogic(baseEnv)
+      entitiesToConsider = updatedEnv.allEntities.filter(_.infection.isDefined)
+    yield expect(
+      baseEnv.allEntities
+        .filter(e => entitiesToConsider.map(_.id).contains(e.id))
+        .totalImmunity == entitiesToConsider.totalImmunity
+    )
+  }
 
-  //todo: immunity >= min
+  test("Entities immunity must be higher than min") {
+    for updatedEnv <- entityStateLogic(baseEnv)
+    yield expect(updatedEnv.allEntities.forall(_.immunity >= MIN_VALUES.MIN_IMMUNITY))
+  }
 
-  //todo: immunity <= max
+  test("Entities immunity must be within max") {
+    for updatedEnv <- entityStateLogic(baseEnv)
+    yield expect(updatedEnv.allEntities.forall(_.immunity <= MAX_VALUES.MAX_IMMUNITY))
+  }
 
   test("It must not exist an infection that is over in external entities") {
     for updatedEnv <- entityStateLogic(baseEnv)
@@ -151,4 +165,7 @@ object EntityStateLogicTest extends SimpleTaskSuite:
     )
   }
 
-//todo: not created spurious structures
+  test("During the update no spurious structures are created") {
+    for updatedEnv <- entityStateLogic(baseEnv)
+    yield expect(baseEnv.structures.size == updatedEnv.structures.size)
+  }
