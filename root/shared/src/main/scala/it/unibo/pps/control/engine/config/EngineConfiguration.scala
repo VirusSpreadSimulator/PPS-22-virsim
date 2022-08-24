@@ -9,7 +9,7 @@ import monix.execution.Scheduler
 object EngineConfiguration:
   /** [[SimulationConfig]] represent the configuration needed by the engine to be able to work */
   trait SimulationConfig:
-    /** The engine process events that came from the boundary at every iteration. This value represent the number of
+    /** The engine process events that came from the boundaries at every iteration. This value represent the number of
       * events that are processes from the queue at every tick. Consider that process an higher number of events every
       * tick means a slower processing for each tick, but a lower value means that event may be considered after some
       * time.
@@ -17,7 +17,7 @@ object EngineConfiguration:
       *   the maximum number of events to consider each iteration
       */
     def maxEventPerIteration: Int
-    /** The engine speed
+    /** The engine speed.
       * @return
       *   the engine speed
       */
@@ -27,17 +27,17 @@ object EngineConfiguration:
       *   the [[EngineSpeed]]
       */
     def engineSpeed_=(speed: EngineSpeed): Unit
-    /** The current [[EngineStatus]]
+    /** The current [[EngineStatus]].
       * @return
       *   the status
       */
     def engineStatus: EngineStatus
-    /** Setter to change the engine status. It is useful to pause, resume and stop the simulation
+    /** Setter to change the engine status. It is useful to pause, resume and stop the simulation.
       * @param status
       *   the [[EngineStatus]] to set
       */
     def engineStatus_=(status: EngineStatus): Unit
-    /** The sequence of all the logics that need to be executed every iteration
+    /** The sequence of all the logics that need to be executed every iteration.
       * @return
       *   the list of logics
       */

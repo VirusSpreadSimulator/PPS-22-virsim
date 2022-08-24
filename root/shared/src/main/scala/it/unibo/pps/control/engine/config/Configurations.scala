@@ -1,8 +1,6 @@
 package it.unibo.pps.control.engine.config
 
 import it.unibo.pps.boundary.component.Events
-import it.unibo.pps.boundary.component.Events.Params
-
 import scala.concurrent.duration.FiniteDuration
 import concurrent.duration.DurationInt
 
@@ -24,27 +22,22 @@ object Configurations:
       case FAST => 50.millis
 
   object EngineSpeed:
-    /** Conversion from the boundary event parameter to the actual speed concept
-      * @param speed
-      *   the speed event parameter
-      * @return
-      *   the actual [[EngineSpeed]]
-      */
+    /** Conversion from the boundary event parameter [[Events.Params.Speed]] to the actual [[EngineSpeed]] concept. */
     given Conversion[Events.Params.Speed, EngineSpeed] with
-      override def apply(speed: Params.Speed): EngineSpeed = speed match
+      override def apply(speed: Events.Params.Speed): EngineSpeed = speed match
         case Events.Params.Speed.SLOW => SLOW
         case Events.Params.Speed.NORMAL => NORMAL
         case Events.Params.Speed.FAST => FAST
 
-  /** It represent the current status of the engine of the simulation */
+  /** It represent the current status of the engine of the simulation. */
   enum EngineStatus:
-    /** [[EngineStatus.RUNNING]] means that the simulation is currently running */
+    /** [[EngineStatus.RUNNING]] means that the simulation is currently running. */
     case RUNNING
-    /** [[EngineStatus.PAUSED]] means that the simulation engine is in a paused state, no event logics, no updates will
-      * be computed on it
+    /** [[EngineStatus.PAUSED]] means that the simulation engine is in a paused state, no event logics (unless the
+      * interested ones [[Events.Event.interested]]), no updates will be computed on it.
       */
     case PAUSED
     /** [[EngineStatus.STOPPED]] means that the simulation is terminated, the environment is no more evolving in a
-      * definitive way
+      * definitive way.
       */
     case STOPPED
