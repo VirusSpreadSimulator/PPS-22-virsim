@@ -10,7 +10,7 @@ import it.unibo.pps.control.engine.logics.entitystate.HospitalizationLogic.Hospi
 import it.unibo.pps.control.engine.logics.entrance.EntranceLogic
 import it.unibo.pps.control.engine.logics.exit.ExitLogic
 import it.unibo.pps.control.engine.logics.infection.InfectionLogic.{ExternalInfectionLogic, InternalInfectionLogic}
-import it.unibo.pps.control.engine.logics.maskObligation.MaskObligationLogic.SwitchMaskObligationLogic
+import it.unibo.pps.control.engine.logics.maskobligation.MaskObligationLogic.SwitchMaskObligationLogic
 import it.unibo.pps.control.engine.logics.movement.MovementLogic
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.{MAX_VALUES, VirusDefaults}
 import it.unibo.pps.entity.common.Time.TimeStamp
