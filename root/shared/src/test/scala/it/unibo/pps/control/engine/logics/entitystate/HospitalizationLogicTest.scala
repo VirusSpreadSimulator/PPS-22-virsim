@@ -19,6 +19,8 @@ object HospitalizationLogicTest extends SimpleTaskSuite:
   private val hospitalizationLogic: UpdateLogic = HospitalizeEntityLogic()
   private val fullHospital: Hospital = Hospital(Point2D(10, 2), 0.5, 0)
   private val hospital: Hospital = Hospital(Point2D(10, 2), 0.5, 10)
+  private val lowCapacityHospitals: Seq[Hospital] =
+    Seq(Hospital(Point2D(10, 2), 0.5, 1), Hospital(Point2D(10, 3), 0.5, 1))
 
   test("Without hospital infected external entities at risk can't do anything") {
     for updatedEnv <- hospitalizationLogic(baseEnv)
@@ -71,6 +73,19 @@ object HospitalizationLogicTest extends SimpleTaskSuite:
           .flatMap(_.entities)
           .map(_.entity)
       ) == 0
+    )
+  }
+
+  test("All the hospitals capacity are filled then the remaining continue without being hospitalized") {
+    for updatedEnv <- hospitalizationLogic(baseEnv.update(structures = baseEnv.structures ++ lowCapacityHospitals))
+    yield expect(
+      updatedEnv.structures
+        .select[SimulationStructure with Hospitalization]
+        .forall(s => s.entities.size == s.capacity) && countEntitiesAtRisk(
+        updatedEnv.externalEntities
+      ) + countEntitiesAtRisk(
+        updatedEnv.structures.filter(!_.isInstanceOf[Hospitalization]).flatMap(_.entities.map(_.entity))
+      ) > 0
     )
   }
 

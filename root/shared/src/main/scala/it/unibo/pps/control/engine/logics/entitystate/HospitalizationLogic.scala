@@ -9,6 +9,7 @@ import it.unibo.pps.entity.structure.StructureComponent.Hospitalization
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
 import monix.eval.Task
 
+/** Module that contains the hospitalization logic concepts. */
 object HospitalizationLogic:
   /** Logic to check if entities need to be hospitalized */
   class HospitalizeEntityLogic extends UpdateLogic:
@@ -16,28 +17,32 @@ object HospitalizationLogic:
       for
         extUpdatedEnv <- Task { //Check external entities
           env.externalEntities
-            .filter(_.infection.isDefined)
-            .filter(_.health < MIN_VALUES.HOSPITALIZATION_HEALTH_LIMIT)
+            .filter(e => e.infection.isDefined && e.health < MIN_VALUES.HOSPITALIZATION_HEALTH_LIMIT)
             .foldLeft(env)((oldEnv, infectedAtRisk) => tryToHospitalize(oldEnv, infectedAtRisk).getOrElse(oldEnv))
         }
-        updatedEnv <- Task { //Check entities inside structures
-          extUpdatedEnv.structures
-            .filter(!_.isInstanceOf[SimulationStructure with Hospitalization])
-            .flatMap(structure =>
-              structure.entities
-                .map(_.entity)
-                .filter(_.infection.isDefined)
-                .filter(_.health < MIN_VALUES.HOSPITALIZATION_HEALTH_LIMIT)
-                .map(entity => (structure, entity))
-            )
-            .foldLeft(extUpdatedEnv)((oldEnv, pair) =>
-              tryToHospitalize(oldEnv, pair._2)
-                .map(e => e.update(structures = e.structures - pair._1 + pair._1.entityExit(pair._2)))
-                .getOrElse(oldEnv)
-            )
-        }
+        updatedEnv <- for // Check internal entities. The hospitalized entities (rec) must leave the structures
+          structures <- Task(extUpdatedEnv.structures.filter(!_.isInstanceOf[SimulationStructure with Hospitalization]))
+          env <- Task {
+            structures
+              .flatMap(_.entities.map(_.entity))
+              .filter(e => e.infection.isDefined && e.health < MIN_VALUES.HOSPITALIZATION_HEALTH_LIMIT)
+              .foldLeft(extUpdatedEnv)((previousEnv, infectedAtRisk) =>
+                tryToHospitalize(previousEnv, infectedAtRisk).getOrElse(previousEnv)
+              )
+          }
+          rec <- Task(env.structures.select[SimulationStructure with Hospitalization].flatMap(_.entities).map(_.entity))
+          updatedStructures <- Task(structures.map(rec.foldLeft(_)((s, e) => s.entityExit(e))))
+        yield env.update(structures = env.structures -- structures ++ updatedStructures)
       yield updatedEnv
 
+  /** Method to try to hospitalize an entity
+    * @param env
+    *   the environment
+    * @param entity
+    *   the entity to hospitalize
+    * @return
+    *   Some(env) if the entity can find an hospital, None instead.
+    */
   private def tryToHospitalize(
       env: Environment,
       entity: SimulationEntity
