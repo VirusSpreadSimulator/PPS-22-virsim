@@ -54,7 +54,8 @@ object Entities:
 
   object SimulationEntity:
     private def calculateMaxHealth(age: Int): Double =
-      100 - (30.0 / 100.0) * age
+      import it.unibo.pps.control.loader.configuration.SimulationDefaults
+      SimulationDefaults.MAX_VALUES.MAX_HEALTH - (SimulationDefaults.MIN_VALUES.MIN_INITIAL_HEALTH.toDouble / SimulationDefaults.MAX_VALUES.MAX_HEALTH) * age
     def apply(
         id: Int,
         age: Int,
