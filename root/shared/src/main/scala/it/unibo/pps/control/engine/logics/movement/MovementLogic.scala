@@ -4,12 +4,10 @@ import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
-import it.unibo.pps.entity.entity.EntityComponent.Moving
-import it.unibo.pps.entity.entity.EntityComponent.Infectious
+import it.unibo.pps.entity.entity.EntityComponent.{Infectious, Moving}
 import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
 import it.unibo.pps.entity.entity.Infection
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.prolog.PrologNextMovement
 import monix.eval.Task
 import monocle.syntax.all._
 
