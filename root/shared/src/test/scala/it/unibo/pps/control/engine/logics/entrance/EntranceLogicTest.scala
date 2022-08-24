@@ -48,5 +48,18 @@ object EntranceLogicTest extends SimpleTaskSuite:
     yield expect(numberOfExternalEntities(updatedEnv) == numberOfExternalEntities(secondEnv))
   }
 
+  test("when an entity enter, the number of the entities in the environment remains the same") {
+    for updatedEnv <- enterIntoStructureLogic(firstEnv)
+    yield expect(numberOfAllEntities(updatedEnv) == numberOfAllEntities(firstEnv))
+  }
+
+  test("when an entity doesn't enter, the number of the entities in the environment remains the same") {
+    for updatedEnv <- enterIntoStructureLogic(firstEnv)
+    yield expect(numberOfAllEntities(updatedEnv) == numberOfAllEntities(firstEnv))
+  }
+
   private def numberOfExternalEntities(env: Environment): Int =
     env.externalEntities.size
+
+  private def numberOfAllEntities(env: Environment): Int =
+    env.allEntities.size
