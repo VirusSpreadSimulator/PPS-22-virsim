@@ -8,14 +8,17 @@ import it.unibo.pps.control.engine.logics.infection.InfectionLogic.{
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.{MAX_VALUES, VirusDefaults}
 import scala.util.Random
 
+/** This module contains the concepts related to events that could occur with a probability. */
 object ProblableEvents:
   /** Model the result a probable event that can happen or not */
   enum ProbabilityResult:
     case HAPPENED, NOTHAPPENED
 
   object ProbabilityResult:
+    /** Conversion from boolean to [[ProbabilityResult]] */
     given Conversion[Boolean, ProbabilityResult] with
       def apply(result: Boolean): ProbabilityResult = if result then HAPPENED else NOTHAPPENED
+    /** Conversion fron [[ProbabilityResult]] to boolean */
     given Conversion[ProbabilityResult, Boolean] with
       def apply(result: ProbabilityResult): Boolean = result match
         case HAPPENED => true
@@ -38,10 +41,17 @@ object ProblableEvents:
 
   /** Object that group the main given of Probable type-class */
   object ProbableGivenInstance:
+    /** Obtain a probable event from a integer. For example 90.isHappening is an event with the 90% probability of
+      * happening.
+      */
     given Probable[Int] with
       extension (e: Int) def probability: Double = e
+    /** Obtain a probable event from a double. For example (50.4).isHappening is an event with the 50.4% probability of
+      * happening.
+      */
     given Probable[Double] with
       extension (e: Double) def probability: Double = e
+    /** Augment the [[ExternalProbableInfection]] with it's probability of occuring */
     given Probable[ExternalProbableInfection] with
       extension (inf: ExternalProbableInfection)
         def probability: Double = inf.infectors.foldLeft(0.0)((acc, infector) =>
@@ -49,10 +59,10 @@ object ProblableEvents:
             infector.position
           ) / inf.env.virus.maxInfectionDistance) * (1 - inf.entity.immunity / MAX_VALUES.MAX_IMMUNITY)) / (inf.entity.maskReduction * infector.maskReduction)
         )
+    /** Augment the [[InternalProbableInfection]] with it's probability of occuring */
     given Probable[InternalProbableInfection] with
       extension (inf: InternalProbableInfection)
         def probability: Double =
-          import it.unibo.pps.entity.common.Utils.*
           val infectedInside =
             inf.structure.entities.map(_.entity).filter(_.infection.isDefined)
           if infectedInside.nonEmpty then
