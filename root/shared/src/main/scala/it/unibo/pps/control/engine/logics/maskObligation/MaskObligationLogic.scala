@@ -15,8 +15,8 @@ object MaskObligationLogic:
     override def apply(environment: Environment): Task[Environment] =
       for
         environmentExternalUpdated <- handleMaskForExternalEntities(environment)
-        environmentExtIntUpdated <- handleMaskForInternalEntities(environmentExternalUpdated)
-      yield environmentExtIntUpdated
+        environmentInternalUpdated <- handleMaskForInternalEntities(environmentExternalUpdated)
+      yield environmentInternalUpdated
 
     def handleMaskForExternalEntities(environment: Environment): Task[Environment] =
       for
