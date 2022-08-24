@@ -11,7 +11,7 @@ import monix.eval.Task
 
 /** Module that contains the hospitalization logic concepts. */
 object HospitalizationLogic:
-  /** Logic to check if entities need to be hospitalized */
+  /** Logic to check if entities need to be hospitalized. */
   class HospitalizeEntityLogic extends UpdateLogic:
     /* Check external entities and check internal entities. The hospitalized entities (rec) must leave the structures */
     override def apply(env: Environment): Task[Environment] =
@@ -34,7 +34,7 @@ object HospitalizationLogic:
         updatedStructures <- Task(structures.map(rec.foldLeft(_)((s, e) => s.entityExit(e))))
       yield env.update(structures = env.structures -- structures ++ updatedStructures)
 
-  /** Method to try to hospitalize an entity
+  /** Method to try to hospitalize an entity.
     * @param env
     *   the environment
     * @param entity
