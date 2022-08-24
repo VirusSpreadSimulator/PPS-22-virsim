@@ -59,7 +59,6 @@ class ExitLogic extends UpdateLogic:
           point.x >= 0 && point.y >= 0 && point.x <= width && point.y <= height && (point.x != position.x || point.y != position.y)
         )
         .toSet
-
     Random
       .shuffle(
         getAllPossiblePosition(
