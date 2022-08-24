@@ -1,4 +1,4 @@
-package it.unibo.pps.control.engine.logics.movement
+package it.unibo.pps.prolog
 
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.prolog.PrologNextMovement
