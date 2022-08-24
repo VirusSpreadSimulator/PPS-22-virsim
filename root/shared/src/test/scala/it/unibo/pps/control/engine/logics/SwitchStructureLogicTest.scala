@@ -45,4 +45,4 @@ object SwitchStructureLogicTest extends SimpleTaskSuite:
     .map((group, v) => (group, v.map(_.isOpen).reduce(_ && _)))
 
   private def getGroupStatus(e: Environment, group: String): Boolean =
-    e.structures.select[Closable with Groupable].filter(_.group == group).map(_.isOpen).reduce(_ && _)
+    e.structures.select[Closable with Groupable].filter(_.group == group).forall(_.isOpen)
