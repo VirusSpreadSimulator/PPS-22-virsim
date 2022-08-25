@@ -21,10 +21,10 @@ class SimulationCanvas extends UpdatablePanel:
   override def update(newEnv: Environment): Task[Unit] =
     import it.unibo.pps.js.boundary.gui.component.drawable.Drawables.given
     for
-      _ <- io(ctx.fillStyle = SimulationColor.BACKGROUND_COLOR)
-      _ <- io(ctx.fillRect(0, 0, canvas.width, canvas.height))
       envDim <- io(newEnv.gridSide)
       scale <- io(Math.max(Math.min(canvas.width / envDim, canvas.height / (envDim + 1)), 1)) // to be square
+      _ <- io(ctx.fillStyle = SimulationColor.BACKGROUND_COLOR)
+      _ <- io(ctx.fillRect(0, 0, (envDim + 1) * scale, (envDim + 1) * scale))
       _ <- io(newEnv.draw(ctx, scale))
     yield ()
 
