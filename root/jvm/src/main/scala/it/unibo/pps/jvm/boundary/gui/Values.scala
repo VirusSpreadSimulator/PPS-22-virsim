@@ -34,6 +34,7 @@ object Values:
     val STRUCTURES_GROUP_STATUS_TITLE = "<b>Group of structures</b>"
     val YES: String = "yes"
     val NO: String = "no"
+    val EXPORT_INIT_TITLE: String = "VirSim Simulation Statistics\n\n"
 
   object Dimension:
     import Utils.given
