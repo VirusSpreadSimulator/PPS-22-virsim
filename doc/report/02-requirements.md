@@ -17,7 +17,7 @@
 
 ## Utente
 
-Per essere il più vicini possibile ad una situazione agile reale, Andrea Acampora riveste il ruolo di committente all’interno di questo progetto. Il diagolo, portato avanti tra il Product Owner e il Committente può essere riassunto nella seguente intervista: 
+Per essere il più vicini possibile ad una situazione agile reale, Andrea Acampora riveste il ruolo di committente all’interno di questo progetto. Il dialogo, portato avanti tra il Product Owner e il Committente può essere riassunto nella seguente intervista: 
 
 > "Faccio parte del comitato tecnico scientifico. Alla luce della recente pandemia ho la necessità di un software, preferibilmente leggero e multipiattaforma, che sia in grado di simulare la diffusione di un virus all'interno della popolazione. 
 > Dalle nostre recenti analisi e dalle statistiche fornite dal ministero si evince una difficoltà nel prevedere i livelli di contagio in situazioni che prevedono l'interazione tra individui in spazi aperti e/o all'interno di strutture. A fronte di ciò si richiede la possibilità di configurare la simulazione in termini di caratteristiche degli individui, delle strutture e del virus. Nello specifico deve essere possibile descrivere la popolazione in termini di età e cardinalità. Le strutture, le quali avranno pericolosità di contagio personalizzata, possono essere collocate arbitrariamente all'interno dell'ambiente. Il virus deve essere configurato considerando il tasso di diffusione, periodo medio di positività e la probabiltà di sviluppare una forma grave della malattia. 
