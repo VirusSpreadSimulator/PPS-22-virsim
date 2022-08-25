@@ -1,7 +1,7 @@
 simulation:
   gridSide: 25
   days: 7
-  entities: 100
+  entities: 150
   averagePopulationAge: 40
   stdDevPopulationAge: 0.5
   startingInfectedPercentage: 10
@@ -16,11 +16,23 @@ virus:
 
 structures:
   - GenericBuilding:
-      position: [10,10]
-      infectionProbability: 0.8
+      position: [3, 10]
+      infectionProbability: 0.4
       capacity: 30
+      entranceStrategy:
+        ageLowerThan: 18
 
   - GenericBuilding:
-      position: [20,20]
-      infectionProbability: 0.9
+      position: [7, 5]
+      infectionProbability: 0.5
       capacity: 40
+
+  - Hospital:
+      position: [12, 12]
+      infectionProbability: 0.8
+      capacity: 200
+
+  - Hospital:
+      position: [10, 20]
+      infectionProbability: 0.9
+      capacity: 150

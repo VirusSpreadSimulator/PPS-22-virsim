@@ -1,6 +1,6 @@
 package it.unibo.pps.jvm.boundary.gui.panel
 
-import it.unibo.pps.boundary.ViewUtils.io
+import it.unibo.pps.boundary.ViewUtils.{StatsDisplayer, io}
 import it.unibo.pps.boundary.component.Events.Event.*
 import it.unibo.pps.boundary.component.Events.{Event, Params}
 import it.unibo.pps.control.loader.extractor.EntitiesStats.{Alive, AtHome, Deaths, Infected, Sick}
@@ -130,21 +130,16 @@ object BottomPanels:
 
   /** StatsPanel. It is the panel that show the main statistics about the simulation data. */
   class StatsPanel extends UpdateblePanel:
-    private lazy val daysLabel: JLabel = new JLabel(Text.DAYS_LABEL_TITLE)
-    private lazy val aliveLabel: JLabel = new JLabel(Text.ALIVE_LABEL_TITLE)
-    private lazy val deathsLabel: JLabel = new JLabel(Text.DEATHS_LABEL_TITLE)
-    private lazy val infectedLabel: JLabel = new JLabel(Text.INFECTED_LABEL_TITLE)
-    private lazy val sickLabel: JLabel = new JLabel(Text.SICK_LABEL_TITLE)
-    private lazy val hospitalPressure: JLabel = new JLabel(Text.HOSPITAL_PRESSURE_LABEL_TITLE)
-    private lazy val atHomeLabel: JLabel = new JLabel(Text.AT_HOME_LABEL_TITLE)
 
-    private val daysExtractor: DataExtractor[Long] = Days()
-    private val aliveExtractor: DataExtractor[Int] = Alive()
-    private val deathsExtractor: DataExtractor[Int] = Deaths()
-    private val infectedExtractor: DataExtractor[Int] = Infected()
-    private val sickExtractor: DataExtractor[Int] = Sick()
-    private val hospitalPressureExtractor: DataExtractor[Double] = HospitalPressure()
-    private val atHomeExtractor: DataExtractor[Int] = AtHome()
+    private lazy val stats = Seq(
+      StatsDisplayer(JLabel(Text.DAYS_LABEL_TITLE), Days(), Text.DAYS_LABEL_TITLE),
+      StatsDisplayer(JLabel(Text.INFECTED_LABEL_TITLE), Infected(), Text.INFECTED_LABEL_TITLE),
+      StatsDisplayer(JLabel(Text.SICK_LABEL_TITLE), Sick(), Text.SICK_LABEL_TITLE),
+      StatsDisplayer(JLabel(Text.DEATHS_LABEL_TITLE), Deaths(), Text.DEATHS_LABEL_TITLE),
+      StatsDisplayer(JLabel(Text.ALIVE_LABEL_TITLE), Alive(), Text.ALIVE_LABEL_TITLE),
+      StatsDisplayer(JLabel(Text.AT_HOME_LABEL_TITLE), AtHome(), Text.AT_HOME_LABEL_TITLE),
+      StatsDisplayer(JLabel(Text.HOSPITAL_PRESSURE_LABEL_TITLE), HospitalPressure(), Text.HOSPITAL_PRESSURE_LABEL_TITLE)
+    )
 
     override def init(): Task[Unit] =
       for
@@ -152,32 +147,15 @@ object BottomPanels:
         titleLabel = JLabel(Text.STATS_LABEL)
         _ <- io(titleLabel.setFont(titleLabel.getFont.deriveFont(Font.BOLD)))
         _ <- io(add(titleLabel, Component.TOP_ALIGNMENT))
-        elems = Seq(daysLabel, aliveLabel, deathsLabel, infectedLabel, sickLabel, hospitalPressure, atHomeLabel)
         _ <- io {
-          for elem <- elems do
-            add(elem)
-            elem.setAlignmentX(Component.LEFT_ALIGNMENT)
+          for elem <- stats do
+            add(elem.label)
+            elem.label.setAlignmentX(Component.LEFT_ALIGNMENT)
         }
       yield ()
 
     override def update(env: Environment): Task[Unit] =
-      for
-        _ <- io(daysLabel.setText(Text.DAYS_LABEL_TITLE + daysExtractor.extractData(env)).toString)
-        _ <- io(aliveLabel.setText(Text.ALIVE_LABEL_TITLE + aliveExtractor.extractData(env).toString))
-        _ <- io(deathsLabel.setText(Text.DEATHS_LABEL_TITLE + deathsExtractor.extractData(env).toString))
-        _ <- io(infectedLabel.setText(Text.INFECTED_LABEL_TITLE + infectedExtractor.extractData(env).toString))
-        _ <- io(sickLabel.setText(Text.SICK_LABEL_TITLE + sickExtractor.extractData(env).toString))
-        _ <- io(
-          hospitalPressure.setText(
-            Text.HOSPITAL_PRESSURE_LABEL_TITLE + hospitalPressureExtractor.extractData(env).toString
-          )
-        )
-        _ <- io(
-          atHomeLabel.setText(
-            Text.AT_HOME_LABEL_TITLE + atHomeExtractor.extractData(env).toString
-          )
-        )
-      yield ()
+      io(for elem <- stats do elem.label.setText(elem.defaultName + elem.extractor.extractData(env).toString))
 
   /** Utils to set the panel as a vertical panel with a title and left-aligned elements.
     * @param panel

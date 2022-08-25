@@ -15,6 +15,6 @@ object Launcher extends Launch with JSGUIModule.Interface with YAMLParser.Interf
   override val YAMLParser: ParserModule.Parser = ParserImpl()
   override val parser: ParserModule.Parser = YAMLParser
   override val jsReader: ReaderModule.Reader = JSReaderImpl()
-  override val reader: ReaderModule.Reader = jsReader
+  override val readers: Seq[ReaderModule.Reader] = Seq(jsReader)
 
   @main def main(): Unit = launch()

@@ -24,6 +24,6 @@ object Launcher
   override val scalaParser: ParserModule.Parser = ParserImpl()
   override val parser: ParserModule.Parser = scalaParser
   override val jvmReader: ReaderModule.Reader = JVMReaderImpl()
-  override val reader: ReaderModule.Reader = jvmReader
+  override val readers: Seq[ReaderModule.Reader] = Seq(jvmReader)
 
   @main def main(): Unit = launch()

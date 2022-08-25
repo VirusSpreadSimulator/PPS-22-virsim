@@ -4,6 +4,7 @@ import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaul
 import it.unibo.pps.entity.virus.VirusComponent.Virus
 import monocle.syntax.all.*
 
+/** The DSL of the simulation virus for the configuration file. */
 object VirusDSL:
 
   def virus: Virus = Virus()

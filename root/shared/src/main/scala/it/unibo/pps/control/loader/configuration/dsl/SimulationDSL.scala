@@ -4,6 +4,7 @@ import it.unibo.pps.control.engine.SimulationComponent.Simulation
 import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaults
 import monocle.syntax.all.*
 
+/** The DSL of the simulation for the configuration file. */
 object SimulationDSL:
 
   def simulation: Simulation = Simulation()

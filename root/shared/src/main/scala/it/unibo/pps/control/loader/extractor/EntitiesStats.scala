@@ -7,6 +7,7 @@ import it.unibo.pps.entity.structure.StructureComponent.Habitable
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
 import it.unibo.pps.entity.common.Utils.select
 
+/** All the extractors of statistics about entities. */
 object EntitiesStats:
 
   case class Alive(override val name: String = "Alive") extends DataExtractor[Int]:
@@ -29,4 +30,4 @@ object EntitiesStats:
 
   case class AtHome(override val name: String = "At home") extends DataExtractor[Int]:
     override def extractData(env: Environment): Int =
-      env.structures.select[SimulationStructure with Habitable].map(_.entities).size
+      env.structures.select[SimulationStructure with Habitable].flatMap(_.entities).size
