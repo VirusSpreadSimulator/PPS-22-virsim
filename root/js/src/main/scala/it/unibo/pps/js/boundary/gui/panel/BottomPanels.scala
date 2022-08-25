@@ -17,8 +17,11 @@ import monix.eval.Task
 import monix.reactive.Observable
 import org.scalajs.dom
 
-/** Module that wrap all the panels that are in the bottom area of the simulation gui */
+/** Module that wraps all the util panels of the simulation gui. */
 object BottomPanels:
+  /** Command Panel implementation. It is the panel that contains the pause/resume/stop commands of the simulation and
+    * the control to change the speed.
+    */
   class CommandPanel extends BasePanel with EventablePanel:
     private lazy val pauseBtn: MonadButton =
       MonadButton(
@@ -54,6 +57,9 @@ object BottomPanels:
     override lazy val events: Observable[Event] =
       Observable.fromIterable(Seq(pauseBtn, resumeBtn, stopBtn, speedSelect)).mergeMap(_.events)
 
+  /** Dynamic Configuration Panel. It is the panel that contains all the possible dynamic configurations set by the
+    * user.
+    */
   class DynamicConfigPanel extends BasePanel with EventablePanel:
     private lazy val switchMask: MonadButton =
       MonadButton(Text.SWITCH_MASK_OBLIGATION, SwitchMaskObligation, BootstrapClasses.BTN_SECONDARY)
@@ -82,6 +88,7 @@ object BottomPanels:
     override lazy val events: Observable[Event] =
       Observable.fromIterable(Seq(switchMask, switchStructure, vaccineRound)).mergeMap(_.events)
 
+  /** DynamicActionsLog. It is the panel that show all the information about the dynamic configurations. */
   class DynamicActionsLog extends UpdatablePanel:
     private lazy val maskLabel = dom.document.getElementById("mask-status").asInstanceOf[Span]
     private lazy val structuresLabel = dom.document.getElementById("groups-status").asInstanceOf[Span]
@@ -101,6 +108,7 @@ object BottomPanels:
       _ <- io(structuresLabel.innerHTML = groupStatus.mkString("<br>- ", "<br>- ", ""))
     yield ()
 
+  /** StatsPanel. It is the panel that show the main statistics about the simulation data. */
   class StatsPanel extends UpdatablePanel:
     import it.unibo.pps.control.loader.extractor.EntitiesStats.{Alive, AtHome, Deaths, Infected, Sick}
     import it.unibo.pps.control.loader.extractor.EnvironmentStats.{Days, Hours}
