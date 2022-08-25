@@ -11,10 +11,18 @@ import it.unibo.pps.control.loader.configuration.dsl.SimulationDSL.*
 import it.unibo.pps.control.loader.configuration.dsl.VirusDSL.*
 import it.unibo.pps.control.loader.configuration.dsl.StructuresDSL.*
 import it.unibo.pps.control.parser.ReaderModule.FilePath
+import it.unibo.pps.entity.structure.entrance.Entrance.{
+  BaseEntranceStrategy,
+  EntranceStrategy,
+  FilterBasedStrategy,
+  ProbabilityBasedStrategy
+}
 import monix.eval.Task
+import monocle.Focus.focus
 import org.virtuslab.yaml.*
 
 import scala.io.Source
+import scala.language.postfixOps
 
 object YAMLParser:
 
@@ -27,7 +35,7 @@ object YAMLParser:
     context: Requirements =>
     class ParserImpl extends Parser:
 
-      override def readFile(filePath: FilePath): Task[String] = context.reader.read(filePath)
+      override def readFile(filePath: FilePath): Task[String] = context.readers.head.read(filePath)
 
       override def loadConfiguration(program: String): Task[Option[Configuration]] =
         for
@@ -100,7 +108,7 @@ object YAMLParser:
                     buildingParameters.isDefinedAt("capacity")
                   then
                     val position: List[Int] = buildingParameters("position").asInstanceOf[List[Int]]
-                    structures = structures + GenericBuilding(
+                    val structure: GenericBuilding = GenericBuilding(
                       Point2D(
                         position.head * GlobalDefaults.GRID_MULTIPLIER,
                         position(1) * GlobalDefaults.GRID_MULTIPLIER
@@ -108,6 +116,21 @@ object YAMLParser:
                       buildingParameters("infectionProbability").asInstanceOf[Double],
                       buildingParameters("capacity").asInstanceOf[Int]
                     )
+                    if buildingParameters.isDefinedAt("entranceStrategy") then
+                      val strategy = buildingParameters("entranceStrategy").asInstanceOf[Map[String, Double]]
+                      if strategy.head._1 == "probability" then
+                        class Strategy extends BaseEntranceStrategy with ProbabilityBasedStrategy(strategy.head._2)
+                        val customStrategy: EntranceStrategy = Strategy()
+                        structures = structures + structure.focus(_.entranceStrategy).replace(customStrategy)
+                      else if strategy.head._1 == "ageLowerThan" then
+                        class Strategy extends BaseEntranceStrategy with FilterBasedStrategy(_.age < strategy.head._2)
+                        val filterBasedStrategy: EntranceStrategy = Strategy()
+                        structures = structures + structure.focus(_.entranceStrategy).replace(filterBasedStrategy)
+                      else if strategy.head._1 == "ageGreaterThan" then
+                        class Strategy extends BaseEntranceStrategy with FilterBasedStrategy(_.age > strategy.head._2)
+                        val filterBasedStrategy: EntranceStrategy = Strategy()
+                        structures = structures + structure.focus(_.entranceStrategy).replace(filterBasedStrategy)
+                      else structures = structures + structure
                 case "Hospital" =>
                   val hospitalParameters = structureMap("Hospital").asInstanceOf[Map[String, Any]]
                   if hospitalParameters.isDefinedAt("position") &&
@@ -115,11 +138,26 @@ object YAMLParser:
                     hospitalParameters.isDefinedAt("capacity")
                   then
                     val position: List[Int] = hospitalParameters("position").asInstanceOf[List[Int]]
-                    structures = structures + Hospital(
+                    val structure: Hospital = Hospital(
                       Point2D(position.head, position(1)),
                       hospitalParameters("infectionProbability").asInstanceOf[Double],
                       hospitalParameters("capacity").asInstanceOf[Int]
                     )
+                    if hospitalParameters.isDefinedAt("entranceStrategy") then
+                      val strategy = hospitalParameters("entranceStrategy").asInstanceOf[Map[String, Double]]
+                      if strategy.head._1 == "probability" then
+                        class Strategy extends BaseEntranceStrategy with ProbabilityBasedStrategy(strategy.head._2)
+                        val customStrategy: EntranceStrategy = Strategy()
+                        structures = structures + structure.focus(_.entranceStrategy).replace(customStrategy)
+                      else if strategy.head._1 == "ageLowerThan" then
+                        class Strategy extends BaseEntranceStrategy with FilterBasedStrategy(_.age < strategy.head._2)
+                        val filterBasedStrategy: EntranceStrategy = Strategy()
+                        structures = structures + structure.focus(_.entranceStrategy).replace(filterBasedStrategy)
+                      else if strategy.head._1 == "ageGreaterThan" then
+                        class Strategy extends BaseEntranceStrategy with FilterBasedStrategy(_.age > strategy.head._2)
+                        val filterBasedStrategy: EntranceStrategy = Strategy()
+                        structures = structures + structure.focus(_.entranceStrategy).replace(filterBasedStrategy)
+                      else structures = structures + structure
             )
           )
         Task(structures)
