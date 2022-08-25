@@ -11,10 +11,10 @@ import DrawableConcept.DrawableSwing
 import java.awt.geom.AffineTransform
 import java.awt.{Color, Font, Graphics2D}
 
-/** Define given instances for drawable types */
+/** Define given instances for drawable types. */
 object Drawables:
 
-  /** Extend [[Environment]] with jvm-swing draw capabilities */
+  /** Extend [[Environment]] with jvm-swing draw capabilities. */
   given DrawableSwing[Environment] with
     import DrawableConcept.DrawableOps.*
     extension (env: Environment)
@@ -22,7 +22,7 @@ object Drawables:
         env.structures.drawAll(g, scale)
         env.externalEntities.drawAll(g, scale)
 
-  /** Extend [[SimulationEntity]] with jvm-swing draw capabilities */
+  /** Extend [[SimulationEntity]] with jvm-swing draw capabilities. */
   given DrawableSwing[SimulationEntity] with
     extension (entity: SimulationEntity)
       def draw(g: Graphics2D, scale: Int): Unit =
@@ -37,7 +37,7 @@ object Drawables:
         g.setColor(if entity.immunity > 0 then SimulationColor.IMMUNITY_COLOR else Color.WHITE)
         g.drawOval(scaleToView(entity.position.x, scale), scaleToView(entity.position.y, scale), scale, scale)
 
-  /** Extend [[SimulationStructure]] with jvm-swing draw capabilities */
+  /** Extend [[SimulationStructure]] with jvm-swing draw capabilities. */
   given DrawableSwing[SimulationStructure] with
     extension (structure: SimulationStructure)
       def draw(g: Graphics2D, scale: Int): Unit =

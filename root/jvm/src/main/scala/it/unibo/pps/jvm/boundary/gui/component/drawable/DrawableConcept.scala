@@ -16,8 +16,8 @@ object DrawableConcept:
     extension [A: DrawableSwing](drawables: Set[A])
       /** Method to draw all the elements in a set
         * @param g
-        *   : the graphics needed to draw
+        *   the graphics needed to draw
         * @param scale
-        *   : the scale factor to apply
+        *   the scale factor to apply
         */
       def drawAll(g: Graphics2D, scale: Int): Unit = for drawable <- drawables do drawable.draw(g, scale)

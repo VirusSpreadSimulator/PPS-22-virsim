@@ -9,17 +9,18 @@ import it.unibo.pps.js.boundary.gui.Values.SimulationColor
 import it.unibo.pps.js.boundary.gui.component.drawable.DrawableConcept.DrawableJS
 import org.scalajs.dom
 
+/** Define given instances for drawable types. */
 object Drawables:
 
-  /** Extend [[Environment]] with js draw capabilities */
+  /** Extend [[Environment]] with js draw capabilities. */
   given DrawableJS[Environment] with
     import it.unibo.pps.js.boundary.gui.component.drawable.DrawableConcept.DrawableOps.*
-
     extension (env: Environment)
       def draw(g: dom.CanvasRenderingContext2D, scale: Int): Unit =
         env.structures.drawAll(g, scale)
         env.externalEntities.drawAll(g, scale)
 
+  /** Extend [[SimulationEntity]] with js draw capabilities. */
   given DrawableJS[SimulationEntity] with
     extension (entity: SimulationEntity)
       def draw(g: dom.CanvasRenderingContext2D, scale: Int): Unit =
@@ -32,6 +33,7 @@ object Drawables:
         g.strokeStyle = if entity.immunity > 0 then SimulationColor.IMMUNITY_COLOR else SimulationColor.WHITE
         g.stroke()
 
+  /** Extend [[SimulationStructure]] with js draw capabilities. */
   given DrawableJS[SimulationStructure] with
     extension (structure: SimulationStructure)
       def draw(g: dom.CanvasRenderingContext2D, scale: Int): Unit =
