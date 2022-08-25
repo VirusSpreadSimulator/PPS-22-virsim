@@ -3,14 +3,13 @@ package it.unibo.pps.js.boundary.gui.panel
 import it.unibo.pps.boundary.ViewUtils.{StatsDisplayer, io}
 import it.unibo.pps.boundary.component.Events.Event.*
 import it.unibo.pps.boundary.component.Events.{Event, Params}
-import it.unibo.pps.control.loader.extractor.Extractor.DataExtractor
 import it.unibo.pps.control.loader.extractor.HospitalStats.HospitalPressure
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.StructureComponent.{Closable, Groupable}
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
 import it.unibo.pps.js.boundary.gui.Values.{BootstrapClasses, Text}
 import it.unibo.pps.js.boundary.gui.component.MonadComponents.{MonadButton, MonadConfigButton, MonadSelect}
-import it.unibo.pps.js.boundary.gui.panel.Panels.{BasePanel, EventablePanel, UpdatablePanel}
+import it.unibo.pps.boundary.component.panel.Panels.{BasePanel, EventablePanel, UpdatablePanel}
 import it.unibo.pps.entity.common.Utils.select
 import org.scalajs.dom.html.Span
 import monix.eval.Task

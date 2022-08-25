@@ -1,16 +1,17 @@
 package it.unibo.pps.jvm.boundary.gui.panel
 
-import it.unibo.pps.jvm.boundary.gui.panel.Panels.UpdateblePanel
+import javax.swing.JPanel
 import java.awt.{Graphics, Graphics2D, RenderingHints}
 import it.unibo.pps.boundary.ViewUtils.io
+import it.unibo.pps.boundary.component.panel.Panels.UpdatablePanel
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.jvm.boundary.gui.Values.SimulationColor
 import monix.eval.Task
 
 /** The Simulation Panel is the panel that handle the visualization of the simulation status. For this reason it extends
-  * [[UpdateblePanel]].
+  * [[UpdatablePanel]].
   */
-class SimulationPanel() extends UpdateblePanel:
+class SimulationPanel() extends JPanel with UpdatablePanel:
   private var env: Option[Environment] = None
 
   override def paintComponent(g: Graphics): Unit =

@@ -3,6 +3,7 @@ package it.unibo.pps.jvm.boundary.gui.panel
 import it.unibo.pps.boundary.ViewUtils.{StatsDisplayer, io}
 import it.unibo.pps.boundary.component.Events.Event.*
 import it.unibo.pps.boundary.component.Events.{Event, Params}
+import it.unibo.pps.boundary.component.panel.Panels.{BasePanel, UpdatablePanel, EventablePanel}
 import it.unibo.pps.control.loader.extractor.EntitiesStats.*
 import it.unibo.pps.control.loader.extractor.EnvironmentStats.Days
 import it.unibo.pps.control.loader.extractor.HospitalStats.HospitalPressure
@@ -12,10 +13,8 @@ import it.unibo.pps.entity.structure.StructureComponent.{Closable, Groupable}
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
 import it.unibo.pps.jvm.boundary.gui.Values.{Dimension, Text}
 import it.unibo.pps.jvm.boundary.gui.component.MonadComponents.{MonadButton, MonadCombobox, MonadConfigButton}
-import it.unibo.pps.jvm.boundary.gui.panel.Panels.{DisplayblePanel, EventablePanel, UpdateblePanel}
 import monix.eval.Task
 import monix.reactive.Observable
-
 import java.awt.{BorderLayout, Component, Font}
 import javax.swing.*
 import javax.swing.text.DefaultCaret
@@ -25,7 +24,7 @@ object BottomPanels:
   /** Command Panel implementation. It is the panel that contains the pause/resume/stop commands of the simulation and
     * the control to change the speed.
     */
-  class CommandPanel extends DisplayblePanel with EventablePanel:
+  class CommandPanel extends JPanel with BasePanel with EventablePanel:
     private val pauseBtn: MonadButton =
       MonadButton(Text.PAUSE_BTN, Pause, (_, b) => { b.setEnabled(false); resumeBtn.button.setEnabled(true) })
     private val resumeBtn: MonadButton =
@@ -57,7 +56,7 @@ object BottomPanels:
   /** Dynamic Configuration Panel. It is the panel that contains all the possible dynamic configurations set by the
     * user.
     */
-  class DynamicConfigPanel extends DisplayblePanel with EventablePanel:
+  class DynamicConfigPanel extends JPanel with BasePanel with EventablePanel:
     private val turnMaskOn = MonadButton(Text.SWITCH_MASK_OBLIGATION, SwitchMaskObligation)
     private val switchStructureBtn =
       MonadConfigButton(Text.SWITCH_STRUCTURE_OPEN, Dimension.TEXT_FIELD_LENGTH, SwitchStructure.apply)
@@ -95,7 +94,7 @@ object BottomPanels:
       }
 
   /** DynamicActionsLog. It is the panel that show all the information about the dynamic configurations. */
-  class DynamicActionsLog extends UpdateblePanel:
+  class DynamicActionsLog extends JPanel with UpdatablePanel:
     private lazy val textArea = JEditorPane("text/html", "")
     private lazy val scrollTextArea = JScrollPane(textArea)
 
@@ -128,7 +127,7 @@ object BottomPanels:
     yield ()
 
   /** StatsPanel. It is the panel that show the main statistics about the simulation data. */
-  class StatsPanel extends UpdateblePanel:
+  class StatsPanel extends JPanel with UpdatablePanel:
 
     private lazy val stats = Seq(
       StatsDisplayer(JLabel(Text.DAYS_LABEL_TITLE), Days(), Text.DAYS_LABEL_TITLE),
