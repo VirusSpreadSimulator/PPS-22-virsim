@@ -52,6 +52,8 @@ object Values:
     val CHART_PANEL_MIN_DIMENSION: Dimension = (300, 500)
     val SIMULATION_GUI_TOP_DIMENSION: Dimension = (800, 500)
     val SIMULATION_GUI_BOTTOM_DIMENSION: Dimension = (800, 200)
+    val TEXT_FIELD_LENGTH: Int = 5
+    val NUMERIC_FIELD_LENGTH: Int = 3
 
   object Margin:
     import it.unibo.pps.jvm.boundary.gui.Utils.given
