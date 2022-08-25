@@ -7,6 +7,7 @@ on:
     branches: [main]
 
 jobs:
+
   DocSite:
     runs-on: ubuntu-latest
     steps:
@@ -19,17 +20,23 @@ jobs:
       - name: Make site and scala doc
         run: sbt makeSite
       - name: Create Simulator WebApp
-        run: mkdir target/site/simulator target/site/simulator/js/target/scala-3.1.1/
+        run: mkdir -p target/site/simulator/js/target/scala-3.1.1/
       - name: Generate Simulator WebApp
         run: sbt rootJS/fastOptJS
       - name: Copy Simulator files to VirSim WebSite
         run: |
           cp root/index.html target/site/simulator/
+          cp root/style.css target/site/simulator/
           cp root/js/target/scala-3.1.1/pps-22-virsim-fastopt.js target/site/simulator/js/target/scala-3.1.1/
-      - name: Publish site
-        run: sbt publishToGitHubPages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish Site
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site
+          keep_files: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'chore: update VirSim website'
           
   Release:
     name: Release
