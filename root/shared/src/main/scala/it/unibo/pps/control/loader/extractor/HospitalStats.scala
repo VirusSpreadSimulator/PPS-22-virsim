@@ -31,5 +31,8 @@ object HospitalStats:
     override def extractData(env: Environment): Double =
       if env.structures.select[SimulationStructure with Hospitalization].nonEmpty &&
         Hospitalized().extractData(env) > 0
-      then (Hospitalized().extractData(env).toDouble / HospitalsCapacity().extractData(env)) * 100
+      then
+        BigDecimal((Hospitalized().extractData(env).toDouble / HospitalsCapacity().extractData(env)) * 100)
+          .setScale(2, BigDecimal.RoundingMode.HALF_UP)
+          .toDouble
       else 0
