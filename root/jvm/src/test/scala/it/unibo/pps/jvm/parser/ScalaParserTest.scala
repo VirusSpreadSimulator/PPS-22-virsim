@@ -25,7 +25,7 @@ object ScalaParserTest extends SimpleTaskSuite with Matchers:
   object TestScalaParser extends ScalaParser.Interface with ReaderModule.Interface with JVMReader.Interface:
     override val scalaParser: Parser = ParserImpl()
     override val jvmReader: ReaderModule.Reader = JVMReaderImpl()
-    override val readers: Seq[ReaderModule.Reader] = Seq(jvmReader)
+    override val reader: ReaderModule.Reader = jvmReader
 
   private val scalaParser: Parser = TestScalaParser.scalaParser
 

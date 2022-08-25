@@ -31,7 +31,7 @@ object ScalaParser:
     context: Requirements =>
     class ParserImpl extends Parser:
 
-      override def readFile(filePath: FilePath): Task[String] = context.readers.head.read(filePath)
+      override def readFile(filePath: FilePath): Task[String] = context.reader.read(filePath)
 
       override def loadConfiguration(program: String): Task[Option[Configuration]] =
         for

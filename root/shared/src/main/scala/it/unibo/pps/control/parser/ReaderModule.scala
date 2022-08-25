@@ -24,7 +24,7 @@ object ReaderModule:
 
   /** Provider of the component */
   trait Provider:
-    /** The current readers of the configuration */
-    val readers: Seq[Reader]
+    /** The current reader of the configuration */
+    val reader: Reader
 
   trait Interface extends Provider

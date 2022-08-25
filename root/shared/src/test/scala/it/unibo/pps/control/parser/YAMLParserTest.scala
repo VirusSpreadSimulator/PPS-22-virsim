@@ -21,7 +21,7 @@ object YAMLParserTest extends SimpleTaskSuite with Matchers:
 
   object TestYAMLParser extends YAMLParser.Interface with ReaderModule.Interface:
     override val YAMLParser: Parser = ParserImpl()
-    override val readers: Seq[ReaderModule.Reader] = Seq(MockReader())
+    override val reader: ReaderModule.Reader = MockReader()
 
   private val yamlParser: Parser = TestYAMLParser.YAMLParser
 
