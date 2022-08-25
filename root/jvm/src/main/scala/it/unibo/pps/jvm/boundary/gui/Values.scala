@@ -68,6 +68,7 @@ object Values:
   object SimulationColor:
     import java.awt.Color
     val BACKGROUND_COLOR: Color = Color(56, 142, 60)
+    val BACKGROUND_UNDER_CANVAS: Color = Color(255, 204, 128)
     val BACKGROUND_CHART_PANEL_COLOR: Color = Color(255, 204, 128)
     val HEALTHY_ENTITY_COLOR: Color = Color(118, 255, 3)
     val INFECTED_ENTITY_COLOR: Color = Color(221, 44, 0)

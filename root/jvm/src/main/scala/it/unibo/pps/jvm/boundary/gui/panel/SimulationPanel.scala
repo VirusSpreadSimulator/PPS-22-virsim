@@ -2,7 +2,7 @@ package it.unibo.pps.jvm.boundary.gui.panel
 
 import javax.swing.JPanel
 import java.awt.{Graphics, Graphics2D, RenderingHints}
-import it.unibo.pps.boundary.ViewUtils.io
+import it.unibo.pps.boundary.ViewUtils.{io, scaleToView}
 import it.unibo.pps.boundary.component.panel.Panels.UpdatablePanel
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.jvm.boundary.gui.Values.SimulationColor
@@ -16,7 +16,7 @@ class SimulationPanel() extends JPanel with UpdatablePanel:
 
   override def paintComponent(g: Graphics): Unit =
     super.paintComponent(g)
-    setBackground(SimulationColor.BACKGROUND_COLOR)
+    setBackground(SimulationColor.BACKGROUND_UNDER_CANVAS)
     if env.isDefined then
       val environment = env.get
       val panelDim = getSize()
@@ -25,6 +25,8 @@ class SimulationPanel() extends JPanel with UpdatablePanel:
       val g2: Graphics2D = g.asInstanceOf[Graphics2D]
       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
       g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)
+      g2.setColor(SimulationColor.BACKGROUND_COLOR)
+      g2.fillRect(0, 0, scaleToView(envDim + 1, scale), scaleToView(envDim + 1, scale))
 
       import it.unibo.pps.jvm.boundary.gui.component.drawable.Drawables.given
       environment.draw(g2, scale)
