@@ -41,7 +41,7 @@ jobs:
           file_dir: doc/report
           output_dir: doc
           output_file_name: report.pdf
-          config_dir: doc/config/
+          style_path: doc/config/style.css
       - name: Generate Fat Jar
         run: sbt rootJVM/assembly
       - name: Release
