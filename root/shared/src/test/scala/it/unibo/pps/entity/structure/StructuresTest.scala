@@ -32,28 +32,27 @@ class StructuresTest extends AnyFunSuite with Matchers:
     )
 
   test("Initially a house is empty") {
-    house.entities.size shouldBe 0
+    house.entities.isEmpty shouldBe true
   }
 
   test("In a house can enter anyone") {
-    var houseCopy: SimulationStructure = house.tryToEnter(entities.head, timeStamp)
+    val houseCopy = house.tryToEnter(entities.head, timeStamp)
     houseCopy.entities.size shouldBe 1
   }
 
   test("No more entities than capacity can enter in a House") {
-    var houseCopy: SimulationStructure = house.tryToEnterMultiple(entities, timeStamp)
+    val houseCopy = house.tryToEnterMultiple(entities, timeStamp)
     houseCopy.entities.size shouldBe capacity
   }
 
   test("An entity can exit from an house") {
-    var houseCopy: SimulationStructure = house.tryToEnter(entities.head, timeStamp)
-    houseCopy = houseCopy.entityExit(entities.head)
-    houseCopy.entities.isEmpty shouldBe true
+    val houseCopy = house.tryToEnter(entities.head, timeStamp)
+    houseCopy.entityExit(entities.head).entities.isEmpty shouldBe true
   }
 
   test("We can delete all the entities inside a house") {
     val resultingHouse = Samples.inhabitatedHouse.updateEntitiesInside(_ => None)
-    resultingHouse.entities.size shouldBe 0
+    resultingHouse.entities.isEmpty shouldBe true
   }
 
   test("We can modify all the entities inside a house and the number will remain equal") {
@@ -63,41 +62,37 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("Initially a generic building is empty") {
-    building.entities.size shouldBe 0
+    building.entities.isEmpty shouldBe true
   }
 
   test("In a generic building the strategy must be considered, true case") {
-    var buildingCopy: SimulationStructure = building.copy(entranceStrategy = filteredStrategyTrue)
-    buildingCopy = buildingCopy.tryToEnter(entities.head, timeStamp)
-    buildingCopy.entities.size shouldBe 1
+    val buildingCopy = building.copy(entranceStrategy = filteredStrategyTrue)
+    buildingCopy.tryToEnter(entities.head, timeStamp).entities.size shouldBe 1
   }
 
   test("In a generic building the strategy must be considered, false case") {
-    var buildingCopy: SimulationStructure = building.copy(entranceStrategy = filteredStrategyFalse)
-    buildingCopy = buildingCopy.tryToEnter(entities.head, timeStamp)
-    buildingCopy.entities.size shouldBe 0
+    val buildingCopy = building.copy(entranceStrategy = filteredStrategyFalse)
+    buildingCopy.tryToEnter(entities.head, timeStamp).entities.isEmpty shouldBe true
   }
 
   test("A generic building can be closed after creation and will not accept entities") {
     val buildingCopy = building.focus(_.isOpen).replace(false)
-    buildingCopy.tryToEnter(entities.head, timeStamp).entities.size shouldBe 0
+    buildingCopy.tryToEnter(entities.head, timeStamp).entities.isEmpty shouldBe true
   }
 
   test("In a generic building even if the strategy allow the entity, the capacity must be respected") {
-    var buildingCopy: SimulationStructure = building.copy(entranceStrategy = filteredStrategyTrue)
-    buildingCopy = buildingCopy.tryToEnterMultiple(entities, timeStamp)
-    buildingCopy.entities.size shouldBe capacity
+    val buildingCopy = building.copy(entranceStrategy = filteredStrategyTrue)
+    buildingCopy.tryToEnterMultiple(entities, timeStamp).entities.size shouldBe capacity
   }
 
   test("An entity can exit from a generic building") {
-    var buildingCopy: SimulationStructure = building.tryToEnter(entities.head, timeStamp)
-    buildingCopy = buildingCopy.entityExit(entities.head)
-    buildingCopy.entities.isEmpty shouldBe true
+    val buildingCopy = building.tryToEnter(entities.head, timeStamp)
+    buildingCopy.entityExit(entities.head).entities.isEmpty shouldBe true
   }
 
   test("We can delete all the entities inside a generic building") {
     val resultingHouse = Samples.inhabitatedGenericBuilding.updateEntitiesInside(_ => None)
-    resultingHouse.entities.size shouldBe 0
+    resultingHouse.entities.isEmpty shouldBe true
   }
 
   test("We can modify all the entities inside a generic building and the number will remain equal") {
@@ -107,36 +102,32 @@ class StructuresTest extends AnyFunSuite with Matchers:
   }
 
   test("Initially a hospital is empty") {
-    hospital.entities.size shouldBe 0
+    hospital.entities.isEmpty shouldBe true
   }
 
   test("In a hospital the strategy must be considered, true case") {
-    var hospitalCopy: SimulationStructure = hospital.copy(entranceStrategy = filteredStrategyTrue)
-    hospitalCopy = hospitalCopy.tryToEnter(entities.head, timeStamp)
-    hospitalCopy.entities.size shouldBe 1
+    val hospitalCopy = hospital.copy(entranceStrategy = filteredStrategyTrue)
+    hospitalCopy.tryToEnter(entities.head, timeStamp).entities.size shouldBe 1
   }
 
   test("In a hospital the strategy must be considered, false case") {
-    var hospitalCopy: SimulationStructure = hospital.copy(entranceStrategy = filteredStrategyFalse)
-    hospitalCopy = hospitalCopy.tryToEnter(entities.head, timeStamp)
-    hospitalCopy.entities.size shouldBe 0
+    val hospitalCopy = hospital.copy(entranceStrategy = filteredStrategyFalse)
+    hospitalCopy.tryToEnter(entities.head, timeStamp).entities.isEmpty shouldBe true
   }
 
   test("In a hospital even if the strategy allow the entity, the capacity must be respected") {
-    var hospitalCopy: SimulationStructure = hospital.copy(entranceStrategy = filteredStrategyTrue)
-    hospitalCopy = hospitalCopy.tryToEnterMultiple(entities, timeStamp)
-    hospitalCopy.entities.size shouldBe capacity
+    val hospitalCopy = hospital.copy(entranceStrategy = filteredStrategyTrue)
+    hospitalCopy.tryToEnterMultiple(entities, timeStamp).entities.size shouldBe capacity
   }
 
   test("An entity can exit from a hospital") {
-    var hospitalCopy: SimulationStructure = hospital.tryToEnter(entities.head, timeStamp)
-    hospitalCopy = hospitalCopy.entityExit(entities.head)
-    hospitalCopy.entities.isEmpty shouldBe true
+    val hospitalCopy = hospital.tryToEnter(entities.head, timeStamp)
+    hospitalCopy.entityExit(entities.head).entities.isEmpty shouldBe true
   }
 
   test("We can delete all the entities inside a hospital") {
     val resultingHouse = Samples.inhabitatedHospital.updateEntitiesInside(_ => None)
-    resultingHouse.entities.size shouldBe 0
+    resultingHouse.entities.isEmpty shouldBe true
   }
 
   test("We can modify all the entities inside a hospital and the number will remain equal") {
