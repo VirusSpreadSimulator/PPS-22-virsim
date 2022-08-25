@@ -1,8 +1,8 @@
 package it.unibo.pps.jvm.boundary.gui
 
-import it.unibo.pps.jvm.boundary.gui.Utils
-
+/** Module that contains all the jvm gui-related constants. */
 object Values:
+  /** Text constants. */
   object Text:
     val SIMULATOR_NAME_SHORT: String = "Virsim"
     val SIMULATOR_NAME: String = "Virus Spread Simulator"
@@ -35,9 +35,9 @@ object Values:
     val YES: String = "yes"
     val NO: String = "no"
 
+  /** Dimension constants. */
   object Dimension:
     import Utils.given
-
     import java.awt.Dimension
 
     val INITGUI_WIDTH: Int = 500
@@ -55,14 +55,15 @@ object Values:
     val TEXT_FIELD_LENGTH: Int = 5
     val NUMERIC_FIELD_LENGTH: Int = 3
 
+  /** Margin constants. */
   object Margin:
-    import it.unibo.pps.jvm.boundary.gui.Utils.given
-
+    import Utils.given
     import java.awt.Dimension
 
     val DEFAULT_HMARGIN: Dimension = (10, 0)
     val DEFAULT_GRID_H_MARGIN: Int = 20
 
+  /** Color constants. */
   object SimulationColor:
     import java.awt.Color
     val BACKGROUND_COLOR: Color = Color(56, 142, 60)
@@ -77,6 +78,14 @@ object Values:
     val VISIBILITY_RANGE_COLOR: Color = Color(212, 225, 87, 220)
     val STRUCTURE_CAPACITY_COLOR: Color = Color.RED
 
+    /** Method that allow to modify a color based on the age of the entity.
+      * @param color
+      *   the color to modify
+      * @param age
+      *   the entity's age
+      * @return
+      *   the modified color
+      */
     def ageColor(color: Color, age: Int): Color =
       Color(
         Math.max(color.getRed - age / 3, 0),

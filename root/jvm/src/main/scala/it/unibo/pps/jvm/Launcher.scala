@@ -1,6 +1,5 @@
 package it.unibo.pps.jvm
 
-import it.unibo.pps.boundary.BoundaryModule
 import it.unibo.pps.boundary.BoundaryModule.Boundary
 import it.unibo.pps.boundary.BoundaryModule.ConfigBoundary
 import it.unibo.pps.control.launcher.Launch
@@ -10,6 +9,7 @@ import it.unibo.pps.jvm.boundary.gui.GUIModule
 import it.unibo.pps.jvm.parser.ScalaParser
 import it.unibo.pps.jvm.parser.JVMReader
 
+/** Launcher of the JVM app. */
 object Launcher
     extends Launch
     with GUIModule.Interface
