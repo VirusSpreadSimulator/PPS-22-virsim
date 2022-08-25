@@ -83,6 +83,7 @@ object BottomPanels:
 
     override def stop(): Task[Unit] = for
       _ <- io(for elem <- Seq(switchMask.button, switchStructure.button, vaccineRound.button) do elem.disabled = true)
+      _ <- io(for elem <- Seq(switchStructure.input, vaccineRound.input) do elem.disabled = true)
     yield ()
 
     override lazy val events: Observable[Event] =
@@ -100,9 +101,8 @@ object BottomPanels:
       groupStatus <- io(
         env.structures
           .select[SimulationStructure with Closable with Groupable]
-          .groupMap(_.group)(_.isOpen)
-          .map((k, v) => (k, v.reduce(_ & _)))
-          .map((k, v) => (k, if v then Text.OPEN_STRUCTURE else Text.CLOSED_STRUCTURE))
+          .groupBy(_.group)
+          .map((k, v) => (k, if v.forall(_.isOpen) then Text.OPEN_STRUCTURE else Text.CLOSED_STRUCTURE))
       )
       _ <- io(maskLabel.textContent = maskStatus)
       _ <- io(structuresLabel.innerHTML = groupStatus.mkString("<br>- ", "<br>- ", ""))
