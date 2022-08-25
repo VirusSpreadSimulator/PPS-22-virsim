@@ -6,6 +6,7 @@ import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.entity.EntityComponent.*
 import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
 import it.unibo.pps.entity.structure.Structures.*
+import scalaz.Memo
 
 object Entities:
   /** Case class for the entity of the simulation.
@@ -55,7 +56,8 @@ object Entities:
   object SimulationEntity:
     private def calculateMaxHealth(age: Int): Double =
       import it.unibo.pps.control.loader.configuration.SimulationDefaults
-      SimulationDefaults.MAX_VALUES.MAX_HEALTH - (SimulationDefaults.MIN_VALUES.MIN_INITIAL_HEALTH.toDouble / SimulationDefaults.MAX_VALUES.MAX_HEALTH) * age
+      HealthCalculator.calculateMaxHealth(age)
+
     def apply(
         id: Int,
         age: Int,
@@ -78,3 +80,8 @@ object Entities:
         infection,
         hasMask
       )
+
+  object HealthCalculator:
+    val calculateMaxHealth: Int => Double = Memo.immutableHashMapMemo { age =>
+      SimulationDefaults.MAX_VALUES.MAX_HEALTH - ((SimulationDefaults.MAX_VALUES.MAX_HEALTH - SimulationDefaults.MIN_VALUES.MIN_INITIAL_HEALTH.toDouble) / SimulationDefaults.MAX_VALUES.MAX_HEALTH) * age
+    }
