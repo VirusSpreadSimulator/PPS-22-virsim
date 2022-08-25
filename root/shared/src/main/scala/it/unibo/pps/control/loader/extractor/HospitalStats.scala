@@ -6,6 +6,7 @@ import it.unibo.pps.entity.structure.StructureComponent.Hospitalization
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
 import it.unibo.pps.entity.common.Utils.select
 
+/** All the extractors of statistics about hospital. */
 object HospitalStats:
 
   case class HospitalsCapacity(override val name: String = "HospitalsCapacity") extends DataExtractor[Int]:
@@ -28,4 +29,7 @@ object HospitalStats:
 
   case class HospitalPressure(override val name: String = "HospitalPressure") extends DataExtractor[Double]:
     override def extractData(env: Environment): Double =
-      Math.ceil(Hospitalized().extractData(env).toDouble / HospitalsCapacity().extractData(env).toDouble)
+      if env.structures.select[SimulationStructure with Hospitalization].nonEmpty &&
+        Hospitalized().extractData(env) > 0
+      then (Hospitalized().extractData(env).toDouble / HospitalsCapacity().extractData(env)) * 100
+      else 0
