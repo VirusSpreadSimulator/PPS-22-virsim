@@ -11,7 +11,7 @@ object Values:
     val VACCINE_ROUND: String = "Vaccine round"
     val SWITCH_STRUCTURE_OPEN: String = " Switch group "
     val OPEN_STRUCTURE: String = "<i>open</i>"
-    val CLOSED_STRUCTURE: String = "<i>close</i>"
+    val CLOSED_STRUCTURE: String = "<i>closed</i>"
     val YES: String = "yes"
     val NO: String = "no"
 

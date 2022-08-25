@@ -29,7 +29,7 @@ object Values:
     val ALIVE_LABEL_TITLE: String = "Alive: "
     val AT_HOME_LABEL_TITLE: String = "Now at home: "
     val OPEN_STRUCTURE: String = "<i>open</i>"
-    val CLOSED_STRUCTURE: String = "<i>close</i>"
+    val CLOSED_STRUCTURE: String = "<i>closed</i>"
     val MASK_STATUS_TITLE: String = "<b>Mask</b>"
     val STRUCTURES_GROUP_STATUS_TITLE = "<b>Group of structures</b>"
     val YES: String = "yes"
