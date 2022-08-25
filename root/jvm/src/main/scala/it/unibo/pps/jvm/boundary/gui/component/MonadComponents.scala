@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent
 
 /** Module that contains all the definition of custom components that can be easily integrated in a monadic system. */
 object MonadComponents:
-  /** MonadButton represent an [[EventSource]] that emit custom events when pressed. */
+  /** MonadButton represents an [[EventSource]] that emit custom events when pressed. */
   trait MonadButton extends EventSource:
     /** @return the associated swing button. */
     def button: JButton
@@ -44,8 +44,8 @@ object MonadComponents:
         Cancelable.empty
       }
 
-  /** MonadConfigButton represent an [[EventSource]] composed by a button and a text field. Usually it is useful to deal
-    * with configuration button that need some text as input.
+  /** MonadConfigButton represents an [[EventSource]] composed by a button and a text field. Usually it is useful to
+    * deal with configuration button that need some text as input.
     */
   trait MonadConfigButton extends EventSource:
     /** @return the associated swing button. */
@@ -111,7 +111,7 @@ object MonadComponents:
         Cancelable.empty
       }
 
-  /** MonadCombobox represent an [[EventSource]] that is composed by a combo-box that emit events when the choice is
+  /** MonadCombobox represents an [[EventSource]] that is composed by a combo-box that emit events when the choice is
     * changed.
     */
   trait MonadCombobox[A] extends EventSource:

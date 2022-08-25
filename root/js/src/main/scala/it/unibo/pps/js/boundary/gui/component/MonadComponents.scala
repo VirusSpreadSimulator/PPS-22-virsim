@@ -9,10 +9,10 @@ import org.scalajs.dom
 import org.scalajs.dom.{HTMLDivElement, HTMLElement, HTMLOptionElement}
 import org.scalajs.dom.html.{Button, Input, Select}
 
-/** Module that contains all the definition of custom components that can be easily integrated in a monadic system. */
+/** Module that contains all the definitions of custom components that can be easily integrated in a monadic system. */
 object MonadComponents:
   import it.unibo.pps.js.boundary.gui.component.MonadComponents.Utils.{createButton, createInput}
-  /** MonadButton represent an [[EventSource]] that emit custom events when pressed. */
+  /** MonadButton represents an [[EventSource]] that emit custom events when pressed. */
   trait MonadButton extends EventSource:
     /** @return the associated html button. */
     def button: Button
@@ -50,10 +50,11 @@ object MonadComponents:
         Cancelable.empty
       }
 
-  /** MonadSelect represent an [[EventSource]] that is composed by a select that emit events when the choice is changed.
+  /** MonadSelect represents an [[EventSource]] that is composed by a select that emit events when the choice is
+    * changed.
     */
   trait MonadSelect extends EventSource:
-    /** @return the associated html select */
+    /** @return the associated html select. */
     def select: Select
   object MonadSelect:
     /** Factory to create a Monad Select.
@@ -84,7 +85,7 @@ object MonadComponents:
         Cancelable.empty
       }
 
-  /** MonadConfigButton represent an [[EventSource]] composed by a button and an input. Usually it is useful to deal
+  /** MonadConfigButton represents an [[EventSource]] composed by a button and an input. Usually it is useful to deal
     * with configuration button that need some text as input.
     */
   trait MonadConfigButton extends EventSource:
@@ -98,22 +99,24 @@ object MonadComponents:
     /** Factory to create a MonadConfigButton with a text-based input.
       * @param title
       *   the text to show in the button
-      * @param configLenght
+      * @param configLength
       *   the length of the text input
       * @param eventFactory
       *   the factory that create the associated event from the string inserted by the user in the input
       * @return
       *   the MonadConfigButton
       */
-    def apply(title: String, configLenght: Int, eventFactory: String => Event): MonadConfigButton =
-      val button = createButton(title, BootstrapClasses.BTN_SECONDARY)
-      val input = createInput("text", configLenght)
-      MonadConfigButtonImpl(button, input, eventFactory)
+    def apply(title: String, configLength: Int, eventFactory: String => Event): MonadConfigButton =
+      MonadConfigButtonImpl(
+        createButton(title, BootstrapClasses.BTN_SECONDARY),
+        createInput("text", configLength),
+        eventFactory
+      )
 
     /** Factory to create a MonadConfigButton with a numeric-based input.
       * @param title
       *   the text to show in the button
-      * @param lenght
+      * @param length
       *   the length of the text input
       * @param min
       *   the minimum number that can be inserted by the user
@@ -125,13 +128,12 @@ object MonadComponents:
       * @return
       *   the MonadConfigButton
       */
-    def numeric(title: String, lenght: Int, min: Int, max: Int, factory: String => Event): MonadConfigButton =
-      val button = createButton(title, BootstrapClasses.BTN_SECONDARY)
-      val input = createInput("number", lenght)
+    def numeric(title: String, length: Int, min: Int, max: Int, factory: String => Event): MonadConfigButton =
+      val input = createInput("number", length)
       input.min = min.toString
       input.max = max.toString
       input.step = "1"
-      MonadConfigButtonImpl(button, input, factory)
+      MonadConfigButtonImpl(createButton(title, BootstrapClasses.BTN_SECONDARY), input, factory)
 
     private class MonadConfigButtonImpl(
         override val button: Button,
@@ -151,7 +153,7 @@ object MonadComponents:
       }
 
   private object Utils:
-    /** Create an html button
+    /** Create an html button.
       * @param title
       *   the title of the button
       * @param className
@@ -164,7 +166,7 @@ object MonadComponents:
       button.textContent = title
       button.className = className
       button
-    /** Create an html input
+    /** Create an html input.
       * @param inputType
       *   the type of the input
       * @param length
