@@ -67,10 +67,8 @@ object EngineModule:
           events <- queue.drain(0, config.maxEventPerIteration)
           timeTarget = config.engineSpeed.tickTime
           prevTime <- timeNow(timeTarget.unit)
-          _ <- debugEvents(events) // todo: to be deleted, only to see events
           envAfterEvents <- handleEvents(events, environment)
           updatedEnv <- performLogics(envAfterEvents)
-          _ <- Task(println(updatedEnv.time)) //todo: to be deleted, only to see the progress
           _ <- renderBoundaries(updatedEnv)
           newTime <- timeNow(timeTarget.unit)
           timeDiff = FiniteDuration(newTime - prevTime, timeTarget.unit)
@@ -102,9 +100,6 @@ object EngineModule:
           .filter(event => event.interested(config.engineStatus))
           .map(event => config.eventLogics(event))
           .foldLeft(Task(environment))((t, logic) => t.flatMap(env => logic(env)))
-
-      private def debugEvents(events: Seq[Event]): Task[Unit] =
-        if events.nonEmpty then Task(println(events.foldLeft("Event processed:")(_ + " " + _))) else Task.pure {}
 
       /** Method to allow the boundaries to consume the current state of the environment.
         * @param env
