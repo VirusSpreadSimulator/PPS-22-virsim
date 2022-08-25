@@ -42,9 +42,12 @@ object Values:
 
     val INITGUI_WIDTH: Int = 500
     val INITGUI_HEIGHT: Int = 800
+    val INITGUI_PADDING_FRACTION: Int = 10
     val SIMULATIONGUI_WIDTH: Int = 920
     val SIMULATIONGUI_HEIGHT: Int = 850
     val FONT_DIMENSION: Int = 10
+    val FILE_SRC_TEXT_FIELD_WIDTH_REDUCER: Int = 25
+    val TITLE_FONT_MULTIPLIER: Int = 3
     val SIMULATION_PANEL_MIN_DIMENSION: Dimension = (500, 500)
     val CHART_PANEL_MIN_DIMENSION: Dimension = (300, 500)
     val SIMULATION_GUI_TOP_DIMENSION: Dimension = (800, 500)
@@ -56,7 +59,7 @@ object Values:
     import java.awt.Dimension
 
     val DEFAULT_HMARGIN: Dimension = (10, 0)
-    val DEFAULT_VMARGIN: Dimension = (0, 5)
+    val DEFAULT_GRID_H_MARGIN: Int = 20
 
   object SimulationColor:
     import java.awt.Color
