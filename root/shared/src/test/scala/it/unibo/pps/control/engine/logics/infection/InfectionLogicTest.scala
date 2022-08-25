@@ -19,7 +19,7 @@ object InfectionLogicTest extends SimpleTaskSuite:
 
   test("External infection logic doesn't create spurious entities") {
     for updatedEnv <- externalInfectionLogic(baseEnv)
-    yield expect(updatedEnv.allEntities.size == updatedEnv.allEntities.size)
+    yield expect(updatedEnv.allEntities.size == baseEnv.allEntities.size)
   }
 
   test("When the external infection logic is applied the number of external infected is more or equal") {
