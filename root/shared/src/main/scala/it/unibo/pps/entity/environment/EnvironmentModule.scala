@@ -11,6 +11,7 @@ import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaul
 import monocle.syntax.all.*
 import scala.concurrent.duration.DAYS
 
+/** The environment of the simulation. */
 object EnvironmentModule:
 
   trait Environment:

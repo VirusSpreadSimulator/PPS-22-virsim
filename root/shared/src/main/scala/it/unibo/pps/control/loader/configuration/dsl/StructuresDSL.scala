@@ -4,6 +4,7 @@ import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaul
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.structure.Structures.SimulationStructure
 
+/** The DSL of the simulation structures for the configuration file. */
 object StructuresDSL:
 
   val structures: Set[SimulationStructure] = Set()

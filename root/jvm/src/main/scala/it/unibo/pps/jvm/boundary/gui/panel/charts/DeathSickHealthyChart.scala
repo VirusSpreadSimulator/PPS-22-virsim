@@ -19,7 +19,7 @@ import java.awt.{Color, Font}
 class DeathSickHealthyChart extends Chart:
   private val dataset: DefaultCategoryDataset = new DefaultCategoryDataset()
   private val barChart: JFreeChart =
-    ChartFactory.createStackedBarChart("Deads, Cured and Sick Entities", "", "", dataset)
+    ChartFactory.createStackedBarChart("Deads, Sick and Healthy Entities", "", "", dataset)
   private val barChartPanel: ChartPanel = new MyChartPanel(barChart)
   private val deathsExtractor: DataExtractor[Int] = Deaths()
   private val sickExtractor: DataExtractor[Int] = Sick()
