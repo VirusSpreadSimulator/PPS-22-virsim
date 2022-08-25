@@ -146,17 +146,17 @@ object YAMLParser:
                     if hospitalParameters.isDefinedAt("entranceStrategy") then
                       val strategy = hospitalParameters("entranceStrategy").asInstanceOf[Map[String, Double]]
                       if strategy.head._1 == "probability" then
-                        class Strategy extends BaseEntranceStrategy with ProbabilityBasedStrategy(strategy.head._2)
-                        val customStrategy: EntranceStrategy = Strategy()
-                        structures = structures + structure.focus(_.entranceStrategy).replace(customStrategy)
+                        structures = structures + structure
+                          .focus(_.entranceStrategy)
+                          .replace(new BaseEntranceStrategy with ProbabilityBasedStrategy(strategy.head._2))
                       else if strategy.head._1 == "ageLowerThan" then
-                        class Strategy extends BaseEntranceStrategy with FilterBasedStrategy(_.age < strategy.head._2)
-                        val filterBasedStrategy: EntranceStrategy = Strategy()
-                        structures = structures + structure.focus(_.entranceStrategy).replace(filterBasedStrategy)
+                        structures = structures + structure
+                          .focus(_.entranceStrategy)
+                          .replace(new BaseEntranceStrategy with FilterBasedStrategy(_.age < strategy.head._2))
                       else if strategy.head._1 == "ageGreaterThan" then
-                        class Strategy extends BaseEntranceStrategy with FilterBasedStrategy(_.age > strategy.head._2)
-                        val filterBasedStrategy: EntranceStrategy = Strategy()
-                        structures = structures + structure.focus(_.entranceStrategy).replace(filterBasedStrategy)
+                        structures = structures + structure
+                          .focus(_.entranceStrategy)
+                          .replace(new BaseEntranceStrategy with FilterBasedStrategy(_.age > strategy.head._2))
                       else structures = structures + structure
             )
           )
