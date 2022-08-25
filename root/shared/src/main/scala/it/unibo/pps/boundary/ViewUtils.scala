@@ -26,9 +26,11 @@ object ViewUtils:
     *   the label in which display the stat
     * @param extractor
     *   the extractor to use
+    * @param defaultName
+    *   the default name of the stat
     * @tparam E
     *   the type of the label
     * @tparam A
     *   the type of data to extract
     */
-  case class StatsDisplayer[E, A](label: E, extractor: DataExtractor[A])
+  case class StatsDisplayer[E, A](label: E, extractor: DataExtractor[A], defaultName: String = "Stat")
