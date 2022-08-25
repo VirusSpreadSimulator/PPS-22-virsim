@@ -3,9 +3,8 @@ package it.unibo.pps.jvm.boundary.gui.panel
 import it.unibo.pps.boundary.ViewUtils.{StatsDisplayer, io}
 import it.unibo.pps.boundary.component.Events.Event.*
 import it.unibo.pps.boundary.component.Events.{Event, Params}
-import it.unibo.pps.control.loader.extractor.EntitiesStats.{Alive, AtHome, Deaths, Infected, Sick}
+import it.unibo.pps.control.loader.extractor.EntitiesStats.*
 import it.unibo.pps.control.loader.extractor.EnvironmentStats.Days
-import it.unibo.pps.control.loader.extractor.Extractor.DataExtractor
 import it.unibo.pps.control.loader.extractor.HospitalStats.HospitalPressure
 import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
@@ -18,8 +17,8 @@ import monix.eval.Task
 import monix.reactive.Observable
 
 import java.awt.{BorderLayout, Component, Font}
-import javax.swing.text.DefaultCaret
 import javax.swing.*
+import javax.swing.text.DefaultCaret
 
 /** Module that wraps all the panels that are in the bottom area of the simulation gui. */
 object BottomPanels:
