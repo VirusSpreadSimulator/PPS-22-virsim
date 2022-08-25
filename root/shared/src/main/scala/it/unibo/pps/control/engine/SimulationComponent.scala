@@ -4,15 +4,16 @@ import it.unibo.pps.control.loader.configuration.SimulationDefaults.GlobalDefaul
 
 object SimulationComponent:
 
+  /** The parameters of the simulation configurable by the user. */
   trait SimulationParameters:
 
-    /** @return the size of the environment choosed by the user. */
+    /** @return the size of the environment chose by the user. */
     def gridSide: Int
 
     /** @return the duration of the simulation. */
     def duration: Int
 
-    /** @return the number of entities choosed by the user. */
+    /** @return the number of entities chose by the user. */
     def numberOfEntities: Int
 
     /** @return
