@@ -3,6 +3,7 @@ package it.unibo.pps.control.loader.extractor
 import it.unibo.pps.control.loader.extractor.Extractor.DataExtractor
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 
+/** All the extractors of statistics about environment. */
 object EnvironmentStats:
 
   case class Days(override val name: String = "Days") extends DataExtractor[Long]:
