@@ -44,6 +44,7 @@ object Values:
     val INITGUI_HEIGHT: Int = 800
     val SIMULATIONGUI_WIDTH: Int = 920
     val SIMULATIONGUI_HEIGHT: Int = 850
+    val FONT_DIMENSION: Int = 10
     val SIMULATION_PANEL_MIN_DIMENSION: Dimension = (500, 500)
     val CHART_PANEL_MIN_DIMENSION: Dimension = (300, 500)
     val SIMULATION_GUI_TOP_DIMENSION: Dimension = (800, 500)
