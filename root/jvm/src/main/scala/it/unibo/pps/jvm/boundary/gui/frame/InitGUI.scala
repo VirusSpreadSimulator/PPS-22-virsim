@@ -8,34 +8,32 @@ import it.unibo.pps.jvm.boundary.gui.Utils
 import monix.eval.Task
 import monix.reactive.Consumer
 import monix.reactive.subjects.PublishSubject
-import java.awt.event.ActionEvent
 import java.awt.{FlowLayout, Font, GridLayout}
 import javax.swing.*
 import javax.swing.border.EmptyBorder
-import scala.concurrent.Promise
 
-/** Interface that describe the init user interface for the simulation (JVM) */
+/** Interface that describe the init user interface for the simulation (JVM). */
 trait InitGUI:
-  /** Initialise the gui
+  /** Initialize the gui.
     * @return
     *   the task
     */
   def init(): Task[Unit]
   /** This task allow the caller to obtain the path of the configuration file for the simulation. Useful for
-    * [[it.unibo.pps.boundary.BoundaryModule.ConfigBoundary.config()]]
+    * [[it.unibo.pps.boundary.BoundaryModule.ConfigBoundary.config]].
     * @return
     *   the task
     */
   def config(): Task[FilePath]
   /** This task allow the caller to show an error in the configuration. Useful for
-    * [[it.unibo.pps.boundary.BoundaryModule.ConfigBoundary.error()]]
+    * [[it.unibo.pps.boundary.BoundaryModule.ConfigBoundary.error]].
     * @param errors
     *   the errors in the configuration
     * @return
     *   the task
     */
   def error(errors: Seq[ConfigurationError]): Task[Unit]
-  /** Handle the start of the simulation
+  /** Handle the start of the simulation.
     * @param simulation
     *   the simulation user interface to launch
     * @return
@@ -44,7 +42,7 @@ trait InitGUI:
   def start(simulation: SimulationGUI): Task[Unit]
 
 object InitGUI:
-  /** Factory to create an InitGUI
+  /** Factory to create an InitGUI.
     * @param width
     *   the width of the window
     * @param height
@@ -64,7 +62,7 @@ object InitGUI:
     import Utils.given
     private lazy val frame = JFrame(title)
     private lazy val fileChooser = JFileChooser()
-    private lazy val fileSrcTextField: JTextField = JTextField(width / 25)
+    private lazy val fileSrcTextField: JTextField = JTextField(width / Dimension.FILE_SRC_TEXT_FIELD_WIDTH_REDUCER)
     private lazy val fileChosen = PublishSubject[FilePath]() // Instead of a var with a Promise
 
     private lazy val container: Task[JFrame] =
@@ -79,7 +77,8 @@ object InitGUI:
         panel <- io(JPanel())
         label <- io(JLabel())
         _ <- io(label.setText(Text.SIMULATOR_NAME))
-        _ <- io(label.setFont(label.getFont.deriveFont(Font.BOLD, label.getFont.getSize2D * 3f)))
+        font <- io(label.getFont.deriveFont(Font.BOLD, label.getFont.getSize2D * Dimension.TITLE_FONT_MULTIPLIER))
+        _ <- io(label.setFont(font))
         _ <- io(panel.add(label))
       yield panel
 
@@ -87,7 +86,7 @@ object InitGUI:
       for
         panel <- io(JPanel(FlowLayout(FlowLayout.CENTER)))
         chooseBtn <- io(JButton(Text.CHOOSE_FILE_BTN))
-        _ <- io(chooseBtn.addActionListener((e: ActionEvent) => openFileDialog()))
+        _ <- io(chooseBtn.addActionListener(_ => openFileDialog()))
         _ <- io(panel.add(fileSrcTextField))
         _ <- io(panel.add(chooseBtn))
       yield panel
@@ -116,7 +115,10 @@ object InitGUI:
         _ <- io(mainPanel.add(titleP))
         _ <- io(mainPanel.add(fileP))
         _ <- io(mainPanel.add(startP))
-        _ <- io(mainPanel.setBorder(EmptyBorder(height / 10, 0, height / 10, 0)))
+        border <- io(
+          EmptyBorder(height / Dimension.INITGUI_PADDING_FRACTION, 0, height / Dimension.INITGUI_PADDING_FRACTION, 0)
+        )
+        _ <- io(mainPanel.setBorder(border))
       yield mainPanel
 
     override def init(): Task[Unit] =
