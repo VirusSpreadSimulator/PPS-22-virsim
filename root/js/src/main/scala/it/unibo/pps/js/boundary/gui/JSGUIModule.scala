@@ -8,10 +8,12 @@ import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import monix.eval.Task
 import monix.reactive.Observable
 
+/** Config Boundary implementation for the JS GUI. */
 object JSGUIModule:
   trait Provider:
     val jsGui: ConfigBoundary
   trait Component:
+    /** JS GUI boundary implementation. */
     class JSGUIBoundaryImpl extends ConfigBoundary:
       private val guiJs = JSGUI()
       override def init(): Task[Unit] = guiJs.init()

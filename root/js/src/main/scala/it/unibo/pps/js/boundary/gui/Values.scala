@@ -1,6 +1,8 @@
 package it.unibo.pps.js.boundary.gui
 
+/** Module that contains all the js gui-related constants. */
 object Values:
+  /** Text constants. */
   object Text:
     val PAUSE_BTN: String = "Pause"
     val RESUME_BTN: String = "Resume"
@@ -15,6 +17,7 @@ object Values:
     val YES: String = "yes"
     val NO: String = "no"
 
+  /** Bootstrap classes constants. */
   object BootstrapClasses:
     val BTN: String = "btn"
     val BTN_SECONDARY: String = s"$BTN btn-secondary"
@@ -23,6 +26,7 @@ object Values:
     val STOP_BTN: String = s"$BTN btn-danger"
     val MARGIN_TOP_1: String = "mt-1"
 
+  /** Color constants. */
   object SimulationColor:
     val BACKGROUND_COLOR: String = "rgb(56, 142, 60)"
     val HEALTHY_ENTITY_COLOR: String = "rgb(118, 255, 3)"

@@ -17,7 +17,7 @@ import monix.reactive.Observable
 import java.awt.GridLayout
 import javax.swing.*
 
-/** Interface that describe the user interface for the simulation. */
+/** Interface that describes the user interface for the simulation. */
 trait SimulationGUI:
   /** Init the simulation user interface.
     * @return
@@ -31,7 +31,7 @@ trait SimulationGUI:
     *   the task
     */
   def render(env: Environment): Task[Unit]
-  /** Obtain the observable that emit all the events of the user interface.
+  /** Obtain the observable that emits all the events of the user interface.
     * @return
     *   the observable
     */

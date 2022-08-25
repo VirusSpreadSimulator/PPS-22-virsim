@@ -12,20 +12,20 @@ import java.awt.{FlowLayout, Font, GridLayout}
 import javax.swing.*
 import javax.swing.border.EmptyBorder
 
-/** Interface that describe the init user interface for the simulation (JVM). */
+/** Interface that describes the init user interface for the simulation (JVM). */
 trait InitGUI:
   /** Initialize the gui.
     * @return
     *   the task
     */
   def init(): Task[Unit]
-  /** This task allow the caller to obtain the path of the configuration file for the simulation. Useful for
+  /** This task allows the caller to obtain the path of the configuration file for the simulation. Useful for
     * [[it.unibo.pps.boundary.BoundaryModule.ConfigBoundary.config]].
     * @return
     *   the task
     */
   def config(): Task[FilePath]
-  /** This task allow the caller to show an error in the configuration. Useful for
+  /** This task allows the caller to show an error in the configuration. Useful for
     * [[it.unibo.pps.boundary.BoundaryModule.ConfigBoundary.error]].
     * @param errors
     *   the errors in the configuration
@@ -63,7 +63,7 @@ object InitGUI:
     private lazy val frame = JFrame(title)
     private lazy val fileChooser = JFileChooser()
     private lazy val fileSrcTextField: JTextField = JTextField(width / Dimension.FILE_SRC_TEXT_FIELD_WIDTH_REDUCER)
-    private lazy val fileChosen = PublishSubject[FilePath]() // Instead of a var with a Promise
+    private val fileChosen = PublishSubject[FilePath]() // Instead of a var with a Promise
 
     private lazy val container: Task[JFrame] =
       for
