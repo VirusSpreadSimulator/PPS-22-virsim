@@ -42,17 +42,14 @@ object HospitalRecoveryLogicTest extends SimpleTaskSuite:
     yield expect(env.externalEntities.totalHealth == updatedEnv.externalEntities.totalHealth)
   }
 
-  test("The logic doens't generate new structures") {
+  test("The logic doesn't generate new structures") {
     for updatedEnv <- hospitalRecoveryLogic(env)
     yield expect(env.structures.size == updatedEnv.structures.size)
   }
 
   test("The logic don't generate or delete entities") {
     for updatedEnv <- hospitalRecoveryLogic(env)
-    yield expect(
-      env.internalEntities.size == updatedEnv.internalEntities.size &&
-        env.externalEntities.size == updatedEnv.externalEntities.size
-    )
+    yield expect(env.allEntities.size == updatedEnv.allEntities.size)
   }
 
   test("Entities don't get more health than allowed") {

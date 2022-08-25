@@ -14,6 +14,7 @@ object GUIModule:
   trait Provider:
     val gui: ConfigBoundary
   trait Component:
+    /** JVM GUI boundary implementation. */
     class GUIBoundaryImpl extends ConfigBoundary:
       private val initSimulationScreen: InitGUI = InitGUI()
       private val simulationScreen: SimulationGUI = SimulationGUI()

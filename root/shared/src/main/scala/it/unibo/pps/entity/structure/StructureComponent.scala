@@ -1,91 +1,97 @@
 package it.unibo.pps.entity.structure
 
-import it.unibo.pps.entity.common.Space.Distance
-
-/** Module that define all the component and the characteristic that can define a Structure in the simulation. */
+/** Module that define all the components and the characteristics that can define a Structure in the simulation. */
 object StructureComponent:
-  /** The Structure base interface. It abstract from all the types because it represent the pure concept of a structure
-    * abstracting away from the particular implementation types
+  /** The Structure base trait. It abstract from all the types because it represent the pure concept of a structure
+    * abstracting away from the particular implementation types.
     */
   trait Structure:
+    /** Type that represents the position of the structure. */
     type Position
+    /** Type that represents a probability. */
     type Probability
+    /** Type that represents the time distribution used for the permanence. */
     type TimeDistribution
+    /** Type that describes the entity that interacts with the structure. */
     type BaseEntity
+    /** Type that represents the strategy used to chose if a entity can enter or not. */
     type StrategyToEnter
+    /** Type that describes an entity that is entered in the structure. */
     type EntityInStructure
+    /** Type that describes the time of the simulation. */
     type SimulationTime
+    /** Type that describes the type of the structure defined with types. */
     type BaseStructure <: Structure
 
     /** Being placeable, the structure has a position.
       * @return
-      *   the position of the structure.
+      *   the position of the structure
       */
     def position: Position
     /** Each structure has an infection probability that influence the infection of an entity that is inside.
       * @return
-      *   the infection probability when an entity is inside the structure.
+      *   the infection probability when an entity is inside the structure
       */
     def infectionProbability: Probability
-    /** Each structure has a capacity in terms of how many entity can be inside.
+    /** Each structure has a capacity in terms of how many entities can be at the same time inside.
       * @return
-      *   the maximum number of entity contained by the structure.
+      *   the maximum number of entity contained by the structure
       */
     def capacity: Int
-    /** Each structure has an permanence time defined by a Gaussian Distribution.
+    /** Each structure has a permanence time defined by a time distribution.
       * @return
-      *   the gaussian distribution that describe the permanence time.
+      *   the time distribution that describe the permanence time
       */
     def permanenceTimeDistribution: TimeDistribution
-    /** Each structure has associated a strategy that affect the enter of entities
+    /** Each structure has associated a strategy that affects the enter of entities.
       * @return
       *   the strategy
       */
     def entranceStrategy: StrategyToEnter
-    /** @return the entities that are inside the structure. */
+    /** @return the entities that are inside the structure */
     def entities: Set[EntityInStructure]
-    /** Method that allow an entity to try to enter inside the structure. Note that an entity could be not allowed to
+    /** Method that allows an entity to try to enter inside the structure. Note that an entity could not be allowed to
       * enter based on the characteristics of the structure.
       * @param entity
-      *   the entity that want to enter
+      *   the entity that wants to enter
       * @return
-      *   The modified instance of the structure if entered, the same instead
+      *   The modified instance of the structure if entered
       */
     def tryToEnter(entity: BaseEntity, timestamp: SimulationTime): BaseStructure = checkEnter(entity) match
       case true => enter(entity, timestamp)
       case _ => notEntered(entity, timestamp)
-    /** Method that allow an entity to exit from the structure. This method WILL NOT handle the entity position, but it
+    /** Method that allows an entity to exit from the structure. This method WILL NOT handle the entity position, but it
       * will only remove the entity from internal structures.
       * @param entity
       *   the entity that need to exit
       * @return
-      *   The modified instance of the structure without the entity inside.
+      *   The modified instance of the structure without the entity inside
       */
     def entityExit(entity: BaseEntity): BaseStructure = exit(entity)
-    /** Method that check if an entity is allowed to enter
+    /** Method that check if an entity is allowed to enter.
       * @param entity
       *   the entity that want to enter
       * @return
       *   true if it can enter, false instead
       */
     protected def checkEnter(entity: BaseEntity): Boolean
-    /** Method that insert the entity inside the structure
+    /** Method that insert the entity inside the structure.
       * @param entity
       *   the entity that want to enter
       * @param timestamp
       *   the timestamp in which the entity is entered
       * @return
-      *   The modified instance of the structure if entered, the same instead
+      *   The modified instance of the structure
       */
     protected def enter(entity: BaseEntity, timestamp: SimulationTime): BaseStructure
-    /** Method that remove an entity from the structure
+    /** Method that remove an entity from the structure.
       * @param entity
       *   the entity that want to exit
       * @return
       *   the modified instance of the structure without the entity inside.
       */
     protected def exit(entity: BaseEntity): BaseStructure
-    /** Method to handle the situation in which an entity can't enter in the structure
+    /** Method to handle the situation in which an entity can't enter in the structure.
       * @param entity
       *   the entity for witch the entering is denied
       * @param timeStamp
@@ -97,16 +103,17 @@ object StructureComponent:
 
   /** A mixin that describe a [[Structure]] that can be seen. */
   trait Visible extends Structure:
+    import it.unibo.pps.entity.common.Space.Distance
     /** A placeable structure has a distance within which it is visible.
       * @return
-      *   the distance within which the structure is visible.
+      *   the distance within which the structure is visible
       */
     def visibilityDistance: Distance
 
   /** A mixin that describe a [[Structure]] that can be closed. */
   trait Closable extends Structure:
     /** A closeable structure is a structure that can be closed. This method represent the state of the structure in
-      * that terms
+      * that terms.
       * @return
       *   true if it's open, false otherwise
       */
@@ -116,6 +123,7 @@ object StructureComponent:
   /** A decoration for structure that can be grouped. */
   trait Groupable:
     structure: Structure =>
+    /** The type that represents the group. */
     type Group
     /** @return the group to which the structure belongs. */
     def group: Group
@@ -130,7 +138,7 @@ object StructureComponent:
     import Hospitalization.TreatmentQuality
     /** Each hospital has a virus treatment quality.
       * @return
-      *   the virus treatment quality.
+      *   the virus treatment quality
       */
     def treatmentQuality: TreatmentQuality
 

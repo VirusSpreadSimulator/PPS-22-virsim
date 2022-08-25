@@ -11,8 +11,9 @@ import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
 import it.unibo.pps.entity.common.Utils.*
 import monocle.syntax.all.*
 
+/** Module that contains the entity goal logic concepts. */
 object EntityGoalLogic:
-  /** Logic to update the goal of all the external entities in the environment */
+  /** Logic to update the goal of the external entities in the environment. */
   class EntityGoalUpdateLogic extends UpdateLogic:
     override def apply(env: Environment): Task[Environment] = Task {
       env.time.period match

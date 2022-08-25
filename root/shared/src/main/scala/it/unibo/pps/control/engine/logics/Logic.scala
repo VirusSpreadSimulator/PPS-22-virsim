@@ -1,6 +1,5 @@
 package it.unibo.pps.control.engine.logics
 
-import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.control.engine.config.Configurations.EngineStatus
 import it.unibo.pps.control.engine.config.EngineConfiguration.SimulationConfig
 import it.unibo.pps.control.engine.logics.entitygoal.EntityGoalLogic.EntityGoalUpdateLogic
@@ -18,29 +17,25 @@ import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.StructureComponent.{Closable, Groupable}
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, SimulationStructure}
-import it.unibo.pps.entity.structure.entrance.Entrance
 import monix.eval.Task
 import monocle.syntax.all.*
 
-/** Module that wrap all the logic types that are needed to update the simulation [[Environment]] */
+/** Module that wrap all the logic types that are needed to update the simulation [[Environment]]. */
 object Logic:
   /** Update logic represent a generic logic that is performed at each iteration. It takes the current environment and
-    * return a task that represent the computation done on that environment
+    * return a task that represent the computation done on that environment.
     */
   type UpdateLogic = Environment => Task[Environment]
 
+  // Short one will be implemented here, longer ones in a separate modules/classes and then instanced here.
+  /** Module with the update logics */
   object UpdateLogic:
-    /** Identity logic
-      * @return
-      *   the logic
-      */
-    def identity: UpdateLogic = Task(_)
-    /** Handle the update of the time in the environment
+    /** Handle the update of the time in the environment.
       * @return
       *   the logic
       */
     def logicTimeUpdate: UpdateLogic = env => Task(env.update(time = env.time + 1))
-    /** Handle the termination of the simulation
+    /** Handle the termination of the simulation.
       * @param config
       *   the simulation configuration to modify
       * @return
@@ -52,56 +47,60 @@ object Logic:
         allDead <- Task(env.allEntities.isEmpty)
         _ <- Task(if over || allDead then config.engineStatus = EngineStatus.STOPPED)
       yield env
-    /** Handle the infection in the environment, external to structures
+    /** Handle the infection in the environment, external to structures.
       * @return
       *   the logic
       */
     def externalInfectionLogic: UpdateLogic = ExternalInfectionLogic()
-    /** Handle the infection internal to structures
+    /** Handle the infection internal to structures.
       * @return
       *   the logic
       */
     def internalInfectionLogic: UpdateLogic = InternalInfectionLogic()
-    /** Handle the update of the entities state: health, immunity, recovery from virus
+    /** Handle the update of the entities state: health, immunity, recovery from virus.
       * @return
       *   the logic
       */
     def entityStateUpdateLogic: UpdateLogic = UpdateEntityStateLogic()
-    /** Handle the update of the entity goal respect to the period of the day
+    /** Handle the update of the entity goal respect to the period of the day.
       * @return
       *   the logic
       */
     def entityGoalLogic: UpdateLogic = EntityGoalUpdateLogic()
-    /** Handle the movement of entities inside the environment
+    /** Handle the movement of entities inside the environment.
       * @return
       *   the logic
       */
     def movementLogic: UpdateLogic = MovementLogic()
-    /** Handle the recovery of the infected entity at risk
+    /** Handle the recovery of the infected entity at risk.
       * @return
       *   the logic
       */
     def hospitalizationLogic: UpdateLogic = HospitalizeEntityLogic()
-    /** Handle the entity health recovery from virus inside the hospitals
+    /** Handle the entity health recovery from virus inside the hospitals.
       * @return
       *   the logic
       */
     def hospitalRecoveryLogic: UpdateLogic = HospitalRecoveryLogic()
-
+    /** Handle the entity entrance in the structures.
+      * @return
+      *   the logic
+      */
     def entranceInStructureLogic: UpdateLogic = EntranceLogic()
-
+    /** Handle the entity exit from structures.
+      * @return
+      *   the logic
+      */
     def exitStructureLogic: UpdateLogic = ExitLogic()
 
-  /** Update logic represent a logic that is associated to an event. It takes the current environment and return a task
-    * that represent the computation done on that environment due to the occur of the event.
+  /** Event logic represent a logic that is associated to an event. It takes the current environment and return a task
+    * that represents the computation done on that environment due to the occurrence of the event.
     */
   type EventLogic = Environment => Task[Environment]
 
   object EventLogic:
     import it.unibo.pps.control.engine.config.Configurations.EngineSpeed
-    /** Identity logic */
-    def identity: EventLogic = Task(_)
-    /** Logic to handle the paused state
+    /** Logic to pause the simulation.
       * @param config
       *   the configuration to modify
       * @return
@@ -110,7 +109,7 @@ object Logic:
     def pauseLogic(config: SimulationConfig): EventLogic = env =>
       for _ <- Task(config.engineStatus = EngineStatus.PAUSED)
       yield env
-    /** Logic to resume the simulation
+    /** Logic to resume the simulation.
       * @param config
       *   the configuration to modify
       * @return
@@ -119,7 +118,7 @@ object Logic:
     def resumeLogic(config: SimulationConfig): EventLogic = env =>
       for _ <- Task(config.engineStatus = EngineStatus.RUNNING)
       yield env
-    /** Logic to handle the stopped state
+    /** Logic to handle the stop.
       * @param config
       *   the configuration to modify
       * @return
@@ -128,7 +127,7 @@ object Logic:
     def stopLogic(config: SimulationConfig): EventLogic = env =>
       for _ <- Task(config.engineStatus = EngineStatus.STOPPED)
       yield env
-    /** Logic to change the simulation speed
+    /** Logic to change the simulation speed.
       * @param config
       *   the configuration to modify
       * @param engineSpeed
@@ -139,7 +138,7 @@ object Logic:
     def simulationSpeedLogic(config: SimulationConfig, engineSpeed: EngineSpeed): EventLogic = env =>
       for _ <- Task(config.engineSpeed = engineSpeed)
       yield env
-    /** Logic to switch the opening state of a group of structure
+    /** Logic to switch the opening state of a group of structure.
       * @param group
       *   the group to switch
       * @return
@@ -157,7 +156,6 @@ object Logic:
             case _ => struct
         }
       yield env.update(structures = structures -- structuresToUpdate ++ updatedStructures)
-
     /** Logic to increase the immunity of a percentage of entities by vaccinate them.
       * @param percentage
       *   the percentage of entities to vaccinate.
@@ -177,7 +175,6 @@ object Logic:
           )
         }
       yield env.update(externalEntities = externalEntities -- entitiesToUpdate ++ updatedEntities)
-
     /** Logic to switch the obligation to wear a mask.
       * @return
       *   the event logic

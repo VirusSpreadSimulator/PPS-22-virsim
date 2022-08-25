@@ -1,12 +1,11 @@
 package it.unibo.pps.jvm.boundary.gui.component.drawable
 
 import it.unibo.pps.boundary.ViewUtils.scaleToView
-import it.unibo.pps.boundary.component.drawable.Drawable
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.StructureComponent.Visible
 import it.unibo.pps.entity.structure.Structures.{GenericBuilding, Hospital, House, SimulationStructure}
-import it.unibo.pps.jvm.boundary.gui.Values.SimulationColor
+import it.unibo.pps.jvm.boundary.gui.Values.{Dimension, SimulationColor}
 import DrawableConcept.DrawableSwing
 
 import java.awt.geom.AffineTransform
@@ -56,7 +55,7 @@ object Drawables:
 
     private def drawRemainedCapacity(g: Graphics2D, structure: SimulationStructure, scale: Int): Unit =
       val message = s"${structure.capacity - structure.entities.size}"
-      val font = Font(Font.SANS_SERIF, Font.BOLD, 10)
+      val font = Font(Font.SANS_SERIF, Font.BOLD, Dimension.FONT_DIMENSION)
       val scaleFont = AffineTransform()
       val fontMetrics = g.getFontMetrics(font)
       val scaleF = Math.min(

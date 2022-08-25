@@ -9,6 +9,7 @@ import it.unibo.pps.control.loader.configuration.SimulationDefaults.StructuresDe
 import monix.eval.Task
 import monocle.syntax.all.*
 
+/** Logic to handle the entity recovery in hospitals. */
 class HospitalRecoveryLogic extends UpdateLogic:
   override def apply(env: Environment): Task[Environment] = for
     structures <- Task(env.structures)

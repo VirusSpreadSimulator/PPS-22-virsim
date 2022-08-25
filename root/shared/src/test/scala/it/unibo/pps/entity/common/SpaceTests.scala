@@ -1,8 +1,6 @@
 package it.unibo.pps.entity.common
 
 import it.unibo.pps.entity.common.Space.Point2D
-import org.scalactic.Equality
-import org.scalactic.TolerantNumerics
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 

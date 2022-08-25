@@ -57,7 +57,7 @@ object BoundaryModule:
       *   the task
       */
     def error(errors: Seq[ConfigurationError]): Task[Unit]
-  /** Provider of the component */
+  /** Provider of the component. */
   trait Provider:
     /** All the boundaries that are inside the system. */
     val boundaries: Seq[Boundary]

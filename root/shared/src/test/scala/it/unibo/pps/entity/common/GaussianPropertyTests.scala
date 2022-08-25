@@ -6,7 +6,7 @@ import it.unibo.pps.entity.common.GaussianProperty.Gaussian
 
 class GaussianPropertyTests extends AnyFunSuite with Matchers:
   private case class GaussianExample(mean: Double, std: Double) extends Gaussian[Double]:
-    override def next(): Double = nextGaussian()
+    override protected def convert(next: Double): Double = next
   private val tolerance = 1e-0
   private val mean = 10
   private val std = 2

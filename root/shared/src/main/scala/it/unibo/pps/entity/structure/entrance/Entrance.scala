@@ -2,14 +2,15 @@ package it.unibo.pps.entity.structure.entrance
 
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 
+/** Module that contains all the concepts related to the entrance in a structure. */
 object Entrance:
-  /** Trait that model the entrance strategy interface */
+  /** Trait that model the entrance strategy interface. */
   trait EntranceStrategy:
     /** It's the core of the strategy, and it decide if the entity can enter or not.
       * @param entity
       *   the entity that wants to enter in the structure
       * @return
-      *   true if the entity can enter, false otherwise.
+      *   true if the entity can enter, false otherwise
       */
     def canEnter(entity: SimulationEntity): Boolean
 
@@ -18,15 +19,15 @@ object Entrance:
     override def canEnter(entity: SimulationEntity): Boolean = true
 
   /** Filter based entrance strategy. It decides if allow the entity to enter based on the filter function passed when
-    * mixed-in
+    * mixed-in.
     */
-  trait FilterBasedStrategy(val filter: SimulationEntity => Boolean) extends EntranceStrategy:
+  trait FilterBasedStrategy(private val filter: SimulationEntity => Boolean) extends EntranceStrategy:
     abstract override def canEnter(entity: SimulationEntity): Boolean = filter(entity) && super.canEnter(entity)
 
   /** Probability based entrance strategy. It decides if allow the entity to enter based on the probability passed when
-    * mixed-in
+    * mixed-in.
     */
-  trait ProbabilityBasedStrategy(val probability: Double) extends EntranceStrategy:
+  trait ProbabilityBasedStrategy(private val probability: Double) extends EntranceStrategy:
     import it.unibo.pps.entity.common.ProblableEvents.ProbabilityResult.given
     import it.unibo.pps.entity.common.ProblableEvents.ProbableOps.isHappening
     import it.unibo.pps.entity.common.ProblableEvents.ProbableGivenInstance.given

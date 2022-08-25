@@ -2,19 +2,17 @@ package it.unibo.pps.entity.structure
 
 import it.unibo.pps.entity.common.Space.{Distance, Point2D}
 import it.unibo.pps.entity.structure.StructureComponent.*
+import it.unibo.pps.entity.structure.StructureComponent.Hospitalization.TreatmentQuality
 import it.unibo.pps.entity.structure.entrance.Entrance.{BaseEntranceStrategy, EntranceStrategy, FilterBasedStrategy}
 import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
 import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
-import it.unibo.pps.entity.structure.StructureComponent.Hospitalization.TreatmentQuality
 import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
-import it.unibo.pps.entity.entity.EntityComponent.Entity
-
 import scala.concurrent.duration.MINUTES
 import monocle.syntax.all.*
 
-/** This module contains the base structure description and the main implementation that are useful during the
-  * simulation configuration
+/** This module contains the base simulation structure description and the main implementations that are useful during
+  * the simulation configuration.
   */
 object Structures:
   private val defaultVisibilityDistance = 2
@@ -22,7 +20,7 @@ object Structures:
   private val defaultGroup = "base"
   private val defaultPermanenceTimeDistribution = GaussianDurationTime(20, 5, MINUTES)
 
-  /** It's the simulation [[Structure]]. It specify all the types, connecting them to the other types in the simulator
+  /** It's the simulation [[Structure]]. It specifies all the types, connecting them to the other types in the simulator
     */
   trait SimulationStructure extends Structure:
     override type Position = Point2D
@@ -34,10 +32,10 @@ object Structures:
     override type SimulationTime = TimeStamp
     override type BaseStructure = SimulationStructure
 
-    /** Method to allow to update the state of internal entities
-      *
+    /** Method to allow to update the state of internal entities.
       * @param f
-      *   the function that update the state
+      *   the function that update the state. The function returns an [[Option]]. If the option is [[None]] then the
+      *   entity will exit from the structure.
       * @return
       *   The modified instance of the structure with the entities updated
       */
@@ -46,7 +44,9 @@ object Structures:
       entities.size < capacity && entranceStrategy.canEnter(entity)
     override protected def notEntered(entity: SimulationEntity, timeStamp: TimeStamp): SimulationStructure = this
 
-  /** Builder for the House type of structure
+  /** Builder for the House type of structure.
+    * @param position
+    *   the position of the house
     * @param infectionProbability
     *   the probability of infection inside the structure
     * @param capacity
@@ -55,6 +55,8 @@ object Structures:
     *   gaussian distribution that describe the permanence time
     * @param entities
     *   the entities that are inside the structure.
+    * @param visibilityDistance
+    *   the distance within which the house is visible by the entities.
     */
   case class House(
       override val position: Point2D,
@@ -75,7 +77,9 @@ object Structures:
     override def updateEntitiesInside(f: SimulationEntity => Option[SimulationEntity]): SimulationStructure =
       this.focus(_.entities).replace(Utils.updatePermanences(f, this.entities))
 
-  /** Builder for the GenericBuilding type of structure
+  /** Builder for the GenericBuilding type of structure.
+    * @param position
+    *   the position of the building
     * @param infectionProbability
     *   the probability of infection inside the structure
     * @param capacity
@@ -88,8 +92,6 @@ object Structures:
     *   the entities that are inside the structure.
     * @param isOpen
     *   opening status of the structure
-    * @param position
-    *   the position of the structure
     * @param visibilityDistance
     *   the distance within the structure is visible for an entity
     * @param group
@@ -117,7 +119,9 @@ object Structures:
     override def updateEntitiesInside(f: SimulationEntity => Option[SimulationEntity]): SimulationStructure =
       this.focus(_.entities).replace(Utils.updatePermanences(f, this.entities))
 
-  /** Builder for the GenericBuilding type of structure
+  /** Builder for the Hospital type of structure.
+    * @param position
+    *   the position of the hospital
     * @param infectionProbability
     *   the probability of infection inside the structure
     * @param capacity
@@ -125,15 +129,13 @@ object Structures:
     * @param permanenceTimeDistribution
     *   gaussian distribution that describe the permanence time
     * @param entranceStrategy
-    *   the strategy used for discriminate the entities entrance
+    *   the strategy used to discriminate the entities entrance
     * @param entities
     *   the entities that are inside the structure.
-    * @param position
-    *   the position of the structure
     * @param visibilityDistance
-    *   the distance within the structure is visible for an entity
+    *   the distance within which the structure is visible by an entity
     * @param treatmentQuality
-    *   the virus treatment quality.
+    *   the virus treatment quality
     */
   case class Hospital(
       override val position: Point2D,
@@ -155,6 +157,14 @@ object Structures:
       this.focus(_.entities).replace(Utils.updatePermanences(f, this.entities))
 
   private object Utils:
+    /** Method to update a set of [[EntityPermanence]] based on a function f.
+      * @param f
+      *   the function that will modify the entities
+      * @param ps
+      *   the set of [[EntityPermanence]]
+      * @return
+      *   the modified set of [[EntityPermanence]]
+      */
     def updatePermanences(
         f: SimulationEntity => Option[SimulationEntity],
         ps: Set[EntityPermanence]
