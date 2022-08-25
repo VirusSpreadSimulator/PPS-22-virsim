@@ -70,10 +70,12 @@ Alla luce di un approfondimento dell'intervista con il committente si evincono i
      + 2.4.1. Evoluzione ambiente e spostamento individui
      + 2.4.2. Grafici sui dati principali della simulazione
    + 2.5. Esportazione dati
-     + 2.5.1. Tasso letalità
-     + 2.5.2. Individui morti, malati, curati
-     + 2.5.3. Malati gravi
-     + 2.5.4. Periodo medio di ospedalizzazione
+     + 2.5.1. Pressione ospedaliera
+     + 2.5.2. Individui sani 
+     + 2.5.3. Individui infetti
+     + 2.5.4. Individui malati gravi
+     + 2.5.5. Individui morti
+
 
 Infine, in seguito ai requisiti utente elencati, è emerso il seguente dominio modellato attraverso il diagramma delle classi di analisi qui riportato.
 
@@ -136,6 +138,3 @@ Infine, in seguito ai requisiti utente elencati, è emerso il seguente dominio m
 
 5. Implementazione
    + 5.1. Il framework sarà implementato utilizzando come linguaggio principale Scala e testato mediante Scalatest.
-
-
-
