@@ -27,7 +27,7 @@ object ScalaParserTest extends SimpleTaskSuite with Matchers:
     override val jvmReader: ReaderModule.Reader = JVMReaderImpl()
     override val readers: Seq[ReaderModule.Reader] = Seq(jvmReader)
 
-  val scalaParser: Parser = TestScalaParser.scalaParser
+  private val scalaParser: Parser = TestScalaParser.scalaParser
 
   test("ScalaParser should be able to read the configuration file with JVMReader") {
     for configFile <- scalaParser.readFile(StringFilePath(getClass.getResource("/configuration.scala").getFile))

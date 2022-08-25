@@ -23,7 +23,7 @@ object YAMLParserTest extends SimpleTaskSuite with Matchers:
     override val YAMLParser: Parser = ParserImpl()
     override val readers: Seq[ReaderModule.Reader] = Seq(MockReader())
 
-  val yamlParser: Parser = TestYAMLParser.YAMLParser
+  private val yamlParser: Parser = TestYAMLParser.YAMLParser
 
   test("YamlParser should be able to read the configuration file") {
     for configFile <- yamlParser.readFile(StringFilePath(getClass.getResource("/configuration.yml").getFile))

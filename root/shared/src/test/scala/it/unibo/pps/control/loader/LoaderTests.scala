@@ -34,8 +34,8 @@ import scala.concurrent.Promise
 
 object LoaderTests extends SimpleTaskSuite with Matchers:
 
-  val loader: LoaderModule.Loader = TestLoader.loader
-  val env: EnvironmentModule.Environment = Samples.sampleEnv
+  private val loader: LoaderModule.Loader = TestLoader.loader
+  private val env: EnvironmentModule.Environment = Samples.sampleEnv
 
   test("Loader should be able to create the set of entities from the configuration") {
     val entityFactory: EntityFactory = EntityFactory()

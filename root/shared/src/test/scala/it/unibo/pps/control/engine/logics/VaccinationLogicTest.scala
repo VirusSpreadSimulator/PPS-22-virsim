@@ -8,6 +8,7 @@ import monix.eval.Task
 import weaver.monixcompat.SimpleTaskSuite
 
 object VaccinationLogicTest extends SimpleTaskSuite:
+
   private val env: Environment = Samples.sampleEnv
   private val vaccinationPercentage: Double = 50
   private val vaccinationLogic: EventLogic = EventLogic.vaccineRound(vaccinationPercentage)
