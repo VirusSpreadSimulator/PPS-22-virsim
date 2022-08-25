@@ -30,10 +30,12 @@ object ConfigurationComponent:
       */
     def structuresConfiguration: Set[SimulationStructure]
 
+  /** The result of configuration parsing */
   enum ConfigurationResult:
     case OK(configuration: Configuration)
     case ERROR(errors: List[ConfigurationError])
 
+  /** All possible configuration errors. */
   enum ConfigurationError:
     case WRONG_PARAMETER(message: String)
     case INVALID_FILE(message: String)
