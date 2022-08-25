@@ -3,47 +3,47 @@ package it.unibo.pps.jvm.boundary.gui.frame
 import it.unibo.pps.boundary.ViewUtils.io
 import it.unibo.pps.boundary.component.Events.Event
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
-import it.unibo.pps.jvm.boundary.gui.Values.{Dimension, Text}
+import it.unibo.pps.jvm.boundary.gui.Values.{Dimension, Margin, Text}
 import it.unibo.pps.jvm.boundary.gui.panel.BottomPanels.{
   CommandPanel,
   DynamicActionsLog,
   DynamicConfigPanel,
   StatsPanel
 }
-import it.unibo.pps.jvm.boundary.gui.panel.charts.Charts
 import it.unibo.pps.jvm.boundary.gui.panel.{ChartsPanel, SimulationPanel}
 import it.unibo.pps.jvm.boundary.gui.Utils
 import monix.eval.Task
 import monix.reactive.Observable
-
-import java.awt.{BorderLayout, GridLayout}
+import java.awt.GridLayout
 import javax.swing.*
 
-/** Interface that describe the user interface for the simulation */
+/** Interface that describe the user interface for the simulation. */
 trait SimulationGUI:
-  /** Init the simulation user interface
+  /** Init the simulation user interface.
     * @return
     *   the task
     */
   def init(): Task[Unit]
-  /** Render the new state of the simulation on the user interface
+  /** Render the new state of the simulation on the user interface.
+    * @param env
+    *   the environment to render
     * @return
     *   the task
     */
   def render(env: Environment): Task[Unit]
-  /** Obtain the observable that emit all the events of the user interface
+  /** Obtain the observable that emit all the events of the user interface.
     * @return
     *   the observable
     */
   def events(): Observable[Event]
-  /** The simulation has stopped, so the gui must handle the termination
+  /** The simulation has stopped, so the gui must handle the termination.
     * @return
     *   the task
     */
   def stop(): Task[Unit]
 
 object SimulationGUI:
-  /** Factory to create a simulation GUI
+  /** Factory to create a simulation GUI.
     * @param width
     *   the width of the window
     * @param height
@@ -94,7 +94,7 @@ object SimulationGUI:
     private lazy val bottomPanel: Task[JPanel] =
       for
         panel <- io(JPanel())
-        panelLM <- io(GridLayout(1, 4, 20, 0))
+        panelLM <- io(GridLayout(1, 4, Margin.DEFAULT_GRID_H_MARGIN, 0))
         _ <- io(panel.setLayout(panelLM))
         panels = Seq(commandPanel, dynamicActionsLogPanel, dynamicConfigPanel, statsPanel)
         _ <- io(for p <- panels do panel.add(p))
@@ -118,7 +118,6 @@ object SimulationGUI:
         frame <- container.asyncBoundary(Utils.swingScheduler)
         _ <- io(frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE))
         mainP <- mainPanel
-        _ <- io(mainP.setOpaque(true))
         _ <- io(frame.add(mainP))
         _ <- io(frame.pack())
         _ <- io(frame.setVisible(true))
@@ -141,6 +140,7 @@ object SimulationGUI:
         .mergeMap(_.events)
 
     override def stop(): Task[Unit] = for
-      _ <- commandPanel.stop()
+      _ <- commandPanel.stop().asyncBoundary(Utils.swingScheduler)
       _ <- dynamicConfigPanel.stop()
+      _ <- Task.shift
     yield ()
