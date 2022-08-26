@@ -146,3 +146,11 @@ object StructureComponent:
     /** Describe the quality of the treatment provided by the structure. */
     enum TreatmentQuality:
       case GOOD, MEDIUM, LOW
+      /** It associates the quality of the hospital to the capacity to cure the entity inside.
+        * @return
+        *   the health gain multiplier
+        */
+      def qualityMultiplier: Double = this match
+        case GOOD => 2
+        case MEDIUM => 1
+        case LOW => 0.8

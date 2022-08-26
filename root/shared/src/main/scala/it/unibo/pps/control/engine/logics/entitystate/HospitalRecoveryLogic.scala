@@ -15,11 +15,20 @@ class HospitalRecoveryLogic extends UpdateLogic:
     structures <- Task(env.structures)
     hospitals <- Task(structures.select[SimulationStructure with Hospitalization])
     hospitalsUpdated <- Task {
-      hospitals.map(_.updateEntitiesInside { e =>
-        Some(e)
-          .filter(_.infection.isDefined)
-          .map(_.focus(_.health).modify(h => Math.min(h + StructuresDefault.HOSPITAL_HEALTH_GAIN, e.maxHealth)))
-          .orElse(Some(e))
-      })
+      hospitals.map(h =>
+        h.updateEntitiesInside { e =>
+          Some(e)
+            .filter(_.infection.isDefined)
+            .map(
+              _.focus(_.health).modify(health =>
+                Math.min(
+                  health + StructuresDefault.HOSPITAL_HEALTH_GAIN * h.treatmentQuality.qualityMultiplier,
+                  e.maxHealth
+                )
+              )
+            )
+            .orElse(Some(e))
+        }
+      )
     }
   yield env.update(structures = structures -- hospitals ++ hospitalsUpdated)
