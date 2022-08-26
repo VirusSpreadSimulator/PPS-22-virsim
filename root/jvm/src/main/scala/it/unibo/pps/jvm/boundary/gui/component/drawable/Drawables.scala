@@ -45,13 +45,14 @@ object Drawables:
           case house: House =>
             g.setColor(SimulationColor.HOUSE_COLOR)
           case gen: GenericBuilding =>
-            drawStructureVisibility(g, gen, scale)
+            if gen.isOpen then drawStructureVisibility(g, gen, scale)
+            drawRemainedCapacity(g, structure, scale)
             g.setColor(if gen.isOpen then SimulationColor.GENERIC_COLOR_OPEN else SimulationColor.GENERIC_COLOR_CLOSED)
           case hospital: Hospital =>
             drawStructureVisibility(g, hospital, scale)
+            drawRemainedCapacity(g, structure, scale)
             g.setColor(SimulationColor.HOSPITAL_COLOR)
         g.fillRect(scaleToView(structure.position.x, scale), scaleToView(structure.position.y, scale), scale, scale)
-        drawRemainedCapacity(g, structure, scale)
 
     private def drawRemainedCapacity(g: Graphics2D, structure: SimulationStructure, scale: Int): Unit =
       val message = s"${structure.capacity - structure.entities.size}"
@@ -59,8 +60,8 @@ object Drawables:
       val scaleFont = AffineTransform()
       val fontMetrics = g.getFontMetrics(font)
       val scaleF = Math.min(
-        scale.toDouble * 2 / (fontMetrics.getMaxAscent + fontMetrics.getMaxDescent),
-        scale.toDouble * 2 / fontMetrics.stringWidth(message)
+        scale.toDouble / (fontMetrics.getMaxAscent + fontMetrics.getMaxDescent),
+        scale.toDouble / fontMetrics.stringWidth(message)
       )
       scaleFont.scale(scaleF, scaleF)
       g.setFont(font.deriveFont(scaleFont))

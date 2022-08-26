@@ -28,7 +28,13 @@ object Drawables:
           if entity.infection.isDefined then SimulationColor.INFECTED_ENTITY_COLOR
           else SimulationColor.HEALTHY_ENTITY_COLOR
         g.beginPath()
-        g.arc(scaleToView(entity.position.x, scale), scaleToView(entity.position.y, scale), scale / 2, 0, 2 * Math.PI)
+        g.arc(
+          scaleToView(entity.position.x, scale) + scale / 2,
+          scaleToView(entity.position.y, scale) + scale / 2,
+          scale / 2,
+          0,
+          2 * Math.PI
+        )
         g.fill()
         g.strokeStyle = if entity.immunity > 0 then SimulationColor.IMMUNITY_COLOR else SimulationColor.WHITE
         g.stroke()
@@ -41,21 +47,22 @@ object Drawables:
           case house: House =>
             g.fillStyle = SimulationColor.HOUSE_COLOR
           case gen: GenericBuilding =>
-            drawStructureVisibility(g, gen, scale)
+            if gen.isOpen then drawStructureVisibility(g, gen, scale)
+            drawRemainedCapacity(g, structure, scale)
             g.fillStyle =
               if gen.isOpen then SimulationColor.GENERIC_COLOR_OPEN else SimulationColor.GENERIC_COLOR_CLOSED
           case hospital: Hospital =>
             drawStructureVisibility(g, hospital, scale)
+            drawRemainedCapacity(g, structure, scale)
             g.fillStyle = SimulationColor.HOSPITAL_COLOR
         g.fillRect(scaleToView(structure.position.x, scale), scaleToView(structure.position.y, scale), scale, scale)
-        drawRemainedCapacity(g, structure, scale)
 
     private def drawRemainedCapacity(
         g: dom.CanvasRenderingContext2D,
         structure: SimulationStructure,
         scale: Int
     ): Unit =
-      g.font = s"${scale}px sans-serif"
+      g.font = s"${scale / 1.5}px sans-serif"
       g.fillStyle = SimulationColor.STRUCTURE_CAPACITY_COLOR
       g.fillText(
         s"${structure.capacity - structure.entities.size}",
@@ -73,7 +80,7 @@ object Drawables:
       g.arc(
         scaleToView(structure.position.x, scale) + scale / 2,
         scaleToView(structure.position.y, scale) + scale / 2,
-        scaleToView(structure.visibilityDistance.toInt + 1, scale),
+        scaleToView(structure.visibilityDistance.toInt, scale) + scale / 2,
         0,
         2 * Math.PI
       )
