@@ -52,8 +52,8 @@ object ParserModule:
             (configuration.virusConfiguration.severeDeseaseProbability shouldBeWithin (0, 1) andIfNot "Error: probability must be in range (0, 1)!") :::
             (configuration.virusConfiguration.spreadRate shouldBeWithin (0, 1) andIfNot "Error: spreadRate must be in range (0, 1)!") :::
             (configuration.structuresConfiguration.forall(struc =>
-              struc.position.x <= configuration.simulation.gridSide &&
-                struc.position.y <= configuration.simulation.gridSide
+              struc.position.x < configuration.simulation.gridSide &&
+                struc.position.y < configuration.simulation.gridSide
             ) andIfNot "Error: invalid structure position!") :::
             (configuration.structuresConfiguration
               .map(_.position)
