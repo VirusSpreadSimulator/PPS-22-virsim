@@ -6,6 +6,7 @@ import it.unibo.pps.control.loader.configuration.SimulationDefaults.{MAX_VALUES,
 import it.unibo.pps.entity.Samples
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.TestUtils.*
+import monix.eval.Task
 import weaver.monixcompat.SimpleTaskSuite
 
 /** Shared test for entity state logic. */
@@ -39,12 +40,15 @@ object EntityStateLogicSharedTest extends SimpleTaskSuite:
   }
 
   test("When an entity recover from virus then the immunity must increase") {
+    import it.unibo.pps.entity.common.Time.DurationTime
+    import scala.concurrent.duration.DAYS
     for
-      updatedEnv <- entityStateLogic(baseEnv)
-      infectedBefore = baseEnv.allEntities.filter(_.infection.isDefined).map(_.id)
+      env <- Task(baseEnv.update(time = baseEnv.time + DurationTime(1, DAYS)))
+      updatedEnv <- entityStateLogic(env)
+      infectedBefore = env.allEntities.filter(_.infection.isDefined).map(_.id)
       entitiesToConsider = updatedEnv.allEntities.filter(e => e.infection.isEmpty && infectedBefore.contains(e.id))
     yield expect(
-      baseEnv.allEntities
+      env.allEntities
         .filter(e => entitiesToConsider.map(_.id).contains(e.id))
         .totalImmunity < entitiesToConsider.totalImmunity
     )
