@@ -24,7 +24,7 @@ class SimulationCanvas extends UpdatablePanel:
       envDim <- io(newEnv.gridSide)
       scale <- io(Math.max(Math.min(canvas.width / envDim, canvas.height / (envDim + 1)), 1)) // to be square
       _ <- io(ctx.fillStyle = SimulationColor.BACKGROUND_COLOR)
-      _ <- io(ctx.fillRect(0, 0, (envDim + 1) * scale, (envDim + 1) * scale))
+      _ <- io(ctx.fillRect(0, 0, envDim * scale, (envDim + 1) * scale))
       _ <- io(newEnv.draw(ctx, scale))
     yield ()
 

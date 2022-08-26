@@ -26,7 +26,7 @@ class SimulationPanel() extends JPanel with UpdatablePanel:
       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
       g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)
       g2.setColor(SimulationColor.BACKGROUND_COLOR)
-      g2.fillRect(0, 0, scaleToView(envDim + 1, scale), scaleToView(envDim + 1, scale))
+      g2.fillRect(0, 0, scaleToView(envDim, scale), scaleToView(envDim + 1, scale))
 
       import it.unibo.pps.jvm.boundary.gui.component.drawable.Drawables.given
       environment.draw(g2, scale)
