@@ -59,7 +59,7 @@ object Structures:
       override val infectionProbability: Double,
       override val capacity: Int,
       override val permanenceTimeDistribution: GaussianDurationTime =
-        StructuresDefault.DEFAULT_PERMANENCE_TIME_DISTRIBUTION,
+        StructuresDefault.DEFAULT_HOUSE_PERMANENCE_TIME_DISTRIBUTION,
       override val entities: Set[EntityPermanence] = Set(),
       override val visibilityDistance: Distance = StructuresDefault.DEFAULT_HOUSE_VISIBILITY_DISTANCE
   ) extends SimulationStructure
