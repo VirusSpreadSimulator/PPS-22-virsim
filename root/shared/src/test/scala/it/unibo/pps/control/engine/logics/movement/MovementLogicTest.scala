@@ -84,7 +84,7 @@ object MovementLogicTest extends SimpleTaskSuite:
     for updatedEnv <- movementLogic(env)
     yield expect(
       updatedEnv.externalEntities.forall(e =>
-        e.position.x >= 0 && e.position.x <= gridSide && e.position.y >= 0 && e.position.y <= gridSide
+        e.position.x >= 0 && e.position.x < gridSide && e.position.y >= 0 && e.position.y <= gridSide
       )
     )
   }

@@ -62,7 +62,7 @@ class MovementLogic extends UpdateLogic:
       y <- List(-step, 0, step)
     yield position + Point2D(x, y))
       .filter(point =>
-        point.x >= 0 && point.y >= 0 && point.x <= width && point.y <= height && (point.x != position.x || point.y != position.y)
+        point.x >= 0 && point.y >= 0 && point.x < width && point.y <= height && (point.x != position.x || point.y != position.y)
       )
       .toSet
 

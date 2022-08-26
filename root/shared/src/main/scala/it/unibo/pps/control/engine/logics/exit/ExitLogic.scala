@@ -56,7 +56,7 @@ class ExitLogic extends UpdateLogic:
         y <- List(-visibilityDistance.toInt - 10, 0, visibilityDistance.toInt + 10)
       yield position + Point2D(x, y))
         .filter(point =>
-          point.x >= 0 && point.y >= 0 && point.x <= width && point.y <= height && (point.x != position.x || point.y != position.y)
+          point.x >= 0 && point.y >= 0 && point.x < width && point.y <= height && (point.x != position.x || point.y != position.y)
         )
         .toSet
     Random
