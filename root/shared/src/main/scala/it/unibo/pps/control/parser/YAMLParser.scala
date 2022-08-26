@@ -109,8 +109,8 @@ object YAMLParser:
                     val position: List[Int] = buildingParameters("position").asInstanceOf[List[Int]]
                     val structure: GenericBuilding = GenericBuilding(
                       Point2D(
-                        position.head * GlobalDefaults.GRID_MULTIPLIER,
-                        position(1) * GlobalDefaults.GRID_MULTIPLIER
+                        position.head,
+                        position(1)
                       ),
                       buildingParameters("infectionProbability").asInstanceOf[Double],
                       buildingParameters("capacity").asInstanceOf[Int]

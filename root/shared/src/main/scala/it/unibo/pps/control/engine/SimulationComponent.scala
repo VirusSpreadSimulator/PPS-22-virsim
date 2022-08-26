@@ -30,7 +30,7 @@ object SimulationComponent:
     def startingInfectedPercentage: Double
 
   case class Simulation(
-      override val gridSide: Int = GlobalDefaults.GRID_SIDE * GlobalDefaults.GRID_MULTIPLIER,
+      override val gridSide: Int = GlobalDefaults.GRID_SIDE,
       override val duration: Int = GlobalDefaults.DURATION,
       override val numberOfEntities: Int = GlobalDefaults.NUMBER_OF_ENTITIES,
       override val averagePopulationAge: Int = GlobalDefaults.AVERAGE_POPULATION_AGE,

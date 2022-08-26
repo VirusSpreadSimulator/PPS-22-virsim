@@ -35,7 +35,7 @@ object ScalaParserTest extends SimpleTaskSuite with Matchers:
   }
 
   test("ScalaParser should be able to detect wrong grid side parameter") {
-    val wrongSimulation = simulation gridSide 100
+    val wrongSimulation = simulation gridSide MAX_VALUES.MAX_GRID_SIZE + 1
     for
       configuration <- Task(VirsimConfiguration(wrongSimulation, virus, structures))
       configResult <- scalaParser.checkErrors(configuration)

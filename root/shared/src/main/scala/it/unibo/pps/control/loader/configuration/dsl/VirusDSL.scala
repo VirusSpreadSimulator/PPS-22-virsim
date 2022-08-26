@@ -27,4 +27,4 @@ object VirusDSL:
       virus.focus(_.severeDeseaseProbability).replace(probability)
 
     def maxInfectionDistance(distance: Double): Virus =
-      virus.focus(_.maxInfectionDistance).replace(distance * GlobalDefaults.GRID_MULTIPLIER)
+      virus.focus(_.maxInfectionDistance).replace(distance)

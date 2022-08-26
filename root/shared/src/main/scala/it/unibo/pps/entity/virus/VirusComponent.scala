@@ -48,6 +48,5 @@ object VirusComponent:
       override val averagePositivityDays: Int = VirusDefaults.AVERAGE_POSITIVITY_DAYS,
       override val stdDevPositivityDays: Double = VirusDefaults.STD_DEV_POSITIVITY_DAYS,
       override val severeDeseaseProbability: Double = VirusDefaults.SEVERE_DESEASE_PROBABILITY,
-      override val maxInfectionDistance: Double =
-        VirusDefaults.MAXIMUM_INFECTION_DISTANCE * GlobalDefaults.GRID_MULTIPLIER
+      override val maxInfectionDistance: Double = VirusDefaults.MAXIMUM_INFECTION_DISTANCE
   ) extends VirusParameters
