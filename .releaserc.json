@@ -1,0 +1,51 @@
+{
+  "tagFormat": "${version}",
+  "branches": ["main"],
+  "plugins": [
+    ["@semantic-release/commit-analyzer", {
+      "preset": "angular",
+      "releaseRules": [
+        {"breaking": true, "release": "major"},
+        {"type": "build", "release": "patch"},
+        {"type": "chore", "release": false},
+        {"type": "ci", "release": false},
+        {"type": "docs", "release": "patch"},
+        {"type": "feat", "release": "minor"},
+        {"type": "fix", "release": "patch"},
+        {"type": "perf", "release": "patch"},
+        {"type": "refactor", "release": false},
+        {"type": "style", "release": false},
+        {"type": "test", "release": false},
+        {"type": "revert", "release": "patch"}
+      ],
+      "parserOpts": {
+        "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
+      }
+    }],
+    ["@semantic-release/release-notes-generator", {
+      "preset": "angular",
+      "parserOpts": {
+        "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
+      },
+      "writerOpts": {
+        "commitsSort": ["subject", "scope"]
+      }
+    }],
+    ["@semantic-release/npm", {
+      "npmPublish": false
+    }],
+    ["@semantic-release/github", {
+      "assets": [
+        {"path": "root/jvm/target/scala-3.1.1/virsim.jar", "label": "Virsim Jar"},
+        {"path": "doc/report.pdf", "label": "PDF Report"},
+        {"path": "root/shared/src/main/resources/configuration.scala", "label": "Sample Scala Configuration File"},
+        {"path": "root/shared/src/main/resources/configuration.yml", "label": "Sample YAML Configuration File"}
+      ]
+    }],
+    ["@semantic-release/git", {
+      "assets": ["package.json"],
+      "message": "chore(release)!: ${nextRelease.version}\n\n${nextRelease.notes}"
+    }]
+  ],
+  "preset": "angular"
+}

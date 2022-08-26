@@ -7,9 +7,9 @@ on:
     branches: [main]
 
 jobs:
+
   DocSite:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 11
@@ -19,7 +19,50 @@ jobs:
         uses: actions/setup-java@v3
       - name: Make site and scala doc
         run: sbt makeSite
-      - name: Publish site
-        run: sbt publishToGitHubPages
+      - name: Create Simulator WebApp
+        run: mkdir -p target/site/simulator/js/target/scala-3.1.1/
+      - name: Generate Simulator WebApp
+        run: sbt rootJS/fastOptJS
+      - name: Copy Simulator files to VirSim WebSite
+        run: |
+          cp root/index.html target/site/simulator/
+          cp root/style.css target/site/simulator/
+          cp root/js/target/scala-3.1.1/pps-22-virsim-fastopt.js target/site/simulator/js/target/scala-3.1.1/
+      - name: Publish Site
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site
+          keep_files: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'chore: update VirSim website'
+          
+  Release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 'lts/*'
+      - name: Build PDF
+        uses: andrea-acampora/action-md2pdf@1.0.0
+        with:
+          file_dir: doc/report
+          output_dir: doc
+          output_file_name: report.pdf
+          style_path: doc/config/style.css
+      - name: Generate Fat Jar
+        run: sbt rootJVM/assembly
+      - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm install
+          npx semantic-release
