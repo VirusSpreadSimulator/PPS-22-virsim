@@ -6,9 +6,9 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 class PrologMovementLogicTest extends AnyFunSuite with Matchers:
-  val worldWidth = 50
-  val worldHeight = 50
-  val step = 1
+  private val worldWidth = 50
+  private val worldHeight = 50
+  private val step = 1
 
   test("an entity in the middle of the world can move everywhere") {
     val xCoord = worldWidth / 2

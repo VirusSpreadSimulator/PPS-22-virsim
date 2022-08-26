@@ -15,6 +15,7 @@ import scala.concurrent.duration.{FiniteDuration, MILLISECONDS, MINUTES}
 object ExitLogicTest extends SimpleTaskSuite:
   private val house = House((1, 0), 1, 2)
   private val buildingPosition = Point2D(0, 21)
+  private val exitFromStructureLogic: ExitLogic = ExitLogic()
   private val entitiesInsideStructure: Set[EntityPermanence] = Set(
     EntityPermanence(
       SimulationEntity(0, 20, house.position, 80, position = Point2D(0, 21), movementGoal = MovementGoal.NO_MOVEMENT),
@@ -40,8 +41,6 @@ object ExitLogicTest extends SimpleTaskSuite:
     object Env extends EnvironmentModule.Interface:
       val env: Environment = EnvironmentImpl(time = TimeStamp(10), externalEntities = Set(), structures = buildings)
     Env.env
-
-  val exitFromStructureLogic: ExitLogic = ExitLogic()
 
   test("an entity with status OVER has to exit from the structure") {
     for updatedEnv <- exitFromStructureLogic(env)

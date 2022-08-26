@@ -10,6 +10,7 @@ import weaver.monixcompat.SimpleTaskSuite
 object EntranceLogicTest extends SimpleTaskSuite:
 
   private val house = House((1, 0), 1, 2)
+  private val enterIntoStructureLogic: EntranceLogic = EntranceLogic()
   private val entitiesNear: Seq[SimulationEntity] = Seq(
     SimulationEntity(0, 20, house.position, 80, position = Point2D(0, 20))
   )
@@ -35,8 +36,6 @@ object EntranceLogicTest extends SimpleTaskSuite:
     object InfectedEnv extends EnvironmentModule.Interface:
       val env: Environment = EnvironmentImpl(externalEntities = entitiesNotNear.toSet, structures = buildings)
     InfectedEnv.env
-
-  val enterIntoStructureLogic: EntranceLogic = EntranceLogic()
 
   test("an entity near to a building can enter") {
     for updatedEnv <- enterIntoStructureLogic(firstEnv)

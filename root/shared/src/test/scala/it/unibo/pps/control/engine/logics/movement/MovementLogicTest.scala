@@ -15,6 +15,7 @@ import scala.concurrent.duration.{FiniteDuration, MILLISECONDS, MINUTES}
 object MovementLogicTest extends SimpleTaskSuite:
   private val house = House((1, 0), 1, 2)
   private val gridSide = 50
+  private val movementLogic: MovementLogic = MovementLogic()
   private val entityNoMovement = SimulationEntity(
     5,
     20,
@@ -73,8 +74,6 @@ object MovementLogicTest extends SimpleTaskSuite:
     object Env extends EnvironmentModule.Interface:
       val env: Environment = EnvironmentImpl(externalEntities = entities, gridSide = gridSide)
     Env.env
-
-  val movementLogic: MovementLogic = MovementLogic()
 
   test("the exit logic doesn't create other entities") {
     for updatedEnv <- movementLogic(env)
