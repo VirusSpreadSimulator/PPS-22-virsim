@@ -1,9 +1,13 @@
 package it.unibo.pps.control.loader.configuration
 
+import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
+
+import scala.concurrent.duration.MINUTES
+
 object SimulationDefaults:
 
   object GlobalDefaults:
-    val GRID_SIDE: Int = 50
+    val GRID_SIDE: Int = 80
     val DURATION: Int = 30
     val NUMBER_OF_ENTITIES: Int = 100
     val AVERAGE_POPULATION_AGE: Int = 40
@@ -28,7 +32,7 @@ object SimulationDefaults:
     val AVERAGE_POSITIVITY_DAYS: Int = 7
     val STD_DEV_POSITIVITY_DAYS: Double = 3
     val SEVERE_DESEASE_PROBABILITY: Double = 0.75
-    val MAXIMUM_INFECTION_DISTANCE: Double = 0.5
+    val MAXIMUM_INFECTION_DISTANCE: Double = 2
     val HEALTH_GAIN: Double = 0.01
     val HEALTH_INFECTED_LOSS: Double = 0.01
     val IMMUNITY_LOSS: Double = 0.001
@@ -39,6 +43,10 @@ object SimulationDefaults:
   object StructuresDefault:
     val HOUSE_INFECTION_PROB: Double = 0.5
     val HOSPITAL_HEALTH_GAIN: Double = 0.08
+    val DEFAULT_VISIBILITY_DISTANCE: Double = 2
+    val DEFAULT_HOUSE_VISIBILITY_DISTANCE: Double = 0
+    val DEFAULT_GROUP: String = "base"
+    val DEFAULT_PERMANENCE_TIME_DISTRIBUTION: GaussianDurationTime = GaussianDurationTime(20, 5, MINUTES)
 
   object MAX_VALUES:
     val MAX_GRID_SIZE: Int = 100

@@ -4,21 +4,17 @@ import it.unibo.pps.entity.common.Space.{Distance, Point2D}
 import it.unibo.pps.entity.structure.StructureComponent.*
 import it.unibo.pps.entity.structure.StructureComponent.Hospitalization.TreatmentQuality
 import it.unibo.pps.entity.structure.entrance.Entrance.{BaseEntranceStrategy, EntranceStrategy, FilterBasedStrategy}
-import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
 import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
-import scala.concurrent.duration.MINUTES
+import it.unibo.pps.control.loader.configuration.SimulationDefaults.StructuresDefault
+import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
 import monocle.syntax.all.*
 
 /** This module contains the base simulation structure description and the main implementations that are useful during
   * the simulation configuration.
   */
 object Structures:
-  private val defaultVisibilityDistance = 2
-  private val defaultHouseVisibilityDistance = 0
-  private val defaultGroup = "base"
-  private val defaultPermanenceTimeDistribution = GaussianDurationTime(20, 5, MINUTES)
 
   /** It's the simulation [[Structure]]. It specifies all the types, connecting them to the other types in the simulator
     */
@@ -62,9 +58,10 @@ object Structures:
       override val position: Point2D,
       override val infectionProbability: Double,
       override val capacity: Int,
-      override val permanenceTimeDistribution: GaussianDurationTime = defaultPermanenceTimeDistribution,
+      override val permanenceTimeDistribution: GaussianDurationTime =
+        StructuresDefault.DEFAULT_PERMANENCE_TIME_DISTRIBUTION,
       override val entities: Set[EntityPermanence] = Set(),
-      override val visibilityDistance: Distance = defaultHouseVisibilityDistance
+      override val visibilityDistance: Distance = StructuresDefault.DEFAULT_HOUSE_VISIBILITY_DISTANCE
   ) extends SimulationStructure
       with Habitable
       with Visible:
@@ -101,12 +98,13 @@ object Structures:
       override val position: Point2D,
       override val infectionProbability: Double,
       override val capacity: Int,
-      override val permanenceTimeDistribution: GaussianDurationTime = defaultPermanenceTimeDistribution,
+      override val permanenceTimeDistribution: GaussianDurationTime =
+        StructuresDefault.DEFAULT_PERMANENCE_TIME_DISTRIBUTION,
       override val entranceStrategy: EntranceStrategy = BaseEntranceStrategy(),
       override val entities: Set[EntityPermanence] = Set(),
       override val isOpen: Boolean = true,
-      override val visibilityDistance: Distance = defaultVisibilityDistance,
-      override val group: String = defaultGroup
+      override val visibilityDistance: Distance = StructuresDefault.DEFAULT_VISIBILITY_DISTANCE,
+      override val group: String = StructuresDefault.DEFAULT_GROUP
   ) extends SimulationStructure
       with Closable
       with Visible
@@ -141,10 +139,11 @@ object Structures:
       override val position: Point2D,
       override val infectionProbability: Double,
       override val capacity: Int,
-      override val permanenceTimeDistribution: GaussianDurationTime = defaultPermanenceTimeDistribution,
+      override val permanenceTimeDistribution: GaussianDurationTime =
+        StructuresDefault.DEFAULT_PERMANENCE_TIME_DISTRIBUTION,
       override val entranceStrategy: EntranceStrategy = BaseEntranceStrategy(),
       override val entities: Set[EntityPermanence] = Set(),
-      override val visibilityDistance: Distance = defaultVisibilityDistance,
+      override val visibilityDistance: Distance = StructuresDefault.DEFAULT_VISIBILITY_DISTANCE,
       override val treatmentQuality: TreatmentQuality = TreatmentQuality.MEDIUM
   ) extends SimulationStructure
       with Visible
