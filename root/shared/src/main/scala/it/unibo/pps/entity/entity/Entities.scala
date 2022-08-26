@@ -83,5 +83,6 @@ object Entities:
 
   object HealthCalculator:
     val calculateMaxHealth: Int => Double = Memo.immutableHashMapMemo { age =>
-      SimulationDefaults.MAX_VALUES.MAX_HEALTH - ((SimulationDefaults.MAX_VALUES.MAX_HEALTH - SimulationDefaults.MIN_VALUES.MIN_INITIAL_HEALTH.toDouble) / SimulationDefaults.MAX_VALUES.MAX_HEALTH) * age
+      SimulationDefaults.MAX_VALUES.MAX_HEALTH - ((SimulationDefaults.MAX_VALUES.MAX_HEALTH - SimulationDefaults.MIN_VALUES.MIN_INITIAL_HEALTH.toDouble) / SimulationDefaults.MAX_VALUES.MAX_HEALTH) * Math
+        .max(0, age)
     }
