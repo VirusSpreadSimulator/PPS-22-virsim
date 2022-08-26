@@ -2,6 +2,7 @@ package it.unibo.pps.entity.entity
 
 import it.unibo.pps.entity.common.Time.{DurationTime, TimeStamp}
 import it.unibo.pps.entity.entity.Infection.Severity
+import scala.concurrent.duration.DAYS
 
 /*Represent the infection of an entity*/
 trait Infection:
@@ -43,7 +44,7 @@ object Infection:
     * @return
     */
   def apply(severity: Severity, time: TimeStamp, duration: DurationTime): Infection =
-    InfectionImpl(severity, time, duration)
+    InfectionImpl(severity, time, DurationTime(Math.max(1, duration.toDays), DAYS))
   private class InfectionImpl(
       override val severity: Severity,
       override val timeOfTheInfection: TimeStamp,
