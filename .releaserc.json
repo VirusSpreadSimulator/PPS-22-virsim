@@ -37,7 +37,9 @@
     ["@semantic-release/github", {
       "assets": [
         {"path": "root/jvm/target/scala-3.1.1/virsim.jar", "label": "Virsim Jar"},
-        {"path": "doc/report.pdf", "label": "PDF Report"}
+        {"path": "doc/report.pdf", "label": "PDF Report"},
+        {"path": "root/shared/src/main/resources/configuration.scala", "label": "Sample Scala Configuration File"},
+        {"path": "root/shared/src/main/resources/configuration.yml", "label": "Sample YAML Configuration File"}
       ]
     }],
     ["@semantic-release/git", {
