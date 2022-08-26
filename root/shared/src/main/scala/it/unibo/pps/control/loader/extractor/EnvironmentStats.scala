@@ -18,4 +18,4 @@ object EnvironmentStats:
 
   case class Time(override val name: String = "Time") extends DataExtractor[String]:
     override def extractData(env: Environment): String =
-      Hours().extractData(env).toString + ":" + Minutes().extractData(env).toString
+      f"${Hours().extractData(env)}%02d:${Minutes().extractData(env)}%02d"
