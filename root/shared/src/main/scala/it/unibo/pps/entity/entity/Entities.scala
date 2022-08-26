@@ -71,7 +71,7 @@ object Entities:
     ): SimulationEntity =
       new SimulationEntity(
         id,
-        age,
+        Math.max(0, age),
         homePosition,
         Math.max(SimulationDefaults.MIN_VALUES.MIN_HEALTH, Math.min(health, calculateMaxHealth(age))),
         immunity,
