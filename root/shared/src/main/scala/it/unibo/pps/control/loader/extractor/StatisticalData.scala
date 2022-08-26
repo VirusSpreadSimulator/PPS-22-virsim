@@ -15,6 +15,10 @@ object StatisticalData:
     case DAYS
     // The current hour of the day
     case HOURS
+    // The current minutes in the hour.
+    case MINUTES
+    // The current time
+    case TIME
     // The pressure of sick people inside hospitals.
     case HOSPITAL_PRESSURE
     // The sum of all hospitals capacity.
@@ -40,6 +44,8 @@ object StatisticalData:
       stat match
         case Stats.DAYS => Days()
         case Stats.HOURS => Hours()
+        case Stats.MINUTES => Minutes()
+        case Stats.TIME => Time()
         case Stats.HOSPITAL_PRESSURE => HospitalPressure()
         case Stats.TOTAL_HOSPITALS_CAPACITY => HospitalsCapacity()
         case Stats.HOSPITAL_FREE_SEATS => HospitalFreeSeats()

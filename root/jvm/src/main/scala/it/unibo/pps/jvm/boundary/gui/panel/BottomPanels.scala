@@ -5,7 +5,7 @@ import it.unibo.pps.boundary.component.Events.Event.*
 import it.unibo.pps.boundary.component.Events.{Event, Params}
 import it.unibo.pps.boundary.component.panel.Panels.{BasePanel, UpdatablePanel, EventablePanel}
 import it.unibo.pps.control.loader.extractor.EntitiesStats.*
-import it.unibo.pps.control.loader.extractor.EnvironmentStats.Days
+import it.unibo.pps.control.loader.extractor.EnvironmentStats.{Days, Time}
 import it.unibo.pps.control.loader.extractor.HospitalStats.HospitalPressure
 import it.unibo.pps.entity.common.Utils.*
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
@@ -131,6 +131,7 @@ object BottomPanels:
 
     private lazy val stats = Seq(
       StatsDisplayer(JLabel(Text.DAYS_LABEL_TITLE), Days(), Text.DAYS_LABEL_TITLE),
+      StatsDisplayer(JLabel(Text.TIME_LABEL_TITLE), Time(), Text.TIME_LABEL_TITLE),
       StatsDisplayer(JLabel(Text.INFECTED_LABEL_TITLE), Infected(), Text.INFECTED_LABEL_TITLE),
       StatsDisplayer(JLabel(Text.SICK_LABEL_TITLE), Sick(), Text.SICK_LABEL_TITLE),
       StatsDisplayer(JLabel(Text.DEATHS_LABEL_TITLE), Deaths(), Text.DEATHS_LABEL_TITLE),
