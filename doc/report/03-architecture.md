@@ -54,5 +54,4 @@ Lo schema architetturale fornito precedentemente evidenzia i seguenti componenti
 
 //includere a fine progetto un diagramma delle classi, indicando le interfacce dei boundary utilizzate. 
 
-
-
+<div style="page-break-after: always;"></div>

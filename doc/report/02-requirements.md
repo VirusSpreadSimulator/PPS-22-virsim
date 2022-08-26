@@ -138,3 +138,5 @@ Infine, in seguito ai requisiti utente elencati, è emerso il seguente dominio m
 
 5. Implementazione
    + 5.1. Il framework sarà implementato utilizzando come linguaggio principale Scala e testato mediante Scalatest.
+
+<div style="page-break-after: always;"></div>

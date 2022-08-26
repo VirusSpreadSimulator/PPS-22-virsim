@@ -89,3 +89,5 @@ Inoltre, per la gestione automatica degli aggiornamenti delle dipendenze è stat
 In aggiunta alla Continuous Integration è stato utilizzato anche un meccanismo di Continuous Deployment, il quale permette di rilasciare le *major versions* del software in maniera automatica.
 Il delivery target scelto è **Github Release**. Per ciascuna release gli artefatti presenti sono un file jar dell'applicazione eseguibile ed il report in versione PDF ottenuto dal merging dei file in formato Markdown presenti in versione.
 È previsto Inoltre il deploy automatico della Scaladoc sfruttando il servizio di hosting **Github Pages** integrato nella repository del progetto.
+
+<div style="page-break-after: always;"></div>
