@@ -47,6 +47,8 @@ Environment -- Virus
 Environment -- Structure
 Environment -- Entity
 
+Loader ..> Engine
+
 Boundary <.. Engine
 Boundary <.. Launcher
 
@@ -57,5 +59,8 @@ Loader ..> Parser
 Engine ..> Environment
 
 Loader ..> Environment
+
+'for style reasons
+Parser -[hidden]- Boundary
 
 @enduml
