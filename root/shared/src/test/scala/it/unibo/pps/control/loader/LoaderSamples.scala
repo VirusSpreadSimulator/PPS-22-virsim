@@ -49,7 +49,7 @@ object LoaderSamples:
       with EnvironmentModule.Interface:
     override val configBoundary: BoundaryModule.ConfigBoundary = TestConfigBoundary()
     override val boundaries: Seq[BoundaryModule.Boundary] = Seq(configBoundary)
-    override val loader: LoaderModule.Loader = LoaderImpl()
+    override val loader: LoaderImpl = LoaderImpl()
     override val env: EnvironmentModule.Environment = Environment.empty
     override val engine: EngineModule.Engine = EngineImpl()
     override val parser: ParserModule.Parser = TestParser()

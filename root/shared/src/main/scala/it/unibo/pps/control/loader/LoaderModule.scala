@@ -76,7 +76,7 @@ object LoaderModule:
             case Some(configuration: Configuration) => parser.checkErrors(configuration)
         yield parsingResult
 
-      private def createEnvironment(configuration: Configuration)(using factory: EntityFactory): Task[Environment] =
+      def createEnvironment(configuration: Configuration)(using factory: EntityFactory): Task[Environment] =
         val houses: Seq[SimulationStructure] =
           for i <- 0 until configuration.simulation.gridSide
           yield House(
