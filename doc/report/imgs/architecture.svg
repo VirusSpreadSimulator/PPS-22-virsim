@@ -1,26 +1,29 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="224px" preserveAspectRatio="none" style="width:777px;height:224px;background:#FFFFFF;" version="1.1" viewBox="0 0 777 224" width="777px" zoomAndPan="magnify"><defs/><g><!--MD5=[6cbf048fd2d5a055b0f2cbfd23391788]
-entity boundary--><path d="M125,48 L125,72 M125,60 L142,60 " fill="none" style="stroke:#454645;stroke-width:1.5;"/><ellipse cx="154" cy="60" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="65" x="113" y="88.9951">boundary</text><!--MD5=[1cacb5a8490e30b3bd5ac3ecbdc4ac78]
-entity launcher--><ellipse cx="268" cy="181" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><polygon fill="#454645" points="264,169,270,164,268,169,270,174,264,169" style="stroke:#454645;stroke-width:1.0;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60" x="238" y="209.9951">launcher</text><!--MD5=[cb028c5091c687ec367cd0cbfd70389f]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="260px" preserveAspectRatio="none" style="width:777px;height:260px;background:#FFFFFF;" version="1.1" viewBox="0 0 777 260" width="777px" zoomAndPan="magnify"><defs/><g><!--MD5=[6cbf048fd2d5a055b0f2cbfd23391788]
+entity boundary--><path d="M125,50 L125,74 M125,62 L142,62 " fill="none" style="stroke:#454645;stroke-width:1.5;"/><ellipse cx="154" cy="62" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="65" x="113" y="90.9951">boundary</text><!--MD5=[1cacb5a8490e30b3bd5ac3ecbdc4ac78]
+entity launcher--><ellipse cx="268" cy="186" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><polygon fill="#454645" points="264,174,270,169,268,174,270,179,264,174" style="stroke:#454645;stroke-width:1.0;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60" x="238" y="214.9951">launcher</text><!--MD5=[cb028c5091c687ec367cd0cbfd70389f]
 entity engine--><ellipse cx="485" cy="23" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><polygon fill="#454645" points="481,11,487,6,485,11,487,16,481,11" style="stroke:#454645;stroke-width:1.0;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="461" y="51.9951">engine</text><!--MD5=[82baf439a90eede0fb64fe0703dd92f7]
-entity loader--><ellipse cx="379.5" cy="110" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><polygon fill="#454645" points="375.5,98,381.5,93,379.5,98,381.5,103,375.5,98" style="stroke:#454645;stroke-width:1.0;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="43" x="358" y="138.9951">loader</text><!--MD5=[cd13be72703caeb4bd49745d204d2e90]
-entity environment--><ellipse cx="612.5" cy="104" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><line style="stroke:#454645;stroke-width:1.5;" x1="600.5" x2="624.5" y1="118" y2="118"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="87" x="569" y="132.9951">environment</text><!--MD5=[1a78af00c6ca3e5688f0a2df2ad4b289]
-entity virus--><ellipse cx="612.5" cy="187" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><line style="stroke:#454645;stroke-width:1.5;" x1="600.5" x2="624.5" y1="201" y2="201"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="596.5" y="215.9951">virus</text><!--MD5=[fbcd1a1664252f7f7ddf883fed3c1e0a]
-entity entity--><ellipse cx="743" cy="63" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><line style="stroke:#454645;stroke-width:1.5;" x1="731" x2="755" y1="77" y2="77"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38" x="724" y="91.9951">entity</text><!--MD5=[aef4bbd40a79cbde1ee2c2f6983d79ff]
-entity building--><ellipse cx="743" cy="146" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><line style="stroke:#454645;stroke-width:1.5;" x1="731" x2="755" y1="160" y2="160"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="54" x="716" y="174.9951">building</text><!--MD5=[51dc34f6dea4a16405cfeb18503da005]
-entity Utente--><ellipse cx="29.5" cy="38.5" fill="#454645" rx="8" ry="8" style="stroke:#454645;stroke-width:1.5;"/><path d="M29.5,46.5 L29.5,73.5 M16.5,54.5 L42.5,54.5 M29.5,73.5 L16.5,88.5 M29.5,73.5 L42.5,88.5 " fill="none" style="stroke:#454645;stroke-width:1.5;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47" x="6" y="103.9951">Utente</text><!--MD5=[b6f37c2809b700ddc1adf389e6df02ee]
-link Utente to boundary--><path d="M53.02,68 C70.15,68 93.94,68 112.96,68 " fill="none" id="Utente-boundary" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[f3d1f238b8fcbb73305be014e6c80df6]
-link boundary to launcher--><path d="M170.6,92.2 C191.61,113.3 221.94,143.76 242.95,164.85 " fill="none" id="boundary-launcher" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[a1322fbbc09a77d71f11bc613cc4c403]
-link launcher to loader--><path d="M298.06,170.16 C316.94,157.92 341.09,142.26 357.98,131.3 " fill="none" id="launcher-loader" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[c4128efe77c6bddcd9b0b3d8c23944d9]
-link loader to environment--><path d="M401.41,117.46 C439.06,116.48 518.95,114.4 568.65,113.11 " fill="none" id="loader-environment" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[46890606563498db11f7f91241c93ba6]
-link loader to engine--><path d="M401.44,100.39 C418.69,85.9 443.12,65.36 460.93,50.4 " fill="none" id="loader-engine" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[47c55f4af74a450f8bbde560c7b139fd]
-link boundary to engine--><path d="M178.25,72.35 C245.69,71.83 401.88,54.38 460.87,40.39 " fill="none" id="boundary-engine" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[47c55f4af74a450f8bbde560c7b139fd]
-link boundary to engine--><!--MD5=[848b4729dc419230c6464289dc700f4b]
-link engine to environment--><path d="M509.02,45.86 C527.13,57.55 552.75,74.08 573.85,87.7 " fill="none" id="engine-environment" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[b51e714338d381bd4b5144837aed8edf]
-link environment to virus--><path d="M612.5,136.3 C612.5,147.76 612.5,159.22 612.5,170.68 " fill="none" id="environment-virus" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[ce4961932ae8cf3464a8b5984fea1e84]
-link environment to entity--><path d="M656.29,98.35 C679.21,91.03 706.26,82.4 723.74,76.82 " fill="none" id="environment-entity" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[2c0886a8096c25d509efd83d7d2fa668]
-link environment to building--><path d="M656.29,125.99 C676,132.43 698.76,139.87 715.87,145.46 " fill="none" id="environment-building" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[0ceb09a5b52ef174fcb9e35d55a57a2c]
+entity loader--><ellipse cx="379.5" cy="111" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><polygon fill="#454645" points="375.5,99,381.5,94,379.5,99,381.5,104,375.5,99" style="stroke:#454645;stroke-width:1.0;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="43" x="358" y="139.9951">loader</text><!--MD5=[b3c633cd6cd267e80b8ca5565fbac860]
+entity parser--><ellipse cx="485" cy="182" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><polygon fill="#454645" points="481,170,487,165,485,170,487,175,481,170" style="stroke:#454645;stroke-width:1.0;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="463" y="210.9951">parser</text><!--MD5=[cd13be72703caeb4bd49745d204d2e90]
+entity environment--><ellipse cx="612.5" cy="105" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><line style="stroke:#454645;stroke-width:1.5;" x1="600.5" x2="624.5" y1="119" y2="119"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="87" x="569" y="133.9951">environment</text><!--MD5=[1a78af00c6ca3e5688f0a2df2ad4b289]
+entity virus--><ellipse cx="612.5" cy="223" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><line style="stroke:#454645;stroke-width:1.5;" x1="600.5" x2="624.5" y1="237" y2="237"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="596.5" y="251.9951">virus</text><!--MD5=[fbcd1a1664252f7f7ddf883fed3c1e0a]
+entity entity--><ellipse cx="743" cy="64" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><line style="stroke:#454645;stroke-width:1.5;" x1="731" x2="755" y1="78" y2="78"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38" x="724" y="92.9951">entity</text><!--MD5=[aef4bbd40a79cbde1ee2c2f6983d79ff]
+entity building--><ellipse cx="743" cy="147" fill="#FFE552" rx="12" ry="12" style="stroke:#454645;stroke-width:1.5;"/><line style="stroke:#454645;stroke-width:1.5;" x1="731" x2="755" y1="161" y2="161"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="54" x="716" y="175.9951">building</text><!--MD5=[51dc34f6dea4a16405cfeb18503da005]
+entity Utente--><ellipse cx="29.5" cy="40.5" fill="#454645" rx="8" ry="8" style="stroke:#454645;stroke-width:1.5;"/><path d="M29.5,48.5 L29.5,75.5 M16.5,56.5 L42.5,56.5 M29.5,75.5 L16.5,90.5 M29.5,75.5 L42.5,90.5 " fill="none" style="stroke:#454645;stroke-width:1.5;"/><text fill="#454645" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47" x="6" y="105.9951">Utente</text><!--MD5=[b6f37c2809b700ddc1adf389e6df02ee]
+link Utente to boundary--><path d="M53.02,70 C70.15,70 93.94,70 112.96,70 " fill="none" id="Utente-boundary" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[f3d1f238b8fcbb73305be014e6c80df6]
+link boundary to launcher--><path d="M170.02,94.2 C191.25,116.05 222.33,148.03 243.54,169.86 " fill="none" id="boundary-launcher" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[a1322fbbc09a77d71f11bc613cc4c403]
+link launcher to loader--><path d="M298.06,174.1 C316.94,161.17 341.09,144.62 357.98,133.05 " fill="none" id="launcher-loader" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[c4128efe77c6bddcd9b0b3d8c23944d9]
+link loader to environment--><path d="M401.41,118.46 C439.06,117.48 518.95,115.4 568.65,114.11 " fill="none" id="loader-environment" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[46890606563498db11f7f91241c93ba6]
+link loader to engine--><path d="M401.44,101.19 C418.69,86.53 443.12,65.76 460.93,50.62 " fill="none" id="loader-engine" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[47c55f4af74a450f8bbde560c7b139fd]
+link boundary to engine--><path d="M178.25,74.16 C245.69,73.24 401.88,54.86 460.87,40.52 " fill="none" id="boundary-engine" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[47c55f4af74a450f8bbde560c7b139fd]
+link boundary to engine--><!--MD5=[62287d16d7bfc8f03727438a9d356a41]
+link loader to parser--><path d="M401.44,133.37 C419.28,145.61 444.8,163.11 462.73,175.41 " fill="none" id="loader-parser" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[848b4729dc419230c6464289dc700f4b]
+link engine to environment--><path d="M509.02,46.04 C527.28,57.97 553.16,74.88 574.34,88.72 " fill="none" id="engine-environment" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[b51e714338d381bd4b5144837aed8edf]
+link environment to virus--><path d="M612.5,137.12 C612.5,160.27 612.5,183.42 612.5,206.57 " fill="none" id="environment-virus" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[ce4961932ae8cf3464a8b5984fea1e84]
+link environment to entity--><path d="M656.29,99.35 C679.21,92.03 706.26,83.4 723.74,77.82 " fill="none" id="environment-entity" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[2c0886a8096c25d509efd83d7d2fa668]
+link environment to building--><path d="M656.29,126.99 C676,133.43 698.76,140.87 715.87,146.46 " fill="none" id="environment-building" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[0ceb09a5b52ef174fcb9e35d55a57a2c]
 link launcher to virus--><!--MD5=[b2eb2cd4df774f53ca31c33418ba34c8]
-link boundary to loader--><!--MD5=[0f2292eceecd4cc686d002f42c0710ab]
+link boundary to loader--><!--MD5=[6ec3a91f22c2fba7c9a4b5b97991f98b]
+link launcher to parser--><!--MD5=[4413b6965f57226d8eb792879dcab9ff]
 @startuml
 !theme vibrant
 left to right direction
@@ -30,6 +33,7 @@ boundary boundary
 control launcher 
 control engine
 control loader
+control parser
 
 entity environment      
 entity virus     
@@ -37,6 +41,8 @@ entity entity
 entity building
 
 actor Utente
+
+ 
 
 Utente - - boundary
 boundary - - launcher 
@@ -47,15 +53,22 @@ engine -up- loader
 
 engine -left- boundary
 
+loader - - parser
+
+
 engine - - environment 
 environment -right- virus 
 environment - - entity 
 environment - - building
 
+
+
 'for styling reasons
 launcher -[hidden]-> virus
 boundary -[hidden]-> loader
 boundary -[hidden]-> engine
+launcher -[hidden]-> parser
+
 
 @enduml
 
@@ -138,6 +151,7 @@ boundary boundary
 control launcher 
 control engine
 control loader
+control parser
 
 entity environment      
 entity virus     
@@ -145,6 +159,8 @@ entity entity
 entity building
 
 actor Utente
+
+ 
 
 Utente - - boundary
 boundary - - launcher 
@@ -155,14 +171,21 @@ engine -up- loader
 
 engine -left- boundary
 
+loader - - parser
+
+
 engine - - environment 
 environment -right- virus 
 environment - - entity 
 environment - - building
 
+
+
 launcher -[hidden]-> virus
 boundary -[hidden]-> loader
 boundary -[hidden]-> engine
+launcher -[hidden]-> parser
+
 
 @enduml
 
