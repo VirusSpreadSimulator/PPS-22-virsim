@@ -43,9 +43,11 @@ class Infection {
 }
 
 class Virus {
+  name
   spreadRate
   averagePositivityPeriod
   severeDeseaseProb
+  maxInfectionDistance
 }
 
 class Environment {
