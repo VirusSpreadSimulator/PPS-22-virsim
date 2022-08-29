@@ -59,3 +59,4 @@ Di seguito un diagramma UML che mette in evidenza i *trait* principali dell'arch
 
 Inoltre, al fine di rappresentare il flow derivato dall'architettura mostrata, viene fornito il seguente diagramma di sequenza.
 
+![Sequence-Diagram](imgs/sequence.svg)

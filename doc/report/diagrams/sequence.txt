@@ -1,0 +1,48 @@
+@startuml
+!theme vibrant
+
+Launcher -> Boundary: Init()
+Boundary --> Launcher
+
+loop until configuration ok
+Launcher -> Boundary: ask configuration
+Boundary --> Launcher: configuration
+
+Launcher -> Loader: parseConfiguration(path)
+
+Loader -> Parser: readFile(path)
+Parser --> Loader: program
+
+Loader -> Parser: loadConfiguration(program)
+Parser --> Loader: configuration
+
+Loader -> Parser: checkErrors(configuration)
+Parser --> Loader: result
+
+alt#Gold #Pink [ERROR]
+  Loader --> Launcher: errors
+else #LightBlue [OK]
+  Loader --> Launcher: configuration
+end
+
+end
+
+Launcher -> Boundary: start()
+Boundary --> Launcher
+
+Launcher -> Loader: startEngine(configuration)
+
+Loader -> Environment: populateEnvironment(configuration)
+Environment --> Loader: environment
+
+Loader ->> Engine: startSimulationLoop(environment)
+Loader --> Launcher
+
+loop until simulation over
+
+Engine -> Engine: updateEnv(environment)
+Engine -> Boundary: consume(environment)
+end
+Engine -> Boundary: stop 
+
+@enduml
