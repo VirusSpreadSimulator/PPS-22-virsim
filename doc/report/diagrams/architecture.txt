@@ -12,7 +12,7 @@ control parser
 entity environment      
 entity virus     
 entity entity
-entity building
+entity structure
 
 actor Utente
 
@@ -33,7 +33,8 @@ loader -- parser
 engine -- environment 
 environment -right- virus 
 environment -- entity 
-environment -- building
+environment -- structure
+
 
 
 
