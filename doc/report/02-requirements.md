@@ -6,13 +6,12 @@
 
 1. Requisiti di Business
    + 1.1.  Simulazione della diffusione di un virus all’interno di una popolazione di individui che interagisce in un ambiente limitato
-     + 1.1.1. generazione di diversi scenari configurabili attraverso mappe personalizzate
-       + 1.1.1.2. presenza di diverse tipologie di strutture con caratteristiche personalizzabili legate al virus
-     + 1.1.2. definizione di una configurazione statica che riguarda diversi aspetti della simulazione, dell’ambiente e degli individui.
-     + 1.1.3. interazione con la simulazione per la modifica e l’aggiunta di ulteriori parametri o vincoli.
-     + 1.1.4. presenza di un tempo virtuale e di un ciclo giorno/notte.
+     + 1.1.1. Generazione di diversi scenari configurabili attraverso mappe personalizzate
+       + 1.1.1.1. Presenza di diverse tipologie di strutture con caratteristiche personalizzabili legate al virus
+     + 1.1.2. Definizione di una configurazione statica che riguarda diversi aspetti della simulazione, dell’ambiente e degli individui.
+     + 1.1.3. Interazione con la simulazione per la modifica e l’aggiunta di ulteriori parametri o vincoli.
+     + 1.1.4. Presenza di un tempo virtuale e di un ciclo giorno/notte.
      + 1.1.5. Visualizzazione, monitoraggio ed esportazione di informazioni e statistiche riguardanti l’andamento della simulazione
-   
    
 
 ## Utente
@@ -75,17 +74,30 @@ Alla luce di un approfondimento dell'intervista con il committente si evincono i
      + 2.5.3. Individui infetti
      + 2.5.4. Individui malati gravi
      + 2.5.5. Individui morti
+   + 2.6. Possibilità di eseguire la simulazione tramite WebApp
 
 
-Infine, in seguito ai requisiti utente elencati, è emerso il seguente dominio modellato attraverso il diagramma delle classi di analisi qui riportato.
+In seguito ai requisiti utente elencati, è emerso il seguente dominio modellato attraverso il diagramma delle classi di analisi qui riportato.
 
 <img src="imgs/analysis_class.svg" alt="analysis_class" style="zoom:100%;" />
+
+Infine, si riportano i mockup realizzati insieme al committente per l'applicativo desktop. 
+
+**Schermata iniziale**
+
+<img src="imgs/mockup-init.png" alt="analysis_class" style="zoom:100%;" />
+
+**Schermata Simulazione**
+
+<img src="imgs/mockup-simulation.png" alt="analysis_class" style="zoom:100%;" />
+
+
 
 ## Funzionali
 
 3. Requisiti funzionali
    + 3.1. La simulazione è basata su un modello ad eventi discreti in cui è presente un tempo virtuale che scandisce le iterazioni.
-     + 3.1.1. l’avanzare del tempo virtuale e quindi delle iterazioni sancisce l’alternanza del ciclio giorno/notte simulando l’avanzamento delle giornate.
+     + 3.1.1. L’avanzare del tempo virtuale e quindi delle iterazioni sancisce l’alternanza del ciclio giorno/notte simulando l’avanzamento delle giornate.
      + 3.1.2. Nel corso del giorno gli individui si muoveranno liberamente all’interno della mappa.
      + 3.1.3. Nel corso della notte in modo randomico alcuni individui saranno costretti a tornare nella propria casa.
    + 3.2. L’ambiente della simulazione è rappresentato logicamente in due dimensioni attraverso una griglia che consente la disposizione delle strutture e lo spostamento degli individui tramite coordinate.
@@ -131,12 +143,12 @@ Infine, in seguito ai requisiti utente elencati, è emerso il seguente dominio m
 4. Requisiti Non Funzionali
    + 4.1. Mantenimento della fluidità del sistema e dell’interattività anche su dispositivi con risorse limitate.
      + 4.1.1. Requisito minimo: 4 GB di RAM, CPU Dual Core
-   + 4.2. L’applicazione deve essere cross-platform ossia funzionare correttamente su diversi sistemi operativi: Linux, Windows, Mac OS.
+   + 4.2. L’applicazione deve funzionare correttamente su diversi sistemi operativi: Linux, Windows, Mac OS.
    + 4.3. Estendibilità del sistema, in particolare delle tipologie di strutture e delle strategie di accesso ad esse.
 
 ## Implementazione
 
 5. Implementazione
-   + 5.1. Il framework sarà implementato utilizzando come linguaggio principale Scala e testato mediante Scalatest.
+   + 5.1. Il framework sarà implementato utilizzando come linguaggio principale Scala.
 
 <div style="page-break-after: always;"></div>
