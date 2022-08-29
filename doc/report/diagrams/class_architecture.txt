@@ -20,7 +20,6 @@ interface Launcher <<trait>> {
 
 interface Loader <<trait>> {
   parseConfiguration(path: Path): Task[Result]
-  createEnvironment(conf: Configuration): Task[Environment]
   startEngine(conf: Configuration): Task[Unit]
 }
 

@@ -39,19 +39,12 @@ import scala.io.Source
 object LoaderModule:
 
   trait Loader:
-    /** @param configurationFile
+    /** @param filePath
       *   the configuration file with simulation parameters.
       * @return
       *   the result of the configuration parsing.
       */
     def parseConfiguration(filePath: FilePath): Task[ConfigurationResult]
-
-    /** @param configuration
-      *   The configuration of the simulation, structures and virus.
-      * @return
-      *   the initialized environment.
-      */
-    def createEnvironment(configuration: Configuration)(using entityFactory: EntityFactory): Task[Environment]
 
     /** After parsing the configuration file and initializing the environment it starts the simulation engine.
       * @return
@@ -83,7 +76,7 @@ object LoaderModule:
             case Some(configuration: Configuration) => parser.checkErrors(configuration)
         yield parsingResult
 
-      override def createEnvironment(configuration: Configuration)(using factory: EntityFactory): Task[Environment] =
+      private def createEnvironment(configuration: Configuration)(using factory: EntityFactory): Task[Environment] =
         val houses: Seq[SimulationStructure] =
           for i <- 0 until configuration.simulation.gridSide
           yield House(
