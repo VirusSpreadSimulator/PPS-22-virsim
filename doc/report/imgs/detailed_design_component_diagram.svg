@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="478px" preserveAspectRatio="none" style="width:560px;height:478px;background:#FFFFFF;" version="1.1" viewBox="0 0 560 478" width="560px" zoomAndPan="magnify"><defs/><g><!--MD5=[0d274dc0f62ec51c45cc780c7d41f882]
+cluster ComponentModule--><polygon fill="#FFFFFF" points="16,6.602,156,6.602,163,31.6699,543,31.6699,543,471.602,16,471.602,16,6.602" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="16" x2="163" y1="31.6699" y2="31.6699"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="134" x="20" y="23.5679">ComponentModule</text><!--MD5=[eb8e665c4df62b2f58d3709b09e60df2]
+class ComponentInterface--><rect codeLine="4" fill="#FEFECE" height="50.6882" id="ComponentInterface" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="143" x="383.5" y="164.102"/><ellipse cx="398.5" cy="185.4461" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M394.5313,191.9461 L394.5313,190.243 L396.8906,189.9773 L396.8906,181.7742 L394.5313,181.5086 L394.5313,179.8055 L401.6719,179.8055 L401.6719,181.5086 L399.25,181.7742 L399.25,189.9773 L401.6719,190.243 L401.6719,191.9461 L394.5313,191.9461 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="450.5" y="181.9301">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="111" x="412.5" y="198.2742">ComponentInterface</text><line style="stroke:#A80036;stroke-width:1.5;" x1="384.5" x2="525.5" y1="206.7902" y2="206.7902"/><!--MD5=[3521822871a02163bc1090dd8c65b7f5]
+class Provider--><rect codeLine="5" fill="#FEFECE" height="65.6701" id="Provider" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="187" x="31.5" y="156.602"/><ellipse cx="97.75" cy="177.9461" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M93.7813,184.4461 L93.7813,182.743 L96.1406,182.4773 L96.1406,174.2742 L93.7813,174.0086 L93.7813,172.3055 L100.9219,172.3055 L100.9219,174.0086 L98.5,174.2742 L98.5,182.4773 L100.9219,182.743 L100.9219,184.4461 L93.7813,184.4461 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="123.75" y="174.4301">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="46" x="118.25" y="190.7742">Provider</text><line style="stroke:#A80036;stroke-width:1.5;" x1="32.5" x2="217.5" y1="199.2902" y2="199.2902"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="175" x="37.5" y="215.0491">component: ComponentInterface</text><rect fill="#FEFECE" height="52.6882" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="92" x="296" y="402.602"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="324.5" y="415.4301">«type»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="78" x="303" y="433.7742">Requirements</text><line style="stroke:#A80036;stroke-width:1.5;" x1="297" x2="387" y1="439.2902" y2="439.2902"/><!--MD5=[4e13963c9dc916a21a8436ef39422b32]
+class Component--><rect codeLine="9" fill="#FEFECE" height="50.6882" id="Component" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="95" x="253.5" y="164.102"/><ellipse cx="268.5" cy="185.4461" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M264.5313,191.9461 L264.5313,190.243 L266.8906,189.9773 L266.8906,181.7742 L264.5313,181.5086 L264.5313,179.8055 L271.6719,179.8055 L271.6719,181.5086 L269.25,181.7742 L269.25,189.9773 L271.6719,190.243 L271.6719,191.9461 L264.5313,191.9461 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="296.5" y="181.9301">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="63" x="282.5" y="198.2742">Component</text><line style="stroke:#A80036;stroke-width:1.5;" x1="254.5" x2="347.5" y1="206.7902" y2="206.7902"/><!--MD5=[d378ae02ecdbb38086d3d2ca35af0bc8]
+class ComponentImpl--><rect codeLine="11" fill="#FEFECE" height="40" id="ComponentImpl" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="122" x="361" y="283.602"/><ellipse cx="376" cy="299.602" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M375.4688,306.5239 Q373.7188,306.5239 372.5781,305.7895 Q371.4531,305.0395 370.8906,303.6957 Q370.3438,302.3364 370.3438,300.5395 Q370.3438,298.5082 371,297.0551 Q371.6563,295.602 372.9375,294.8207 Q374.2188,294.0395 376.0938,294.0395 Q376.9844,294.0395 377.6563,294.227 Q378.3281,294.3989 379.0156,294.7426 L378.2031,296.7582 Q377.5781,296.4457 377.0313,296.3207 Q376.5,296.1957 376.0156,296.1957 Q374.8438,296.1957 374.1406,296.727 Q373.4375,297.2582 373.1406,298.2114 Q372.8438,299.1645 372.8438,300.4301 Q372.8438,302.4457 373.5625,303.4145 Q374.2813,304.3676 375.875,304.3676 Q376.4688,304.3676 377.0938,304.2114 Q377.7188,304.0551 378.5469,303.6801 L378.5469,305.8989 Q377.8125,306.2114 377.0156,306.3676 Q376.2344,306.5239 375.4688,306.5239 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="90" x="390" y="304.258">ComponentImpl</text><line style="stroke:#A80036;stroke-width:1.5;" x1="362" x2="482" y1="315.602" y2="315.602"/><!--MD5=[713bb781b1b579324fb36ad0db6385cf]
+class Interface--><rect codeLine="12" fill="#FEFECE" height="50.6882" id="Interface" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="80" x="173" y="44.602"/><ellipse cx="188" cy="65.9461" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M184.0313,72.4461 L184.0313,70.743 L186.3906,70.4773 L186.3906,62.2742 L184.0313,62.0086 L184.0313,60.3055 L191.1719,60.3055 L191.1719,62.0086 L188.75,62.2742 L188.75,70.4773 L191.1719,70.743 L191.1719,72.4461 L184.0313,72.4461 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="208.5" y="62.4301">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="48" x="202" y="78.7742">Interface</text><line style="stroke:#A80036;stroke-width:1.5;" x1="174" x2="252" y1="87.2902" y2="87.2902"/><!--MD5=[eb7df3c2ffe94faec07f31acab5bb61f]
+reverse link ComponentInterface to ComponentImpl--><path codeLine="15" d="M442.04,234.572 C437.07,251.462 431.64,269.872 427.69,283.282 " fill="none" id="ComponentInterface-backto-ComponentImpl" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="435.39,232.392,447.76,215.182,448.82,236.342,435.39,232.392" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[4d6dd9bcc040b66e531452ac0fc6376f]
+reverse link Component to ComponentImpl--><path codeLine="16" d="M337.36,224.262 C358.2,243.552 383.62,267.072 401.13,283.282 " fill="none" id="Component-backto-ComponentImpl" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="327.55,215.182,329.2322,222.1941,336.352,223.3383,334.6698,216.3261,327.55,215.182" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[a3972479cb76438c0d767dcb284dd913]
+link Component to Requirements--><path codeLine="17" d="M303.72,215.212 C306.82,241.972 312.32,285.972 319,323.602 C323.43,348.562 329.67,376.592 334.53,397.342 " fill="none" id="Component-to-Requirements" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="335.74,402.452,337.5454,392.77,334.5813,397.5881,329.7632,394.624,335.74,402.452" style="stroke:#454645;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="23" x="320" y="308.999">Use</text><!--MD5=[cdc82da03ba66947d6a587324f1ba661]
+link ComponentImpl to Requirements--><path codeLine="18" d="M409.68,323.632 C396.8,343.502 376.43,374.952 361.39,398.162 " fill="none" id="ComponentImpl-to-Requirements" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="358.65,402.392,366.8945,397.0042,361.3639,398.1926,360.1755,392.662,358.65,402.392" style="stroke:#454645;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="23" x="390" y="368.499">Use</text><!--MD5=[7d4003de41a4abbe2a4d9fa5b340dad4]
+link Interface to Provider--><path codeLine="20" d="M194.55,95.732 C184.86,108.682 172.62,125.012 161.13,140.352 " fill="none" id="Interface-to-Provider" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="none" points="166.7,144.602,149.11,156.412,155.5,136.202,166.7,144.602" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[b7a7c7483401df32ef047bdecfdeedbb]
+link Interface to Component--><path codeLine="21" d="M231.45,95.732 C242.77,110.852 257.55,130.582 270.57,147.972 " fill="none" id="Interface-to-Component" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="none" points="276.19,143.802,282.58,164.002,264.98,152.192,276.19,143.802" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[9d366bbf1ffd3d734ab76fc17609007a]
+@startuml
+!theme vibrant
+
+package "ComponentModule" {
+interface ComponentInterface <<trait>>
+interface Provider <<trait>> {
+   component: ComponentInterface
+}
+object Requirements <<type>>
+interface Component <<trait>> {
+}
+class ComponentImpl
+interface Interface <<trait>>
+
+
+ComponentInterface <|.. ComponentImpl
+Component *- - ComponentImpl
+Component ..> Requirements : Use
+ComponentImpl ..> Requirements : Use
+
+Interface - -|> Provider
+Interface - -|> Component
+
+}
+
+
+
+hide methods
+@enduml
+
+@startuml
+skinparam BackgroundColor FFFFFF
+skinparam shadowing false
+skinparam RoundCorner 7
+skinparam ArrowColor 454645
+skinparam FontColor 454645
+skinparam SequenceLifeLineBorderColor 696969
+skinparam SequenceGroupHeaderFontColor 454645
+skinparam SequenceGroupFontColor 696969
+skinparam SequenceGroupBorderColor 696969
+skinparam SequenceGroupBorderThickness 1
+
+skinparam sequenceDivider {
+    BorderColor 454645
+    BorderThickness 1
+    FontColor 454645
+}
+
+skinparam participant {
+    BackgroundColor FF6347
+    BorderColor FF6F61
+    FontColor FFFFFF
+}
+
+skinparam database {
+    BackgroundColor 00FFFF
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam entity {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam note {
+    BackgroundColor 7FFFD4
+    BorderColor 7FFFD4
+    FontColor 454645
+}
+
+skinparam actor {
+    BackgroundColor 454645
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam boundary {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam control {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam collections {
+    BackgroundColor FF6347
+    BorderColor FFFFFF
+    FontColor 454645
+}
+
+skinparam queue {
+    BackgroundColor FF6347
+    BorderColor FFF
+    FontColor FFF
+    BorderThickness 1.5
+}
+
+package "ComponentModule" {
+interface ComponentInterface <<trait>>
+interface Provider <<trait>> {
+   component: ComponentInterface
+}
+object Requirements <<type>>
+interface Component <<trait>> {
+}
+class ComponentImpl
+interface Interface <<trait>>
+
+
+ComponentInterface <|.. ComponentImpl
+Component *- - ComponentImpl
+Component ..> Requirements : Use
+ComponentImpl ..> Requirements : Use
+
+Interface - -|> Provider
+Interface - -|> Component
+
+}
+
+
+
+hide methods
+@enduml
+
+PlantUML version 1.2021.13(Mon Nov 01 12:38:45 CET 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

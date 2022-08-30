@@ -1,0 +1,29 @@
+@startuml
+!theme vibrant
+
+package "ComponentModule" {
+interface ComponentInterface <<trait>>
+interface Provider <<trait>> {
+   component: ComponentInterface
+}
+object Requirements <<type>>
+interface Component <<trait>> {
+}
+class ComponentImpl
+interface Interface <<trait>>
+
+
+ComponentInterface <|.. ComponentImpl
+Component *-- ComponentImpl
+Component ..> Requirements : Use
+ComponentImpl ..> Requirements : Use
+
+Interface --|> Provider
+Interface --|> Component
+
+}
+
+
+
+hide methods
+@enduml
