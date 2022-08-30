@@ -1,7 +1,5 @@
 package it.unibo.pps.entity.entity
 
-import it.unibo.pps.entity.common.Space.Point2D
-
 /* A module that represents the characteristics that can have an Entity in the simulation. */
 object EntityComponent {
   /* Base implementation of an entity. */
@@ -24,31 +22,6 @@ object EntityComponent {
       *   the home position to which the entity is assigned.
       */
     def homePosition: Position
-
-    /** The current health of an entity.
-      * @return
-      *   the health of the entity
-      */
-    def health: Double
-
-    /** Every entity has a personalized maximum health status, base on the age.
-      * @return
-      *   the maximum health status that the entity could have.
-      */
-    def maxHealth: Double
-
-    /** Every entity could have an immunity rate, that increase with a vaccine or after an infection and decrease as the
-      * simulation progresses
-      * @return
-      *   the current immunity rate of the entity
-      */
-    def immunity: Double
-
-    /** During the simulation, an entity could wear a mask to decrease the probability of an infection
-      * @return
-      *   true if the entity has a mask, false otherwise
-      */
-    def hasMask: Boolean
 
   /* Represent the an entity that exist in the simulation and can move*/
   trait Moving extends Entity:
@@ -78,4 +51,31 @@ object EntityComponent {
       */
     def infection: Option[Infection]
 
+  trait Masquerable extends Entity:
+    /** During the simulation, an entity could wear a mask to decrease the probability of an infection
+      * @return
+      *   true if the entity has a mask, false otherwise
+      */
+    def hasMask: Boolean
+
+  trait Living extends Entity:
+    /** The current health of an entity.
+      * @return
+      *   the health of the entity
+      */
+    def health: Double
+
+    /** Every entity has a personalized maximum health status, base on the age.
+      * @return
+      *   the maximum health status that the entity could have.
+      */
+    def maxHealth: Double
+
+  trait Immune extends Entity:
+    /** Every entity could have an immunity rate, that increase with a vaccine or after an infection and decrease as the
+      * simulation progresses
+      * @return
+      *   the current immunity rate of the entity
+      */
+    def immunity: Double
 }

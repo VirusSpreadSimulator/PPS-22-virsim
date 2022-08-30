@@ -12,6 +12,7 @@ import org.scalajs.dom
 /** The reader of files for the JS module. */
 object JSReader:
 
+  /** The provider of the JavaScript reader instance in the context. */
   trait Provider:
     val jsReader: Reader
 
