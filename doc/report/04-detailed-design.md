@@ -102,9 +102,29 @@ Al fine di gestire il disegno dei concetti di Simulazione è stata utilizzata la
 
 #### Exporter
 
+L'**Exporter** è un boundary con il compito di esportare alcune statistiche e dati aggregati della simulazione su un file di testo in formato *CSV*. Quest'ultimo viene aggiunto come componente al *launcher* dell'applicazione ed in quanto *boundary* ad ogni step della simulazione riceve *l'environment* aggiornato.
+
+L'esportazione dei dati su file avviene continuamente ad ogni step in modo da poter analizzare, una volta terminata la simulazione, l'andamento dei parametri principali nel corso del tempo.
+
+Al fine di ottenere un design che separi l'estrazione delle statistiche dal concetto di Exporter stesso, l'intero processo di estrazione dei dati viene delegato al trait **DataExtractor**.
+Un DataExtractor contiene un nome utile per comprendere la tipologia di statistica che si intende calcolare ed un metodo *generico* per estrarre quest'ultima a partire dall'*environment* della simulazione.
+
+Al fine di elencare e riassumere tutte le tipologie di dati e statistiche che è possibile esportare è stata creata l'enum **StatisticalData**. 
+Inoltre, attraverso l'utilizzo del pattern **Adapter** , implementato con **Implicit Conversions**, si è reso possibile evitare di utilizzare ogni singola implementazione del trait DataExtractor mentre è sufficiente creare un elenco di statistiche dell'enum ed il  pattern si occuperà poi di istanziare per ognuna il rispettivo estrattore. 
+
+Infine, l'aggiunta del trait *DataExtractor* si è rilevata utile anche nella creazione dei grafici in quanto anch'essi hanno l'obiettivo di mostrare alcuni dati aggregati durante la simulazione. In questo modo si sono evitate inutili ripetizioni di codice ed è stato relativamente semplice implementare i vari grafici presenti.
+
+Maggiori dettagli sulle effettive implementazioni degli estrattori e sull'esportatore verranno forniti nel capitolo *Implementazione*.
+
 ### Launcher
 
+
+
 ### Loader
+
+Il Loader,  componente appartenente al *Control*, si occupa di caricare la configurazione fornita dall'utente, creare l'environment iniziale ed infine lanciare l'engine della simulazione.
+
+
 
 #### Parser
 
@@ -125,6 +145,12 @@ Al fine di gestire il disegno dei concetti di Simulazione è stata utilizzata la
 #### Structure
 
 #### Virus
+
+Entity che contiene informazioni riguardo al virus presente nell'*environment*.
+
+I parametri principali del virus sono il nome, il tasso di diffusione, i giorni medi e la deviazione standard della positività, la probabilità di sviluppare una forma grave della malattia e la distanza massima entro la quale è possibile infettarsi.
+
+Per semplicità ognuno di questi parametri contiene un valore di *default* in modo da semplificare la configurazione del virus da parte dell'utente.
 
 ### Pattern di progettazione 
 
