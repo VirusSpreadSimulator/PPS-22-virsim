@@ -48,21 +48,57 @@ Tra i boundary che possono essere iniettati all'interno del simulatore deve esse
 - *eventi asincroni*: sono quelli che vengono emessi dall'interazione dell'attore con il sistema
 - *eventi sincroni*: rappresentano quegli eventi necessari per la configurazione della simulazione, e che quindi devono essere ricevuti in un certo ordine.
 
-Al fine di rispettare la *dependency rule* descritta dalla Clean Architecture e da ECB, si è deciso di modallare un ulteriore trait **ConfigBoundary** che estende il trait **Boundary** con i due metodi necessari per ottenere la configurazione e segnalare errori al boundary. In questo modo, il componente Boundary rimane passivo, infatti non eseguirà mai chiamate dirette agli elementi del control rispettando la *depency rule*.
+Al fine di rispettare la *dependency rule* descritta dalla Clean Architecture e da ECB, si è deciso di modallare un ulteriore trait **ConfigBoundary** che estende il trait **Boundary** con due metodi necessari per ottenere la configurazione e segnalare errori al boundary. In questo modo, il componente Boundary rimane passivo, infatti non eseguirà mai chiamate dirette agli elementi del control rispettando la *dependency rule*.
 
 ![config_boundary](imgs/detailed_design_config_boundary.svg)
 
-Perciò tra i boundary specificati per l'applicazione ve ne sarà solamente uno di tipo ConfigBoundary, il quale gestirà, tra le altre cose, anche la parte di inizializzazione della simulazione con il compito di fornire la configurazione e gestire gli eventuali errori verso l'attore del sistema.
+Perciò, tra i boundary specificati per l'applicazione ve ne sarà solamente uno di tipo ConfigBoundary, il quale gestirà, tra le altre cose, anche la parte di inizializzazione della simulazione con il compito di fornire la configurazione e gestire gli eventuali errori verso l'attore del sistema.
 
 I boundary sviluppati sono i seguenti:
 
-- **GUI-JVM**: si occupa della creazione di un'interfaccia grafica jvm-based.
+- **GUI-JVM**: si occupa della creazione di un'interfaccia grafica dell'applicazione Desktop jvm-based.
 - **Esportatore**: si occupa dell'esportazione in un foglio di calcolo dei dati aggregati e delle statistiche riguardanti la simulazione
-- **GUI-JS**: si occupa della creazione di una WebApp js-based. Come detto precedentemente infatti, l'applicazione sviluppata dovrà essere cross-platform e la specifica di un apposito boundary rientra tra le parti del progetto platform-specific.
+- **GUI-JS**: si occupa della creazione dell'interfaccia grafica della WebApp js-based. Come detto precedentemente infatti, l'applicazione sviluppata dovrà essere cross-platform e la specifica di un apposito boundary rientra tra le parti platform-specific.
+
+Considerando la necessità di eseguire il rendering della simulazione, nonostante solitamente i framework per gestire le GUI siano fortemente object-oriented e sfruttino principalmente side-effects si è deciso comunque di descrivere la struttura delle view utilizzando un approccio monadico, isolando tutto ciò che non è funzionale nell'*end-of-the-world*. 
+A tal proposito, al fine di isolare l'approccio a side-effects tipico del disegno degli elementi su *"canvas"*, è stata creata la **type-class** **Drawable** la quale rappresenta l'estensione di un tipo generico con le capacità di disegno. Questo è un concetto comune e non platform-specific.
+
+![drawable_concept](imgs/detailed_design_drawable_general.svg)
+
+La type class è stata progettata per lavorare con gli extension methods di Scala (non facilmente rappresentabili in UML). 
+Grazie a questa type-class la capacità di essere disegnati può essere inserita a piacere su ogni tipo definito anche dopo la sua definizione. Tutto ciò grazie al pattern **type class** che ci permette di definire metodi dotati di **polimorfismo ad-hoc**. 
+Essendo un concetto comune a tutti i boundary, Drawable astrae dal tipo di grafica utilizzata e definisce al suo posto un **abstract type** (**Graphic**).
+In questo modo i boundary platform-specific potranno specificare il proprio tipo ed eseguire il "pimping" di operazioni basate su di essa.
+
+Inoltre, al fine di rappresentare il concetto di sorgente di eventi a livello di boundary è stato modellato il trait **EventSource**.
+
+![event_source](imgs/detailed_design_event_source.svg)
+
+Il seguente concetto modella tutto ciò che è in grado di emettere eventi dovuti all'interazione dell'attore: pulsanti, text fields, ecc... In questo modo i suddetti componenti possono essere integrati con maggiore facilità ed elasticità all'interno di un contesto monadico.
+**Event** rappresenta gli eventi emessi dai boundary ed è modellato attraverso un *Product Type*. Ogni evento specifica il suo interesse rispetto ad un particolare stato dell'engine, esprimendo il fatto che esso, in un particolare stato dell'applicazione, potrebbe perdere di significatività.
 
 #### JVM
 
+Il boundary che gestisce la gui jvm-based si occupa di visualizzare l'interfaccia grafica del simulatore dell'applicazione Desktop.
+L'applicazione è composta da due schermate principali che soddisfano i mockup sviluppati ed approvati dal committente e mostrati nel capitolo dei requisiti. 
+
+Il design di questo boundary è avvenuto considerando l'utilizzo della libreria **Java Swing**. Al fine di poter integrare agilmente il design monadico di tutto il sistema con la gui, si è deciso di adottare un approccio in cui le varie view consistono in descrizioni monadiche lazy della costruzione e del comportamento dei componenti, in modo tale da aderire al paradigma funzionale incapsulando la natura object-oriented e side-effect oriented di **Java Swing**.
+Inoltre, considerando che i boundary comunicano con i control emettendo eventi, tutti i componenti di Java Swing necessari all'interazione degli attori sono stati ridefiniti attraverso dei wrapper ad-hoc che consentono di integrarli agilmente in un contesto monadico (**MonadComponents**). In particolare, ogni componente in questione (wrapper di: *JButton*, *JComboBox*, *JTextField*, ...) estende il trait **EventSource** descritto in precedenza.
+
+In questo modo ogni componente, il quale esprime, in Java Swing, ogni comportamento attraverso side-effect, diventa un componente facilmente integrabile in un contesto monadico nel quale il flow è gestito attraverso stream di eventi.
+
+Considerando che *Java Swing* è fortemente object-oriented e con un approccio basato sui side-effects, al fine di gestire il disegno dei concetti di Simulazione è stata utilizzata la type-class *Drawable* descritta precedentemente. Maggiori dettagli verrano forniti nel capitolo *Implementazione*.
+
 #### JS
+
+Il boundary che gestisce la gui js-based si occupa di visualizzare l'interfaccia grafica del simulatore della WebApp.
+In questo caso è stata sviluppata un'unica schermata in quanto non erano previste indicazioni dal committente.
+
+Il design di questo boundary è avvenuto considerando l'utilizzo della libreria **Scalajs**. Scalajs, per quanto riguarda l'API fornita, emula fortemente JavaScript rendendo poco agevole il suo utilizzo diretto in un approccio monadico. Perciò, al fine di poter integrare agilmente il design monadico di tutto il sistema con la gui, si è deciso di adottare un approccio in cui le varie view consistono in descrizioni monadiche lazy della costruzione e del comportamento dei componenti similmente a quanto descritto per il *boundary jvm-based*.
+
+Similmente a quanto descritto precedentemente, considerando che i boundary comunicano con i control emettendo eventi, tutti i componenti HTML-based di Scalajs necessari all'interazione degli attori sono stati ridefiniti attraverso dei wrapper ad-hoc che consentono di integrarli agilmente in un contesto monadico (**MonadComponents**). In particolare, ogni componente in questione (wrapper di: *Button*, *Select*, *Input*, ...) estende il trait **EventSource** descritto in precedenza.
+
+Al fine di gestire il disegno dei concetti di Simulazione è stata utilizzata la type-class *Drawable* descritta precedentemente. Maggiori dettagli verrano forniti nel capitolo *Implementazione*.
 
 #### Exporter
 
