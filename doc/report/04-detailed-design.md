@@ -104,6 +104,12 @@ Al fine di gestire il disegno dei concetti di Simulazione è stata utilizzata la
 
 ### Launcher
 
+Come anticipato, il Launcher è un componente appartenente al control ed è il punto di ingresso dell'applicazione. Essendo un componente dell'architettura esso è modellato tramite il **Cake pattern** come descritto precedentemente.
+
+Il suo scopo è coordinare l'avviamento della simulazione comunicando con il loader ed eventualmente con i boundary in caso di errori nella configurazione fornita.
+
+Al fine di mantenere l'approccio funzionale, si evitano qualsiasi forma di eccezione incapsulandole nei tipi di dato ritornati. In particolare, è possibile notare **ConfigurationResult**, un Product Type restituito dal metodo *parseConfiguration* del loader, che incapsula gli eventuali errori all'interno della configurazione fornita dall'utente.
+
 ### Loader
 
 #### Parser
