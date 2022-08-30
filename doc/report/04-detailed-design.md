@@ -40,9 +40,25 @@ Combinando tutto ciò con gli obiettivi del design descritti nella sezione prece
 
 ### Boundary
 
-- descrizione
-- appunto su config boundary
-- elenco tipologie
+Come anticipato, ciascun *boundary* incapsula l'interazione con gli attori del sistema.
+Il pattern ECB pone le sue fondamenta sul fatto che tutti i Boundary siano uguali e passavi, ricevendo le stesse informazioni dai control ed incapsulando le interazioni. Le interazioni degli attori del sistema con i componenti boundary vengono rappresentati nel nostro design come stream di eventi, sfruttando **Observable** di Monix.
+
+Tra i boundary che possono essere iniettati all'interno del simulatore deve essere sempre essere prensente un **ConfigBoundary** dedicato al caricamento della configurazione e alla visualizzazione degli errori in essa. La necessità di un tipo speciale di Boundary è nata dal fatto che nel nostro caso abbiamo due tipologie di eventi:
+
+- *eventi asincroni*: sono quelli che vengono emessi dall'interazione dell'attore con il sistema
+- *eventi sincroni*: rappresentano quegli eventi necessari per la configurazione della simulazione, e che quindi devono essere ricevuti in un certo ordine.
+
+Al fine di rispettare la *dependency rule* descritta dalla Clean Architecture e da ECB, si è deciso di modallare un ulteriore trait **ConfigBoundary** che estende il trait **Boundary** con i due metodi necessari per ottenere la configurazione e segnalare errori al boundary. In questo modo, il componente Boundary rimane passivo, infatti non eseguirà mai chiamate dirette agli elementi del control rispettando la *depency rule*.
+
+![config_boundary](imgs/detailed_design_config_boundary.svg)
+
+Perciò tra i boundary specificati per l'applicazione ve ne sarà solamente uno di tipo ConfigBoundary, il quale gestirà, tra le altre cose, anche la parte di inizializzazione della simulazione con il compito di fornire la configurazione e gestire gli eventuali errori verso l'attore del sistema.
+
+I boundary sviluppati sono i seguenti:
+
+- **GUI-JVM**: si occupa della creazione di un'interfaccia grafica jvm-based.
+- **Esportatore**: si occupa dell'esportazione in un foglio di calcolo dei dati aggregati e delle statistiche riguardanti la simulazione
+- **GUI-JS**: si occupa della creazione di una WebApp js-based. Come detto precedentemente infatti, l'applicazione sviluppata dovrà essere cross-platform e la specifica di un apposito boundary rientra tra le parti del progetto platform-specific.
 
 #### JVM
 
