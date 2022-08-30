@@ -1,7 +1,5 @@
 package it.unibo.pps.entity.entity
 
-import it.unibo.pps.entity.common.Space.Point2D
-
 /* A module that represents the characteristics that can have an Entity in the simulation. */
 object EntityComponent {
   /* Base implementation of an entity. */

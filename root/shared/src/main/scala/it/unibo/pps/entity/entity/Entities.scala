@@ -6,7 +6,6 @@ import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.entity.EntityComponent.*
 import it.unibo.pps.entity.entity.EntityComponent.Moving.MovementGoal
 import it.unibo.pps.entity.structure.Structures.*
-import scalaz.Memo
 
 object Entities:
   /** Case class for the entity of the simulation.
