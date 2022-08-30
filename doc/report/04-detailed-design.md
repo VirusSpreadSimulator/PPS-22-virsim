@@ -118,7 +118,11 @@ Maggiori dettagli sulle effettive implementazioni degli estrattori e sull'esport
 
 ### Launcher
 
+Come anticipato, il Launcher è un componente appartenente al control ed è il punto di ingresso dell'applicazione. Essendo un componente dell'architettura esso è modellato tramite il **Cake pattern** come descritto precedentemente.
 
+Il suo scopo è coordinare l'avviamento della simulazione comunicando con il loader ed eventualmente con i boundary in caso di errori nella configurazione fornita.
+
+Al fine di mantenere l'approccio funzionale, si evitano qualsiasi forma di eccezione incapsulandole nei tipi di dato ritornati. In particolare, è possibile notare **ConfigurationResult**, un Product Type restituito dal metodo *parseConfiguration* del loader, che incapsula gli eventuali errori all'interno della configurazione fornita dall'utente.
 
 ### Loader
 
@@ -146,7 +150,7 @@ Il Loader,  componente appartenente al *Control*, si occupa di caricare la confi
 
 #### Virus
 
-Entity che contiene informazioni riguardo al virus presente nell'*environment*.
+*Entity* che contiene informazioni riguardo al virus presente nell'*environment*.
 
 I parametri principali del virus sono il nome, il tasso di diffusione, i giorni medi e la deviazione standard della positività, la probabilità di sviluppare una forma grave della malattia e la distanza massima entro la quale è possibile infettarsi.
 
