@@ -118,6 +118,46 @@ Al fine di mantenere l'approccio funzionale, si evitano qualsiasi forma di eccez
 
 ### Engine
 
+L'Engine si occupa di gestire il simulation loop aggiornando la simulazione e interagendo con i boundary. Esso è un componente dell'architettura, quindi è modellato tramite il **Cake pattern** come descritto precedentemente.
+
+Nel design dell'engine e quindi nel design del simulation loop è opportuno considerare gli obiettivi di design descritti precedentemente. Infatti, si desidera creare un motore con cui gestire la simulazione che adotti un approccio funzionale e il più possibile dichiarativo. 
+Il simulation loop è stato espresso mediante un approccio monadico basato su Monix che ha consentito di specificarlo attraverso una descrizione lazy della la computazione rimanendo altamente dichiarativi.
+Infatti, come spiegato successivamente, la gestione degli eventi, delle logiche e degli aggiornamenti in generale è stato espresso mantenendo un elevata dichiaratività, senza preoccuparsi del control-flow e senza gestire in modo imperativo i thread di esecuzione.
+
+Il compito dell'Engine, oltre a raccogliere gli eventi provenienti dai boundary, è eseguire le logiche di aggiornamento della simulazione. Esse devono essere eseguite nell'ordine specificato. Inoltre, come da requisito 2.3.2 è necessario poter impostare la velocità di simulazione oltre che gestire lo stato (2.3.1) e gestire le interazioni dinamiche dell'utente (2.3.3).
+Da questo ne deriva la necessità di esprimere una configurazione dell'Engine, la quale sia indipendente dalla particolare instanza di simulazione, e che possa essere impostata a livello di applicazione. A tal fine è stato creato il trait **SimulationConfig** che rappresenta la configurazione da utilizzare nell'Engine. Al fine di iniettare la configurazione nell'engine, esso è stato progettato per utilizzare un **context parameter** di tipo **SimulationConfig** a livello di costruttore.
+In questo modo la configurazione viene fornita con un approccio che rivela maggiormente l'intento configurativo.
+
+![simulation_config](imgs/detailed_design_simulation_config.svg)
+
+*SimulationConfig* necessita delle seguenti configurazioni:
+
+- *maxEventPerIteration*: al fine di evitare una possibile starvation dell'engine dovuta all'arrivo continuo di eventi dai boundary, si considerano solamente un certo numero di eventi ad ogni tick dell'engine; questo parametro consente di impostarne il numero.
+- *engineSpeed*: rappresenta la velocità di un singolo tick dell'engine.
+- *engineStatus*: rappresenta lo stato corrente dell'engine. Gli stati sono *running*, *paused* e *stopped*.
+- *logics*: rappresenta la sequenza di logiche da eseguire ad ogni iterazione.
+- *eventLogics*: rappresenta la funzione che associa ogni evento proveniente dai boundary alla specifica logica in grado di gestirlo.
+
+In questa sezione si astrae da come viene effettuato l'aggiornamento di tali configurazioni (come quella della velocità e dello stato).
+Come si vede, grazie alla configurazione, l'engine ha a disposizione tutto ciò che gli serve per poter adempiere ai suoi compiti.
+
+Precedentemente è stato accennato che l'engine provvede alla gestione di tutte le logiche e degli eventi. A tal fine è necessario che l'engine adotti una strategia per far si che allo stesso tempo sia in grado di:
+
+- raccogliere gli eventi dai boundary,
+- eseguire il loop di simulazione aggiornando i boundary dopo aver computato il nuovo environment.
+
+La strategia individuata può essere riassunta nei suoi passi principali con il seguente diagramma di attività (relativo ad una singola iterazione):
+
+![engine_activity](imgs/detailed_design_engine_activity.svg)
+
+Tutto ciò, grazie all'utilizzo di Monix, è stato progettato in modo tale da poter essere espresso mediante una descrizione lazy della computazione.
+
+Infine, a seconda della tipologia di logica, essa deve estendere il tipo **UpdateLogic**, per le logiche di aggiornamento, o **EventLogic**, per le logiche associate agli eventi. **UpdateLogic** ed **EventLogic** sono espressi mediante **type alias** di `Environment => Task[Environment]` forzando, come da obiettivo di design, una descrizione lazy della computazione. I **type-alias** consentono di aumentare la comprensibilità del design.
+
+Considerando che le logiche implementano tutte lo stesso contratto e sono inserite nella configurazione dell'engine, esse possono essere applicate in modo estremamente dichiarativo mediante la tecnica del **folding**. Questo concede una buona flessibilità ed estendibilità nell'aggiunta di nuove logiche e nella gestione delle priorità.
+
+Ulteriori dettagli sull'*engine* e sul *simulation loop* saranno riportati nel capitolo *Implementazione*.
+
 ### Environment
 
 - Descrizione del componente ECB
