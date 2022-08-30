@@ -41,7 +41,10 @@ object Entities:
       override val hasMask: Boolean = false
   ) extends Entity
       with Moving
-      with Infectious:
+      with Infectious
+      with Masquerable
+      with Living
+      with Immune:
 
     import it.unibo.pps.entity.entity.Entities.SimulationEntity.calculateMaxHealth
 
