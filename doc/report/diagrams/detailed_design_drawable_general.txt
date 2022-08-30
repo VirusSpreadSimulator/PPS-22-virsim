@@ -1,0 +1,13 @@
+@startuml
+!theme vibrant
+
+interface Drawable<A> <<trait>> {
+draw(g: Graphic, scale: Int)
+}
+
+object Graphic <<type>>
+
+Drawable *-- Graphic
+
+hide fields
+@enduml
