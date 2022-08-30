@@ -3,6 +3,7 @@ package it.unibo.pps.control.loader.configuration
 import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
 import scala.concurrent.duration.{HOURS, MINUTES}
 
+/** Contains all default values of the Simulator. */
 object SimulationDefaults:
 
   object GlobalDefaults:
