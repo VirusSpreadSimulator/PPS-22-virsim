@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="439px" preserveAspectRatio="none" style="width:281px;height:439px;background:#FFFFFF;" version="1.1" viewBox="0 0 281 439" width="281px" zoomAndPan="magnify"><defs/><g><!--MD5=[c86ce95fe6226f2d2796c0513d8e83fe]
+class Engine--><rect codeLine="3" fill="#FEFECE" height="73.6701" id="Engine" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="267" x="7" y="7"/><ellipse cx="118.25" cy="28.3441" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M114.2813,34.8441 L114.2813,33.141 L116.6406,32.8754 L116.6406,24.6722 L114.2813,24.4066 L114.2813,22.7035 L121.4219,22.7035 L121.4219,24.4066 L119,24.6722 L119,32.8754 L121.4219,33.141 L121.4219,34.8441 L114.2813,34.8441 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="139.25" y="24.8281">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="36" x="138.75" y="41.1722">Engine</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="273" y1="49.6882" y2="49.6882"/><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="273" y1="57.6882" y2="57.6882"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="255" x="13" y="73.4471">startSimulationLoop(environment: Environment)</text><!--MD5=[f933e0e30f09639d271da87e84d7f12c]
+class EngineImpl--><rect codeLine="7" fill="#FEFECE" height="77.9638" id="EngineImpl" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="267" x="7" y="142"/><ellipse cx="104.75" cy="158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M104.2188,164.9219 Q102.4688,164.9219 101.3281,164.1875 Q100.2031,163.4375 99.6406,162.0938 Q99.0938,160.7344 99.0938,158.9375 Q99.0938,156.9063 99.75,155.4531 Q100.4063,154 101.6875,153.2188 Q102.9688,152.4375 104.8438,152.4375 Q105.7344,152.4375 106.4063,152.625 Q107.0781,152.7969 107.7656,153.1406 L106.9531,155.1563 Q106.3281,154.8438 105.7813,154.7188 Q105.25,154.5938 104.7656,154.5938 Q103.5938,154.5938 102.8906,155.125 Q102.1875,155.6563 101.8906,156.6094 Q101.5938,157.5625 101.5938,158.8281 Q101.5938,160.8438 102.3125,161.8125 Q103.0313,162.7656 104.625,162.7656 Q105.2188,162.7656 105.8438,162.6094 Q106.4688,162.4531 107.2969,162.0781 L107.2969,164.2969 Q106.5625,164.6094 105.7656,164.7656 Q104.9844,164.9219 104.2188,164.9219 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="63" x="125.25" y="162.656">EngineImpl</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="273" y1="174" y2="174"/><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="273" y1="182" y2="182"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="228" x="13" y="197.7589">EngineImpl(using config: SimulationConfig)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="255" x="13" y="212.7408">startSimulationLoop(environment: Environment)</text><!--MD5=[7f305bd1063e5d24e40446c324ec775c]
+class SimulationConfig--><rect codeLine="12" fill="#FEFECE" height="133.5977" id="SimulationConfig" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="184" x="48.5" y="299"/><ellipse cx="90.05" cy="320.3441" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M86.0813,326.8441 L86.0813,325.141 L88.4406,324.8754 L88.4406,316.6722 L86.0813,316.4066 L86.0813,314.7035 L93.2219,314.7035 L93.2219,316.4066 L90.8,316.6722 L90.8,324.8754 L93.2219,325.141 L93.2219,326.8441 L86.0813,326.8441 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="138.95" y="316.8281">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="93" x="109.95" y="333.1722">SimulationConfig</text><line style="stroke:#A80036;stroke-width:1.5;" x1="49.5" x2="231.5" y1="341.6882" y2="341.6882"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="136" x="54.5" y="357.4471">maxEventPerIteration: Int</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="142" x="54.5" y="372.429">engineSpeed: EngineSpeed</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="142" x="54.5" y="387.4109">engineStatus: EngineStatus</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="129" x="54.5" y="402.3928">logics: Seq[UpdateLogic]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="172" x="54.5" y="417.3747">eventLogics: Event =&gt; EventLogic</text><line style="stroke:#A80036;stroke-width:1.5;" x1="49.5" x2="231.5" y1="424.5977" y2="424.5977"/><!--MD5=[31a8547f3313f61000ebf0db1c18b8ee]
+reverse link Engine to EngineImpl--><path codeLine="20" d="M140.5,101.65 C140.5,115.2 140.5,129.35 140.5,141.83 " fill="none" id="Engine-backto-EngineImpl" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="133.5,101.18,140.5,81.18,147.5,101.18,133.5,101.18" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[c3e08ad033ea9b1a28950643a857dc2e]
+reverse link EngineImpl to SimulationConfig--><path codeLine="21" d="M140.5,233.51 C140.5,253.81 140.5,277.4 140.5,298.93 " fill="none" id="EngineImpl-backto-SimulationConfig" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#FFFFFF" points="140.5,220.36,136.5,226.36,140.5,232.36,144.5,226.36,140.5,220.36" style="stroke:#454645;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="47" x="141.5" y="264.897">«given»</text><!--MD5=[b797f029fea916cf2be938c7d9108e7b]
+@startuml
+!theme vibrant
+
+interface Engine <<trait>> {
+startSimulationLoop(environment: Environment)
+}
+
+class EngineImpl {
+EngineImpl(using config: SimulationConfig)
+startSimulationLoop(environment: Environment)
+}
+
+interface SimulationConfig <<trait>> {
+maxEventPerIteration: Int
+engineSpeed: EngineSpeed
+engineStatus: EngineStatus
+logics: Seq[UpdateLogic]
+eventLogics: Event => EventLogic
+}
+
+Engine <|.. EngineImpl
+EngineImpl o- - SimulationConfig: <<given>>
+@enduml
+
+@startuml
+skinparam BackgroundColor FFFFFF
+skinparam shadowing false
+skinparam RoundCorner 7
+skinparam ArrowColor 454645
+skinparam FontColor 454645
+skinparam SequenceLifeLineBorderColor 696969
+skinparam SequenceGroupHeaderFontColor 454645
+skinparam SequenceGroupFontColor 696969
+skinparam SequenceGroupBorderColor 696969
+skinparam SequenceGroupBorderThickness 1
+
+skinparam sequenceDivider {
+    BorderColor 454645
+    BorderThickness 1
+    FontColor 454645
+}
+
+skinparam participant {
+    BackgroundColor FF6347
+    BorderColor FF6F61
+    FontColor FFFFFF
+}
+
+skinparam database {
+    BackgroundColor 00FFFF
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam entity {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam note {
+    BackgroundColor 7FFFD4
+    BorderColor 7FFFD4
+    FontColor 454645
+}
+
+skinparam actor {
+    BackgroundColor 454645
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam boundary {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam control {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam collections {
+    BackgroundColor FF6347
+    BorderColor FFFFFF
+    FontColor 454645
+}
+
+skinparam queue {
+    BackgroundColor FF6347
+    BorderColor FFF
+    FontColor FFF
+    BorderThickness 1.5
+}
+
+interface Engine <<trait>> {
+startSimulationLoop(environment: Environment)
+}
+
+class EngineImpl {
+EngineImpl(using config: SimulationConfig)
+startSimulationLoop(environment: Environment)
+}
+
+interface SimulationConfig <<trait>> {
+maxEventPerIteration: Int
+engineSpeed: EngineSpeed
+engineStatus: EngineStatus
+logics: Seq[UpdateLogic]
+eventLogics: Event => EventLogic
+}
+
+Engine <|.. EngineImpl
+EngineImpl o- - SimulationConfig: <<given>>
+@enduml
+
+PlantUML version 1.2021.13(Mon Nov 01 12:38:45 CET 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
