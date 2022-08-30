@@ -38,6 +38,7 @@ import scala.io.Source
 
 object LoaderModule:
 
+  /** The loader is the component that is responsible for the configuration file loading and environment creation. */
   trait Loader:
     /** @param filePath
       *   the configuration file with simulation parameters.
@@ -55,6 +56,11 @@ object LoaderModule:
   trait Provider:
     val loader: Loader
 
+  /** The loader requires:
+    *   - the engine in order to launch it after the environment creation.
+    *   - the environment in order to initialize it.
+    *   - the parser in order to parse the configuration file and check parameters errors.
+    */
   type Requirements = EngineModule.Provider with EnvironmentModule.Provider with ParserModule.Provider
 
   trait Component:
