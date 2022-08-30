@@ -1,6 +1,6 @@
 ## Design di dettaglio
 
-Preambolo: si evidenziano i perchè delle scelte principali
+Dopo aver descritto l'architettura del sistema, si procede con il design di dettaglio, in cui si evidenziano le scelte di progettazione dei componenti principali. In questo capitolo verranno esposti, oltre alle scelte di design, i design pattern utilizzati e una breve descrizione di come il codice è stato organizzato.
 
 ### Obiettivi
 
