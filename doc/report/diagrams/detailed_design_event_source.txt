@@ -1,0 +1,9 @@
+@startuml
+!theme vibrant
+
+interface EventSource <<trait>> {
+events(): Observable[Event]
+}
+
+hide fields
+@enduml
