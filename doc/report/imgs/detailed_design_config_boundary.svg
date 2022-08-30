@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="280px" preserveAspectRatio="none" style="width:231px;height:280px;background:#FFFFFF;" version="1.1" viewBox="0 0 231 280" width="231px" zoomAndPan="magnify"><defs/><g><!--MD5=[d4eea0a2640b0744e449422abbb6da5e]
+class Boundary--><rect codeLine="3" fill="#FEFECE" height="125.5977" id="Boundary" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="217" x="7" y="7"/><ellipse cx="84.75" cy="28.3441" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M80.7813,34.8441 L80.7813,33.141 L83.1406,32.8754 L83.1406,24.6722 L80.7813,24.4066 L80.7813,22.7035 L87.9219,22.7035 L87.9219,24.4066 L85.5,24.6722 L85.5,32.8754 L87.9219,33.141 L87.9219,34.8441 L80.7813,34.8441 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="114.25" y="24.8281">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="53" x="105.25" y="41.1722">Boundary</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="223" y1="49.6882" y2="49.6882"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="82" x="13" y="65.4471">init(): Task[Unit]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="89" x="13" y="80.429">start(): Task[Unit]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="205" x="13" y="95.4109">consume(env: Environment): Task[Unit]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="143" x="13" y="110.3928">events(): Observable[Event]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="88" x="13" y="125.3747">stop(): Task[Unit]</text><!--MD5=[dfff3c793a4fb44eac7b2b84b4b690a7]
+class ConfigBoundary--><rect codeLine="11" fill="#FEFECE" height="80.652" id="ConfigBoundary" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="199" x="16" y="193"/><ellipse cx="67.25" cy="214.3441" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M63.2813,220.8441 L63.2813,219.141 L65.6406,218.8754 L65.6406,210.6722 L63.2813,210.4066 L63.2813,208.7035 L70.4219,208.7035 L70.4219,210.4066 L68,210.6722 L68,218.8754 L70.4219,219.141 L70.4219,220.8441 L63.2813,220.8441 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="114.25" y="210.8281">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="88" x="87.75" y="227.1722">ConfigBoundary</text><line style="stroke:#A80036;stroke-width:1.5;" x1="17" x2="214" y1="235.6882" y2="235.6882"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="100" x="22" y="251.4471">config(): Task[Path]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="187" x="22" y="266.429">error(errors: Seq[Error]): Task[Unit]</text><!--MD5=[f1033623bd2dfe1cbfc92ad1d40bbd55]
+reverse link Boundary to ConfigBoundary--><path codeLine="16" d="M115.5,153.81 C115.5,167.32 115.5,180.76 115.5,192.6 " fill="none" id="Boundary-backto-ConfigBoundary" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="none" points="108.5,153.44,115.5,133.44,122.5,153.44,108.5,153.44" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[601a8d52868ac70c61cd8e151bbe900a]
+@startuml
+!theme vibrant
+
+interface Boundary <<trait>> {
+init(): Task[Unit]
+start(): Task[Unit]
+consume(env: Environment): Task[Unit]
+events(): Observable[Event]
+stop(): Task[Unit]
+}
+
+interface ConfigBoundary <<trait>> {
+config(): Task[Path]
+error(errors: Seq[Error]): Task[Unit]
+}
+
+Boundary <|- - ConfigBoundary 
+
+hide fields
+@enduml
+
+@startuml
+skinparam BackgroundColor FFFFFF
+skinparam shadowing false
+skinparam RoundCorner 7
+skinparam ArrowColor 454645
+skinparam FontColor 454645
+skinparam SequenceLifeLineBorderColor 696969
+skinparam SequenceGroupHeaderFontColor 454645
+skinparam SequenceGroupFontColor 696969
+skinparam SequenceGroupBorderColor 696969
+skinparam SequenceGroupBorderThickness 1
+
+skinparam sequenceDivider {
+    BorderColor 454645
+    BorderThickness 1
+    FontColor 454645
+}
+
+skinparam participant {
+    BackgroundColor FF6347
+    BorderColor FF6F61
+    FontColor FFFFFF
+}
+
+skinparam database {
+    BackgroundColor 00FFFF
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam entity {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam note {
+    BackgroundColor 7FFFD4
+    BorderColor 7FFFD4
+    FontColor 454645
+}
+
+skinparam actor {
+    BackgroundColor 454645
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam boundary {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam control {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam collections {
+    BackgroundColor FF6347
+    BorderColor FFFFFF
+    FontColor 454645
+}
+
+skinparam queue {
+    BackgroundColor FF6347
+    BorderColor FFF
+    FontColor FFF
+    BorderThickness 1.5
+}
+
+interface Boundary <<trait>> {
+init(): Task[Unit]
+start(): Task[Unit]
+consume(env: Environment): Task[Unit]
+events(): Observable[Event]
+stop(): Task[Unit]
+}
+
+interface ConfigBoundary <<trait>> {
+config(): Task[Path]
+error(errors: Seq[Error]): Task[Unit]
+}
+
+Boundary <|- - ConfigBoundary 
+
+hide fields
+@enduml
+
+PlantUML version 1.2021.13(Mon Nov 01 12:38:45 CET 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

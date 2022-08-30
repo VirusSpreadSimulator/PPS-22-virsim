@@ -1,0 +1,20 @@
+@startuml
+!theme vibrant
+
+interface Boundary <<trait>> {
+init(): Task[Unit]
+start(): Task[Unit]
+consume(env: Environment): Task[Unit]
+events(): Observable[Event]
+stop(): Task[Unit]
+}
+
+interface ConfigBoundary <<trait>> {
+config(): Task[Path]
+error(errors: Seq[Error]): Task[Unit]
+}
+
+Boundary <|-- ConfigBoundary 
+
+hide fields
+@enduml
