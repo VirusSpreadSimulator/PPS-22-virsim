@@ -111,6 +111,10 @@ Nella descrizione del design di dettaglio sono presenti due tipologie di logiche
 
 #### Entity
 
+Al fine di poter confrontare due Entity anche in tick della simulazione differenti è stato ridefinito il metodo `equals`, definendo che due Entity sono uguali se hanno lo stesso id. 
+Le Entity vengono create tramite una **Factory**, implementata utilizzando il metodo `apply` nel companion object, evitando quindi di esporne l'implementazione. 
+Ad ogni Entity al momento della creazione viene attribuita un valore MaxHealth il quale rappresenta il massimo della vita che essa potrà avere per tutta la durata della simulazione. Questo valore dipende dall'età e siccome presumubilmente molte Entity avranno la stessa età, è stata utilizzata la libreria **Scalaz**, la quale fornisce una immutableHashMapMemo, per salvare le nuove maxHealth calcolate ed evitare di ricalcolarle successivamente. Il campo health assume maxhealth al momento della creazione. 
+
 #### Structure
 
 // Structures, che essendo case class con i defaults emulano il pattern Builder
