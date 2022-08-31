@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="212px" preserveAspectRatio="none" style="width:393px;height:212px;background:#FFFFFF;" version="1.1" viewBox="0 0 393 212" width="393px" zoomAndPan="magnify"><defs/><g><!--MD5=[239e4ce6a1adaec6b94882a473267c2f]
+class Gaussian--><rect codeLine="3" fill="#FEFECE" height="80.652" id="Gaussian" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="171" x="112" y="10.016"/><ellipse cx="163.25" cy="31.3601" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M159.2813,37.8601 L159.2813,36.157 L161.6406,35.8914 L161.6406,27.6883 L159.2813,27.4226 L159.2813,25.7195 L166.4219,25.7195 L166.4219,27.4226 L164,27.6883 L164,35.8914 L166.4219,36.157 L166.4219,37.8601 L159.2813,37.8601 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="190.75" y="27.8441">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="49" x="183.75" y="44.1882">Gaussian</text><rect fill="#FFFFFF" height="18.3441" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" width="9" x="277" y="7.016"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="7" x="278" y="20.8441">A</text><line style="stroke:#A80036;stroke-width:1.5;" x1="113" x2="282" y1="52.7043" y2="52.7043"/><ellipse cx="123" cy="63.7043" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="42" x="132" y="68.4632">next(): A</text><polygon fill="#FFFF44" points="123,73.6861,127,77.6861,123,81.6861,119,77.6861" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="145" x="132" y="83.4451">convert(number: Double): A</text><!--MD5=[b3d2f1f0778756215e8ece06550c7dbd]
+class GaussianDurationTime--><rect codeLine="8" fill="#FEFECE" height="54.9819" id="GaussianDurationTime" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="171" x="9" y="151.016"/><ellipse cx="28.5" cy="167.016" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M27.9688,173.9379 Q26.2188,173.9379 25.0781,173.2035 Q23.9531,172.4535 23.3906,171.1098 Q22.8438,169.7504 22.8438,167.9535 Q22.8438,165.9223 23.5,164.4691 Q24.1563,163.016 25.4375,162.2348 Q26.7188,161.4535 28.5938,161.4535 Q29.4844,161.4535 30.1563,161.641 Q30.8281,161.8129 31.5156,162.1566 L30.7031,164.1723 Q30.0781,163.8598 29.5313,163.7348 Q29,163.6098 28.5156,163.6098 Q27.3438,163.6098 26.6406,164.141 Q25.9375,164.6723 25.6406,165.6254 Q25.3438,166.5785 25.3438,167.8441 Q25.3438,169.8598 26.0625,170.8285 Q26.7813,171.7816 28.375,171.7816 Q28.9688,171.7816 29.5938,171.6254 Q30.2188,171.4691 31.0469,171.0941 L31.0469,173.3129 Q30.3125,173.6254 29.5156,173.7816 Q28.7344,173.9379 27.9688,173.9379 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="129" x="43.5" y="171.6721">GaussianDurationTime</text><line style="stroke:#A80036;stroke-width:1.5;" x1="10" x2="179" y1="183.016" y2="183.016"/><polygon fill="#FFFF44" points="20,189.016,24,193.016,20,197.016,16,193.016" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="145" x="29" y="198.7749">convert(number: Double): A</text><!--MD5=[b4779f6113079e8c998da75e66340af8]
+class GaussianIntDistribution--><rect codeLine="12" fill="#FEFECE" height="54.9819" id="GaussianIntDistribution" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="171" x="215" y="151.016"/><ellipse cx="233.15" cy="167.016" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M232.6188,173.9379 Q230.8688,173.9379 229.7281,173.2035 Q228.6031,172.4535 228.0406,171.1098 Q227.4938,169.7504 227.4938,167.9535 Q227.4938,165.9223 228.15,164.4691 Q228.8063,163.016 230.0875,162.2348 Q231.3688,161.4535 233.2438,161.4535 Q234.1344,161.4535 234.8063,161.641 Q235.4781,161.8129 236.1656,162.1566 L235.3531,164.1723 Q234.7281,163.8598 234.1813,163.7348 Q233.65,163.6098 233.1656,163.6098 Q231.9938,163.6098 231.2906,164.141 Q230.5875,164.6723 230.2906,165.6254 Q229.9938,166.5785 229.9938,167.8441 Q229.9938,169.8598 230.7125,170.8285 Q231.4313,171.7816 233.025,171.7816 Q233.6188,171.7816 234.2438,171.6254 Q234.8688,171.4691 235.6969,171.0941 L235.6969,173.3129 Q234.9625,173.6254 234.1656,173.7816 Q233.3844,173.9379 232.6188,173.9379 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="132" x="247.85" y="171.6721">GaussianIntDistribution</text><line style="stroke:#A80036;stroke-width:1.5;" x1="216" x2="385" y1="183.016" y2="183.016"/><polygon fill="#FFFF44" points="226,189.016,230,193.016,226,197.016,222,193.016" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="145" x="235" y="198.7749">convert(number: Double): A</text><!--MD5=[103387a86bd05933866fbc87c9ccb8c2]
+reverse link Gaussian to GaussianDurationTime--><path codeLine="16" d="M152.43,106.646 C139.88,122.006 126.81,137.986 116.27,150.876 " fill="none" id="Gaussian-backto-GaussianDurationTime" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="147.12,102.096,165.19,91.036,157.95,110.956,147.12,102.096" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[8190dce75560da743498d8a7b551773f]
+reverse link Gaussian to GaussianIntDistribution--><path codeLine="17" d="M242.57,106.646 C255.12,122.006 268.19,137.986 278.73,150.876 " fill="none" id="Gaussian-backto-GaussianIntDistribution" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="237.05,110.956,229.81,91.036,247.88,102.096,237.05,110.956" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[36d2d6076b900d77edc88e0b2afa8b4d]
+@startuml
+!theme vibrant
+
+interface Gaussian<A> <<trait>> {
++ next(): A
+# convert(number: Double): A
+}
+
+class GaussianDurationTime {
+# convert(number: Double): A
+}
+
+class GaussianIntDistribution {
+# convert(number: Double): A
+}
+
+Gaussian <|.. GaussianDurationTime
+Gaussian <|.. GaussianIntDistribution
+
+hide fields
+
+@enduml
+
+@startuml
+skinparam BackgroundColor FFFFFF
+skinparam shadowing false
+skinparam RoundCorner 7
+skinparam ArrowColor 454645
+skinparam FontColor 454645
+skinparam SequenceLifeLineBorderColor 696969
+skinparam SequenceGroupHeaderFontColor 454645
+skinparam SequenceGroupFontColor 696969
+skinparam SequenceGroupBorderColor 696969
+skinparam SequenceGroupBorderThickness 1
+
+skinparam sequenceDivider {
+    BorderColor 454645
+    BorderThickness 1
+    FontColor 454645
+}
+
+skinparam participant {
+    BackgroundColor FF6347
+    BorderColor FF6F61
+    FontColor FFFFFF
+}
+
+skinparam database {
+    BackgroundColor 00FFFF
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam entity {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam note {
+    BackgroundColor 7FFFD4
+    BorderColor 7FFFD4
+    FontColor 454645
+}
+
+skinparam actor {
+    BackgroundColor 454645
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam boundary {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam control {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam collections {
+    BackgroundColor FF6347
+    BorderColor FFFFFF
+    FontColor 454645
+}
+
+skinparam queue {
+    BackgroundColor FF6347
+    BorderColor FFF
+    FontColor FFF
+    BorderThickness 1.5
+}
+
+interface Gaussian<A> <<trait>> {
++ next(): A
+# convert(number: Double): A
+}
+
+class GaussianDurationTime {
+# convert(number: Double): A
+}
+
+class GaussianIntDistribution {
+# convert(number: Double): A
+}
+
+Gaussian <|.. GaussianDurationTime
+Gaussian <|.. GaussianIntDistribution
+
+hide fields
+
+@enduml
+
+PlantUML version 1.2021.13(Mon Nov 01 12:38:45 CET 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
