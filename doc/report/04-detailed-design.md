@@ -126,13 +126,31 @@ Al fine di mantenere l'approccio funzionale, si evitano qualsiasi forma di eccez
 
 ### Loader
 
-Il Loader,  componente appartenente al *Control*, si occupa di caricare la configurazione fornita dall'utente, creare l'environment iniziale ed infine lanciare l'engine della simulazione.
+Il Loader, appartenente al *Control*, si occupa di caricare la configurazione fornita dall'utente, creare l'environment iniziale ed infine lanciare l'engine della simulazione. Esso è un componente dell'architettura, quindi è modellato tramite il **Cake pattern** come descritto precedentemente.
 
+I componenti di cui necessita a livello architetturale sono l' *Environment*, in quanto una volta caricata la configurazione dovrà essere inizializzato con i paremetri definiti dall'utente e l'*Engine*, il quale dovrà iniziare la simulazione con l'environment aggiornato ed infine il *Parser*, necessario per il caricamento della configurazione.
 
+Per quanto riguarda la configurazione della simulazione, si è scelto di rimanere coerenti con gli obiettivi di design descritti precedentemente. Infatti, si è scelto di perseguire un approccio estremamente dichiarativo considerando il file di configurazione come un file *Scala* esprimibile tramite un **DSL** implementato attraverso il pattern **Pimp my Library** con l'utilizzo di *extension methods* . 
 
-#### Parser
+Nel design del Loader si è scelto di separare la responsabilità del caricamento della configurazione con la creazione dell'environment e a tal fine è stato introdotto il componente Parser a supporto del Loader.
+
+#### Parser 
+
+Il Parser, anch'esso appartenente al *Control*, ha il compito di effettuare controlli di validità sulla configurazione fornita dall'utente ed in seguito istanziarla e restituirla al *Loader*. Esso è un componente dell'architettura, quindi è modellato tramite il **Cake pattern** come descritto precedentemente.
+
+- Pimp my library con extension methods per facilitare il controllo degli errori
 
 #### Reader
+
+Il Reader, componente appartenente al *Control*, 
+
+- trait FilePath
+
+L'interazione tra Loader, Parser e Reader viene riassunta nel seguente diagramma:
+
+![Loader_Parser_Reader_Interaction](imgs/detailed_design_loader_diagram.svg)
+
+Maggiori dettagli verranno forniti nel capitolo *Implementazione*.
 
 ### Engine
 
@@ -217,7 +235,7 @@ A tal fine è stato progettata la **type class** *Probable* la quale consente di
 L'utilizzatore in questo modo dovrà solamente fornire l'implementazione della formula per poter aderire. 
 A partire dalla **type class** *Probable* è stato definito un algoritmo aggiuntivo il quale specifica il **context-bound** *Probable* sul tipo generico accettato e che permette di simulare se l'evento, data la probabilità computata dalla formula specificata dall'utilizzatore, è avvenuto o meno. Questo metodo permette di raggiungere l'obiettivo definito in precedenza: definire un evento probabile andando a specificare solamente la formula per calcolare la probabilità abilitando un utilizzo altamente dichiarativo del concetto.
 Il risultato viene espresso attravero il *sum type ProbabilityResult*. 
-Allo stesso tempo, al fine di essere compatibile anche con API che lavorano con tipi *Boolean* si è sfruttato il pattern **Adapter**, grazie alle **given Conversion** offerte da Scala, per poter convertire agilmente il tipo *ProbabilityResult* in *Boolean* e viceversa.
+Allo stesso tempo, al fine di essere compatibile anche con API che lavorano con tipi *Boolean* si è sfruttato il pattern **Adapter**, grazie alle **given Conversion** offerte da Scala, per poter convertire agilmente il tipo *ProbabilityResult* in *Boolean* e viceversa.
 
 Grazie a questa type-class il concetto di rappresentare un evento con una certa probabilità di accadimento può essere inserito a piacere su ogni tipo anche dopo la sua definizione. Tutto ciò grazie al pattern **type class** che ci permette di definire metodi dotati di **polimorfismo ad-hoc**.
 
@@ -300,7 +318,13 @@ Infine, le entità che riescono ad entrare rimangono all'interno della struttura
 
 *Entity* che contiene informazioni riguardo al virus presente nell'*environment*.
 
-I parametri principali del virus sono il nome, il tasso di diffusione, i giorni medi e la deviazione standard della positività, la probabilità di sviluppare una forma grave della malattia e la distanza massima entro la quale è possibile infettarsi.
+I parametri principali del virus sono:
+
+- nome
+- tasso di diffusione
+- giorni medi e deviazione standard della positività
+- probabilità di sviluppare una forma grave della malattia
+-  distanza massima entro la quale è possibile infettarsi.
 
 Per semplicità ognuno di questi parametri contiene un valore di *default* in modo da semplificare la configurazione del virus da parte dell'utente.
 
