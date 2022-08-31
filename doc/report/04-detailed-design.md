@@ -237,48 +237,15 @@ Al fine di modellare il tempo corrente all'interno dell'environment è stato cre
 
 #### Entity
 
+Al fine di modellare il concetto di entity all'interno della simulazione si è deciso di rendere più granulare possibile l'acquisizione di ogni singola caratteristica dell'individuo. Il **trait** *Entity* mantiene solo le caratteristiche essenziali che deve avere un entità. Sono stati per questo definiti ulteriori trait, ai quali sono state associate singole o un numero minimale di proprietà. La definizione delle entità si riduce quindi ad una attività di composizione, la quale rende riutilizzabili in futuro astrazioni già definite, permettendo di combinare fra loro le diverse proprietà per definire nuovi tipi di entità. 
+
+<img src="/home/giacomo/Documents/uni/magistrale/ParadigmiDiProgrammazione/progetto/PPS-22-virsim/doc/report/imgs/detailed_design_entities.png" alt="entity" style="zoom:80%;" />
+
+L'infezione è stata gestita a parte e contiene le informazioni circa l'infezione che ha contratto un'entità, quali la severità, il momento dell'infezione e la durata.
+
+<img src="/home/giacomo/Documents/uni/magistrale/ParadigmiDiProgrammazione/progetto/PPS-22-virsim/doc/report/imgs/detailed_design_infection.png" alt="entity" style="zoom:80%;"/>
+
 #### Structure
-
-Le strutture, assieme alle entità e al virus, sono uno dei concetti principali del modello del dominio. Esse, come anticipato nei requisiti, rappresentano gli edifici presenti all'interno di un ambiente, ad esempio una città. Sono dotate di diversi parametri e possono essere configurate in diverso modo. Inoltre, le entità possono interagirvi entrando al loro interno con una permanenza che dipende dalle caratteristiche della struttura stessa durante il quale può avvenire il contagio.
-
-Le strutture previste inizialmente sono tre: *Casa*, *Struttura generica* ed *Ospedale*. Nonostante ciò, da requisito 4.3, è richiesto che le tipologie di strutture e le strategie di ingresso siano estendibili, perciò il design di questi concetti ha tenuto in considerazione ciò.
-
-Per questo motivo e per essere, nella modellazione delle Strutture, indipendente dai particolari tipi di dato (considerando che inizialmente non era stati nemmeno progettati, quindi evitando di creare dipendenze sequenziali nella progettazione), si è scelto di seguire l'approccio **abstract modelling** sfruttando il **family polimorphism** grazie agli **abstract types** di Scala permettendo una progettazione graduale da interfaccia ad effettiva implementazione affrontando in miglior modo la complessità del concetto.
-
-Di seguito uno schema riassuntivo che riporta gli elementi principali (type rappresentati esternamente in quanto non direttamente rappresentabili in UML):
-
-![structure_base_diagram](imgs/detailed_design_structure.svg)
-
-Il design tiene in considerazione gli obiettivi descritti precedentemente, quindi viene stressata l'immutabilità.
-
-*Structure*, modellato come **trait**, rappresenta la struttura di base definita tramite **astract modelling**, in cui ogni tipo è definito tramite **abstract type**. 
-
-Si nota l'utilizzo del pattern **Template Method** per definire i due comportamenti principali:
-
-- `tryToEnter`: questo template method definisce lo scheletro con cui dirigere l'ingresso di un'entità all'interno della struttura. Esso si appoggia ai seguenti metodi che dovranno essere *overridati* nelle varie implementazioni:
-  - `checkEnter`: è il metodo che include i vari controlli da eseguire prima di poter far entrare l'entità. Esso può prendere in considerazione la strategia e/o le caratteristiche della struttura stessa.
-  - `enter`: è il metodo che definisce come la struttura si comporta quando un'entità viene accettata all'interno della struttura. Da notare che ritorna un'instanza di Struttura in quanto immutabile.
-  - `notEntered`: è il metodo che definisce come la struttura si comporta quando un'entità non viene accettata all'interno della struttura. Da notare che ritorna un'instanza di Struttura in quanto immutabile.
-- `entityExit`: questo template method definisce lo scheletro con cui dirigere l'uscita di un'entità dalla struttura. Esso si appoggia al metodo `exit` il quale definisce come gestire l'uscita dell'entità dalla struttura che dovrà essere *overridato* nella varie implementazioni.
-
-A partire da ciò i **mixins** *Visible* e *Closable* rappresentano due estensioni del concetto che modellano rispettivamente la capacità della struttura di essere vista da un'entità e la capacità di essere chiusa. Quest'ultima agisce proprio da **mixin** in quanto definisce un modo per "impilare" una modifica a `checkEnter`. Essi sono stati definiti come **mixins** in quanto possono avere effetto sulle funzionalità della Struttura stessa, come nel caso di *Closable*.
-
-Al fine invece di poter comporre le altre caratteristiche delle Strutture, sono stati creati attravero **trait** appositi attraverso il pattern **self-type**. In questo modo si è evitato di rappresentarle come sottotipi dipendendo in maniera più leggera dal principio LSP e rappresentadole come decorazioni componibili.
-Le tre caratteristiche sviluppate sono:
-
-- *Groupable*: rappresenta la possibilità delle strutture di essere raggruppate. Permette di specificare il nome del gruppo di appartenenza.
-- *Habitable*: rappresenta la possibilità della struttura di agire come casa.
-- *Hospitalization*: rappresenta la capacità della struttura di provvedere alla cura degli individui. Ogni struttura con questa capacità possiede anche una qualità che ne identifica la qualità nel trattamento dei pazienti.
-
-Al fine di definire i tipi è stato pensato un ulteriore **trait** *SimulationStructure* che specificasse tutti i tipi necessari alla nostra simulazione e alcuni concetti di base.
-
-Tutto ciò permette di definire le strutture (Casa, Edificio generico, Ospedale, ecc...) semplicemente mettendo assieme, componendo, tutte le componenti e caratteristiche necessarie. In questo modo è semplice creare nuove tipologie di Strutture con nuovi componenti e/o caratteristiche lavorando con una buona flessibilità e soprattutto consentendo di progettare partendo da una definizione indipendente dal design della restante parte del simulatore.
-
-La strategia di ingresso viene gestita attraverso pattern **Strategy**.
-
-// mi collego per spiegarle
-
-
 
 #### Virus
 
