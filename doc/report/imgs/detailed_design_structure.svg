@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="460px" preserveAspectRatio="none" style="width:983px;height:460px;background:#FFFFFF;" version="1.1" viewBox="0 0 983 460" width="983px" zoomAndPan="magnify"><defs/><g><!--MD5=[3915787db80ab162e3259f8f86339844]
+class Structure--><rect codeLine="3" fill="#FEFECE" height="163.5614" id="Structure" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="408" x="249.5" y="122.016"/><ellipse cx="424.75" cy="143.3601" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M420.7813,149.8601 L420.7813,148.157 L423.1406,147.8914 L423.1406,139.6883 L420.7813,139.4226 L420.7813,137.7195 L427.9219,137.7195 L427.9219,139.4226 L425.5,139.6883 L425.5,147.8914 L427.9219,148.157 L427.9219,149.8601 L420.7813,149.8601 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="452.25" y="139.8441">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="49" x="445.25" y="156.1882">Structure</text><line style="stroke:#A80036;stroke-width:1.5;" x1="250.5" x2="656.5" y1="164.7043" y2="164.7043"/><ellipse cx="260.5" cy="175.7043" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;fill:none;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="181" x="269.5" y="180.4632">entranceStrategy: StrategyToEnter</text><line style="stroke:#A80036;stroke-width:1.5;" x1="250.5" x2="656.5" y1="187.6861" y2="187.6861"/><ellipse cx="260.5" cy="198.6861" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="374" x="269.5" y="203.4451">tryToEnter(entity: BaseEntity, timestamp: SimulationTime): BaseStruture</text><ellipse cx="260.5" cy="213.668" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="224" x="269.5" y="218.4269">entityExit(entity: BaseEntity): BaseStructure</text><polygon fill="#FFFF44" points="260.5,223.6499,264.5,227.6499,260.5,231.6499,256.5,227.6499" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="202" x="269.5" y="233.4088">checkEnter(entity: BaseEntity): Boolean</text><polygon fill="#FFFF44" points="260.5,238.6318,264.5,242.6318,260.5,246.6318,256.5,242.6318" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="351" x="269.5" y="248.3907">enter(entity: BaseEntity, timestamp: SimulationTime): BaseStructure</text><polygon fill="#FFFF44" points="260.5,253.6137,264.5,257.6137,260.5,261.6137,256.5,257.6137" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="194" x="269.5" y="263.3726">exit(entity: BaseEntity): BaseStructure</text><polygon fill="#FFFF44" points="260.5,268.5956,264.5,272.5956,260.5,276.5956,256.5,272.5956" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="382" x="269.5" y="278.3545">notEntered(entity: BaseEntity, timestamp: SimulationTime): BaseStructure</text><!--MD5=[35fa7ce99f1adf91ef35d4c75e6a0d1c]
+class Visible--><rect codeLine="13" fill="#FEFECE" height="73.6701" id="Visible" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="163" x="141" y="372.516"/><ellipse cx="201.25" cy="393.8601" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M197.2813,400.3601 L197.2813,398.657 L199.6406,398.3914 L199.6406,390.1883 L197.2813,389.9226 L197.2813,388.2195 L204.4219,388.2195 L204.4219,389.9226 L202,390.1883 L202,398.3914 L204.4219,398.657 L204.4219,400.3601 L197.2813,400.3601 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="221.25" y="390.3441">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="34" x="221.75" y="406.6882">Visible</text><line style="stroke:#A80036;stroke-width:1.5;" x1="142" x2="303" y1="415.2043" y2="415.2043"/><ellipse cx="152" cy="426.2043" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;fill:none;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="137" x="161" y="430.9632">visibilityDistance: Distance</text><line style="stroke:#A80036;stroke-width:1.5;" x1="142" x2="303" y1="438.1861" y2="438.1861"/><!--MD5=[518e01d602177846323f58dd1b2a10b3]
+class Closable--><rect codeLine="17" fill="#FEFECE" height="88.652" id="Closable" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="228" x="339.5" y="365.016"/><ellipse cx="426.75" cy="386.3601" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M422.7813,392.8601 L422.7813,391.157 L425.1406,390.8914 L425.1406,382.6883 L422.7813,382.4226 L422.7813,380.7195 L429.9219,380.7195 L429.9219,382.4226 L427.5,382.6883 L427.5,390.8914 L429.9219,391.157 L429.9219,392.8601 L422.7813,392.8601 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="452.25" y="382.8441">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="45" x="447.25" y="399.1882">Closable</text><line style="stroke:#A80036;stroke-width:1.5;" x1="340.5" x2="566.5" y1="407.7043" y2="407.7043"/><line style="stroke:#A80036;stroke-width:1.5;" x1="340.5" x2="566.5" y1="415.7043" y2="415.7043"/><ellipse cx="350.5" cy="426.7043" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="92" x="359.5" y="431.4632">isOpen(): Boolean</text><polygon fill="#FFFF44" points="350.5,436.6861,354.5,440.6861,350.5,444.6861,346.5,440.6861" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="202" x="359.5" y="446.4451">checkEnter(entity: BaseEntity): Boolean</text><!--MD5=[5a7ae209f7eb3f799bf48ac076c9e282]
+class Groupable--><rect codeLine="22" fill="#FEFECE" height="73.6701" id="Groupable" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="99" x="7" y="372.516"/><ellipse cx="26.5" cy="393.8601" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M22.5313,400.3601 L22.5313,398.657 L24.8906,398.3914 L24.8906,390.1883 L22.5313,389.9226 L22.5313,388.2195 L29.6719,388.2195 L29.6719,389.9226 L27.25,390.1883 L27.25,398.3914 L29.6719,398.657 L29.6719,400.3601 L22.5313,400.3601 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="52.5" y="390.3441">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="57" x="41.5" y="406.6882">Groupable</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="105" y1="415.2043" y2="415.2043"/><ellipse cx="18" cy="426.2043" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;fill:none;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="73" x="27" y="430.9632">group: Group</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="105" y1="438.1861" y2="438.1861"/><!--MD5=[466fbfca825f455c120c332b83ee30ec]
+class Habitable--><rect codeLine="26" fill="#FEFECE" height="58.6882" id="Habitable" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="84" x="602.5" y="380.016"/><ellipse cx="617.5" cy="401.3601" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M613.5313,407.8601 L613.5313,406.157 L615.8906,405.8914 L615.8906,397.6883 L613.5313,397.4226 L613.5313,395.7195 L620.6719,395.7195 L620.6719,397.4226 L618.25,397.6883 L618.25,405.8914 L620.6719,406.157 L620.6719,407.8601 L613.5313,407.8601 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="640" y="397.8441">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="52" x="631.5" y="414.1882">Habitable</text><line style="stroke:#A80036;stroke-width:1.5;" x1="603.5" x2="685.5" y1="422.7043" y2="422.7043"/><line style="stroke:#A80036;stroke-width:1.5;" x1="603.5" x2="685.5" y1="430.7043" y2="430.7043"/><!--MD5=[f8131a59b08283107c40872bd1ac1232]
+class Hospitalization--><rect codeLine="28" fill="#FEFECE" height="73.6701" id="Hospitalization" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="214" x="721.5" y="372.516"/><ellipse cx="784.25" cy="393.8601" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M780.2813,400.3601 L780.2813,398.657 L782.6406,398.3914 L782.6406,390.1883 L780.2813,389.9226 L780.2813,388.2195 L787.4219,388.2195 L787.4219,389.9226 L785,390.1883 L785,398.3914 L787.4219,398.657 L787.4219,400.3601 L780.2813,400.3601 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="827.25" y="390.3441">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="80" x="804.75" y="406.6882">Hospitalization</text><line style="stroke:#A80036;stroke-width:1.5;" x1="722.5" x2="934.5" y1="415.2043" y2="415.2043"/><ellipse cx="732.5" cy="426.2043" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;fill:none;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="188" x="741.5" y="430.9632">treatmentQuality: TreatmentQuality</text><line style="stroke:#A80036;stroke-width:1.5;" x1="722.5" x2="934.5" y1="438.1861" y2="438.1861"/><rect fill="#FEFECE" height="52.6882" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="58" x="11.5" y="8.016"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="23" y="20.8441">«type»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="44" x="18.5" y="39.1882">Position</text><line style="stroke:#A80036;stroke-width:1.5;" x1="12.5" x2="68.5" y1="44.7043" y2="44.7043"/><rect fill="#FEFECE" height="52.6882" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="73" x="105" y="8.016"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="124" y="20.8441">«type»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="59" x="112" y="39.1882">Probability</text><line style="stroke:#A80036;stroke-width:1.5;" x1="106" x2="177" y1="44.7043" y2="44.7043"/><rect fill="#FEFECE" height="52.6882" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="107" x="213" y="8.016"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="249" y="20.8441">«type»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="93" x="220" y="39.1882">TimeDistribution</text><line style="stroke:#A80036;stroke-width:1.5;" x1="214" x2="319" y1="44.7043" y2="44.7043"/><rect fill="#FEFECE" height="52.6882" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="73" x="355" y="8.016"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="374" y="20.8441">«type»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="59" x="362" y="39.1882">BaseEntity</text><line style="stroke:#A80036;stroke-width:1.5;" x1="356" x2="427" y1="44.7043" y2="44.7043"/><rect fill="#FEFECE" height="52.6882" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="105" x="463" y="8.016"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="498" y="20.8441">«type»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="91" x="470" y="39.1882">StrategyToEnter</text><line style="stroke:#A80036;stroke-width:1.5;" x1="464" x2="567" y1="44.7043" y2="44.7043"/><rect fill="#FEFECE" height="52.6882" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="108" x="603.5" y="8.016"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="640" y="20.8441">«type»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="94" x="610.5" y="39.1882">EntityInStructure</text><line style="stroke:#A80036;stroke-width:1.5;" x1="604.5" x2="710.5" y1="44.7043" y2="44.7043"/><rect fill="#FEFECE" height="52.6882" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="101" x="747" y="8.016"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="780" y="20.8441">«type»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="87" x="754" y="39.1882">SimulationTime</text><line style="stroke:#A80036;stroke-width:1.5;" x1="748" x2="847" y1="44.7043" y2="44.7043"/><rect fill="#FEFECE" height="52.6882" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="94" x="883.5" y="8.016"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="913" y="20.8441">«type»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="80" x="890.5" y="39.1882">BaseStructure</text><line style="stroke:#A80036;stroke-width:1.5;" x1="884.5" x2="976.5" y1="44.7043" y2="44.7043"/><rect fill="#FEFECE" height="52.6882" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="49" x="32" y="177.516"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="39" y="190.3441">«type»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="35" x="39" y="208.6882">Group</text><line style="stroke:#A80036;stroke-width:1.5;" x1="33" x2="80" y1="214.2043" y2="214.2043"/><!--MD5=[6cec6af0d1af4adf73ea6f66511ebb18]
+reverse link Structure to Visible--><path codeLine="42" d="M346.26,299.486 C316.85,325.396 286.72,351.936 263.55,372.346 " fill="none" id="Structure-backto-Visible" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="none" points="341.9,293.996,361.54,286.026,351.16,304.506,341.9,293.996" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[b4c89fac126354f46cefd661efe344a3]
+reverse link Structure to Closable--><path codeLine="43" d="M453.5,306.166 C453.5,326.856 453.5,347.576 453.5,364.916 " fill="none" id="Structure-backto-Closable" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="none" points="446.5,306.026,453.5,286.026,460.5,306.026,446.5,306.026" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[95e8c6c71ed0a5b561fb9eacc3609b7d]
+reverse link Structure to Groupable--><path codeLine="45" d="M271.17,288.416 C222.56,311.996 170.51,338.496 123.5,365.016 C117.82,368.216 111.97,371.716 106.2,375.276 " fill="none" id="Structure-backto-Groupable" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="275.87,286.136,266.0268,286.4701,271.3725,288.3205,269.522,293.6662,275.87,286.136" style="stroke:#454645;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="213.5" y="330.913">«self-type»</text><!--MD5=[5dc2722e0edc1485ce20f985d129cb83]
+reverse link Structure to Habitable--><path codeLine="46" d="M533.21,289.936 C563.39,322.106 595.75,356.576 617.74,380.006 " fill="none" id="Structure-backto-Habitable" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="529.54,286.026,532.7955,295.3213,532.9668,289.667,538.6211,289.8384,529.54,286.026" style="stroke:#454645;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="573.5" y="330.913">«self-type»</text><!--MD5=[5e1556c4d9674169453387331390fb23]
+reverse link Structure to Hospitalization--><path codeLine="47" d="M607.32,288.486 C661.19,317.726 718.9,349.036 761.85,372.346 " fill="none" id="Structure-backto-Hospitalization" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="602.79,286.026,608.7952,293.8323,607.1855,288.4093,612.6084,286.7995,602.79,286.026" style="stroke:#454645;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="686.5" y="330.913">«self-type»</text><!--MD5=[cdd9295439ab1da772fba2b05ea6dec5]
+link Position to Structure--><path codeLine="49" d="M69.54,52.016 C75.42,55.146 81.6,58.286 87.5,61.016 C135.21,83.106 187.4,104.776 237.04,124.276 " fill="none" id="Position-to-Structure" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="249.26,129.056,245.1312,123.1439,238.0859,124.6812,242.2147,130.5933,249.26,129.056" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[29b2afd7f88ca2a9255aa313bc0e9ee1]
+link Probability to Structure--><path codeLine="50" d="M178.21,55.226 C206.69,70.516 248.32,92.866 290.63,115.576 " fill="none" id="Probability-to-Structure" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="302.27,121.826,298.8755,115.4638,291.6972,116.1502,295.0916,122.5124,302.27,121.826" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[f3c40a577d5caea1f97d9e5d56a1cc94]
+link TimeDistribution to Structure--><path codeLine="51" d="M295.31,61.316 C311.21,75.566 332.01,94.196 353.28,113.246 " fill="none" id="TimeDistribution-to-Structure" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="363.07,122.016,361.2678,115.0337,354.1295,114.0118,355.9317,120.9941,363.07,122.016" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[105ace0eef4001fe6af10ae416d0cffd]
+link BaseEntity to Structure--><path codeLine="52" d="M401.05,61.316 C405.99,74.666 412.36,91.866 418.94,109.646 " fill="none" id="BaseEntity-to-Structure" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="423.52,122.016,425.1866,115.0001,419.3514,110.7634,417.6848,117.7792,423.52,122.016" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[32601efbc11014cf51c988db9983bbe5]
+link StrategyToEnter to Structure--><path codeLine="53" d="M505.95,61.316 C501.01,74.666 494.64,91.866 488.06,109.646 " fill="none" id="StrategyToEnter-to-Structure" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="483.48,122.016,489.3152,117.7792,487.6486,110.7634,481.8134,115.0001,483.48,122.016" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[b0b2a72a2be1ec65b064a60f33ba1f70]
+link EntityInStructure to Structure--><path codeLine="54" d="M626.07,61.316 C608.57,75.696 585.62,94.536 562.2,113.766 " fill="none" id="EntityInStructure-to-Structure" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="552.15,122.016,559.325,121.2952,561.4192,114.3949,554.2443,115.1157,552.15,122.016" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[ad8124ff644ba709df8ec5c1ec1fc374]
+link SimulationTime to Structure--><path codeLine="55" d="M746.74,60.236 C715.74,75.326 674.03,95.636 631.82,116.186 " fill="none" id="SimulationTime-to-Structure" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="619.91,121.986,627.0553,122.9578,630.7005,116.7359,623.5552,115.7641,619.91,121.986" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[d57fe5aa98a2cbf04b4db00dd591eea7]
+link BaseStructure to Structure--><path codeLine="56" d="M883.37,54.276 C877.37,56.586 871.3,58.876 865.5,61.016 C802.35,84.276 733.35,108.506 670.19,130.236 " fill="none" id="BaseStructure-to-Structure" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="657.63,134.556,664.6045,136.3881,668.9781,130.6547,662.0036,128.8227,657.63,134.556" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[8334aeb229e7b084e90d420e409cc8bf]
+link Group to Groupable--><path codeLine="58" d="M56.5,230.786 C56.5,262.976 56.5,318.736 56.5,359.236 " fill="none" id="Group-to-Groupable" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="56.5,372.326,60.5,366.326,56.5,360.326,52.5,366.326,56.5,372.326" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[7cc3bbd223b99b6f6a349a517d3a74b5]
+@startuml
+!theme vibrant
+
+interface Structure <<trait>> {
++ entranceStrategy: StrategyToEnter
++ tryToEnter(entity: BaseEntity, timestamp: SimulationTime): BaseStruture
++ entityExit(entity: BaseEntity): BaseStructure
+# checkEnter(entity: BaseEntity): Boolean
+# enter(entity: BaseEntity, timestamp: SimulationTime): BaseStructure
+# exit(entity: BaseEntity): BaseStructure
+# notEntered(entity: BaseEntity, timestamp: SimulationTime): BaseStructure
+}
+
+interface Visible <<trait>> {
++ visibilityDistance: Distance
+}
+
+interface Closable <<trait>> {
++ isOpen(): Boolean
+# checkEnter(entity: BaseEntity): Boolean
+}
+
+interface Groupable <<trait>> {
++ group: Group
+}
+
+interface Habitable <<trait>>
+
+interface Hospitalization <<trait>> {
++ treatmentQuality: TreatmentQuality
+}
+
+object Position <<type>>
+object Probability <<type>>
+object TimeDistribution <<type>>
+object BaseEntity <<type>>
+object StrategyToEnter <<type>>
+object EntityInStructure <<type>>
+object SimulationTime <<type>>
+object BaseStructure <<type>>
+object Group <<type>>
+
+Structure <|- - Visible
+Structure <|- - Closable
+
+Structure <.. Groupable: <<self-type>>
+Structure <.. Habitable: <<self-type>>
+Structure <.. Hospitalization: <<self-type>>
+
+Position - -* Structure
+Probability - -* Structure
+TimeDistribution - -* Structure
+BaseEntity - -* Structure
+StrategyToEnter - -* Structure
+EntityInStructure - -* Structure
+SimulationTime - -* Structure
+BaseStructure - -* Structure
+
+Group - -* Groupable
+@enduml
+
+@startuml
+skinparam BackgroundColor FFFFFF
+skinparam shadowing false
+skinparam RoundCorner 7
+skinparam ArrowColor 454645
+skinparam FontColor 454645
+skinparam SequenceLifeLineBorderColor 696969
+skinparam SequenceGroupHeaderFontColor 454645
+skinparam SequenceGroupFontColor 696969
+skinparam SequenceGroupBorderColor 696969
+skinparam SequenceGroupBorderThickness 1
+
+skinparam sequenceDivider {
+    BorderColor 454645
+    BorderThickness 1
+    FontColor 454645
+}
+
+skinparam participant {
+    BackgroundColor FF6347
+    BorderColor FF6F61
+    FontColor FFFFFF
+}
+
+skinparam database {
+    BackgroundColor 00FFFF
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam entity {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam note {
+    BackgroundColor 7FFFD4
+    BorderColor 7FFFD4
+    FontColor 454645
+}
+
+skinparam actor {
+    BackgroundColor 454645
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam boundary {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam control {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam collections {
+    BackgroundColor FF6347
+    BorderColor FFFFFF
+    FontColor 454645
+}
+
+skinparam queue {
+    BackgroundColor FF6347
+    BorderColor FFF
+    FontColor FFF
+    BorderThickness 1.5
+}
+
+interface Structure <<trait>> {
++ entranceStrategy: StrategyToEnter
++ tryToEnter(entity: BaseEntity, timestamp: SimulationTime): BaseStruture
++ entityExit(entity: BaseEntity): BaseStructure
+# checkEnter(entity: BaseEntity): Boolean
+# enter(entity: BaseEntity, timestamp: SimulationTime): BaseStructure
+# exit(entity: BaseEntity): BaseStructure
+# notEntered(entity: BaseEntity, timestamp: SimulationTime): BaseStructure
+}
+
+interface Visible <<trait>> {
++ visibilityDistance: Distance
+}
+
+interface Closable <<trait>> {
++ isOpen(): Boolean
+# checkEnter(entity: BaseEntity): Boolean
+}
+
+interface Groupable <<trait>> {
++ group: Group
+}
+
+interface Habitable <<trait>>
+
+interface Hospitalization <<trait>> {
++ treatmentQuality: TreatmentQuality
+}
+
+object Position <<type>>
+object Probability <<type>>
+object TimeDistribution <<type>>
+object BaseEntity <<type>>
+object StrategyToEnter <<type>>
+object EntityInStructure <<type>>
+object SimulationTime <<type>>
+object BaseStructure <<type>>
+object Group <<type>>
+
+Structure <|- - Visible
+Structure <|- - Closable
+
+Structure <.. Groupable: <<self-type>>
+Structure <.. Habitable: <<self-type>>
+Structure <.. Hospitalization: <<self-type>>
+
+Position - -* Structure
+Probability - -* Structure
+TimeDistribution - -* Structure
+BaseEntity - -* Structure
+StrategyToEnter - -* Structure
+EntityInStructure - -* Structure
+SimulationTime - -* Structure
+BaseStructure - -* Structure
+
+Group - -* Groupable
+@enduml
+
+PlantUML version 1.2021.13(Mon Nov 01 12:38:45 CET 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
