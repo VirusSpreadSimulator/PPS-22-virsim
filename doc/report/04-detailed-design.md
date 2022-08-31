@@ -330,6 +330,18 @@ Per semplicità ognuno di questi parametri contiene un valore di *default* in mo
 
 ### Pattern di progettazione 
 
+Durante il design si è cercato di trarre vantaggio dall'utilizzo di vari design pattern tipici della programmazione ad oggetti e funzionale:
+
+- Adapter
+- Factory
+- Strategy
+- Template Method
+- Builder
+- Type class
+- Pimp my library
+- Family polymorphism
+- Self type
+
 ### Organizzazione del codice
 
 <div style="page-break-after: always;"></div>
