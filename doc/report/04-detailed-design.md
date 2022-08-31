@@ -202,6 +202,57 @@ Ulteriori dettagli sull'*engine* e sul *simulation loop* saranno riportati nel c
 
 #### Common
 
+In questa sezione verranno descritti i concetti comuni presenti all'interno del modello del dominio, cioè il design di quegli elementi che trovano utilizzo nei tre macro concetti del dominio: entità, strutture e virus.
+Gli elementi descritti sono i seguenti:
+
+- Proprietà gaussiane
+- Eventi descritti da una probabilità
+- Spazio
+- Tempo
+
+##### Proprietà gaussiane
+
+Diverse proprietà all'interno del dominio sono descritte da una distribuzione gaussiana come ad esempio l'età degli individui oppure il tempo di permanenza all'interno delle strutture. Al fine di modellare il concetto di distribuzione gaussiana è stato creato il *trait* **Gaussian**. Esso è generico in un tipo il quale rappresenta il tipo della proprietà da generare. 
+La motivazione che deriva dalla modellazione di questo concetto è quello di evitare ripetizione di design e di codice nel modellare distribuzioni gaussiane.
+
+Infatti, considerando che tutto ciò che è necessario a generare un valore che rispetta una distribuzione gaussiana è condiviso indipendentemente da ciò che deve essere prodotto come tipo finale, si è deciso di progettare questo concetto utilizzando il pattern **Template Method**.
+
+![guassian_diagram](imgs/detailed_design_gaussian.svg)
+
+Il **Template Method** in questione è il metodo `next` definito nel trait **Gaussian** il quale contiene la logica di generazione di un valore, del tipo desiderato `A`, che rispetta la distribuzione guassiana. Al suo interno, dopo aver generato un valore numerico, esso viene convertito nel tipo desiderato grazie al metodo protetto `convert` che sarà l'unico metodo per cui verrà eseguito l'*override* nelle sottoclassi.
+In questo modo si riesce ad astrarre tutto ciò che è comune, specificando solo ciò che realmente cambia a livello poi implementativo.
+
+Le specializzazioni che sono state progettate in quanto utili per il sistema sono:
+
+- *GaussianDurationTime*: è un generatore di "tempi di durata" che segue una distribuzione gaussiana. Essi sono espressi secondo un'unità di misura come ad esempio: minuti, secondi, ..., 
+- *GaussianIntDistribution*: è un generatore di interi che segue una distribuzione guassiana.
+
+##### Eventi descritti da una probabilità
+
+La simulazione prende in considerazione molti eventi che accadono con una certa probabilità la cui formula per computarla è influenzata da diversi parametri. Un esempio è sicuramente l'evento di contagio la cui probabilità di accadimento dipende da diversi fattori, ad esempio nel contagio all'esterno abbiamo: distanza tra individui, immunità sviluppata dagli individui, presenza di mascherine, ecc... che devono partecipare nel calcolo della probabilità. Dopodichè ovviamente è necessario un "algoritmo" in grado di capire e simulare, data la probabilità, se l'evento è accaduto oppure no.
+
+A tal fine è stato progettata la **type class** *Probable* la quale consente di estendere un tipo generico come un evento dato da una certa probabilità.
+L'utilizzatore in questo modo dovrà solamente fornire l'implementazione della formula per poter aderire. 
+A partire dalla **type class** *Probable* è stato definito un algoritmo aggiuntivo il quale specifica il **context-bound** *Probable* sul tipo generico accettato e che permette di simulare se l'evento, data la probabilità computata dalla formula specificata dall'utilizzatore, è avvenuto o meno. Questo metodo permette di raggiungere l'obiettivo definito in precedenza: definire un evento probabile andando a specificare solamente la formula per calcolare la probabilità abilitando un utilizzo altamente dichiarativo del concetto.
+Il risultato viene espresso attravero il *sum type ProbabilityResult*. 
+Allo stesso tempo, al fine di essere compatibile anche con API che lavorano con tipi *Boolean* si è sfruttato il pattern **Adapter**, grazie alle **given Conversion** offerte da Scala, per poter convertire agilmente il tipo *ProbabilityResult* in *Boolean* e viceversa.
+
+Grazie a questa type-class il concetto di rappresentare un evento con una certa probabilità di accadimento può essere inserito a piacere su ogni tipo anche dopo la sua definizione. Tutto ciò grazie al pattern **type class** che ci permette di definire metodi dotati di **polimorfismo ad-hoc**.
+
+##### Spazio
+
+Le strutture devono essere posizionate all'interno dello spazio dell'environment e, similmente, le entità devono essere in grado di spostarsi e quindi avere una posizione all'interno di esso. Per questo motivo è necessario un concetto di posizione, di punto, all'interno dell'environment.
+
+Il punto all'interno dell'environment è definito dalla **case class**, o record, *Point2D*. Nel suo design si è scelto di separare la dichiarazione della struttura dal comportamento. Infatti *Point2D* è modellata solamente nelle sue componenti e tutte le funzionalità sono state aggiunte successivamente attraverso il pattern **Pimp my library** il quale è pensato anche per situazioni in cui si desidera separare struttura e funzionalità di un concetto in pieno stile funzionale.
+
+Inoltre, è stato definito un **type-alias** *Distance* al fine di rappresentare la distanza con una notazione più *domain-specific*.
+
+##### Tempo
+
+La simulazione prende in considerazione anche lo scorrere del tempo e le logiche che vengono eseguite sono consapevoli di esso.
+
+Al fine di modellare il tempo corrente all'interno dell'environment è stato creato il **trait** *TimeStamp* il quale contiene il riferimento al tempo dell'engine corrente, cioè a quanti tick e iterazioni sono trascorse dall'inizio della simulazione. Inoltre, per poter essere utilizzato all'interno delle logiche esso possiede ulteriori metodi per convertire il tempo dell'engine nel tempo logico dell'environment e per ottenere a quale periodo del giorno (*inizio giornata*, *mattina*, *inizio della notte*, *notte*) quel tempo corrisponde (*sum type Period*).
+
 #### Entity
 
 Al fine di modellare il concetto di entity all'interno della simulazione si è deciso di rendere più granulare possibile l'acquisizione di ogni singola caratteristica dell'individuo. Il **trait** *Entity* mantiene solo le caratteristiche essenziali che deve avere un entità. Sono stati per questo definiti ulteriori trait, ai quali sono state associate singole o un numero minimale di proprietà. La definizione delle entità si riduce quindi ad una attività di composizione, la quale rende riutilizzabili in futuro astrazioni già definite, permettendo di combinare fra loro le diverse proprietà per definire nuovi tipi di entità. 
