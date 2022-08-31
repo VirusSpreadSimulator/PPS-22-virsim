@@ -107,7 +107,36 @@ Nella descrizione del design di dettaglio sono presenti due tipologie di logiche
 
 #### Common
 
-// far notare che probable events contiene le formule, magari parlando di quella di contagio
+Come anticipato nel design di dettaglio, la **type class** *Probable* permette di aumentare un tipo con la capacità di rappresentare un evento dotato di una determinata probabilità di accadimento, la quale viene definita da una formula. Infatti è possibile notare che all'interno dell'*object ProbableGivenInstances* sono presenti tutti i *given instances* necessari. In particolare si possono osservare quelli associati agli eventi di contagio. Essi sono modellati andando ad aumentare i tipi *ExternalProbableInfection* e *InternalProbableInfection* che rappresentano un contagio probabile rispettivamente esterno ed interno alle strutture.
+
+Le formule implementate, le quali sono semplici e non hanno alcuna volontà di essere significative in un contesto reale, sono le seguenti:
+
+- *Contagio esterno* (individuo *j*):
+  
+  ![\sum_{i}^{I} \frac{P0 * (1-Dji/Dmax) * (1 - Ii/Imax)}{Mj * Mi}](https://latex.codecogs.com/svg.latex?&space;\sum_{i}^{I}\frac{P0*%281-Dji/Dmax%29*%281-Ii/Imax%29}{Mj*Mi})
+  
+- *Contagio interno* (individuo *j*): 
+
+  
+  
+  ![\frac{P0 * PS * (1 - Ij/Imax)}{Mj * MAX(1, M * (NSinfm/NSinf))} * \frac{NSinf}{NS - 1}](https://latex.codecogs.com/svg.latex?&space;\frac{P0%20*%20PS%20*%20(1%20-%20Ij/Imax)}{Mj%20*%20MAX%281,%20M%20*%20%28NSinfm/NSinf%29%29}%20*%20\frac{NSinf}{NS%20-%201})
+
+Considerando:
+
+- I: infetti in prossimità dell'entità
+- P0: spreadRate del virus
+- PS: infectionProbability della struttura
+- M: riduzione data dalla presenza della mascherina
+- Mj: riduzione data dalla presenza o meno della mascherina per l'entità j
+- Dji: distanza tra le entità j ed i
+- Dmax: distanza massima di contagio del virus
+- Ij: immunità dell'individuo j
+- Imax: immunità massima
+- NS: numero entità all'interno della struttura
+- NSinf: numero entità infette nella struttura
+- NSinfm: numero entità infette nella struttura con la mascherina
+
+Grazie alla type class è stato possibile isolare la rappresentazione delle formule in un concetto che rispecchia il significato di evento probabile.
 
 #### Entity
 
