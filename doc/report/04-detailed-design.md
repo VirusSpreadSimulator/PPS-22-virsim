@@ -253,7 +253,7 @@ Le strutture previste inizialmente sono tre: *Casa*, *Struttura generica* ed *Os
 
 Per questo motivo e per essere, nella modellazione delle Strutture, indipendente dai particolari tipi di dato (considerando che inizialmente non era stati nemmeno progettati, quindi evitando di creare dipendenze sequenziali nella progettazione), si è scelto di seguire l'approccio **abstract modelling** sfruttando il **family polimorphism** grazie agli **abstract types** di Scala permettendo una progettazione graduale da interfaccia ad effettiva implementazione affrontando in miglior modo la complessità del concetto.
 
-Di seguito uno schema riassuntivo che riporta gli elementi principali (type rappresentati esternamente in quanto non direttamente rappresentabili in UML):
+Di seguito uno schema riassuntivo che riporta gli elementi principali (type rappresentati esternamente in quanto non direttamente descrivibili in UML):
 
 ![structure_base_diagram](imgs/detailed_design_structure.svg)
 
@@ -265,8 +265,8 @@ Si nota l'utilizzo del pattern **Template Method** per definire i due comportame
 
 - `tryToEnter`: questo template method definisce lo scheletro con cui dirigere l'ingresso di un'entità all'interno della struttura. Esso si appoggia ai seguenti metodi che dovranno essere *overridati* nelle varie implementazioni:
   - `checkEnter`: è il metodo che include i vari controlli da eseguire prima di poter far entrare l'entità. Esso può prendere in considerazione la strategia e/o le caratteristiche della struttura stessa.
-  - `enter`: è il metodo che definisce come la struttura si comporta quando un'entità viene accettata all'interno della struttura. Da notare che ritorna un'instanza di Struttura in quanto immutabile.
-  - `notEntered`: è il metodo che definisce come la struttura si comporta quando un'entità non viene accettata all'interno della struttura. Da notare che ritorna un'instanza di Struttura in quanto immutabile.
+  - `enter`: è il metodo che definisce come si comporta la struttura quando un'entità viene accettata all'interno di essa. Da notare che ritorna una nuova instanza in quanto immutabile.
+  - `notEntered`: è il metodo che definisce come si comporta la struttura quando un'entità non viene accettata all'interno di essa. Da notare che ritorna una nuova instanza in quanto immutabile.
 - `entityExit`: questo template method definisce lo scheletro con cui dirigere l'uscita di un'entità dalla struttura. Esso si appoggia al metodo `exit` il quale definisce come gestire l'uscita dell'entità dalla struttura che dovrà essere *overridato* nella varie implementazioni.
 
 A partire da ciò i **mixins** *Visible* e *Closable* rappresentano due estensioni del concetto che modellano rispettivamente la capacità della struttura di essere vista da un'entità e la capacità di essere chiusa. Quest'ultima agisce proprio da **mixin** in quanto definisce un modo per "impilare" una modifica a `checkEnter`. Essi sono stati definiti come **mixins** in quanto possono avere effetto sulle funzionalità della Struttura stessa, come nel caso di *Closable*.
