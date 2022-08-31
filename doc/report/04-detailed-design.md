@@ -257,11 +257,11 @@ Al fine di modellare il tempo corrente all'interno dell'environment è stato cre
 
 Al fine di modellare il concetto di entity all'interno della simulazione si è deciso di rendere più granulare possibile l'acquisizione di ogni singola caratteristica dell'individuo. Il **trait** *Entity* mantiene solo le caratteristiche essenziali che deve avere un entità. Sono stati per questo definiti ulteriori trait, ai quali sono state associate singole o un numero minimale di proprietà. La definizione delle entità si riduce quindi ad una attività di composizione, la quale rende riutilizzabili in futuro astrazioni già definite, permettendo di combinare fra loro le diverse proprietà per definire nuovi tipi di entità. 
 
-<img src="/home/giacomo/Documents/uni/magistrale/ParadigmiDiProgrammazione/progetto/PPS-22-virsim/doc/report/imgs/detailed_design_entities.png" alt="entity" style="zoom:80%;" />
+<img src="imgs/detailed_design_entities.svg" alt="entity"/>
 
 L'infezione è stata gestita a parte e contiene le informazioni circa l'infezione che ha contratto un'entità, quali la severità, il momento dell'infezione e la durata.
 
-<img src="/home/giacomo/Documents/uni/magistrale/ParadigmiDiProgrammazione/progetto/PPS-22-virsim/doc/report/imgs/detailed_design_infection.png" alt="entity" style="zoom:80%;"/>
+<img src="imgs/detailed_design_infection.svg" alt="entity"/>
 
 #### Structure
 
