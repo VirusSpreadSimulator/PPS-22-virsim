@@ -223,7 +223,11 @@ Grazie a questa type-class il concetto di rappresentare un evento con una certa 
 
 ##### Spazio
 
+Le strutture devono essere posizionate all'interno dello spazio dell'environment e, similmente, le entità devono essere in grado di spostarsi e quindi avere una posizione all'interno di esso. Per questo motivo è necessario un concetto di posizione, di punto, all'interno dell'environment.
 
+Il punto all'interno dell'environment è definito dalla **case class**, o record, *Point2D*. Nel suo design si è scelto di separare la dichiarazione della struttura dal comportamento. Infatti *Point2D* è modellata solamente nelle sue componenti e tutte le funzionalità sono state aggiunte successivamente attraverso il pattern **Pimp my library** il quale è pensato anche per situazioni in cui si desidera separare struttura e funzionalità di un concetto in pieno stile funzionale.
+
+Inoltre, è stato definito un **type-alias** *Distance* al fine di rappresentare la distanza con una notazione più *domain-specific*.
 
 ##### Tempo
 
