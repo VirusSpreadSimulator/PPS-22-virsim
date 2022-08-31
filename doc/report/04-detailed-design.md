@@ -223,9 +223,10 @@ Ulteriori dettagli sull'*engine* e sul *simulation loop* saranno riportati nel c
 
 ### Environment
 
-- Descrizione del componente ECB
-- env iniziale poi evoluto dall'engine.
--  Dipende solo dal loader
+Appartenente alle **Entity**, è un componente dell'architettura modellato tramite **Cake Pattern** come descritto in precedenza. 
+Si occupa di mantenere le informazioni delle Strutture, delle Entità, del Virus, oltre a quelle relative al tempo corrente, alla durata della simulazione e alla grandezza della griglia. Tutti i campi sono immutabili. 
+Ad ogni iterazione della simulazione viene aggiornato dal componente Engine. In particolare l'aggiornamento è gestito tramite il metodo `Update`. Esso ha tutti i parametri come default, i quali mantengono l'Environment invariato, e restituisce un nuovo Environment, aggiornando le informazioni con i parametri passati. 
+Le strutture vengono mantenute all'interno di un set, così come le entità che si muovono liberamente all'interno della griglia, mentre ogni struttura mantiene una lista delle entità al suo interno. Questo ha evitato problemi legati all'aggiornamento, in quando ogni entità è presente in modo univoco all'interno dell'Environment. É presente anche un metodo `allEntities` il quale restituisce un set contenente tutte le entità interne ed esterne alle strutture della simulazione.  
 
 #### Common
 
@@ -283,22 +284,27 @@ Al fine di modellare il tempo corrente all'interno dell'environment è stato cre
 #### Entity
 
 Al fine di modellare il concetto di entity all'interno della simulazione si è deciso di rendere più granulare possibile l'acquisizione di ogni singola caratteristica dell'individuo. Il **trait** *Entity* mantiene solo le caratteristiche essenziali che deve avere un entità. Sono stati per questo definiti ulteriori trait, ai quali sono state associate singole o un numero minimale di proprietà. La definizione delle entità si riduce quindi ad una attività di composizione, la quale rende riutilizzabili in futuro astrazioni già definite, permettendo di combinare fra loro le diverse proprietà per definire nuovi tipi di entità. 
+`MovementGoal` definisce il tipo di movimento di un entità in un determinato momento della simulazione. Questo può essere: 
 
-<img src="/home/giacomo/Documents/uni/magistrale/ParadigmiDiProgrammazione/progetto/PPS-22-virsim/doc/report/imgs/detailed_design_entities.png" alt="entity" style="zoom:80%;" />
++ *Random Movement*: nel caso in cui l'entità voglia muoversi in maniera casuale
++ *Back To Home*: l'entità deve tornare a casa. Questo significa che il movimento successivo dovrà per forza essere in direzione della casa. 
++ *No Movement*: l'entità non si muove. Questo accade per esempio quando l'entità entra in una struttura. 
+
+<img src="imgs/detailed_design_entities.svg" alt="entity"/>
 
 L'infezione è stata gestita a parte e contiene le informazioni circa l'infezione che ha contratto un'entità, quali la severità, il momento dell'infezione e la durata.
 
-<img src="/home/giacomo/Documents/uni/magistrale/ParadigmiDiProgrammazione/progetto/PPS-22-virsim/doc/report/imgs/detailed_design_infection.png" alt="entity" style="zoom:80%;"/>
+<img src="imgs/detailed_design_infection.svg" alt="entity"/>
 
 #### Structure
 
 Le strutture, assieme alle entità e al virus, sono uno dei concetti principali del modello del dominio. Esse, come anticipato nei requisiti, rappresentano gli edifici presenti all'interno di un ambiente, ad esempio una città. Sono dotate di diversi parametri e possono essere configurate in diverso modo. Inoltre, le entità possono interagirvi entrando al loro interno con una permanenza che dipende dalle caratteristiche della struttura stessa durante il quale può avvenire il contagio.
 
-Le strutture previste inizialmente sono tre: *Casa*, *Struttura generica* ed *Ospedale*. Nonostante ciò, da requisito 4.3, è richiesto che le tipologie di strutture e le strategie di ingresso siano estendibili, perciò il design di questi concetti ha tenuto in considerazione ciò.
+Le tipologie di strutture previste da requisiti sono tre: *Casa*, *Struttura generica* ed *Ospedale*. Nonostante ciò, il requisito 4.3 richiede che le tipologie di strutture e le strategie di ingresso siano estendibili, perciò il design di questi concetti ha tenuto in considerazione ciò.
 
 Per questo motivo e per essere, nella modellazione delle Strutture, indipendente dai particolari tipi di dato (considerando che inizialmente non era stati nemmeno progettati, quindi evitando di creare dipendenze sequenziali nella progettazione), si è scelto di seguire l'approccio **abstract modelling** sfruttando il **family polimorphism** grazie agli **abstract types** di Scala permettendo una progettazione graduale da interfaccia ad effettiva implementazione affrontando in miglior modo la complessità del concetto.
 
-Di seguito uno schema riassuntivo che riporta gli elementi principali (type rappresentati esternamente in quanto non direttamente rappresentabili in UML):
+Di seguito uno schema riassuntivo che riporta gli elementi principali (type rappresentati esternamente in quanto non direttamente descrivibili in UML):
 
 ![structure_base_diagram](imgs/detailed_design_structure.svg)
 
@@ -308,26 +314,26 @@ Il design tiene in considerazione gli obiettivi descritti precedentemente, quind
 
 Si nota l'utilizzo del pattern **Template Method** per definire i due comportamenti principali:
 
-- `tryToEnter`: questo template method definisce lo scheletro con cui dirigere l'ingresso di un'entità all'interno della struttura. Esso si appoggia ai seguenti metodi che dovranno essere *overridati* nelle varie implementazioni:
+- `tryToEnter`: questo template method definisce lo scheletro con cui coordinare l'ingresso di un'entità all'interno della struttura. Esso si appoggia ai seguenti metodi che dovranno essere *overridati* nelle varie implementazioni:
   - `checkEnter`: è il metodo che include i vari controlli da eseguire prima di poter far entrare l'entità. Esso può prendere in considerazione la strategia e/o le caratteristiche della struttura stessa.
-  - `enter`: è il metodo che definisce come la struttura si comporta quando un'entità viene accettata all'interno della struttura. Da notare che ritorna un'instanza di Struttura in quanto immutabile.
-  - `notEntered`: è il metodo che definisce come la struttura si comporta quando un'entità non viene accettata all'interno della struttura. Da notare che ritorna un'instanza di Struttura in quanto immutabile.
-- `entityExit`: questo template method definisce lo scheletro con cui dirigere l'uscita di un'entità dalla struttura. Esso si appoggia al metodo `exit` il quale definisce come gestire l'uscita dell'entità dalla struttura che dovrà essere *overridato* nella varie implementazioni.
+  - `enter`: è il metodo che definisce come si comporta la struttura quando un'entità viene accettata all'interno di essa. Da notare che ritorna una nuova instanza in quanto immutabile.
+  - `notEntered`: è il metodo che definisce come si comporta la struttura quando un'entità non viene accettata all'interno di essa. Da notare che ritorna una nuova instanza in quanto immutabile.
+- `entityExit`: questo template method definisce lo scheletro con cui coordinare l'uscita di un'entità dalla struttura. Esso si appoggia al metodo `exit` il quale definisce come gestire l'uscita dell'entità dalla struttura che dovrà essere *overridato* nella varie implementazioni.
 
 A partire da ciò i **mixins** *Visible* e *Closable* rappresentano due estensioni del concetto che modellano rispettivamente la capacità della struttura di essere vista da un'entità e la capacità di essere chiusa. Quest'ultima agisce proprio da **mixin** in quanto definisce un modo per "impilare" una modifica a `checkEnter`. Essi sono stati definiti come **mixins** in quanto possono avere effetto sulle funzionalità della Struttura stessa, come nel caso di *Closable*.
 
-Al fine invece di poter comporre le altre caratteristiche delle Strutture, sono stati creati attravero **trait** appositi attraverso il pattern **self-type**. In questo modo si è evitato di rappresentarle come sottotipi dipendendo in maniera più leggera dal principio LSP e rappresentadole come decorazioni componibili.
+Al fine di poterle comporre, le altre caratteristiche delle Strutture sono state create attravero **trait** appositi sfruttando il pattern **self-type**. In questo modo si è evitato di rappresentarle come sottotipi dipendendo in maniera più leggera dal principio LSP e rappresentadole come decorazioni componibili.
 Le tre caratteristiche sviluppate sono:
 
 - *Groupable*: rappresenta la possibilità delle strutture di essere raggruppate. Permette di specificare il nome del gruppo di appartenenza.
 - *Habitable*: rappresenta la possibilità della struttura di agire come casa.
-- *Hospitalization*: rappresenta la capacità della struttura di provvedere alla cura degli individui. Ogni struttura con questa capacità possiede anche una qualità che ne identifica la qualità nel trattamento dei pazienti.
+- *Hospitalization*: rappresenta la capacità della struttura di provvedere alla cura delle entità. Ogni struttura con questa capacità viene descritta anche in termini di qualità del trattamento nella cura dei pazienti.
 
-Al fine di definire i tipi è stato pensato un ulteriore **trait** *SimulationStructure* che specificasse tutti i tipi necessari alla nostra simulazione e alcuni concetti di base.
+Per definire i tipi di strutture è stato pensato un ulteriore **trait** *SimulationStructure* che specificasse tutti i *type* necessari alla nostra simulazione e alcuni concetti di base.
 
-Tutto ciò permette di definire le strutture (Casa, Edificio generico, Ospedale, ecc...) semplicemente mettendo assieme, componendo, tutte le componenti e caratteristiche necessarie. In questo modo è semplice creare nuove tipologie di Strutture con nuovi componenti e/o caratteristiche lavorando con una buona flessibilità e soprattutto consentendo di progettare partendo da una definizione indipendente dal design della restante parte del simulatore.
+Tutto ciò permette di definire le strutture (Casa, Edificio generico, Ospedale, ecc...) semplicemente mettendo assieme, componendo, tutte le componenti e caratteristiche necessarie. In questo modo è semplice creare nuove tipologie di Strutture con nuovi componenti e/o caratteristiche lavorando con una buona flessibilità e soprattutto consentendo di progettare partendo da una definizione indipendente dal design della restante parte del simulatore (grazie all'*abstract-modelling*).
 
-La strategia di ingresso viene gestita all'interno della struttura attraverso pattern **Strategy**, passando la suddetta strategia alla struttura da creare.
+- La strategia di ingresso viene gestita all'interno della struttura attraverso pattern **Strategy**, passando la suddetta strategia alla struttura da creare.
 
 Le strategie di ingresso sono di tre tipi principali:
 
@@ -337,9 +343,9 @@ Le strategie di ingresso sono di tre tipi principali:
 
 Come anticipato, il design deve prevedere una buona estensibilità nel tipo di strategie disponibili permettendone, inoltre, la loro composizione (ad esempio *Filter-based* assieme alla *Probability-based*, *"le entità con più di 18 anni sono ammesse con una probabilità del 50%"*). Al fine di modellare tutto ciò è stato scelto di utilizzare i **mixins**.
 È stato modellato un **trait** *EntranceStrategy* che rappresenta l'interfaccia della strategia di ingresso.
-L'unica implementazione del trait è **BaseEntranceStrategy** che rappresenta la strategia *Base*. Dopodichè le altre vengono modellate attraverso i **mixins** *FilterBasedStrategy* e *ProbabilityBasedStrategy*. Questo permette di ottenere una buona estendibilità (permettendo facilmente di creare nuovi *mixins* che corrispondono a nuove strategie) e la possibilità di comporre tra di loro le diverse strategie.
+L'unica implementazione del trait è **BaseEntranceStrategy** che rappresenta la strategia *Base*. Dopodichè le altre vengono modellate attraverso i **mixins** *FilterBasedStrategy* e *ProbabilityBasedStrategy*. Questo permette di ottenere una buona estendibilità (nuove strategie possono essere aggiunte con facilità specificando nuovi *mixins*) e la possibilità di comporre tra di loro le diverse strategie.
 
-Infine, le entità che riescono ad entrare rimangono all'interno della struttura per un periodo determinato a seconda della distribuzione gaussiana del tempo di permanenza nella struttura stessa. Il concetto di *permanenza* è stata modellato attraverso il **trait** *EntityPermanence*.
+Infine, le entità che riescono ad entrare rimangono all'interno della struttura per un periodo determinato a seconda della distribuzione gaussiana del tempo di permanenza nella struttura stessa. Il concetto di *permanenza* è stato modellato attraverso il **trait** *EntityPermanence*.
 
 #### Virus
 
@@ -356,6 +362,18 @@ I parametri principali del virus sono:
 Per semplicità ognuno di questi parametri contiene un valore di *default* in modo da semplificare la configurazione del virus da parte dell'utente.
 
 ### Pattern di progettazione 
+
+Durante il design si è cercato di trarre vantaggio dall'utilizzo di vari design pattern tipici della programmazione ad oggetti e funzionale:
+
+- Adapter
+- Factory
+- Strategy
+- Template Method
+- Builder
+- Type class
+- Pimp my library
+- Family polymorphism
+- Self type
 
 ### Organizzazione del codice
 
