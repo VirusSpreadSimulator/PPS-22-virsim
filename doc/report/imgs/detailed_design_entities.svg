@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="446px" preserveAspectRatio="none" style="width:482px;height:446px;background:#FFFFFF;" version="1.1" viewBox="0 0 482 446" width="482px" zoomAndPan="magnify"><defs/><g><!--MD5=[be996cdb8e6bf2fc7cb89c555f2cd144]
+class Entity--><rect codeLine="3" fill="#FEFECE" height="83.5444" id="Entity" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="121" x="155" y="356"/><ellipse cx="196.55" cy="374.7988" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M192.8469,369.0957 L200.4563,369.0957 L200.4563,370.9863 L197.8781,370.9863 L197.8781,378.4082 L200.4563,378.4082 L200.4563,380.2988 L192.8469,380.2988 L192.8469,378.4082 L195.4406,378.4082 L195.4406,370.9863 L192.8469,370.9863 L192.8469,369.0957 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="34" x="214.45" y="372.2559">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="30" x="216.45" y="386.0547">Entity</text><line style="stroke:#A80036;stroke-width:1.5;" x1="156" x2="275" y1="393.5977" y2="393.5977"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="26" x="161" y="407.9155">id: Int</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="36" x="161" y="420.5645">age: Int</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="109" x="161" y="433.2134">homePosition: Position</text><!--MD5=[309007df238629c85e246765b8ffc921]
+class Moving--><rect codeLine="9" fill="#FEFECE" height="58.2466" id="Moving" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="93" x="7" y="238"/><ellipse cx="31.45" cy="256.7988" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M27.7469,251.0957 L35.3563,251.0957 L35.3563,252.9863 L32.7781,252.9863 L32.7781,260.4082 L35.3563,260.4082 L35.3563,262.2988 L27.7469,262.2988 L27.7469,260.4082 L30.3406,260.4082 L30.3406,252.9863 L27.7469,252.9863 L27.7469,251.0957 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="34" x="50.55" y="254.2559">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="40" x="47.55" y="268.0547">Moving</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="99" y1="275.5977" y2="275.5977"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="81" x="13" y="289.9155">position: Position</text><!--MD5=[f7e934452a7b84a2aefc11e8c4d740f8]
+class Infectious--><rect codeLine="13" fill="#FEFECE" height="58.2466" id="Infectious" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="137" x="208" y="238"/><ellipse cx="246.85" cy="256.7988" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M243.1469,251.0957 L250.7563,251.0957 L250.7563,252.9863 L248.1781,252.9863 L248.1781,260.4082 L250.7563,260.4082 L250.7563,262.2988 L243.1469,262.2988 L243.1469,260.4082 L245.7406,260.4082 L245.7406,252.9863 L243.1469,252.9863 L243.1469,251.0957 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="34" x="275.15" y="254.2559">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="52" x="266.15" y="268.0547">Infectious</text><line style="stroke:#A80036;stroke-width:1.5;" x1="209" x2="344" y1="275.5977" y2="275.5977"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="125" x="214" y="289.9155">infection: Option[Infection]</text><!--MD5=[dbf9b3d856455a120e31845993b1aef1]
+class Masquerable--><rect codeLine="17" fill="#FEFECE" height="58.2466" id="Masquerable" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="104" x="104.5" y="113.5"/><ellipse cx="119.5" cy="132.2988" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M115.7969,126.5957 L123.4063,126.5957 L123.4063,128.4863 L120.8281,128.4863 L120.8281,135.9082 L123.4063,135.9082 L123.4063,137.7988 L115.7969,137.7988 L115.7969,135.9082 L118.3906,135.9082 L118.3906,128.4863 L115.7969,128.4863 L115.7969,126.5957 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="34" x="152.5" y="129.7559">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="72" x="133.5" y="143.5547">Masquerable</text><line style="stroke:#A80036;stroke-width:1.5;" x1="105.5" x2="207.5" y1="151.0977" y2="151.0977"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="90" x="110.5" y="165.4155">hasMask: Boolean</text><!--MD5=[432e2974cba01aedcbf4a6f179e31df8]
+class Living--><rect codeLine="21" fill="#FEFECE" height="70.8955" id="Living" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="104" x="243.5" y="107"/><ellipse cx="276.05" cy="125.7988" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M272.3469,120.0957 L279.9563,120.0957 L279.9563,121.9863 L277.3781,121.9863 L277.3781,129.4082 L279.9563,129.4082 L279.9563,131.2988 L272.3469,131.2988 L272.3469,129.4082 L274.9406,129.4082 L274.9406,121.9863 L272.3469,121.9863 L272.3469,120.0957 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="34" x="293.45" y="123.2559">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="33" x="293.95" y="137.0547">Living</text><line style="stroke:#A80036;stroke-width:1.5;" x1="244.5" x2="346.5" y1="144.5977" y2="144.5977"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="69" x="249.5" y="158.9155">health: Double</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="92" x="249.5" y="171.5645">maxHealth: Double</text><!--MD5=[b37b852b37d1895c6b6680c1c0097a6f]
+class Immune--><rect codeLine="26" fill="#FEFECE" height="58.2466" id="Immune" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="95" x="380" y="238"/><ellipse cx="403.55" cy="256.7988" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M399.8469,251.0957 L407.4563,251.0957 L407.4563,252.9863 L404.8781,252.9863 L404.8781,260.4082 L407.4563,260.4082 L407.4563,262.2988 L399.8469,262.2988 L399.8469,260.4082 L402.4406,260.4082 L402.4406,252.9863 L399.8469,252.9863 L399.8469,251.0957 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="34" x="424.45" y="254.2559">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="44" x="419.45" y="268.0547">Immune</text><line style="stroke:#A80036;stroke-width:1.5;" x1="381" x2="474" y1="275.5977" y2="275.5977"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="83" x="386" y="289.9155">immunity: Double</text><!--MD5=[05230c18362c8242ac0df5df33f4682d]
+class SimulationEntity--><rect codeLine="30" fill="#FEFECE" height="40" id="SimulationEntity" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="120" x="96.5" y="7"/><ellipse cx="111.5" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M109.1563,22.8438 Q109.1563,24.7188 109.7344,25.7344 Q110.3125,26.7344 111.4688,26.7344 Q112.8125,26.7344 113.4688,24.7188 L115.7344,25.1406 Q114.625,28.6719 111.4531,28.6719 Q109.1094,28.6719 107.8906,27.1875 Q106.6719,25.7031 106.6719,22.8438 Q106.6719,17.125 111.375,17.125 Q112.9219,17.125 113.9531,17.9375 Q115,18.75 115.5,20.3594 L113.2344,20.9063 Q113,20.0313 112.5156,19.5469 Q112.0313,19.0469 111.4063,19.0469 Q109.1563,19.0469 109.1563,22.8438 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="88" x="125.5" y="27.3564">SimulationEntity</text><line style="stroke:#A80036;stroke-width:1.5;" x1="97.5" x2="215.5" y1="39" y2="39"/><!--MD5=[6c8eef335ccf48cb03337366f2f91b47]
+link Moving to Entity--><path codeLine="32" d="M89.05,296.31 C106.32,310.06 127.67,327.06 147.87,343.15 " fill="none" id="Moving-to-Entity" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="none" points="152.45,337.84,163.73,355.78,143.73,348.8,152.45,337.84" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[d3a38c17e6bf21934b7bf9954c02426f]
+link Masquerable to Entity--><path codeLine="33" d="M162.57,171.65 C169.23,202.29 180.31,252.7 190.5,296 C193.54,308.92 196.89,322.75 200.13,335.9 " fill="none" id="Masquerable-to-Entity" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="none" points="207.04,334.68,205.07,355.77,193.45,338.05,207.04,334.68" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[6843805b3b95e2afdf5c6100de38d9a8]
+link Infectious to Entity--><path codeLine="34" d="M263.11,296.31 C257.41,308.38 250.52,322.94 243.78,337.2 " fill="none" id="Infectious-to-Entity" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="none" points="249.99,340.44,235.11,355.53,237.33,334.46,249.99,340.44" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[c3993bb52546be535bc2a5ee234220c8]
+link Living to Immune--><path codeLine="35" d="M332.97,178.28 C348.34,192.53 366.26,209.16 382.34,224.09 " fill="none" id="Living-to-Immune" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="none" points="387.15,219,397.05,237.74,377.62,229.26,387.15,219" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[ab6f5a556ac9c9902d9bfd3beb371ef7]
+link Living to Infectious--><path codeLine="36" d="M290.11,178.28 C288.21,190.48 286.05,204.41 284.02,217.53 " fill="none" id="Living-to-Infectious" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="none" points="290.87,219.05,280.88,237.74,277.03,216.9,290.87,219.05" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[5567ee2b5642886bd16456239ac0a44b]
+link Immune to Entity--><path codeLine="37" d="M381.24,296.15 C355.59,311.76 323.02,331.58 293.55,349.51 " fill="none" id="Immune-to-Entity" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="none" points="296.89,355.67,276.16,360.09,289.61,343.71,296.89,355.67" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[214d09df086b1706beeb35f68cafe5ab]
+link SimulationEntity to Moving--><path codeLine="38" d="M134.16,47.21 C118.43,61.98 98.17,83.74 86.5,107 C69.11,141.67 60.88,184.99 56.99,217.65 " fill="none" id="SimulationEntity-to-Moving" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="63.93,218.65,54.97,237.85,50,217.26,63.93,218.65" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[dc931452025abf90648da2a871e04ba5]
+link SimulationEntity to Living--><path codeLine="39" d="M180.08,47.25 C195.85,60.13 217.32,77.67 237.48,94.12 " fill="none" id="SimulationEntity-to-Living" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="242.16,88.91,253.22,106.98,233.3,99.75,242.16,88.91" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[3edd99db6c37f11755d112aadee6e067]
+link SimulationEntity to Masquerable--><path codeLine="40" d="M156.5,47.25 C156.5,59.83 156.5,76.86 156.5,92.98 " fill="none" id="SimulationEntity-to-Masquerable" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="163.5,93.2,156.5,113.2,149.5,93.2,163.5,93.2" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[6f1f9d1b62a7104b88470d34e721f9fa]
+@startuml
+!theme vibrant
+
+interface Entity <<trait>>{
+id: Int
+age: Int
+homePosition: Position
+}
+
+interface Moving <<trait>>{
+position: Position
+}
+
+interface Infectious <<trait>>{
+infection: Option[Infection]
+}
+
+interface Masquerable <<trait>>{
+hasMask: Boolean
+}
+
+interface Living <<trait>>{
+health: Double
+maxHealth: Double
+}
+
+interface Immune <<trait>>{
+immunity: Double
+}
+
+class SimulationEntity
+
+Moving - -|> Entity
+Masquerable - -|> Entity
+Infectious - -|> Entity
+Living - -|> Immune
+Living - -|> Infectious
+Immune - -|> Entity
+SimulationEntity ..|> Moving
+SimulationEntity ..|> Living
+SimulationEntity ..|> Masquerable
+
+hide methods
+
+@enduml
+
+@startuml
+skinparam BackgroundColor FFFFFF
+skinparam shadowing false
+skinparam RoundCorner 7
+skinparam ArrowColor 454645
+skinparam FontColor 454645
+skinparam SequenceLifeLineBorderColor 696969
+skinparam SequenceGroupHeaderFontColor 454645
+skinparam SequenceGroupFontColor 696969
+skinparam SequenceGroupBorderColor 696969
+skinparam SequenceGroupBorderThickness 1
+
+skinparam sequenceDivider {
+    BorderColor 454645
+    BorderThickness 1
+    FontColor 454645
+}
+
+skinparam participant {
+    BackgroundColor FF6347
+    BorderColor FF6F61
+    FontColor FFFFFF
+}
+
+skinparam database {
+    BackgroundColor 00FFFF
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam entity {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam note {
+    BackgroundColor 7FFFD4
+    BorderColor 7FFFD4
+    FontColor 454645
+}
+
+skinparam actor {
+    BackgroundColor 454645
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam boundary {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam control {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam collections {
+    BackgroundColor FF6347
+    BorderColor FFFFFF
+    FontColor 454645
+}
+
+skinparam queue {
+    BackgroundColor FF6347
+    BorderColor FFF
+    FontColor FFF
+    BorderThickness 1.5
+}
+
+interface Entity <<trait>>{
+id: Int
+age: Int
+homePosition: Position
+}
+
+interface Moving <<trait>>{
+position: Position
+}
+
+interface Infectious <<trait>>{
+infection: Option[Infection]
+}
+
+interface Masquerable <<trait>>{
+hasMask: Boolean
+}
+
+interface Living <<trait>>{
+health: Double
+maxHealth: Double
+}
+
+interface Immune <<trait>>{
+immunity: Double
+}
+
+class SimulationEntity
+
+Moving - -|> Entity
+Masquerable - -|> Entity
+Infectious - -|> Entity
+Living - -|> Immune
+Living - -|> Infectious
+Immune - -|> Entity
+SimulationEntity ..|> Moving
+SimulationEntity ..|> Living
+SimulationEntity ..|> Masquerable
+
+hide methods
+
+@enduml
+
+PlantUML version 1.2021.13(Mon Nov 01 12:38:45 CET 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
