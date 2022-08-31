@@ -282,9 +282,19 @@ Al fine di definire i tipi è stato pensato un ulteriore **trait** *SimulationSt
 
 Tutto ciò permette di definire le strutture (Casa, Edificio generico, Ospedale, ecc...) semplicemente mettendo assieme, componendo, tutte le componenti e caratteristiche necessarie. In questo modo è semplice creare nuove tipologie di Strutture con nuovi componenti e/o caratteristiche lavorando con una buona flessibilità e soprattutto consentendo di progettare partendo da una definizione indipendente dal design della restante parte del simulatore.
 
-La strategia di ingresso viene gestita attraverso pattern **Strategy**.
+La strategia di ingresso viene gestita all'interno della struttura attraverso pattern **Strategy**, passando la suddetta strategia alla struttura da creare.
 
-// mi collego per spiegarle
+Le strategie di ingresso sono di tre tipi principali:
+
+- *Base*: è la strategia di base in cui tutte le entità sono ammesse senza restrizioni.
+- *Filter-based*: consente di specificare un filtro sulle entità per decidere la loro accettazione.
+- *Probability-based*: consente di specificare una probabilità con cui le entità sono accettate all'interno della struttura.
+
+Come anticipato, il design deve prevedere una buona estensibilità nel tipo di strategie disponibili permettendone, inoltre, la loro composizione (ad esempio *Filter-based* assieme alla *Probability-based*, *"le entità con più di 18 anni sono ammesse con una probabilità del 50%"*). Al fine di modellare tutto ciò è stato scelto di utilizzare i **mixins**.
+È stato modellato un **trait** *EntranceStrategy* che rappresenta l'interfaccia della strategia di ingresso.
+L'unica implementazione del trait è **BaseEntranceStrategy** che rappresenta la strategia *Base*. Dopodichè le altre vengono modellate attraverso i **mixins** *FilterBasedStrategy* e *ProbabilityBasedStrategy*. Questo permette di ottenere una buona estendibilità (permettendo facilmente di creare nuovi *mixins* che corrispondono a nuove strategie) e la possibilità di comporre tra di loro le diverse strategie.
+
+Infine, le entità che riescono ad entrare rimangono all'interno della struttura per un periodo determinato a seconda della distribuzione gaussiana del tempo di permanenza nella struttura stessa. Il concetto di *permanenza* è stata modellato attraverso il **trait** *EntityPermanence*.
 
 #### Virus
 
