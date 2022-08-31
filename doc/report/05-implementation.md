@@ -54,13 +54,24 @@ Il Boundary necessita di esporre verso l'esterno gli eventi generati da esso. Qu
 
 #### Exporter
 
+Per quanto riguarda il metodo per esportare dati ad ogni step della simulazione esso utilizza tecniche di **folding** sugli estrattori di dati presenti.
+
+Inoltre gli estrattori di dati sono stati implementati attraverso *case class* immutabili le quali hanno il solo compito di implementare il metodo generico *extractData()* a seconda del tipo di dato che si intende estrarre.
+
 ### Launcher
 
 ### Loader
 
 #### Parser
 
+Al Parser vengono aggiunti tramite **extension methods** i metodi *shouldBeWithin* e *andIfNot*.
+In questo modo per ciascun parametro è possibile controllare se rientra nel range di valori possibili e in caso negativo generare un errore che verrà comunicato ai Boundary.
+
+Per quanto riguarda invece il *YAMLParser*, esso è arrichito dai metodi *to* e *has* per semplificare le operazioni di look-up e di conversione sulla mappa restituita dal parsing del file YAML.
+
 #### Reader
+
+Il Reader di JavaScript utilizza un *PublishSubject* di *Monix* per leggere il file caricato dall'utente sul broswer. In questo modo è possibile implementare il metodo utilizzando un approccio ad eventi ed associare ad esso un Task di Monix per rimanere coerenti con il resto del progetto.
 
 ### Engine
 
