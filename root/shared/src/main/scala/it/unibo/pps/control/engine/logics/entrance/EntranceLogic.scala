@@ -12,6 +12,7 @@ import it.unibo.pps.entity.structure.Structures.{House, SimulationStructure}
 import monix.eval.Task
 import monocle.syntax.all.*
 
+/* class that contains the logics for the entry of an entity in a structure*/
 class EntranceLogic extends UpdateLogic:
   import it.unibo.pps.entity.common.Utils.*
   type VisibleStructure = SimulationStructure with Visible
@@ -25,6 +26,7 @@ class EntranceLogic extends UpdateLogic:
       }
     yield updateEnv
 
+  /*Return an updated Environment if the entity is entered in a structure*/
   private def tryToEnter(environment: Environment, entity: SimulationEntity): Option[Environment] =
     for
       oldStruct <- environment.structures

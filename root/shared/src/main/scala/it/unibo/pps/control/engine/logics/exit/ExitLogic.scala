@@ -15,6 +15,7 @@ import monix.eval.Task
 import monocle.syntax.all.*
 import scala.util.Random
 
+/* class that contains the logics for the entry of an entity in a structure*/
 class ExitLogic extends UpdateLogic:
   import it.unibo.pps.entity.common.Utils.*
   type VisibleStructure = SimulationStructure with Visible
@@ -27,6 +28,7 @@ class ExitLogic extends UpdateLogic:
       }
     yield updateEnv
 
+  /*return the updated environment after check if entities in the structure must exit*/
   private def checkExit(environment: Environment, structure: SimulationStructure): Environment =
     val entities = structure.entities
     val exitedEntities =
@@ -45,6 +47,7 @@ class ExitLogic extends UpdateLogic:
       structures = environment.structures - structure + updatedStructure
     )
 
+  /*return the new entity position after she exit from the structure*/
   private def getNewEntityPosition(
       environment: Environment,
       structure: SimulationStructure,
