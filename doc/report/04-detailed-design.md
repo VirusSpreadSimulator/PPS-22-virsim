@@ -231,7 +231,9 @@ Inoltre, è stato definito un **type-alias** *Distance* al fine di rappresentare
 
 ##### Tempo
 
+La simulazione prende in considerazione anche lo scorrere del tempo e le logiche che vengono eseguite sono consapevoli di esso.
 
+Al fine di modellare il tempo corrente all'interno dell'environment è stato creato il **trait** *TimeStamp* il quale contiene il riferimento al tempo dell'engine corrente, cioè a quanti tick e iterazioni sono trascorse dall'inizio della simulazione. Inoltre, per poter essere utilizzato all'interno delle logiche esso possiede ulteriori metodi per convertire il tempo dell'engine nel tempo logico dell'environment e per ottenere a quale periodo del giorno (*inizio giornata*, *mattina*, *inizio della notte*, *notte*) quel tempo corrisponde (*sum type Period*).
 
 #### Entity
 
