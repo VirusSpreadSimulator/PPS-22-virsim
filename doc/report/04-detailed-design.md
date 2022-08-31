@@ -211,7 +211,15 @@ Le specializzazioni che sono state progettate in quanto utili per il sistema son
 
 ##### Eventi descritti da una probabilità
 
+La simulazione prende in considerazione molti eventi che accadono con una certa probabilità la cui formula per computarla è influenzata da diversi parametri. Un esempio è sicuramente l'evento di contagio la cui probabilità di accadimento dipende da diversi fattori, ad esempio nel contagio all'esterno abbiamo: distanza tra individui, immunità sviluppata dagli individui, presenza di mascherine, ecc... che devono partecipare nel calcolo della probabilità. Dopodichè ovviamente è necessario un "algoritmo" in grado di capire e simulare, data la probabilità, se l'evento è accaduto oppure no.
 
+A tal fine è stato progettata la **type class** *Probable* la quale consente di estendere un tipo generico come un evento dato da una certa probabilità.
+L'utilizzatore in questo modo dovrà solamente fornire l'implementazione della formula per poter aderire. 
+A partire dalla **type class** *Probable* è stato definito un algoritmo aggiuntivo il quale specifica il **context-bound** *Probable* sul tipo generico accettato e che permette di simulare se l'evento, data la probabilità computata dalla formula specificata dall'utilizzatore, è avvenuto o meno. Questo metodo permette di raggiungere l'obiettivo definito in precedenza: definire un evento probabile andando a specificare solamente la formula per calcolare la probabilità abilitando un utilizzo altamente dichiarativo del concetto.
+Il risultato viene espresso attravero il *sum type ProbabilityResult*. 
+Allo stesso tempo, al fine di essere compatibile anche con API che lavorano con tipi *Boolean* si è sfruttato il pattern **Adapter**, grazie alle **given Conversion** offerte da Scala, per poter convertire agilmente il tipo *ProbabilityResult* in *Boolean* e viceversa.
+
+Grazie a questa type-class il concetto di rappresentare un evento con una certa probabilità di accadimento può essere inserito a piacere su ogni tipo anche dopo la sua definizione. Tutto ciò grazie al pattern **type class** che ci permette di definire metodi dotati di **polimorfismo ad-hoc**.
 
 ##### Spazio
 
