@@ -1,0 +1,40 @@
+@startuml
+!theme vibrant
+
+interface Boundary <<trait>>
+interface Exporter <<trait>> {
+ outputFile: String
+ extractors: List[DataExtractor]
+}
+
+class FileExporter {
+  file: File
+  extractors: List[DataExtractors]
+
+}
+
+interface DataExtractor <<trait>> {
+  name: String
+  extractData: E
+}
+
+enum StatisticalData {
+  Alive
+  Infected
+  Deaths
+  HospitalPressure
+}
+  
+FileExporter ..> Boundary
+FileExporter ..> Exporter 
+Exporter -- DataExtractor
+FileExporter -- StatisticalData
+
+hide Exporter methods
+hide FileExporter methods
+hide Boundary members
+
+hide DataExtractor methods
+hide StatisticalData methods
+
+@enduml

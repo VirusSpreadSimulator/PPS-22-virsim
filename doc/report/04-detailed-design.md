@@ -110,7 +110,9 @@ Al fine di ottenere un design che separi l'estrazione delle statistiche dal conc
 Un DataExtractor contiene un nome utile per comprendere la tipologia di statistica che si intende calcolare ed un metodo *generico* per estrarre quest'ultima a partire dall'*environment* della simulazione.
 
 Al fine di elencare e riassumere tutte le tipologie di dati e statistiche che è possibile esportare è stata creata l'enum **StatisticalData**. 
-Inoltre, attraverso l'utilizzo del pattern **Adapter** , implementato con **Implicit Conversions**, si è reso possibile evitare di utilizzare ogni singola implementazione del trait DataExtractor mentre è sufficiente creare un elenco di statistiche dell'enum ed il  pattern si occuperà poi di istanziare per ognuna il rispettivo estrattore. 
+Inoltre, attraverso l'utilizzo del pattern **Adapter** , implementato con **Given Conversions**, si è reso possibile evitare di utilizzare ogni singola implementazione del trait DataExtractor mentre è sufficiente creare un elenco di statistiche dell'enum ed il  pattern si occuperà poi di istanziare per ognuna il rispettivo estrattore. 
+
+![Exporter](imgs/detailed_design_exporter.svg)
 
 Infine, l'aggiunta del trait *DataExtractor* si è rilevata utile anche nella creazione dei grafici in quanto anch'essi hanno l'obiettivo di mostrare alcuni dati aggregati durante la simulazione. In questo modo si sono evitate inutili ripetizioni di codice ed è stato relativamente semplice implementare i vari grafici presenti.
 
@@ -128,23 +130,48 @@ Al fine di mantenere l'approccio funzionale, si evitano qualsiasi forma di eccez
 
 Il Loader, appartenente al *Control*, si occupa di caricare la configurazione fornita dall'utente, creare l'environment iniziale ed infine lanciare l'engine della simulazione. Esso è un componente dell'architettura, quindi è modellato tramite il **Cake pattern** come descritto precedentemente.
 
-I componenti di cui necessita a livello architetturale sono l' *Environment*, in quanto una volta caricata la configurazione dovrà essere inizializzato con i paremetri definiti dall'utente e l'*Engine*, il quale dovrà iniziare la simulazione con l'environment aggiornato ed infine il *Parser*, necessario per il caricamento della configurazione.
+I componenti di cui necessita a livello architetturale sono l' *Environment*, in quanto una volta caricata la configurazione dovrà essere inizializzato con i paremetri definiti dall'utente, l'*Engine* il quale dovrà iniziare la simulazione con l'environment aggiornato ed infine il *Parser*, necessario per il caricamento della configurazione.
 
-Per quanto riguarda la configurazione della simulazione, si è scelto di rimanere coerenti con gli obiettivi di design descritti precedentemente. Infatti, si è scelto di perseguire un approccio estremamente dichiarativo considerando il file di configurazione come un file *Scala* esprimibile tramite un **DSL** implementato attraverso il pattern **Pimp my Library** con l'utilizzo di *extension methods* . 
+Per quanto riguarda la configurazione della simulazione, si è scelto di rimanere coerenti con gli obiettivi di design descritti precedentemente. Infatti, si è scelto di perseguire un approccio estremamente dichiarativo considerando il file di configurazione come un file *Scala* esprimibile tramite un **DSL** implementato attraverso il pattern **Pimp my Library** con l'utilizzo di **extension methods**. 
+
+In questo modo, anche un utente che non conosce il linguaggio Scala può creare e modificare i file di configurazione della simulazione in maniera semplice a seconda delle esigenze.
+A fronte di ciò è stato definito il trait *Configuration* ed una case class *VirsimConfiguration* la quale verrà istanziata direttamente  con i parametri definiti dall'utente.
+
+Nella creazione dell'environment viene delegata la creazione delle entità alla classe *EntityFactory*, fornita al loader tramite **given instance**  ed utilizzata come parametro implicito nel metodo *createEnvironment*. Quest'ultima utilizza il pattern **Factory** per creare il Set di entità partendo dai parametri del file di configurazione.
 
 Nel design del Loader si è scelto di separare la responsabilità del caricamento della configurazione con la creazione dell'environment e a tal fine è stato introdotto il componente Parser a supporto del Loader.
+
+![Loader_architecture](imgs/detailed_design_loader.svg)
 
 #### Parser 
 
 Il Parser, anch'esso appartenente al *Control*, ha il compito di effettuare controlli di validità sulla configurazione fornita dall'utente ed in seguito istanziarla e restituirla al *Loader*. Esso è un componente dell'architettura, quindi è modellato tramite il **Cake pattern** come descritto precedentemente.
 
-- Pimp my library con extension methods per facilitare il controllo degli errori
+Oltre a fungere da supporto al Loader per il caricamento della configurazione, la definzione del trait *Parser* permette di aggiungere in maniera facile ulteriori componenti per caricare file di configurazione in formati diversi. 
+A fronte di ciò sono state create due tipologie di Parser:
+
+- **ScalaParser**: si occupa di caricare i file di configurazione scritti tramite il DSL in Scala utilizzando la classe *ScriptEngineManager* di Java, fornita tramite **given instance**.
+- **YAMLParser**: si occupa di  caricare i file di configurazione scritti in formato YAML.
+
+Entrambe le tipologie implementano il trait Parser il quale contiene il metodo *checkErrors* già implementato in quanto è comune a tutti i parser presenti.
+
+Nel design del Parser si è adottato il pattern **Pimp my library** per aumentare chiarezza e leggibilità nei metodi per il controllo dei parametri della simulazione inseriti dall'utente.
+
+Per quanto riguarda la lettura del file di configurazione, la quale in quanto progetto cross-platform può avvenere sia tramite applicazione desktop che tramite web app,  si è reso necessario aggiungere un ulteriore componente *Reader*.
 
 #### Reader
 
-Il Reader, componente appartenente al *Control*, 
+Il Reader, componente appartenente al *Control*, ha il compito di leggere il file di configurazione fornito dall'utente e restituirlo al Parser il quale poi provvederà a caricarlo.
 
-- trait FilePath
+La motivazione dell'aggiunta di questo componente risiede nel fatto che non è possibile trovare una modalità di lettura di un file comune sia ad un' applicazione desktop che ad una web app.
+Per questo motivo è stato introdotto il trait Reader con due distinte implementazioni:
+
+- **JVMReader**: si occupa di leggere il file utilizzando le tradizionali API di Java per l'IO.
+- **JSReader**: si occupa di leggere il file fornito dal broswer utilizzando un *FileReader* di Javascript.
+
+Nel design del Reader si è cercato comunque di generalizzare un concetto di *Path* del file e ciò è stato possibile sfruttando il **family polimorphism** grazie agli **abstract types** di Scala.
+
+Per quanto riguarda il *JSReader* la lettura del file viene svolta utilizzando un approccio ad eventi per rimanere coerentei con l' Event Loop di JavaScript.
 
 L'interazione tra Loader, Parser e Reader viene riassunta nel seguente diagramma:
 

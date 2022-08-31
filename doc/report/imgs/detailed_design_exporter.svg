@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="362px" preserveAspectRatio="none" style="width:482px;height:362px;background:#FFFFFF;" version="1.1" viewBox="0 0 482 362" width="482px" zoomAndPan="magnify"><defs/><g><!--MD5=[d4eea0a2640b0744e449422abbb6da5e]
+class Boundary--><rect codeLine="3" fill="#FEFECE" height="37.9375" id="Boundary" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="91" x="7" y="159.5"/><ellipse cx="22" cy="178.4688" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M17.9219,174.2344 L17.9219,172.0781 L25.3125,172.0781 L25.3125,174.2344 L22.8438,174.2344 L22.8438,182.3125 L25.3125,182.3125 L25.3125,184.4688 L17.9219,184.4688 L17.9219,182.3125 L20.3906,182.3125 L20.3906,174.2344 L17.9219,174.2344 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="40" x="45.5" y="175.6387">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="59" x="36" y="189.6074">Boundary</text><!--MD5=[aa4617302d5207a1740f8e35839836af]
+class Exporter--><rect codeLine="4" fill="#FEFECE" height="71.5469" id="Exporter" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="183" x="133" y="142.5"/><ellipse cx="193.75" cy="161.4688" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M189.6719,157.2344 L189.6719,155.0781 L197.0625,155.0781 L197.0625,157.2344 L194.5938,157.2344 L194.5938,165.3125 L197.0625,165.3125 L197.0625,167.4688 L189.6719,167.4688 L189.6719,165.3125 L192.1406,165.3125 L192.1406,157.2344 L189.6719,157.2344 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="40" x="220.75" y="158.6387">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="53" x="214.25" y="172.6074">Exporter</text><line style="stroke:#A80036;stroke-width:1.5;" x1="134" x2="315" y1="180.4375" y2="180.4375"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="97" x="139" y="194.6479">outputFile: String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="171" x="139" y="207.4526">extractors: List[DataExtractor]</text><!--MD5=[833fa541b4fc384cef154b07d999ed02]
+class FileExporter--><rect codeLine="9" fill="#FEFECE" height="65.6094" id="FileExporter" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="190" x="129.5" y="7"/><ellipse cx="183.25" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M186.2188,28.6406 Q185.6406,28.9375 185,29.0781 Q184.3594,29.2344 183.6563,29.2344 Q181.1563,29.2344 179.8281,27.5938 Q178.5156,25.9375 178.5156,22.8125 Q178.5156,19.6875 179.8281,18.0313 Q181.1563,16.375 183.6563,16.375 Q184.3594,16.375 185,16.5313 Q185.6563,16.6875 186.2188,16.9844 L186.2188,19.7031 Q185.5938,19.125 185,18.8594 Q184.4063,18.5781 183.7813,18.5781 Q182.4375,18.5781 181.75,19.6563 Q181.0625,20.7188 181.0625,22.8125 Q181.0625,24.9063 181.75,25.9844 Q182.4375,27.0469 183.7813,27.0469 Q184.4063,27.0469 185,26.7813 Q185.5938,26.5 186.2188,25.9219 L186.2188,28.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="74" x="203.75" y="27.1543">FileExporter</text><line style="stroke:#A80036;stroke-width:1.5;" x1="130.5" x2="318.5" y1="39" y2="39"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="44" x="135.5" y="53.2104">file: File</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="178" x="135.5" y="66.0151">extractors: List[DataExtractors]</text><!--MD5=[9a465d66f379353653995cb960c97f66]
+class DataExtractor--><rect codeLine="15" fill="#FEFECE" height="71.5469" id="DataExtractor" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="119" x="165" y="284"/><ellipse cx="180" cy="302.9688" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M175.9219,298.7344 L175.9219,296.5781 L183.3125,296.5781 L183.3125,298.7344 L180.8438,298.7344 L180.8438,306.8125 L183.3125,306.8125 L183.3125,308.9688 L175.9219,308.9688 L175.9219,306.8125 L178.3906,306.8125 L178.3906,298.7344 L175.9219,298.7344 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="40" x="217.5" y="300.1387">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="87" x="194" y="314.1074">DataExtractor</text><line style="stroke:#A80036;stroke-width:1.5;" x1="166" x2="283" y1="321.9375" y2="321.9375"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="74" x="171" y="336.1479">name: String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="80" x="171" y="348.9526">extractData: E</text><!--MD5=[2d33d7cd37c44fdbf0f887a71b02eafc]
+class StatisticalData--><rect codeLine="20" fill="#FEFECE" height="91.2188" id="StatisticalData" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="124" x="351.5" y="133"/><ellipse cx="366.5" cy="149" fill="#EB937F" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M370.6094,155 L362.8906,155 L362.8906,142.6094 L370.6094,142.6094 L370.6094,144.7656 L365.3438,144.7656 L365.3438,147.4375 L370.1094,147.4375 L370.1094,149.5938 L365.3438,149.5938 L365.3438,152.8438 L370.6094,152.8438 L370.6094,155 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="92" x="380.5" y="153.1543">StatisticalData</text><line style="stroke:#A80036;stroke-width:1.5;" x1="352.5" x2="474.5" y1="165" y2="165"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="26" x="357.5" y="179.2104">Alive</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="45" x="357.5" y="192.0151">Infected</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="40" x="357.5" y="204.8198">Deaths</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="98" x="357.5" y="217.6245">HospitalPressure</text><!--MD5=[c470d37ff4c69555b1448ca1d506cba8]
+link FileExporter to Boundary--><path codeLine="27" d="M184.17,73 C152,98.54 107.8,133.61 79.69,155.92 " fill="none" id="FileExporter-to-Boundary" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="75.67,159.12,85.2033,156.6467,79.5827,156.007,80.2224,150.3864,75.67,159.12" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[196a9848794e20f959c1d208c916847c]
+link FileExporter to Exporter--><path codeLine="28" d="M224.5,73 C224.5,92.18 224.5,116.74 224.5,137.23 " fill="none" id="FileExporter-to-Exporter" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="224.5,142.34,228.5,133.34,224.5,137.34,220.5,133.34,224.5,142.34" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[ab7edbfa14ac61ea0bf840a7273818e0]
+link Exporter to DataExtractor--><path codeLine="29" d="M224.5,214.7 C224.5,235.85 224.5,262.66 224.5,283.81 " fill="none" id="Exporter-DataExtractor" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[c14320db0f3f18d2c3f6b5f7e06419d1]
+link FileExporter to StatisticalData--><path codeLine="30" d="M268.81,73 C293.47,90.81 324.55,113.26 351.58,132.78 " fill="none" id="FileExporter-StatisticalData" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[0309377d486db84defc6c758ac693e42]
+@startuml
+!theme vibrant
+
+interface Boundary <<trait>>
+interface Exporter <<trait>> {
+ outputFile: String
+ extractors: List[DataExtractor]
+}
+
+class FileExporter {
+  file: File
+  extractors: List[DataExtractors]
+
+}
+
+interface DataExtractor <<trait>> {
+  name: String
+  extractData: E
+}
+
+enum StatisticalData {
+  Alive
+  Infected
+  Deaths
+  HospitalPressure
+}
+  
+FileExporter ..> Boundary
+FileExporter ..> Exporter 
+Exporter - - DataExtractor
+FileExporter - - StatisticalData
+
+hide Exporter methods
+hide FileExporter methods
+hide Boundary members
+
+hide DataExtractor methods
+hide StatisticalData methods
+
+@enduml
+
+@startuml
+skinparam BackgroundColor FFFFFF
+skinparam shadowing false
+skinparam RoundCorner 7
+skinparam ArrowColor 454645
+skinparam FontColor 454645
+skinparam SequenceLifeLineBorderColor 696969
+skinparam SequenceGroupHeaderFontColor 454645
+skinparam SequenceGroupFontColor 696969
+skinparam SequenceGroupBorderColor 696969
+skinparam SequenceGroupBorderThickness 1
+
+skinparam sequenceDivider {
+    BorderColor 454645
+    BorderThickness 1
+    FontColor 454645
+}
+
+skinparam participant {
+    BackgroundColor FF6347
+    BorderColor FF6F61
+    FontColor FFFFFF
+}
+
+skinparam database {
+    BackgroundColor 00FFFF
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam entity {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam note {
+    BackgroundColor 7FFFD4
+    BorderColor 7FFFD4
+    FontColor 454645
+}
+
+skinparam actor {
+    BackgroundColor 454645
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam boundary {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam control {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam collections {
+    BackgroundColor FF6347
+    BorderColor FFFFFF
+    FontColor 454645
+}
+
+skinparam queue {
+    BackgroundColor FF6347
+    BorderColor FFF
+    FontColor FFF
+    BorderThickness 1.5
+}
+
+interface Boundary <<trait>>
+interface Exporter <<trait>> {
+ outputFile: String
+ extractors: List[DataExtractor]
+}
+
+class FileExporter {
+  file: File
+  extractors: List[DataExtractors]
+
+}
+
+interface DataExtractor <<trait>> {
+  name: String
+  extractData: E
+}
+
+enum StatisticalData {
+  Alive
+  Infected
+  Deaths
+  HospitalPressure
+}
+  
+FileExporter ..> Boundary
+FileExporter ..> Exporter 
+Exporter - - DataExtractor
+FileExporter - - StatisticalData
+
+hide Exporter methods
+hide FileExporter methods
+hide Boundary members
+
+hide DataExtractor methods
+hide StatisticalData methods
+
+@enduml
+
+PlantUML version 1.2021.13(Mon Nov 01 12:38:45 CET 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: GB
+--></g></svg>
