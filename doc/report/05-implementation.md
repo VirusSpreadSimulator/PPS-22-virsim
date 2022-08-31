@@ -20,31 +20,37 @@ Tutto ciò cercando di utilizzare le proprietà, le funzionalità e i costrutti 
 
 ### Boundary
 
-// Descrizione panels
+Considerando la necessità di eseguire il rendering della simulazione, sono necessari dei pannelli che contengano le informazioni di simulazione.
+Al fine di evitare di modellare gli stessi concetti sia per il boundary JVM che per il boundary JS, si è deciso di creare il concetto di Pannello a livello shared del Boundary.
+**BasePanel** modella il concetto di pannello di base che può essere inizializzato e stoppato. Esso viene esteso da **UpdatablePanel** il quale permette di aggiornare il pannello con il nuovo stato dell'*Environment*. Infine, è stato modellata anche la capacità di emettere degli eventi attraverso l'**EventablePanel** che sfrutta il pattern **self-type** in quanto rappresenta un'estensione, una capacità, che può essere aggiunta ad un qualsiasi pannello.
+
+Di seguito verranno descritte le scelte implementative più rilevanti prese nello sviluppo dei tre boundary.
 
 #### JVM
 
-//
+Come anticipato nel design di dettaglio *Java Swing* è fortemente object-oriented e segue un approccio a side-effects. 
+Al fine di gestire il disegno dei concetti di Simulazione è stata utilizzata la type-class *Drawable* descritta precedentemente. È stata creata l'instanza per JVM chiamata **DrawableSwing** in cui viene specificato il tipo di grafica utilizzato, *Graphics2D*, ed è stato eseguito un "pimping" specificando l'operazione aggiuntiva che consente di poter disegnare attraverso un'unica chiamata un *set* di *DrawableSwing*. 
 
-Considerando che *Java Swing* è fortemente object-oriented e con un approccio a side-effects, al fine di gestire il disegno dei concetti di Simulazione è stata utilizzata la type-class *Drawable* descritta precedentemente. È stata creata l'instanza per JVM chiamata **DrawableSwing** in cui viene specificato il tipo di grafica utilizzata, **Graphics2D**, ed è stato eseguito un "pimping" specifcando l'operazione aggiuntiva che consente di poter disegnare con solo una chiamata un *set* di *DrawableSwing*. 
+I concetti estesi con la capacità di disegno sono: *Environment*, *SimulationEntity* e *SimulationStructure*. Ciò ha permesso di isolare il codice necessario per eseguire il disegno degli elementi e quindi di isolare l'approccio a side-effects tipico dell'API di *Graphics2D*.
 
-I concetti estesi con queste capacità sono: *Environment*, *SimulationEntity*, *SimulationStructure*, permettendo quindi di disegnarli isolando tutto ciò che lavora tramite side-effects.
+Il Boundary JVM è in particolare un **ConfigBoundary** in quanto è il boundary principale dell'applicativo Desktop dedicato alla visualizzazione dell'interfaccia grafica del simulatore. Esso è composto da due frame principali:
 
-// fatto che il codice non funzionale è limitato qui in drawable e isolato 
+- *InitGUI*: è il primo frame che viene visualizzato ed è dedicato al caricamento della configurazione e alla visualizzazione degli eventuali errori associati.
+- *SimulationGUI*: è il frame che visualizza la simulazione in corso.
 
-// ma comunque è protetto dall'utilizzo di un approccio monadico rispetto a dove viene chiamato
+La struttura di entrambi i frame è stata sviluppata attraverso una descrizione monadica lazy sfruttando i **Task** (di cui è stato creato un "alias", `io`, per una migliore leggibilità del codice lato gui) offerti dalla libreria *Monix*. In questo modo essi si integrano molto facilmente all'interno di tutto il sistema monadico predisposto e descritto precedentemente. Inoltre, il frame *SimulationGUI*, data la sua complessità, è stato suddiviso in diversi pannelli che estendono i trait **BasePanel**, **UpdatablePanel** ed **EventablePanel** descritti in precedenza. 
 
-// Come si è suddivisa la GUI in frame e pannelli + merge dei vari eventi
-
-​	// publish subject pannello di init (config boundary) 
-
-// MonadComponents -> conversione + Observer creati ad hoc (magari con un esempio) + merge degli eventi
-
-
+Il Boundary necessita di esporre verso l'esterno gli eventi generati da esso. Questo è stato realizzato andando ad eseguire il *merging* di tutte le sorgenti di eventi presenti: **EventablePanels** ed **EventSource**, attraverso l'API di **Observable** offerta dalla libreria *Monix*.
 
 #### JS
 
-// Come JVM
+Al fine di gestire il disegno dei concetti di Simulazione è stata utilizzata anche qui la type-class *Drawable* descritta precedentemente. È stata creata l'instanza per JS chiamata **DrawableJS** in cui viene specificato il tipo di grafica utilizzato, *CanvasRenderingContext2D*, e, similmente a prima, è stato eseguito un "pimping" specificando l'operazione aggiuntiva che consente di poter disegnare attraverso un'unica chiamata un *set* di *DrawableJS*. 
+
+I concetti estesi con la capacità di disegno sono: *Environment*, *SimulationEntity* e *SimulationStructure*. Ciò ha permesso di isolare il codice necessario per eseguire il disegno degli elementi e quindi di isolare l'approccio a side-effects tipico dell'API di *CanvasRenderingContext2D*.
+
+Anche il Boundary JS è un **ConfigBoundary** in quanto è il boundary principale della WebApp ed è anch'esso dedicato alla visualizzazione dell'interfaccia grafica del simulatore. Esso è composto da una sola schermata la quale è stata sviluppata attraverso una descrizione monadica lazy sfruttando i **Task** offerti dalla libreria *Monix*. In questo modo essi si integrano molto facilmente all'interno di tutto il sistema monadico predisposto e descritto precedentemente. Similmente a quanto accade per *SimulationGUI* del Boundary JVM, data la sua complessità, la schermata è stato suddivisa in diversi pannelli che estendono i trait **BasePanel**, **UpdatablePanel** ed **EventablePanel** descritti in precedenza. 
+
+Il Boundary necessita di esporre verso l'esterno gli eventi generati da esso. Questo è stato realizzato andando ad eseguire il *merging* di tutte le sorgenti di eventi presenti: **EventablePanels** ed **EventSource**, attraverso l'API di **Observable** offerta dalla libreria *Monix*.
 
 #### Exporter
 
