@@ -41,7 +41,7 @@ object GaussianProperty:
     * @param unit
     *   the unit chosen for the duration time object
     */
-  case class GaussianDurationTime(mean: Double, val std: Double, unit: TimeUnit) extends Gaussian[DurationTime]:
+  case class GaussianDurationTime(mean: Double, std: Double, unit: TimeUnit) extends Gaussian[DurationTime]:
     override protected def convert(next: Double): DurationTime = DurationTime(next.toLong, unit)
 
   /** A integer generator that follow a gaussian distribution.
