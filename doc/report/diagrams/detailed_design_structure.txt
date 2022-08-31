@@ -30,6 +30,12 @@ interface Hospitalization <<trait>> {
 + treatmentQuality: TreatmentQuality
 }
 
+enum TreatmentQuality {
+GOOD
+MEDIUM
+LOW
+}
+
 object Position <<type>>
 object Probability <<type>>
 object TimeDistribution <<type>>
@@ -46,6 +52,8 @@ Structure <|-- Closable
 Structure <.. Groupable: <<self-type>>
 Structure <.. Habitable: <<self-type>>
 Structure <.. Hospitalization: <<self-type>>
+
+TreatmentQuality --o Hospitalization
 
 Position --* Structure
 Probability --* Structure
