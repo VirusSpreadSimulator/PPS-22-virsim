@@ -184,6 +184,43 @@ Ulteriori dettagli sull'*engine* e sul *simulation loop* saranno riportati nel c
 
 #### Common
 
+In questa sezione verranno descritti i concetti comuni presenti all'interno del modello del dominio, cioè il design di quegli elementi che trovano utilizzo nei tre macro concetti del dominio: entità, strutture e virus.
+Gli elementi descritti sono i seguenti:
+
+- Proprietà gaussiane
+- Eventi descritti da una probabilità
+- Spazio
+- Tempo
+
+##### Proprietà gaussiane
+
+Diverse proprietà all'interno del dominio sono descritte da una distribuzione gaussiana come ad esempio l'età degli individui oppure il tempo di permanenza all'interno delle strutture. Al fine di modellare il concetto di distribuzione gaussiana è stato creato il *trait* **Gaussian**. Esso è generico in un tipo il quale rappresenta il tipo della proprietà da generare. 
+La motivazione che deriva dalla modellazione di questo concetto è quello di evitare ripetizione di design e di codice nel modellare distribuzioni gaussiane.
+
+Infatti, considerando che tutto ciò che è necessario a generare un valore che rispetta una distribuzione gaussiana è condiviso indipendentemente da ciò che deve essere prodotto come tipo finale, si è deciso di progettare questo concetto utilizzando il pattern **Template Method**.
+
+![guassian_diagram](imgs/detailed_design_gaussian.svg)
+
+Il **Template Method** in questione è il metodo `next` definito nel trait **Gaussian** il quale contiene la logica di generazione di un valore, del tipo desiderato `A`, che rispetta la distribuzione guassiana. Al suo interno, dopo aver generato un valore numerico, esso viene convertito nel tipo desiderato grazie al metodo protetto `convert` che sarà l'unico metodo per cui verrà eseguito l'*override* nelle sottoclassi.
+In questo modo si riesce ad astrarre tutto ciò che è comune, specificando solo ciò che realmente cambia a livello poi implementativo.
+
+Le specializzazioni che sono state progettate in quanto utili per il sistema sono:
+
+- *GaussianDurationTime*: è un generatore di "tempi di durata" che segue una distribuzione gaussiana. Essi sono espressi secondo un'unità di misura come ad esempio: minuti, secondi, ..., 
+- *GaussianIntDistribution*: è un generatore di interi che segue una distribuzione guassiana.
+
+##### Eventi descritti da una probabilità
+
+
+
+##### Spazio
+
+
+
+##### Tempo
+
+
+
 #### Entity
 
 #### Structure
