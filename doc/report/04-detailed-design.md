@@ -148,7 +148,7 @@ Il Reader, componente appartenente al *Control*,
 
 L'interazione tra Loader, Parser e Reader viene riassunta nel seguente diagramma:
 
-![Loader_Parser_Reader_Interaction](/home/arop/UNI/MAGISTRALE/PPS/PPS-22-virsim/doc/report/diagrams/detailed_design_loader_diagram.svg)
+![Loader_Parser_Reader_Interaction](imgs/detailed_design_loader_diagram.svg)
 
 Maggiori dettagli verranno forniti nel capitolo *Implementazione*.
 

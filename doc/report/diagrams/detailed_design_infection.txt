@@ -1,0 +1,12 @@
+@startuml
+!theme vibrant
+
+interface Infection <<trait>>{
+severity: Severity
+timeOfTheInfection: TimeStamp
+duration: DurationTime
+}
+
+hide methods
+
+@enduml

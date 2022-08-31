@@ -40,10 +40,8 @@ object Entities:
       override val hasMask: Boolean = false
   ) extends Entity
       with Moving
-      with Infectious
       with Masquerable
-      with Living
-      with Immune:
+      with Living:
 
     import it.unibo.pps.entity.entity.Entities.SimulationEntity.calculateMaxHealth
 
@@ -51,6 +49,7 @@ object Entities:
     /* max health that the entity can have, based on the age. */
     override val maxHealth: Double = SimulationEntity.calculateMaxHealth(age)
 
+    /* redefine the equals method, two entities are the same if they have the same id */
     override def equals(that: Any): Boolean = that match
       case that: SimulationEntity => that.id == this.id
       case _ => false

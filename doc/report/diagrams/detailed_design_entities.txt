@@ -1,0 +1,45 @@
+@startuml
+!theme vibrant
+
+interface Entity <<trait>>{
+id: Int
+age: Int
+homePosition: Position
+}
+
+interface Moving <<trait>>{
+position: Position
+}
+
+interface Infectious <<trait>>{
+infection: Option[Infection]
+}
+
+interface Masquerable <<trait>>{
+hasMask: Boolean
+}
+
+interface Living <<trait>>{
+health: Double
+maxHealth: Double
+}
+
+interface Immune <<trait>>{
+immunity: Double
+}
+
+class SimulationEntity
+
+Moving --|> Entity
+Masquerable --|> Entity
+Infectious --|> Entity
+Living --|> Immune
+Living --|> Infectious
+Immune --|> Entity
+SimulationEntity --|> Moving
+SimulationEntity --|> Living
+SimulationEntity --|> Masquerable
+
+hide methods
+
+@enduml
