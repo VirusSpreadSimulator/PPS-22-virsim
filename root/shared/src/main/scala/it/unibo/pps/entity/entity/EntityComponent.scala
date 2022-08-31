@@ -1,7 +1,7 @@
 package it.unibo.pps.entity.entity
 
 /* A module that represents the characteristics that can have an Entity in the simulation. */
-object EntityComponent {
+object EntityComponent:
   /* Base implementation of an entity. */
   trait Entity:
     type Position
@@ -51,6 +51,7 @@ object EntityComponent {
       */
     def infection: Option[Infection]
 
+  /* Represent an entity that can wear a mask to protect against virus*/
   trait Masquerable extends Entity:
     /** During the simulation, an entity could wear a mask to decrease the probability of an infection
       * @return
@@ -58,7 +59,16 @@ object EntityComponent {
       */
     def hasMask: Boolean
 
-  trait Living extends Entity:
+  /*Represent an entity that could have an immunity rate that protect against virus*/
+  trait Immune extends Entity:
+    /** Every entity could have an immunity rate, that increase with a vaccine or after an infection and decrease as the
+      * simulation progresses
+      * @return
+      *   the current immunity rate of the entity
+      */
+    def immunity: Double
+
+  trait Living extends Infectious with Immune:
     /** The current health of an entity.
       * @return
       *   the health of the entity
@@ -70,12 +80,3 @@ object EntityComponent {
       *   the maximum health status that the entity could have.
       */
     def maxHealth: Double
-
-  trait Immune extends Entity:
-    /** Every entity could have an immunity rate, that increase with a vaccine or after an infection and decrease as the
-      * simulation progresses
-      * @return
-      *   the current immunity rate of the entity
-      */
-    def immunity: Double
-}
