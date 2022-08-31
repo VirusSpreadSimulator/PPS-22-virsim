@@ -146,7 +146,12 @@ Ad ogni Entity al momento della creazione viene attribuita un valore MaxHealth i
 
 #### Structure
 
-// Structures, che essendo case class con i defaults emulano il pattern Builder
+Le Strutture sono state effettivamente create partendo dal trait *SimulationStructure*, il quale definisce tutti gli **abstract types** definiti nel trait *Structure*, e componendolo con i trait rappresentanti le caratteristiche desiderate.
+Seguendo i requisiti sono state implementate le seguenti strutture:
+
+- *House*: rappresenta la casa per le entità
+- *GenericBuilding*: rappresenta un edificio generico
+- *Hospital*: rappresenta l'ospedale
 
 #### Virus
 
