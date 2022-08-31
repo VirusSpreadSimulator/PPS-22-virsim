@@ -196,9 +196,10 @@ Ulteriori dettagli sull'*engine* e sul *simulation loop* saranno riportati nel c
 
 ### Environment
 
-- Descrizione del componente ECB
-- env iniziale poi evoluto dall'engine.
--  Dipende solo dal loader
+Appartenente alle **Entity**, è un componente dell'architettura modellato tramite **Cake Pattern** come descritto in precedenza. 
+Si occupa di mantenere le informazioni delle Strutture, delle Entità, del Virus, oltre a quelle relative al tempo corrente, alla durata della simulazione e alla grandezza della griglia. Tutti i campi sono immutabili. 
+Ad ogni iterazione della simulazione viene aggiornato dal componente Engine. In particolare l'aggiornamento è gestito tramite il metodo `Update`. Esso ha tutti i parametri come default, i quali mantengono l'Environment invariato, e restituisce un nuovo Environment, aggiornando le informazioni con i parametri passati. 
+Le strutture vengono mantenute all'interno di un set, così come le entità che si muovono liberamente all'interno della griglia, mentre ogni struttura mantiene una lista delle entità al suo interno. Questo ha evitato problemi legati all'aggiornamento, in quando ogni entità è presente in modo univoco all'interno dell'Environment. É presente anche un metodo `allEntities` il quale restituisce un set contenente tutte le entità interne ed esterne alle strutture della simulazione.  
 
 #### Common
 
