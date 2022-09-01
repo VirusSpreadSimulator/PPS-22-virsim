@@ -175,18 +175,70 @@ Abbiamo ottenuto una coverage di linea di circa 50% ed una coverage totale di ci
 
 ### Suddivisione del lavoro
 
-// Dire che analisi, requisiti, ci e design arch fatto insieme
+L'analisi del dominio del problema, la raccolta e la stesura dei requisiti come anche la progettazione e lo sviluppo del processo di Continuous Integration e dell'architettura del sistema sono state portate avanti da tutti i componenti del team.
 
-Durante gli Sprint Planning e in particolare durante la compilazione della Sprint task board i vari compiti da portare a termine sono stati suddivisi tra i componenti del team. Di seguito, per ciascun componente, verranno elencati i concetti progettati e sviluppati.
+Durante gli Sprint Planning e in particolare durante la compilazione della Sprint task board i vari compiti da portare a termine sono stati suddivisi tra i componenti del team. Di seguito, per ciascun componente, verranno elencati i concetti progettati, sviluppati e testati.
 
 #### Acampora Andrea
 
+Nel progetto mi sono occupato del design, dello sviluppo e del testing dei seguenti concetti:
+
+- Caricamento della configurazione fornita dall'utente
+  - Loader
+  - Parser
+  - Reader
+  - DSL
+- Esportazione dei dati e calcolo dei dati aggregati di simulazione:
+  - Exporter
+  - DataExtractor
+- Creazione grafici per l'andamento della simulazione
+- Virus
+- Environment
+- Sviluppo delle seguenti logiche:
+  - Logica per la vaccinazione di una percentuale di popolazione
+
 #### Accursi Giacomo
+
+Nel progetto mi sono occupato del design, dello sviluppo e del testing dei seguenti concetti:
+
+- Sviluppo degli individui e dei concetti legati ad esso:
+  - Entity
+  - Infection
+- Sviluppo delle seguenti logiche:
+  - Logica di movimento
+  - Logica di ingresso nelle strutture
+  - Logica di uscita dalle strutture
+  - Logica per la gestione dell'obbligo di indossare la mascherina
+- Environment
 
 #### Giulianelli Andrea
 
-Nel progetto mi sono occupato del design e dello sviluppo di:
+Nel progetto mi sono occupato del design, dello sviluppo e del testing dei seguenti concetti:
 
-- 
+- Sviluppo delle strutture e dei concetti legati ad esse:
+  - Structure
+  - Strategie di ingresso 
+  - Permanenza dell'individuo all'interno della struttura
+
+- Sviluppo dei concetti comuni:
+  - Distribuzione gaussiana
+  - Evento probabile
+  - Spazio
+  - Tempo
+
+- Sviluppo dell'engine e gestione delle logiche
+- Sviluppo dei boundary:
+  - Boundary JVM escludendo la parte dei grafici
+  - Boundary JS
+
+- Sviluppo delle seguenti logiche:
+  - Logica per l'aggiornamento dell'obiettivo delle entità
+  - Logica per l'aggiornamento dello stato di salute delle entità
+  - Logica per l'ospedalizzazione delle entità
+  - Logica per la cura delle entità all'interno degli ospedali
+  - Logica di contagio
+  - Logica per la gestione dell'apertura dei gruppi di strutture
+  - Logica per l'aggiornamento dello stato dell'engine
+
 
 <div style="page-break-after: always;"></div>
