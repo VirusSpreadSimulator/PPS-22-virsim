@@ -7,7 +7,7 @@ Dopo aver descritto l'architettura del sistema, si procede con il design di dett
 Il design del sistema segue un approccio che cerca di combinare i vantaggi del mondo funzionale e del mondo ad oggetti. In generale, la linea che abbiamo seguito è quella di preferire l'approccio funzionale favorendo la dichiaratività, l'immutabilità e la descrizione lazy della computazione ed evitando o eventualmente incapsulando i side-effects e le eccezioni.
 In particolare, si è scelto di perseguire l'immutabilità evitando o incapsulando side-effects ed eccezioni in quanto nella maggior parte dei casi ciò permette di semplificare la logica del programma e soprattutto l'analisi e la comprensione del codice. Infatti, quando un elemento è mutabile, occorre ricostruire il suo stato rispetto a tutto il flow in cui esso viene utilizzato. Quindi, in questo design si è scelto di stressare l'immutabilità, anche per cercare di ottenere, ove possibile, il concetto di funzione pura, la quale a parità di input restituisce sempre lo stesso output. 
 
-Inoltre, si è deciso di adottare, ovunque possibile, un approccio monadico. Infatti questo approccio permette di rappresentare sequenze, anche complicate, di funzioni attraverso pipeline succinte che astraggono dal control flow e soprattutto dai side-effects. Infatti, l'approccio monadico consente  di rappresentare i side-effects come effects sul quale si ha maggiore controllo ed inoltre, utilizzando la libreria Monix, è stato possibile ottenere facilmente anche il vantaggio di poter descrivere la computazione in modo lazy, limitando i side-effects nell'*end-of-the-world*.
+Inoltre, si è deciso di adottare, ovunque possibile, un approccio monadico. Questo approccio permette di rappresentare sequenze, anche complicate, di funzioni attraverso pipeline succinte che astraggono dal control flow e soprattutto dai side-effects. Infatti, l'approccio monadico consente  di rappresentare i side-effects come effects sul quale si ha maggiore controllo ed inoltre, utilizzando la libreria Monix, è stato possibile ottenere facilmente anche il vantaggio di poter descrivere la computazione in modo lazy, limitando i side-effects nell'*end-of-the-world*.
 La scelta della libreria Monix per il nostro approccio monadico è derivata dal fatto che Monix possiede la monade *Task*, la quale consente di rappresentare la specifica di una computazione lazy o asincrona che, una volta eseguita, produrrà un risultato, assieme a tutti i possibile side-effect. *Task*s infatti non è *eager*, ed è *referential transparent* nel suo utilizzo safe. Questo permette di dividere l'esecuzione dalla descrizione della computazione, favorendo la dichiaratività.
 
 ### Design a componente dell'architettura
@@ -30,7 +30,7 @@ Come si vede dal diagramma, gli elementi presenti in ciascun componente sono:
 - un trait, qui chiamato per comodità **Component**, che utilizza le dipendenze richieste dal componente (**Requirements**) e contiene l'implementazione del componente stesso, qui chiamata per comodità **ComponentImpl**.
 - un trait che espone tutti i concetti del componente necessari per poter essere utilizzato assieme agli altri, qui chiamato per comodità **Interface**.
 
-Combinando tutto ciò con gli obiettivi del design descritti nella sezione precedente *si può riassumere il design in questo modo*:
+Combinando tutto ciò con gli obiettivi del design descritti nella sezione precedente, *si può riassumere il design in questo modo*:
 
 - Ogni elemento architetturale è rappresentato come un componente.
 - Le entities sono progettate favorendo un approccio funzionale.
@@ -41,7 +41,7 @@ Combinando tutto ciò con gli obiettivi del design descritti nella sezione prece
 ### Boundary
 
 Come anticipato, ciascun *boundary* incapsula l'interazione con gli attori del sistema.
-Il pattern ECB pone le sue fondamenta sul fatto che tutti i Boundary siano uguali e passavi, ricevendo le stesse informazioni dai control ed incapsulando le interazioni. Le interazioni degli attori del sistema con i componenti boundary vengono rappresentati nel nostro design come stream di eventi, sfruttando **Observable** di Monix.
+Il pattern ECB pone le sue fondamenta sul fatto che tutti i Boundary siano uguali e passavi rispetto agli altri componenti, ricevendo le stesse informazioni dai control ed incapsulando le interazioni. Le interazioni degli attori del sistema con i componenti boundary vengono rappresentate nel nostro design come stream di eventi, sfruttando **Observable** di Monix.
 
 Tra i boundary che possono essere iniettati all'interno del simulatore deve essere sempre essere prensente un **ConfigBoundary** dedicato al caricamento della configurazione e alla visualizzazione degli errori in essa. La necessità di un tipo speciale di Boundary è nata dal fatto che nel nostro caso abbiamo due tipologie di eventi:
 
@@ -52,7 +52,7 @@ Al fine di rispettare la *dependency rule* descritta dalla Clean Architecture e 
 
 ![config_boundary](imgs/detailed_design_config_boundary.svg)
 
-Perciò, tra i boundary specificati per l'applicazione ve ne sarà solamente uno di tipo ConfigBoundary, il quale gestirà, tra le altre cose, anche la parte di inizializzazione della simulazione con il compito di fornire la configurazione e gestire gli eventuali errori verso l'attore del sistema.
+Perciò, tra i boundary specificati per l'applicazione ve ne sarà solamente uno di tipo *ConfigBoundary*, il quale gestirà, tra le altre cose, anche la parte di inizializzazione della simulazione con il compito di fornire la configurazione e gestire gli eventuali errori verso l'attore del sistema.
 
 I boundary sviluppati sono i seguenti:
 
@@ -66,8 +66,8 @@ A tal proposito, al fine di isolare l'approccio a side-effects tipico del disegn
 ![drawable_concept](imgs/detailed_design_drawable_general.svg)
 
 La type class è stata progettata per lavorare con gli extension methods di Scala (non facilmente rappresentabili in UML). 
-Grazie a questa type-class la capacità di essere disegnati può essere inserita a piacere su ogni tipo definito anche dopo la sua definizione. Tutto ciò grazie al pattern **type class** che ci permette di definire metodi dotati di **polimorfismo ad-hoc**. 
-Essendo un concetto comune a tutti i boundary, Drawable astrae dal tipo di grafica utilizzata e definisce al suo posto un **abstract type** (**Graphic**).
+Grazie a questa type-class la capacità di essere disegnati può essere inserita a piacere su ogni tipo anche dopo la sua definizione. Tutto ciò grazie al pattern **type class** che ci permette di definire metodi dotati di **polimorfismo ad-hoc**. 
+Essendo un concetto comune a tutti i boundary, *Drawable* astrae dal tipo di grafica utilizzata e definisce al suo posto un **abstract type** (*Graphic*).
 In questo modo i boundary platform-specific potranno specificare il proprio tipo ed eseguire il "pimping" di operazioni basate su di essa.
 
 Inoltre, al fine di rappresentare il concetto di sorgente di eventi a livello di boundary è stato modellato il trait **EventSource**.
@@ -80,14 +80,14 @@ Il seguente concetto modella tutto ciò che è in grado di emettere eventi dovut
 #### JVM
 
 Il boundary che gestisce la gui jvm-based si occupa di visualizzare l'interfaccia grafica del simulatore dell'applicazione Desktop.
-L'applicazione è composta da due schermate principali che soddisfano i mockup sviluppati ed approvati dal committente e mostrati nel capitolo dei requisiti. 
+L'applicazione è composta da due schermate principali che soddisfano i mockup sviluppati ed approvati dal committente mostrati nel capitolo dei requisiti. 
 
 Il design di questo boundary è avvenuto considerando l'utilizzo della libreria **Java Swing**. Al fine di poter integrare agilmente il design monadico di tutto il sistema con la gui, si è deciso di adottare un approccio in cui le varie view consistono in descrizioni monadiche lazy della costruzione e del comportamento dei componenti, in modo tale da aderire al paradigma funzionale incapsulando la natura object-oriented e side-effect oriented di **Java Swing**.
 Inoltre, considerando che i boundary comunicano con i control emettendo eventi, tutti i componenti di Java Swing necessari all'interazione degli attori sono stati ridefiniti attraverso dei wrapper ad-hoc che consentono di integrarli agilmente in un contesto monadico (**MonadComponents**). In particolare, ogni componente in questione (wrapper di: *JButton*, *JComboBox*, *JTextField*, ...) estende il trait **EventSource** descritto in precedenza.
 
-In questo modo ogni componente, il quale esprime, in Java Swing, ogni comportamento attraverso side-effect, diventa un componente facilmente integrabile in un contesto monadico nel quale il flow è gestito attraverso stream di eventi.
+In questo modo ogni componente, il quale esprime, in Java Swing, il proprio comportamento attraverso side-effect, diventa un componente facilmente integrabile in un contesto monadico nel quale il flow è gestito attraverso stream di eventi.
 
-Considerando che *Java Swing* è fortemente object-oriented e con un approccio basato sui side-effects, al fine di gestire il disegno dei concetti di Simulazione è stata utilizzata la type-class *Drawable* descritta precedentemente. Maggiori dettagli verrano forniti nel capitolo *Implementazione*.
+Inoltre, al fine di gestire il disegno dei concetti di simulazione è stata utilizzata la type-class *Drawable* descritta precedentemente. Maggiori dettagli verrano forniti nel capitolo *Implementazione*.
 
 #### JS
 
@@ -98,7 +98,7 @@ Il design di questo boundary è avvenuto considerando l'utilizzo della libreria 
 
 Similmente a quanto descritto precedentemente, considerando che i boundary comunicano con i control emettendo eventi, tutti i componenti HTML-based di Scalajs necessari all'interazione degli attori sono stati ridefiniti attraverso dei wrapper ad-hoc che consentono di integrarli agilmente in un contesto monadico (**MonadComponents**). In particolare, ogni componente in questione (wrapper di: *Button*, *Select*, *Input*, ...) estende il trait **EventSource** descritto in precedenza.
 
-Al fine di gestire il disegno dei concetti di Simulazione è stata utilizzata la type-class *Drawable* descritta precedentemente. Maggiori dettagli verrano forniti nel capitolo *Implementazione*.
+Al fine di gestire il disegno dei concetti di simulazione è stata utilizzata la type-class *Drawable* descritta precedentemente. Maggiori dettagli verrano forniti nel capitolo *Implementazione*.
 
 #### Exporter
 
@@ -124,7 +124,7 @@ Come anticipato, il Launcher è un componente appartenente al control ed è il p
 
 Il suo scopo è coordinare l'avviamento della simulazione comunicando con il loader ed eventualmente con i boundary in caso di errori nella configurazione fornita.
 
-Al fine di mantenere l'approccio funzionale, si evitano qualsiasi forma di eccezione incapsulandole nei tipi di dato ritornati. In particolare, è possibile notare **ConfigurationResult**, un Product Type restituito dal metodo *parseConfiguration* del loader, che incapsula gli eventuali errori all'interno della configurazione fornita dall'utente.
+Al fine di mantenere l'approccio funzionale, si evitano qualsiasi forma di eccezione incapsulandole nei tipi di dato ritornati. In particolare, è possibile notare **ConfigurationResult**, un Product Type restituito dal metodo *parseConfiguration* del *Loader*, che incapsula gli eventuali errori all'interno della configurazione fornita dall'utente.
 
 ### Loader
 
@@ -185,7 +185,7 @@ L'Engine si occupa di gestire il simulation loop aggiornando la simulazione e in
 
 Nel design dell'engine e quindi nel design del simulation loop è opportuno considerare gli obiettivi di design descritti precedentemente. Infatti, si desidera creare un motore con cui gestire la simulazione che adotti un approccio funzionale e il più possibile dichiarativo. 
 Il simulation loop è stato espresso mediante un approccio monadico basato su Monix che ha consentito di specificarlo attraverso una descrizione lazy della computazione rimanendo altamente dichiarativi.
-Infatti, come spiegato successivamente, la gestione degli eventi, delle logiche e degli aggiornamenti in generale è stato espresso mantenendo un'elevata dichiaratività, senza preoccuparsi del control-flow e senza gestire in modo imperativo i thread di esecuzione.
+Infatti, come spiegato successivamente, la gestione degli eventi, delle logiche e degli aggiornamenti in generale è stato espressa mantenendo un'elevata dichiaratività, senza preoccuparsi del control-flow e senza gestire in modo imperativo i thread di esecuzione.
 
 Il compito dell'Engine, oltre a raccogliere gli eventi provenienti dai boundary, è eseguire le logiche di aggiornamento della simulazione. Esse devono essere eseguite nell'ordine specificato. Inoltre, come da requisito 2.3.2 è necessario poter impostare la velocità di simulazione oltre che gestire lo stato (2.3.1) e gestire le interazioni dinamiche dell'utente (2.3.3).
 Da questo ne deriva la necessità di esprimere una configurazione dell'Engine, la quale sia indipendente dalla particolare istanza di simulazione, e che possa essere impostata a livello di applicazione. A tal fine è stato creato il trait **SimulationConfig** che rappresenta la configurazione da utilizzare nell'Engine. Al fine di iniettare la configurazione nell'engine, esso è stato progettato per utilizzare un **context parameter** di tipo **SimulationConfig** a livello di costruttore.
@@ -257,15 +257,15 @@ Le specializzazioni che sono state progettate in quanto utili per il sistema son
 
 ##### Eventi descritti da una probabilità
 
-La simulazione prende in considerazione molti eventi che accadono con una certa probabilità la cui formula per computarla è influenzata da diversi parametri. Un esempio è sicuramente l'evento di contagio la cui probabilità di accadimento dipende da diversi fattori, ad esempio nel contagio all'esterno abbiamo: distanza tra individui, immunità sviluppata dagli individui, presenza di mascherine, ecc... che devono partecipare nel calcolo della probabilità. Dopodichè ovviamente è necessario un "algoritmo" in grado di capire e simulare, data la probabilità, se l'evento è accaduto oppure no.
+La simulazione prende in considerazione molti eventi che accadono con una certa probabilità la cui formula per computarla è influenzata da diversi parametri. Un esempio è sicuramente l'evento di contagio la cui probabilità di accadimento dipende da diversi fattori, ad esempio nel contagio all'esterno abbiamo: distanza tra individui, immunità sviluppata dagli individui, presenza di mascherine, ecc... che devono partecipare nel calcolo della probabilità. Dopodiché ovviamente è necessario un "algoritmo" in grado di capire e simulare, data la probabilità, se l'evento è accaduto oppure no.
 
-A tal fine è stato progettata la **type class** *Probable* la quale consente di estendere un tipo generico come un evento dato da una certa probabilità.
+A tal fine è stata progettata la **type class** *Probable* la quale consente di estendere un tipo generico con la capacità di agire come un evento descritto da una certa probabilità di accadimento.
 L'utilizzatore in questo modo dovrà solamente fornire l'implementazione della formula per poter aderire. 
 A partire dalla **type class** *Probable* è stato definito un algoritmo aggiuntivo il quale specifica il **context-bound** *Probable* sul tipo generico accettato e che permette di simulare se l'evento, data la probabilità computata dalla formula specificata dall'utilizzatore, è avvenuto o meno. Questo metodo permette di raggiungere l'obiettivo definito in precedenza: definire un evento probabile andando a specificare solamente la formula per calcolare la probabilità abilitando un utilizzo altamente dichiarativo del concetto.
 Il risultato viene espresso attravero il *sum type ProbabilityResult*. 
 Allo stesso tempo, al fine di essere compatibile anche con API che lavorano con tipi *Boolean* si è sfruttato il pattern **Adapter**, grazie alle **given Conversion** offerte da Scala, per poter convertire agilmente il tipo *ProbabilityResult* in *Boolean* e viceversa.
 
-Grazie a questa type-class il concetto di rappresentare un evento con una certa probabilità di accadimento può essere inserito a piacere su ogni tipo anche dopo la sua definizione. Tutto ciò grazie al pattern **type class** che ci permette di definire metodi dotati di **polimorfismo ad-hoc**.
+Grazie a questa type-class la capacità di rappresentare un evento probabile può essere inserita a piacere su ogni tipo anche dopo la sua definizione. Tutto ciò grazie al pattern **type class** che ci permette di definire metodi dotati di **polimorfismo ad-hoc**.
 
 ##### Spazio
 
@@ -317,8 +317,8 @@ Si nota l'utilizzo del pattern **Template Method** per definire i due comportame
 - `tryToEnter`: questo template method definisce lo scheletro con cui coordinare l'ingresso di un'entità all'interno della struttura. Esso si appoggia ai seguenti metodi che dovranno essere *overridati* nelle varie implementazioni:
   - `checkEnter`: è il metodo che include i vari controlli da eseguire prima di poter far entrare l'entità. Esso può prendere in considerazione la strategia e/o le caratteristiche della struttura stessa.
   - `enter`: è il metodo che definisce come si comporta la struttura quando un'entità viene accettata all'interno di essa. Da notare che ritorna una nuova instanza in quanto immutabile.
-  - `notEntered`: è il metodo che definisce come si comporta la struttura quando un'entità non viene accettata all'interno di essa. Da notare che ritorna una nuova instanza in quanto immutabile.
-- `entityExit`: questo template method definisce lo scheletro con cui coordinare l'uscita di un'entità dalla struttura. Esso si appoggia al metodo `exit` il quale definisce come gestire l'uscita dell'entità dalla struttura che dovrà essere *overridato* nella varie implementazioni.
+  - `notEntered`: è il metodo che definisce come si comporta la struttura quando un'entità non viene accettata all'interno di essa.
+- `entityExit`: questo template method definisce lo scheletro con cui coordinare l'uscita di un'entità dalla struttura. Esso si appoggia al metodo `exit`, il quale definisce come gestire l'uscita dell'entità dalla struttura, che dovrà essere *overridato* nella varie implementazioni.
 
 A partire da ciò i **mixins** *Visible* e *Closable* rappresentano due estensioni del concetto che modellano rispettivamente la capacità della struttura di essere vista da un'entità e la capacità di essere chiusa. Quest'ultima agisce proprio da **mixin** in quanto definisce un modo per "impilare" una modifica a `checkEnter`. Essi sono stati definiti come **mixins** in quanto possono avere effetto sulle funzionalità della Struttura stessa, come nel caso di *Closable*.
 
@@ -333,7 +333,7 @@ Per definire i tipi di strutture è stato pensato un ulteriore **trait** *Simula
 
 Tutto ciò permette di definire le strutture (Casa, Edificio generico, Ospedale, ecc...) semplicemente mettendo assieme, componendo, tutte le componenti e caratteristiche necessarie. In questo modo è semplice creare nuove tipologie di Strutture con nuovi componenti e/o caratteristiche lavorando con una buona flessibilità e soprattutto consentendo di progettare partendo da una definizione indipendente dal design della restante parte del simulatore (grazie all'*abstract-modelling*).
 
-- La strategia di ingresso viene gestita all'interno della struttura attraverso pattern **Strategy**, passando la suddetta strategia alla struttura da creare.
+La strategia di ingresso viene gestita all'interno della struttura attraverso pattern **Strategy**, passando la suddetta strategia alla struttura da creare.
 
 Le strategie di ingresso sono di tre tipi principali:
 
@@ -343,7 +343,7 @@ Le strategie di ingresso sono di tre tipi principali:
 
 Come anticipato, il design deve prevedere una buona estensibilità nel tipo di strategie disponibili permettendone, inoltre, la loro composizione (ad esempio *Filter-based* assieme alla *Probability-based*, *"le entità con più di 18 anni sono ammesse con una probabilità del 50%"*). Al fine di modellare tutto ciò è stato scelto di utilizzare i **mixins**.
 È stato modellato un **trait** *EntranceStrategy* che rappresenta l'interfaccia della strategia di ingresso.
-L'unica implementazione del trait è **BaseEntranceStrategy** che rappresenta la strategia *Base*. Dopodichè le altre vengono modellate attraverso i **mixins** *FilterBasedStrategy* e *ProbabilityBasedStrategy*. Questo permette di ottenere una buona estendibilità (nuove strategie possono essere aggiunte con facilità specificando nuovi *mixins*) e la possibilità di comporre tra di loro le diverse strategie.
+L'unica implementazione del trait è **BaseEntranceStrategy** che rappresenta la strategia *Base*. Dopodiché le altre vengono modellate attraverso i **mixins** *FilterBasedStrategy* e *ProbabilityBasedStrategy*. Questo permette di ottenere una buona estendibilità (nuove strategie possono essere aggiunte con facilità specificando nuovi *mixins*) e la possibilità di comporre tra di loro le diverse strategie.
 
 Infine, le entità che riescono ad entrare rimangono all'interno della struttura per un periodo determinato a seconda della distribuzione gaussiana del tempo di permanenza nella struttura stessa. Il concetto di *permanenza* è stato modellato attraverso il **trait** *EntityPermanence*.
 
