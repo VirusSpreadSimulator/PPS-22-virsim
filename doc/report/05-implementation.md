@@ -158,10 +158,18 @@ Seguendo i requisiti sono state implementate le seguenti strutture:
 
 ### Suddivisione del lavoro
 
+// Dire che analisi, requisiti, ci e design arch fatto insieme
+
+Durante gli Sprint Planning e in particolare durante la compilazione della Sprint task board i vari compiti da portare a termine sono stati suddivisi tra i componenti del team. Di seguito, per ciascun componente, verranno elencati i concetti progettati e sviluppati.
+
 #### Acampora Andrea
 
 #### Accursi Giacomo
 
 #### Giulianelli Andrea
+
+Nel progetto mi sono occupato del design e dello sviluppo di:
+
+- 
 
 <div style="page-break-after: always;"></div>
