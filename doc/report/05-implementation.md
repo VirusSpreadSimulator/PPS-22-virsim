@@ -77,18 +77,14 @@ Le tipologie di estrattori presenti sono:
 - **Hospitalized**: si occupa di estrarre il numero di entità ricoverate negli ospedali.
 - **HospitalPressure**: si occupa di estrarre la pressione ospedaliera ossia il rapporto tra gli ospedalizzati ed i posti liberi rimanenti.
 
-### Launcher
-
-### Loader
-
-#### Parser
+### Parser
 
 Al Parser vengono aggiunti tramite **extension methods** i metodi *shouldBeWithin* e *andIfNot*.
 In questo modo per ciascun parametro è possibile controllare se rientra nel range di valori possibili e in caso negativo generare un errore che verrà comunicato ai Boundary.
 
 Per quanto riguarda invece il *YAMLParser*, esso è arrichito dai metodi *to* e *has* per semplificare le operazioni di look-up e di conversione sulla mappa restituita dal parsing del file YAML.
 
-#### Reader
+### Reader
 
 Il Reader di JavaScript utilizza un *PublishSubject* di *Monix* per leggere il file caricato dall'utente sul broswer. In questo modo è possibile implementare il metodo utilizzando un approccio ad eventi ed associare ad esso un Task di Monix per rimanere coerenti con il resto del progetto.
 
@@ -171,9 +167,11 @@ Seguendo i requisiti sono state implementate le seguenti strutture:
 - *GenericBuilding*: rappresenta un edificio generico
 - *Hospital*: rappresenta l'ospedale
 
-#### Virus
-
 ### Test
+
+Al fine di garantire la correttezza e la qualità del codice il team ha sfruttato il modello di sviluppo **TDD** (*Test Driven Development*) durante lo sviluppo di tutte le parti del sistema ad eccezione delle parti di interfaccia utente. Inoltre, allo scopo di prevenire situazioni di regressione, come anticipato nella descrizione del processo di sviluppo, i test vengono eseguiti come parte della pipeline di Build del workflow di Continuous Integration.
+
+Abbiamo ottenuto una coverage di linea di circa 50% ed una coverage totale di circa 30%.
 
 ### Suddivisione del lavoro
 
