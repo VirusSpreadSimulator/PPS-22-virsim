@@ -12,7 +12,7 @@ Innanzitutto abbiamo considerato, come anticipato, un approccio in cui si favori
 
 Di seguito alcuni accorgimenti adottati nell'implementazione.
 
-Nell'utilizzo di **case class** abbiamo sfruttato le **lens** (attraverso la libreria [Monocle](https://www.optics.dev/Monocle/)) per accedere e transformare i dati immutabili in modo più agevole e soprattutto in modo maggiormente dichiarativo.
+Nell'utilizzo di **case class** abbiamo sfruttato le **lens** (attraverso la libreria [Monocle](https://www.optics.dev/Monocle/)) per accedere e trasformare i dati immutabili in modo più agevole e soprattutto in modo maggiormente dichiarativo.
 
 Abbiamo preferito l'utilizzo di **Factory** attraverso il metodo `apply` nel companion object dei trait invece che esporre direttamente le implementazioni al fine di dare una modellazione più astratta del concetto, che sia indipendente dalla specifica implementazione, consentendo allo stesso tempo di modificare dettagli implementativi in modo più agevole.
 
@@ -29,7 +29,7 @@ Di seguito verranno descritte le scelte implementative più rilevanti prese nell
 #### JVM
 
 Come anticipato nel design di dettaglio *Java Swing* è fortemente object-oriented e segue un approccio a side-effects. 
-Al fine di gestire il disegno dei concetti di Simulazione è stata utilizzata la type-class *Drawable* descritta precedentemente. È stata creata l'instanza per JVM chiamata **DrawableSwing** in cui viene specificato il tipo di grafica utilizzato, *Graphics2D*, ed è stato eseguito un "pimping" specificando l'operazione aggiuntiva che consente di poter disegnare attraverso un'unica chiamata un *set* di *DrawableSwing*. 
+Al fine di gestire il disegno dei concetti di Simulazione è stata utilizzata la type-class *Drawable* descritta precedentemente. È stata creata l'istanza per JVM chiamata **DrawableSwing** in cui viene specificato il tipo di grafica utilizzato, *Graphics2D*, ed è stato eseguito un "pimping" specificando l'operazione aggiuntiva che consente di poter disegnare attraverso un'unica chiamata un *set* di *DrawableSwing*. 
 
 I concetti estesi con la capacità di disegno sono: *Environment*, *SimulationEntity* e *SimulationStructure*. Ciò ha permesso di isolare il codice necessario per eseguire il disegno degli elementi e quindi di isolare l'approccio a side-effects tipico dell'API di *Graphics2D*.
 
@@ -44,7 +44,7 @@ Il Boundary necessita di esporre verso l'esterno gli eventi generati da esso. Qu
 
 #### JS
 
-Al fine di gestire il disegno dei concetti di Simulazione è stata utilizzata anche qui la type-class *Drawable* descritta precedentemente. È stata creata l'instanza per JS chiamata **DrawableJS** in cui viene specificato il tipo di grafica utilizzato, *CanvasRenderingContext2D*, e, similmente a prima, è stato eseguito un "pimping" specificando l'operazione aggiuntiva che consente di poter disegnare attraverso un'unica chiamata un *set* di *DrawableJS*. 
+Al fine di gestire il disegno dei concetti di Simulazione è stata utilizzata anche qui la type-class *Drawable* descritta precedentemente. È stata creata l'istanza per JS chiamata **DrawableJS** in cui viene specificato il tipo di grafica utilizzato, *CanvasRenderingContext2D*, e, similmente a prima, è stato eseguito un "pimping" specificando l'operazione aggiuntiva che consente di poter disegnare attraverso un'unica chiamata un *set* di *DrawableJS*. 
 
 I concetti estesi con la capacità di disegno sono: *Environment*, *SimulationEntity* e *SimulationStructure*. Ciò ha permesso di isolare il codice necessario per eseguire il disegno degli elementi e quindi di isolare l'approccio a side-effects tipico dell'API di *CanvasRenderingContext2D*.
 
@@ -96,7 +96,7 @@ Nella descrizione del design di dettaglio sono presenti due tipologie di logiche
   - **InternalInfectionLogic**: è la logica che si occupa di gestire il contagio internamente alle strutture.
   - **LogicTimeUpdate**: è la logica che aggiorna il tempo virtuale della simulazione.
   - **IterationLogic**: è la logica che controlla la terminazione della simulazione.
-- *EventLogic*: ogni evento appartenente ad **Event** è associata la corrispettiva logica. All'interno della configurazione fornita all'engine (*SimulationConfig*) la funzione `Event => EventLogic` è implementata attraverso l'utilizzo di una **Map**.
+- *EventLogic*: nella configurazione (*SimulationConfig*) ogni evento appartenente ad **Event** è associato alla corrispettiva logica. All'interno della configurazione la funzione `Event => EventLogic` è implementata attraverso l'utilizzo di una **Map**.
   - **PauseLogic**, **ResumeLogic**, **StopLogic**: rispettivamente associati agli eventi *Pause*, *Resume* e *Stop*, si occupano della gestione della volontà dell'utente di mettere in pausa, riprendere e stoppare preventivamente la simulazione.
   - **SimulationSpeedLogic**: associato all'evento *ChangeSpeed(speed)*, si occupa di gestire la volontà dell'utente di cambiare la velocità di simulazione.
   - **SwitchMaskObligationLogic**: associato all'evento *SwitchMaskObligation*, si occupa di gestire la volontà dell'utente di inserire/togliere l'obbligo di mascherina per tutte le entità dell'Environment.
@@ -145,7 +145,7 @@ Ad ogni Entity al momento della creazione viene attribuita un valore MaxHealth i
 
 #### Structure
 
-Le Strutture sono state effettivamente create partendo dal trait *SimulationStructure*, il quale definisce tutti gli **abstract types** definiti nel trait *Structure*, e componendolo con i trait rappresentanti le caratteristiche desiderate.
+Le Strutture sono state effettivamente create partendo dal trait *SimulationStructure*, il quale definisce tutti gli **abstract types** dichiarati nel trait *Structure*, e componendolo con i trait rappresentanti le caratteristiche desiderate. Questo approccio rende flessibile e agile l'estensione e l'aggiunta di nuove strutture e l'aggiunta di nuove tipologie.
 Seguendo i requisiti sono state implementate le seguenti strutture:
 
 - *House*: rappresenta la casa per le entità
