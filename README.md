@@ -1,4 +1,5 @@
-# VirSim - Virus Spread Simulator
+<img src="https://github.com/VirusSpreadSimulator/PPS-22-virsim/blob/gh-pages/assets/logo.png?raw=true#gh-dark-mode-only" style="width:80%"></img> \
+<img src="https://github.com/VirusSpreadSimulator/PPS-22-virsim/blob/gh-pages/assets/logo_light.png?raw=true#gh-light-mode-only" style="width:80%"></img> \
 ![workflow-main-badge](https://github.com/VirusSpreadSimulator/PPS-22-Virsim/actions/workflows/build.yml/badge.svg?branch=main)
 ![scala-version-badge](https://img.shields.io/badge/scala-3.1.1-red)
 ![sbt-version-badge](https://img.shields.io/badge/sbt-1.6.2-red)
