@@ -45,6 +45,11 @@ La documentazione riguardante l'andamento dello sviluppo è mantenuta in version
 
 ### Commenti finali
 
+Il progetto ha consentito di approfondire aspetti di design, sviluppo e gestione di un software in un contesto Scrum emulando un contesto reale.
+Inoltre, ha concesso di approfondire gli argomenti trattati nel corso e di esplorare l'approccio funzionale. 
 
+Durante tutto il progetto abbiamo seguito il consiglio di sperimentare nuovi pattern, strumenti, strategie e metodologie come ad esempio: il pattern architetturale ECB, Continuous Integration, lo sviluppo di un progetto cross-platform, l'approccio monadico ...
+
+Al termine del progetto possiamo ritenerci soddisfatti in quanto abbiamo raggiunto gli obiettivi che ci eravamo imposti in fase di stesura dei requisiti con un buon bilanciamento nella suddivisione degli item e degli obiettivi e un'ottima sinergia tra i vari componenti del team.
 
 <div style="page-break-after: always;"></div>
