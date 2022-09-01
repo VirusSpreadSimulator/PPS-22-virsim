@@ -76,7 +76,7 @@ object LoaderModule:
             case None =>
               Task(
                 ConfigurationResult.ERROR(
-                  List(ConfigurationError.INVALID_FILE("Not a valid file! Please check our DSL documentation !"))
+                  List(ConfigurationError.INVALID_FILE("please check our documentation !"))
                 )
               )
             case Some(configuration: Configuration) => parser.checkErrors(configuration)
