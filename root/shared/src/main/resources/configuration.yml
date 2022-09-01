@@ -16,81 +16,97 @@ virus:
 
 structures:
 
-- GenericBuilding:
-    position: [5, 5]
-    infectionProbability: 0.2
-    capacity: 10
+  - GenericBuilding:
+      position: [5, 5]
+      infectionProbability: 0.2
+      capacity: 10
+      group: shop
 
-- GenericBuilding:
-    position: [60, 10]
-    infectionProbability: 0.4
-    capacity: 15
-    entranceStrategy:
-      ageGreaterThan: 18.0
+  - GenericBuilding:
+      position: [60, 10]
+      infectionProbability: 0.4
+      capacity: 15
+      entranceStrategy:
+        ageGreaterThan: 18.0
+      group: disco
 
-- GenericBuilding:
-    position: [20, 70]
-    infectionProbability: 0.2
-    capacity: 20
+  - GenericBuilding:
+      position: [20, 70]
+      infectionProbability: 0.2
+      capacity: 20
+      group: market
 
-- GenericBuilding:
-    position: [70, 70]
-    infectionProbability: 0.8
-    capacity: 15
+  - GenericBuilding:
+      position: [70, 70]
+      infectionProbability: 0.8
+      capacity: 15
+      visibilityDistance: 1.0
+      group: shop
 
-- GenericBuilding:
-    position: [73, 70]
-    infectionProbability: 0.8
-    capacity: 15
+  - GenericBuilding:
+      position: [73, 70]
+      infectionProbability: 0.8
+      capacity: 15
+      visibilityDistance: 1.0
+      group: office
 
-- GenericBuilding:
-    position: [76, 70]
-    infectionProbability: 0.8
-    capacity: 15
+  - GenericBuilding:
+      position: [76, 70]
+      infectionProbability: 0.8
+      capacity: 15
+      visibilityDistance: 1.0
+      group: office
 
-- GenericBuilding:
-    position: [67, 70]
-    infectionProbability: 0.8
-    capacity: 15
+  - GenericBuilding:
+      position: [67, 70]
+      infectionProbability: 0.8
+      capacity: 15
+      visibilityDistance: 1.0
+      group: shop
 
-- GenericBuilding:
-    position: [64, 70]
-    infectionProbability: 0.8
-    capacity: 15
+  - GenericBuilding:
+      position: [64, 70]
+      infectionProbability: 0.8
+      capacity: 15
+      visibilityDistance: 1.0
+      group: shop
 
-- GenericBuilding:
-    position: [10, 5]
-    infectionProbability: 0.7
-    capacity: 5
+  - GenericBuilding:
+      position: [10, 5]
+      infectionProbability: 0.7
+      capacity: 5
 
-- GenericBuilding:
-    position: [5, 10]
-    infectionProbability: 0.6
-    capacity: 5
+  - GenericBuilding:
+      position: [5, 10]
+      infectionProbability: 0.6
+      capacity: 5
+      group: market
 
-- GenericBuilding:
-    position: [15, 35]
-    infectionProbability: 0.9
-    capacity: 10
-    entranceStrategy:
-      probability: 0.5
+  - GenericBuilding:
+      position: [15, 35]
+      infectionProbability: 0.9
+      capacity: 10
+      entranceStrategy:
+        probability: 0.5
+      visibilityDistance: 3.0
+      group: disco
 
-- GenericBuilding:
-    position: [75, 45]
-    infectionProbability: 0.3
-    capacity: 5
+  - GenericBuilding:
+      position: [75, 45]
+      infectionProbability: 0.3
+      capacity: 5
 
-- GenericBuilding:
-    position: [75, 40]
-    infectionProbability: 0.3
-    capacity: 5
+  - GenericBuilding:
+      position: [75, 40]
+      infectionProbability: 0.3
+      capacity: 5
 
-- GenericBuilding:
-    position: [75, 50]
-    infectionProbability: 0.3
-    capacity: 5
+  - GenericBuilding:
+      position: [75, 50]
+      infectionProbability: 0.3
+      capacity: 5
 
-- Hospital:
-    position: [40, 40]
-    infectionProbability: 0.2
-    capacity: 20
+  - Hospital:
+      position: [40, 40]
+      infectionProbability: 0.2
+      capacity: 20
