@@ -58,6 +58,25 @@ Per quanto riguarda il metodo per esportare dati ad ogni step della simulazione 
 
 Inoltre gli estrattori di dati sono stati implementati attraverso *case class* immutabili le quali hanno il solo compito di implementare il metodo generico *extractData()* a seconda del tipo di dato che si intende estrarre.
 
+Le tipologie di estrattori presenti sono:
+
+- **Time**: si occupa di estrare l'orario corrente della simulazione.
+
+- **Days**: si occupa di estrarre il numero di giorni trascorsi.
+- **Hours**: si occupa di estrarre le ore trascorse nel giorno attuale.
+- **Minutes**: si occupa di estrarre i minuti trascorsi nell'ora attuale.
+
+- **Alive**: si occupa di estrarre il numero di entità in vita nell'environment.
+- **Deaths**: si occupa di estrarre il numero di entità morte nell'environment.
+- **Sick**: si occupa di estrarre il numero di entità malate nell'environment.
+- **Infected**: si occupa di estrarre il numero di entità infette nell'environment.
+- **Healthy**: si occupa di estrarre il numero di entità in salute nell'environment.
+- **AtHome**: si occupa di estrarre il numero di entità che si trovano in casa.
+- **HospitalsCapacity**: si occupa di estrarre la capacità degli ospedali presenti.
+- **HospitalFreeSeats**: si occupa di estrarre il totale dei posti liberi negli ospedali presenti.
+- **Hospitalized**: si occupa di estrarre il numero di entità ricoverate negli ospedali.
+- **HospitalPressure**: si occupa di estrarre la pressione ospedaliera ossia il rapporto tra gli ospedalizzati ed i posti liberi rimanenti.
+
 ### Launcher
 
 ### Loader

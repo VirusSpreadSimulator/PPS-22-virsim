@@ -36,7 +36,6 @@ object ScalaParser:
       override def loadConfiguration(program: String): Task[Option[Configuration]] =
         for
           engine <- Task(new ScriptEngineManager().getEngineByName("scala"))
-          _ <- Task(println(program))
           isDefined = isConfigurationDefined(program)
           configuration <- Task {
             if isDefined then

@@ -4,6 +4,7 @@ import it.unibo.pps.control.loader.configuration.SimulationDefaults.{GlobalDefau
 
 object VirusComponent:
 
+  /** The Virus inside the environment that infects entities. */
   trait VirusParameters:
 
     /** The name of the virus inside the environment.
