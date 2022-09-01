@@ -113,13 +113,12 @@ Le formule implementate, le quali sono semplici e non hanno alcuna volontà di e
 
 - *Contagio esterno* (individuo *j*):
   
-  ![\sum_{i}^{I} \frac{P0 * (1-Dji/Dmax) * (1 - Ii/Imax)}{Mj * Mi}](https://latex.codecogs.com/svg.latex?&space;\sum_{i}^{I}\frac{P0*%281-Dji/Dmax%29*%281-Ii/Imax%29}{Mj*Mi})
+  ![external_probable_infection_formula](imgs/external_infection.svg)
   
 - *Contagio interno* (individuo *j*): 
 
+  ![internal_probable_infection_formula](imgs/internal_infection.svg)
   
-  
-  ![\frac{P0 * PS * (1 - Ij/Imax)}{Mj * MAX(1, M * (NSinfm/NSinf))} * \frac{NSinf}{NS - 1}](https://latex.codecogs.com/svg.latex?&space;\frac{P0%20*%20PS%20*%20(1%20-%20Ij/Imax)}{Mj%20*%20MAX%281,%20M%20*%20%28NSinfm/NSinf%29%29}%20*%20\frac{NSinf}{NS%20-%201})
 
 Considerando:
 
