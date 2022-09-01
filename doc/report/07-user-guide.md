@@ -6,11 +6,15 @@ Il simulatore è utilizzabile sia attraverso l'applicativo Desktop, sia attraver
 
 La schermata di avvio permette all'utente il caricamento del file di configurazione desiderato. L'applicazione Desktop lavora con configurazioni definite in Scala, in cui può essere sfruttato il DSL sviluppato. Al fine di selezionare il file, l'utente necessita solamente di cliccare sul pulsante "*Choose*" e selezionare il file dal *File Dialog* che apparirà. Dopodiché premendo il pulsante "*Start*" si potrà avviare la simulazione.
 
-![jvm_init](imgs/jvm_init.png)
+<img src="imgs/jvm_init.png" alt="jvm_init" style="zoom:90%;" />
 
 In caso ci siano errori all'interno della configurazione vengono visualizzati attraverso una finestra di dialogo apposita (nell'esempio all'interno della configurazione una struttura è stata posizionata al di fuori dell'environment):
 
-![error_dialog](imgs/jvm_init_error.png)
+
+
+<img src="imgs/jvm_init_error.png" alt="error_dialog" style="zoom:80%;" />
+
+
 
 Invece, nel caso in cui la configurazione sia valida verrà avviata la simulazione.
 

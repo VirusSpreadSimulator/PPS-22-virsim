@@ -53,7 +53,7 @@ Lo schema architetturale fornito precedentemente evidenzia i seguenti componenti
 
 Di seguito un diagramma UML che mette in evidenza i *trait* principali dell'architettura descritta in questo capitolo. Il diagramma astrae dall'effettiva implementazione di alcuni tipi di dati citati esplicitando esclusivamente l'utilizzo della libreria **Monix**, la quale ha influenzato il suddetto design.
 
-![Class_Diagram](imgs/class_architecture.svg)
+<img src="imgs/class_architecture.svg" alt="analysis_class" style="zoom:100%;" />
 
 <div style="page-break-after: always;"></div>
 

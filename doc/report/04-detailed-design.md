@@ -290,7 +290,7 @@ Al fine di modellare il concetto di entity all'interno della simulazione si è d
 + *Back To Home*: l'entità deve tornare a casa. Questo significa che il movimento successivo dovrà per forza essere in direzione della casa. 
 + *No Movement*: l'entità non si muove. Questo accade per esempio quando l'entità entra in una struttura. 
 
-<img src="imgs/detailed_design_entities.svg" alt="entity"/>
+<img src="imgs/detailed_design_entities.svg" alt="entity" style="zoom:90%"/>
 
 L'infezione è stata gestita a parte e contiene le informazioni circa l'infezione che ha contratto un'entità, quali la severità, il momento dell'infezione e la durata.
 

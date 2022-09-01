@@ -83,13 +83,15 @@ In seguito ai requisiti utente elencati, è emerso il seguente dominio modellato
 
 Infine, si riportano i mockup realizzati insieme al committente per l'applicativo desktop. 
 
+<div style="page-break-after: always;"></div>
+
 **Schermata iniziale**
 
-<img src="imgs/mockup-init.png" alt="analysis_class" style="zoom:100%;" />
+<img src="imgs/mockup-init.png" alt="analysis_class" style="zoom:80%;" />
 
 **Schermata Simulazione**
 
-<img src="imgs/mockup-simulation.png" alt="analysis_class" style="zoom:100%;" />
+<img src="imgs/mockup-simulation.png" alt="analysis_class" style="zoom:80%;" />
 
 
 
