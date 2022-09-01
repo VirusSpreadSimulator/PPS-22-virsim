@@ -377,5 +377,9 @@ Durante il design si è cercato di trarre vantaggio dall'utilizzo di vari design
 
 ### Organizzazione del codice
 
+Il codice è stato organizzato considerando l'utilizzo del plugin **sbt-crossproject** il quale nel caso di progetto *full* *jvm-js* richiede la creazione di tre moduli: *shared*, *jvm* e *js*. Dopodiché i package sono stati organizzati seguendo l'architettura **ECB** adottata con i package boundary, entity e control che rappresentano i tre macro-componenti dell'architettura all'interno dei quali vi sono i componenti descritti nel capitolo del design architetturale.
+
+![packages](imgs/packages.svg)
+
 <div style="page-break-after: always;"></div>
 
