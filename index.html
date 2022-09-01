@@ -2,11 +2,58 @@
 <html lang="en">
     <head>
         <title>PPS-22-virsim</title>
+        <!-- Bootstrap CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <!-- Bootstrap-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     </head>
     <body>
-        <h1>Virus Spread Simulator</h1>
-        <p>VirSim: a simulation tool for the spread of a Virus within a population</p>
-        <b><a href="./latest/api">Scala Doc</a></b>
-        <b><a href="./simulator">Launch a simulation!</a></b>
+        <div class="container-fluid p-0">
+            <div class="jumbotron bg-light text-dark jumbotron-fluid text-center p-3 m-0" id="div-title">
+                <img src="https://github.com/VirusSpreadSimulator/PPS-22-virsim/blob/gh-pages/assets/logo_light.png?raw=true#gh-light-mode-only" style="max-width:80%; max-height: 200px" alt="Virsim - Virus Spread Simulator"></img> <br>
+                <a href="./simulator/index.html"><button type="button" class="btn btn-danger">Try our online simulator</button></a>
+            </div>
+                <div class="row">
+                    <div class="card mx-auto my-3" style="width: 50%">
+                        <div class="card-body">
+                            <p><strong>Virsim</strong> is a Scala-based simulation tool for the spread of a Virus within a population. <br>
+                            You can create your own simulation configuring everything such as the virus or the map of the environment and then Virsim will simulate the progress of the infections inside it. <br>
+                            Take a look at our <a href="https://github.com/VirusSpreadSimulator/PPS-22-virsim/blob/main/doc/report/07-user-guide.md">user guide</a> to write your first simulation configuration.</p>
+                            Take a look at our scala documentation: <a href="https://virusspreadsimulator.github.io/PPS-22-virsim/latest/api/"><img src="https://img.shields.io/badge/Scaladoc-link-red" alt="Scaladoc"/></a>
+                            <h3 class="mt-4">Usage</h3>
+                            <p>
+                                Virsim comes in two different versions:
+                                <ul>
+                                    <li>Desktop Application</li>
+                                    <li>Web Application</li>
+                                </ul>
+                            </p>
+                            <h4>
+                                Desktop Application
+                            </h4>
+                            <p class="my-2">Download latest Jar <a href="https://github.com/VirusSpreadSimulator/PPS-22-virsim/releases/latest">here</a> and then:</p>
+                            <code>java -jar virsim.jar</code>
+                            <p class="mt-2">You need to provide a valid <i>Scala</i> configuration. <a href="https://github.com/VirusSpreadSimulator/PPS-22-virsim/releases/latest/download/configuration.scala">Here</a> you can find a <i>Scala</i> configuration sample.</p>
+                            <h4>Web Application</h4>
+                            <p>
+                                We have deployed the Web Application in our website so you can try it without install anything. <br>
+                                You have only to provide a valid <i>YAML</i> configuration. <a href="https://github.com/VirusSpreadSimulator/PPS-22-virsim/releases/latest/download/configuration.yml"> <br>
+                                Here</a> you can find a <i>YAML</i> configuration sample.
+                                <br><br>
+                                <strong>Launch a simulation at this <a href="https://virusspreadsimulator.github.io/PPS-22-virsim/simulator/">link</a>.</strong>
+                            </p>
+                            <h3>Authors</h3>
+                            <p>
+                                Developed for Academic purpose by:
+                                <ul>
+                                    <li>Andrea Acampora - <a href="mailto: andrea.acampora@studio.unibo.it">andrea.acampora@studio.unibo.it</a></li>
+                                    <li>Andrea Giulianelli -  <a href="mailto: andrea.giulianelli4@studio.unibo.it">andrea.giulianelli4@studio.unibo.it</a></li>
+                                    <li>Giacomo Accursi - <a href="mailto: giacomo.accursi@studio.unibo.it">giacomo.accursi@studio.unibo.it</a></li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                </div>            
+        </div>
     </body>
 </html>
