@@ -141,7 +141,8 @@ object YAMLParser:
       private def parseStructuresParameters(configurationParameters: Map[String, Any]): Task[Set[SimulationStructure]] =
         for
           isDefined <- Task(configurationParameters.has("structures"))
-          structuresList = configurationParameters("structures").to[List[Map[String, Any]]]
+          structuresList =
+            if isDefined then configurationParameters("structures").to[List[Map[String, Any]]] else List.empty
           structures <- Task.sequence {
             if isDefined then for structure <- structuresList yield parseSingleStructure(structure)
             else List.empty[Task[SimulationStructure]]
