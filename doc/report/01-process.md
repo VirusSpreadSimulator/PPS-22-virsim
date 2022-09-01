@@ -106,9 +106,9 @@ Considerando, come anticipato, l'utilizzo di Git-Flow come branching model, ad o
 
 + Deploy: è stato utilizzato il servizio di hosting Github Pages al fine di creare un sito che permetta di accedere a: 
 
-  + Scaladoc: generata automaticamente mediante il plugin **sbt-unidoc** ed **sbt-site**.
-  + Web App: il codice del simulatore viene transcompilato attraverso il plugin sbt-crossproject descritto precedentemente.
+  + Scaladoc: generata automaticamente mediante il plugin **sbt-unidoc** ed **sbt-site** e pubblicata al seguente [link](https://virusspreadsimulator.github.io/PPS-22-virsim/latest/api/).
+  + Web App: il codice del simulatore viene transcompilato attraverso il plugin sbt-crossproject descritto precedentemente e ne viene eseguito il deploy all'interno del sito del simulatore al seguente [link](https://virusspreadsimulator.github.io/PPS-22-virsim/simulator/).
 
-  Il deploy del sito avviene automaticamente grazie all'azione **[action-gh-pages](https://github.com/peaceiris/actions-gh-pages)** in modo tale da aggiornare la scaladoc e la webapp ad ogni release senza interventi umani. 
+  Il deploy del sito avviene automaticamente al seguente [link](https://virusspreadsimulator.github.io/PPS-22-virsim/) grazie all'azione **[action-gh-pages](https://github.com/peaceiris/actions-gh-pages)** in modo tale da aggiornare la scaladoc e la webapp ad ogni release senza interventi umani. 
 
 <div style="page-break-after: always;"></div>
