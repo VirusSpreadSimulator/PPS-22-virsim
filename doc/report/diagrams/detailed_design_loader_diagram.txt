@@ -1,0 +1,20 @@
+@startuml
+!theme vibrant
+
+activate Loader
+Loader -> Parser: readFile(path)
+activate Parser
+Parser -> Reader: readFile(path)
+activate Reader
+note right of Reader: Configuration
+Reader --> Parser: fileContent
+deactivate Reader
+Parser --> Loader: fileContent
+Loader -> Parser: loadConfiguration(fileContent)
+Parser --> Loader: configuration
+Loader -> Parser: checkErrors(configuration)
+Parser --> Loader: configurationResult
+deactivate Parser
+Loader -> Loader: createEnvironment(configuration)
+Loader --> Loader: initalizedEnvironment
+@enduml

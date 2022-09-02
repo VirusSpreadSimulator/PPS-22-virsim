@@ -16,6 +16,7 @@ import org.jfree.data.xy.{XYDataset, XYSeries, XYSeriesCollection}
 
 import java.awt.{Color, Font}
 
+/** The chart that display the infected entities inside the environment. */
 class InfectedBarChart extends Chart:
   private val dataset: DefaultCategoryDataset = new DefaultCategoryDataset()
   private val infectedBarChart: JFreeChart =

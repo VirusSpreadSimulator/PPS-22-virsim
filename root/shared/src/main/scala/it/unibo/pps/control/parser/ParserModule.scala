@@ -13,9 +13,11 @@ import monix.eval.Task
 
 object ParserModule:
 
+  /** Method to check if the value inserted by user respect the valid range. */
   extension [A](parameter: Ordered[A])
     def shouldBeWithin(range: (A, A)): Boolean = parameter >= range._1 && parameter <= range._2
 
+  /** Method to manage the errors in configuration parameters. */
   extension (bool: Boolean)
     def andIfNot(message: String): List[ConfigurationError] =
       if !bool then List(ConfigurationError.WRONG_PARAMETER(message)) else List.empty
@@ -25,7 +27,7 @@ object ParserModule:
     */
   trait Parser:
 
-    /** @param path
+    /** @param filePath
       *   The path of the file.
       * @return
       *   The content of the file as a String.
@@ -51,13 +53,16 @@ object ParserModule:
             (configuration.simulation.numberOfEntities shouldBeWithin (MIN_VALUES.MIN_NUMBER_OF_ENTITIES, MAX_VALUES.MAX_NUMBER_OF_ENTITIES) andIfNot "Error: invalid parameter numberOfEntities!") :::
             (configuration.virusConfiguration.severeDeseaseProbability shouldBeWithin (0, 1) andIfNot "Error: probability must be in range (0, 1)!") :::
             (configuration.virusConfiguration.spreadRate shouldBeWithin (0, 1) andIfNot "Error: spreadRate must be in range (0, 1)!") :::
-            (configuration.structuresConfiguration.forall(struc =>
-              struc.position.x < configuration.simulation.gridSide &&
-                struc.position.y < configuration.simulation.gridSide
-            ) andIfNot "Error: invalid structure position!") :::
+            configuration.structuresConfiguration
+              .forall(struct =>
+                struct.position.x < configuration.simulation.gridSide &&
+                  struct.position.y < configuration.simulation.gridSide
+              )
+              .andIfNot("Error: invalid structure position!") :::
             (configuration.structuresConfiguration
               .map(_.position)
-              .size == configuration.structuresConfiguration.size andIfNot "Error: multiples structures in same position !")
+              .size == configuration.structuresConfiguration.size)
+              .andIfNot("Error: multiples structures in same position !")
 
         }
         result <- errors.size match

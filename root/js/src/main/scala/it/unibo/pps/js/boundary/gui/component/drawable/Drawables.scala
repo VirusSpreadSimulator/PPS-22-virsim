@@ -31,7 +31,7 @@ object Drawables:
         g.arc(
           scaleToView(entity.position.x, scale) + scale / 2,
           scaleToView(entity.position.y, scale) + scale / 2,
-          scale / 2,
+          scale / 2 - 1,
           0,
           2 * Math.PI
         )

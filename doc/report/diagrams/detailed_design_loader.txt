@@ -1,0 +1,55 @@
+@startuml
+!theme vibrant
+
+interface Loader <<trait>> {
+ parseConfiguration(path: Path): Task[ConfigurationResult]
+ createEnvironment(configuration: Configuration):Task[Environment]
+ startEngine(configuration: Configuration): Task[Unit] 
+}
+
+interface Parser <<trait>> {
+  readFile(path: Path): Task[String]
+  loadConfiguration(program: String): Task[Option[Configuration]]
+  checkErrors(configuration: Configuration): Task[ConfigurationResult]
+}
+
+interface Reader <<trait>> {
+  readFile(path: Path): Task[String]
+}
+
+interface EntityFactory <<trait>> {
+  create(configuration: Configuration): Task[Set[Entity]]
+}
+
+interface Configuration <<trait>> {
+  simulation(): Simulation
+  virus(): Virus
+  structures(): Set[Structure]
+}
+
+object Path <<type>>
+
+interface JSReader <<trait>>
+interface JVMReader <<trait>>
+
+interface ScalaParser <<trait>>
+interface YAMLParser <<trait>>
+
+Reader *- Path
+JVMReader --|> Reader
+JSReader --|> Reader
+
+ScalaParser --|> Parser
+YAMLParser --|> Parser
+
+Loader -- Parser
+Parser -- Reader
+
+Loader -- EntityFactory
+
+Parser -- Configuration
+
+EntityFactory -[hidden]- JSReader
+hide fields
+
+@enduml

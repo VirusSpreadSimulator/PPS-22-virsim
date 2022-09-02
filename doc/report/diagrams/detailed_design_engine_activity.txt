@@ -1,0 +1,21 @@
+@startuml
+!theme vibrant
+
+start
+:setup engine;
+fork
+:ottieni eventi dai boundary;
+:inserisci gli eventi nella coda dell'engine;
+fork again
+:prendi maxEventPerIteration eventi dalla coda;
+:ottieni environment corrente;
+:Environment]
+:gestisci eventi con le logiche associate;
+:Environment [aggiornato rispetto agli eventi] ]
+:esegui le logiche di aggiornamento;
+:Environment [aggiornato rispetto agli eventi e alle logiche] ]
+:spedisci il nuovo environment ai boundary;
+end fork
+
+stop
+@enduml

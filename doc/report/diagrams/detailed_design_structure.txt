@@ -1,0 +1,68 @@
+@startuml
+!theme vibrant
+
+interface Structure <<trait>> {
++ entranceStrategy: StrategyToEnter
++ tryToEnter(entity: BaseEntity, timestamp: SimulationTime): BaseStruture
++ entityExit(entity: BaseEntity): BaseStructure
+# checkEnter(entity: BaseEntity): Boolean
+# enter(entity: BaseEntity, timestamp: SimulationTime): BaseStructure
+# exit(entity: BaseEntity): BaseStructure
+# notEntered(entity: BaseEntity, timestamp: SimulationTime): BaseStructure
+}
+
+interface Visible <<trait>> {
++ visibilityDistance: Distance
+}
+
+interface Closable <<trait>> {
++ isOpen(): Boolean
+# checkEnter(entity: BaseEntity): Boolean
+}
+
+interface Groupable <<trait>> {
++ group: Group
+}
+
+interface Habitable <<trait>>
+
+interface Hospitalization <<trait>> {
++ treatmentQuality: TreatmentQuality
+}
+
+enum TreatmentQuality {
+GOOD
+MEDIUM
+LOW
+}
+
+object Position <<type>>
+object Probability <<type>>
+object TimeDistribution <<type>>
+object BaseEntity <<type>>
+object StrategyToEnter <<type>>
+object EntityInStructure <<type>>
+object SimulationTime <<type>>
+object BaseStructure <<type>>
+object Group <<type>>
+
+Structure <|-- Visible
+Structure <|-- Closable
+
+Structure <.. Groupable: <<self-type>>
+Structure <.. Habitable: <<self-type>>
+Structure <.. Hospitalization: <<self-type>>
+
+TreatmentQuality --o Hospitalization
+
+Position --* Structure
+Probability --* Structure
+TimeDistribution --* Structure
+BaseEntity --* Structure
+StrategyToEnter --* Structure
+EntityInStructure --* Structure
+SimulationTime --* Structure
+BaseStructure --* Structure
+
+Group --* Groupable
+@enduml

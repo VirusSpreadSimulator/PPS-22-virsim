@@ -19,14 +19,26 @@ import java.nio.file.Files
   */
 object ExporterModule:
 
+  /** The provider of the exporter instance. */
   trait Provider:
     val exporter: Boundary
 
   trait Exporter:
+
+    /** The path of the output file.
+      * @return
+      *   the path of the file.
+      */
     def outputFile: String
+
+    /** The data extractors used by the exporter to extract some statistics from the environment.
+      * @return
+      *   the list of extractors.
+      */
     def extractors: List[DataExtractor[_]]
 
   trait Component:
+
     /** A File based implementation of the Exporter. It exports data on a CSV file under the temp directory of the user.
       * @param extractors
       *   the list of extractors to extract some statistics from the environment.

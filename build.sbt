@@ -37,15 +37,10 @@ lazy val root = crossProject(JSPlatform, JVMPlatform)
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies ++= Seq("org.scala-js" %%% "scalajs-dom" % "2.2.0")
   )
-  .jvmSettings(
-    libraryDependencies ++= Seq(
-      "org.scala-lang.modules" %% "scala-swing" % "3.0.0"
-    )
-  )
+  .jvmSettings()
 
 lazy val aggregate = (project in file("."))
   .enablePlugins(ScalaUnidocPlugin)
-  .enablePlugins(GitHubPagesPlugin)
   .enablePlugins(SiteScaladocPlugin)
   .aggregate(root.jvm, root.js)
   .settings(
@@ -53,5 +48,3 @@ lazy val aggregate = (project in file("."))
     ScalaUnidoc / siteSubdirName := "latest/api/",
     addMappingsToSiteDir(ScalaUnidoc / packageDoc / mappings, ScalaUnidoc / siteSubdirName)
   )
-
-gitHubPagesSiteDir := baseDirectory.value / "target/site"

@@ -1,0 +1,23 @@
+@startuml
+!theme vibrant
+
+interface Engine <<trait>> {
+startSimulationLoop(environment: Environment)
+}
+
+class EngineImpl {
+EngineImpl(using config: SimulationConfig)
+startSimulationLoop(environment: Environment)
+}
+
+interface SimulationConfig <<trait>> {
+maxEventPerIteration: Int
+engineSpeed: EngineSpeed
+engineStatus: EngineStatus
+logics: Seq[UpdateLogic]
+eventLogics: Event => EventLogic
+}
+
+Engine <|.. EngineImpl
+EngineImpl o-- SimulationConfig: <<given>>
+@enduml

@@ -7,6 +7,10 @@ import monocle.syntax.all.*
 /** The DSL of the simulation virus for the configuration file. */
 object VirusDSL:
 
+  /** The virus defined in the configuration.
+    * @return
+    *   the virus.
+    */
   def virus: Virus = Virus()
 
   extension (virus: Virus)

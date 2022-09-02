@@ -13,7 +13,7 @@ class EntitiesTest extends AnyFunSuite with Matchers:
   private val tolerance = 1e-0
   private val house = House((1, 0), 1, 2)
   private val entity100 = SimulationEntity(
-    0,
+    1,
     100,
     house.position,
     MAX_VALUES.MAX_HEALTH,
@@ -33,6 +33,14 @@ class EntitiesTest extends AnyFunSuite with Matchers:
     MAX_VALUES.MAX_HEALTH,
     position = Point2D(0, 10)
   )
+
+  test("two entities with the same id are the same entity") {
+    entity0 shouldBe entity100
+  }
+
+  test("two entities with different ids are different entities") {
+    entity0 should not be entity80
+  }
 
   test("an entity with age = 100 has 70 of health") {
     entity100.health shouldBe 70.0 +- tolerance

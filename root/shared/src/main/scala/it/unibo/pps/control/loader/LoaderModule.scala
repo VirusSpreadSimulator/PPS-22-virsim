@@ -38,20 +38,14 @@ import scala.io.Source
 
 object LoaderModule:
 
+  /** The loader is the component that is responsible for the configuration file loading and environment creation. */
   trait Loader:
-    /** @param configurationFile
+    /** @param filePath
       *   the configuration file with simulation parameters.
       * @return
       *   the result of the configuration parsing.
       */
     def parseConfiguration(filePath: FilePath): Task[ConfigurationResult]
-
-    /** @param configuration
-      *   The configuration of the simulation, structures and virus.
-      * @return
-      *   the initialized environment.
-      */
-    def createEnvironment(configuration: Configuration)(using entityFactory: EntityFactory): Task[Environment]
 
     /** After parsing the configuration file and initializing the environment it starts the simulation engine.
       * @return
@@ -62,6 +56,11 @@ object LoaderModule:
   trait Provider:
     val loader: Loader
 
+  /** The loader requires:
+    *   - the engine in order to launch it after the environment creation.
+    *   - the environment in order to initialize it.
+    *   - the parser in order to parse the configuration file and check parameters errors.
+    */
   type Requirements = EngineModule.Provider with EnvironmentModule.Provider with ParserModule.Provider
 
   trait Component:
@@ -77,13 +76,13 @@ object LoaderModule:
             case None =>
               Task(
                 ConfigurationResult.ERROR(
-                  List(ConfigurationError.INVALID_FILE("Invalid Scala file! Please check our DSL documentation !"))
+                  List(ConfigurationError.INVALID_FILE("please check our documentation !"))
                 )
               )
             case Some(configuration: Configuration) => parser.checkErrors(configuration)
         yield parsingResult
 
-      override def createEnvironment(configuration: Configuration)(using factory: EntityFactory): Task[Environment] =
+      def createEnvironment(configuration: Configuration)(using factory: EntityFactory): Task[Environment] =
         val houses: Seq[SimulationStructure] =
           for i <- 0 until configuration.simulation.gridSide
           yield House(

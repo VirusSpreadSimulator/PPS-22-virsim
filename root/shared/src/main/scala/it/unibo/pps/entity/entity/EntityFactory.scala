@@ -37,7 +37,6 @@ object EntityFactory:
       val entities =
         for
           i <- 0 until configuration.simulation.numberOfEntities
-          entityId = i
           age = GaussianIntDistribution(
             configuration.simulation.averagePopulationAge,
             configuration.simulation.stdDevPopulationAge
@@ -67,7 +66,7 @@ object EntityFactory:
               )
             else None
           entity = SimulationEntity(
-            entityId,
+            i,
             age,
             homePosition,
             MAX_VALUES.MAX_HEALTH,

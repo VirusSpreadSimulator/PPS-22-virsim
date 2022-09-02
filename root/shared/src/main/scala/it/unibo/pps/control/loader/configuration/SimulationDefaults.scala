@@ -3,6 +3,7 @@ package it.unibo.pps.control.loader.configuration
 import it.unibo.pps.entity.common.GaussianProperty.GaussianDurationTime
 import scala.concurrent.duration.{HOURS, MINUTES}
 
+/** Contains all default values of the Simulator. */
 object SimulationDefaults:
 
   object GlobalDefaults:
@@ -50,6 +51,7 @@ object SimulationDefaults:
     val DEFAULT_GROUP: String = "base"
     val DEFAULT_PERMANENCE_TIME_DISTRIBUTION: GaussianDurationTime = GaussianDurationTime(20, 5, MINUTES)
     val DEFAULT_HOUSE_PERMANENCE_TIME_DISTRIBUTION: GaussianDurationTime = GaussianDurationTime(5, 1, HOURS)
+    val DEFAULT_ENTITY_EXIT_DISTANCE = 3
 
   object MAX_VALUES:
     val MAX_GRID_SIZE: Int = 100

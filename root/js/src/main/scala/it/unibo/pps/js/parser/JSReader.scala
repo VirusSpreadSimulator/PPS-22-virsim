@@ -12,11 +12,12 @@ import org.scalajs.dom
 /** The reader of files for the JS module. */
 object JSReader:
 
+  /** The provider of the JavaScript reader instance in the context. */
   trait Provider:
     val jsReader: Reader
 
   trait Component:
-    /** Return the content of the configuration file inserted by the user. */
+    /** Returns the content of the configuration file inserted by the user. */
     class JSReaderImpl extends Reader:
 
       private val filePS: PublishSubject[String] = PublishSubject[String]()

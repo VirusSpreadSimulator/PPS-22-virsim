@@ -7,6 +7,10 @@ import monocle.syntax.all.*
 /** The DSL of the simulation for the configuration file. */
 object SimulationDSL:
 
+  /** The simulation defined in the configuration.
+    * @return
+    *   the simulation.
+    */
   def simulation: Simulation = Simulation()
 
   extension (sim: Simulation)

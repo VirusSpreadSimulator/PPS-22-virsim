@@ -8,7 +8,7 @@ object ReaderModule:
     * compatible. Every module (jvm, js) has to implement its own configuration reader.
     */
   trait Reader:
-    /** @param path
+    /** @param filePath
       *   The path of the file.
       * @return
       *   The content of the file as a String.
@@ -19,6 +19,10 @@ object ReaderModule:
     type Path
     def path: Path
 
+  /** This type of path consists in the path of the file inserted by the user.
+    * @param path
+    *   the path of the file.
+    */
   case class StringFilePath(path: String) extends FilePath:
     override type Path = String
 

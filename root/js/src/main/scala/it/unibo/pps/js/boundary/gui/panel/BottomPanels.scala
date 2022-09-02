@@ -110,10 +110,11 @@ object BottomPanels:
   /** StatsPanel. It is the panel that show the main statistics about the simulation data. */
   class StatsPanel extends UpdatablePanel:
     import it.unibo.pps.control.loader.extractor.EntitiesStats.{Alive, AtHome, Deaths, Infected, Sick}
-    import it.unibo.pps.control.loader.extractor.EnvironmentStats.{Days, Hours}
+    import it.unibo.pps.control.loader.extractor.EnvironmentStats.{Days, Time}
 
     private lazy val stats = Seq(
       StatsDisplayer(dom.document.getElementById("days").asInstanceOf[Span], Days()),
+      StatsDisplayer(dom.document.getElementById("time").asInstanceOf[Span], Time()),
       StatsDisplayer(dom.document.getElementById("alive").asInstanceOf[Span], Alive()),
       StatsDisplayer(dom.document.getElementById("deaths").asInstanceOf[Span], Deaths()),
       StatsDisplayer(dom.document.getElementById("infected").asInstanceOf[Span], Infected()),

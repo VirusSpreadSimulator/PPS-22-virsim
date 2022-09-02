@@ -17,6 +17,7 @@ import org.jfree.data.general.DefaultPieDataset
 import java.awt.{Color, Font}
 import scala.reflect.ClassTag.Nothing
 
+/** The chart that display the pressure of hospitals inside the environment. */
 class PieChart extends Chart:
 
   private val dataset = new DefaultPieDataset[String]()

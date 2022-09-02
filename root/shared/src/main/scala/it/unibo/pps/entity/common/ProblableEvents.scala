@@ -51,7 +51,7 @@ object ProblableEvents:
       */
     given Probable[Double] with
       extension (e: Double) def probability: Double = e
-    /** Augment the [[ExternalProbableInfection]] with it's probability of occuring */
+    /** Augment the [[ExternalProbableInfection]] with it's probability of occurring */
     given Probable[ExternalProbableInfection] with
       extension (inf: ExternalProbableInfection)
         def probability: Double = inf.infectors.foldLeft(0.0)((acc, infector) =>
@@ -59,7 +59,7 @@ object ProblableEvents:
             infector.position
           ) / inf.env.virus.maxInfectionDistance) * (1 - inf.entity.immunity / MAX_VALUES.MAX_IMMUNITY)) / (inf.entity.maskReduction * infector.maskReduction)
         )
-    /** Augment the [[InternalProbableInfection]] with it's probability of occuring */
+    /** Augment the [[InternalProbableInfection]] with it's probability of occurring */
     given Probable[InternalProbableInfection] with
       extension (inf: InternalProbableInfection)
         def probability: Double =

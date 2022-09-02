@@ -8,6 +8,10 @@ import it.unibo.pps.entity.entity.EntityFactory
 
 object ConfigurationComponent:
 
+  /** The instance of the entity factory used by the loader to create environment.
+    * @return
+    *   the entity factory.
+    */
   given EntityFactory = EntityFactory()
 
   trait Configuration:

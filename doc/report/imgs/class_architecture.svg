@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="756px" preserveAspectRatio="none" style="width:748px;height:756px;background:#FFFFFF;" version="1.1" viewBox="0 0 748 756" width="748px" zoomAndPan="magnify"><defs/><g><!--MD5=[d4eea0a2640b0744e449422abbb6da5e]
+class Boundary--><rect codeLine="4" fill="#FEFECE" height="109.9609" id="Boundary" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="236" x="240" y="7"/><ellipse cx="324.25" cy="25.9688" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M320.1719,21.7344 L320.1719,19.5781 L327.5625,19.5781 L327.5625,21.7344 L325.0938,21.7344 L325.0938,29.8125 L327.5625,29.8125 L327.5625,31.9688 L320.1719,31.9688 L320.1719,29.8125 L322.6406,29.8125 L322.6406,21.7344 L320.1719,21.7344 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="40" x="354.25" y="23.1387">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="59" x="344.75" y="37.1074">Boundary</text><line style="stroke:#A80036;stroke-width:1.5;" x1="241" x2="475" y1="44.9375" y2="44.9375"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="90" x="246" y="59.1479">init(): Task[Unit]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="100" x="246" y="71.9526">start(): Task[Unit]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="158" x="246" y="84.7573">events(): Observable[Event]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="224" x="246" y="97.562">consume(env: Environment): Task[Unit]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="98" x="246" y="110.3667">stop(): Task[Unit]</text><!--MD5=[c86ce95fe6226f2d2796c0513d8e83fe]
+class Engine--><rect codeLine="12" fill="#FEFECE" height="58.7422" id="Engine" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="298" x="7" y="440.5"/><ellipse cx="130.25" cy="459.4688" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M126.1719,455.2344 L126.1719,453.0781 L133.5625,453.0781 L133.5625,455.2344 L131.0938,455.2344 L131.0938,463.3125 L133.5625,463.3125 L133.5625,465.4688 L126.1719,465.4688 L126.1719,463.3125 L128.6406,463.3125 L128.6406,455.2344 L126.1719,455.2344 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="40" x="152.25" y="456.6387">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="43" x="150.75" y="470.6074">Engine</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="304" y1="478.4375" y2="478.4375"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="286" x="13" y="492.6479">startSimulationLoop(env: Environment): Task[Unit]</text><!--MD5=[db3170b8313bf70303600a68db1112cb]
+class Launcher--><rect codeLine="16" fill="#FEFECE" height="58.7422" id="Launcher" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="122" x="297" y="177"/><ellipse cx="326.4" cy="195.9688" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M322.3219,191.7344 L322.3219,189.5781 L329.7125,189.5781 L329.7125,191.7344 L327.2438,191.7344 L327.2438,199.8125 L329.7125,199.8125 L329.7125,201.9688 L322.3219,201.9688 L322.3219,199.8125 L324.7906,199.8125 L324.7906,191.7344 L322.3219,191.7344 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="40" x="352.6" y="193.1387">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="58" x="343.6" y="207.1074">Launcher</text><line style="stroke:#A80036;stroke-width:1.5;" x1="298" x2="418" y1="214.9375" y2="214.9375"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="110" x="303" y="229.1479">launch(): Task[Unit]</text><!--MD5=[8d729038c48ea67d1bfca0b0b8d717df]
+class Loader--><rect codeLine="20" fill="#FEFECE" height="71.5469" id="Loader" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="265" x="225.5" y="296"/><ellipse cx="332.25" cy="314.9688" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M328.1719,310.7344 L328.1719,308.5781 L335.5625,308.5781 L335.5625,310.7344 L333.0938,310.7344 L333.0938,318.8125 L335.5625,318.8125 L335.5625,320.9688 L328.1719,320.9688 L328.1719,318.8125 L330.6406,318.8125 L330.6406,310.7344 L328.1719,310.7344 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="40" x="354.25" y="312.1387">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="43" x="352.75" y="326.1074">Loader</text><line style="stroke:#A80036;stroke-width:1.5;" x1="226.5" x2="489.5" y1="333.9375" y2="333.9375"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="253" x="231.5" y="348.1479">parseConfiguration(path: Path): Task[Result]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="246" x="231.5" y="360.9526">startEngine(conf: Configuration): Task[Unit]</text><!--MD5=[628cc5a2753cca06eb1ffef55c386535]
+class Parser--><rect codeLine="26" fill="#FEFECE" height="84.3516" id="Parser" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="330" x="411" y="428"/><ellipse cx="551.25" cy="446.9688" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M547.1719,442.7344 L547.1719,440.5781 L554.5625,440.5781 L554.5625,442.7344 L552.0938,442.7344 L552.0938,450.8125 L554.5625,450.8125 L554.5625,452.9688 L547.1719,452.9688 L547.1719,450.8125 L549.6406,450.8125 L549.6406,442.7344 L547.1719,442.7344 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="40" x="572.25" y="444.1387">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="41" x="571.75" y="458.1074">Parser</text><line style="stroke:#A80036;stroke-width:1.5;" x1="412" x2="740" y1="465.9375" y2="465.9375"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="188" x="417" y="480.1479">readFile(path: Path): Task[String]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="318" x="417" y="492.9526">loadConfiguration(program: String): Task[Configuration]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="262" x="417" y="505.7573">checkErrors(conf: Configuration): Task[Result]</text><!--MD5=[5d0a77e8f66918aa15fe0099dd6d4ba9]
+class Environment--><rect codeLine="33" fill="#FEFECE" height="71.5469" id="Environment" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="110" x="202" y="572"/><ellipse cx="217" cy="590.9688" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M212.9219,586.7344 L212.9219,584.5781 L220.3125,584.5781 L220.3125,586.7344 L217.8438,586.7344 L217.8438,594.8125 L220.3125,594.8125 L220.3125,596.9688 L212.9219,596.9688 L212.9219,594.8125 L215.3906,594.8125 L215.3906,586.7344 L212.9219,586.7344 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="40" x="250" y="588.1387">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="78" x="231" y="602.1074">Environment</text><line style="stroke:#A80036;stroke-width:1.5;" x1="203" x2="311" y1="609.9375" y2="609.9375"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="69" x="208" y="624.1479">time(): Time</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="52" x="208" y="636.9526">size(): Int</text><!--MD5=[583949b48bb58d687b700008f98c6a20]
+class Virus--><rect codeLine="39" fill="#FEFECE" height="45.9375" id="Virus" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="68" x="108" y="704"/><ellipse cx="123" cy="722.9688" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M118.9219,718.7344 L118.9219,716.5781 L126.3125,716.5781 L126.3125,718.7344 L123.8438,718.7344 L123.8438,726.8125 L126.3125,726.8125 L126.3125,728.9688 L118.9219,728.9688 L118.9219,726.8125 L121.3906,726.8125 L121.3906,718.7344 L118.9219,718.7344 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="40" x="135" y="720.1387">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="31" x="139.5" y="734.1074">Virus</text><line style="stroke:#A80036;stroke-width:1.5;" x1="109" x2="175" y1="741.9375" y2="741.9375"/><!--MD5=[3915787db80ab162e3259f8f86339844]
+class Structure--><rect codeLine="40" fill="#FEFECE" height="45.9375" id="Structure" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="91" x="211.5" y="704"/><ellipse cx="226.5" cy="722.9688" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M222.4219,718.7344 L222.4219,716.5781 L229.8125,716.5781 L229.8125,718.7344 L227.3438,718.7344 L227.3438,726.8125 L229.8125,726.8125 L229.8125,728.9688 L222.4219,728.9688 L222.4219,726.8125 L224.8906,726.8125 L224.8906,718.7344 L222.4219,718.7344 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="40" x="250" y="720.1387">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="59" x="240.5" y="734.1074">Structure</text><line style="stroke:#A80036;stroke-width:1.5;" x1="212.5" x2="301.5" y1="741.9375" y2="741.9375"/><!--MD5=[be996cdb8e6bf2fc7cb89c555f2cd144]
+class Entity--><rect codeLine="41" fill="#FEFECE" height="45.9375" id="Entity" rx="3.5" ry="3.5" style="stroke:#A80036;stroke-width:1.5;" width="68" x="338" y="704"/><ellipse cx="353" cy="722.9688" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M348.9219,718.7344 L348.9219,716.5781 L356.3125,716.5781 L356.3125,718.7344 L353.8438,718.7344 L353.8438,726.8125 L356.3125,726.8125 L356.3125,728.9688 L348.9219,728.9688 L348.9219,726.8125 L351.3906,726.8125 L351.3906,718.7344 L348.9219,718.7344 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="40" x="365" y="720.1387">«trait»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="35" x="367.5" y="734.1074">Entity</text><line style="stroke:#A80036;stroke-width:1.5;" x1="339" x2="405" y1="741.9375" y2="741.9375"/><!--MD5=[5755c8df24356e9428b44920262da903]
+link Environment to Virus--><path codeLine="45" d="M222.5,644.1 C203.44,663.49 180.35,686.98 163.8,703.82 " fill="none" id="Environment-Virus" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[b712e0bef1368955217c911e44191a80]
+link Environment to Structure--><path codeLine="46" d="M257,644.1 C257,663.49 257,686.98 257,703.82 " fill="none" id="Environment-Structure" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[67e328040028ba60796c6a1aae205651]
+link Environment to Entity--><path codeLine="47" d="M291.5,644.1 C310.56,663.49 333.65,686.98 350.2,703.82 " fill="none" id="Environment-Entity" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[9b38f3aff66828ea83b4e8d10c02a9cc]
+link Loader to Engine--><path codeLine="49" d="M305.98,368.02 C274.23,389.4 233.95,416.52 203.13,437.27 " fill="none" id="Loader-to-Engine" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="198.66,440.28,208.3606,438.5774,202.8092,437.49,203.8966,431.9387,198.66,440.28" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[949f1fcec0ba7c62762cb8105ff9f66e]
+reverse link Boundary to Engine--><path codeLine="51" d="M316.18,121.72 C303.94,139.33 290.72,158.8 279,177 C245.66,228.78 232.83,239.64 208,296 C186.44,344.93 170.53,405.43 162.31,440.37 " fill="none" id="Boundary-backto-Engine" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="319.26,117.29,310.8326,122.387,316.4013,121.3922,317.3961,126.9609,319.26,117.29" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[817029c390b635902b3d220e50caad6e]
+reverse link Boundary to Launcher--><path codeLine="52" d="M358,122.55 C358,141.36 358,161.28 358,176.89 " fill="none" id="Boundary-backto-Launcher" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="358,117.28,354,126.28,358,122.28,362,126.28,358,117.28" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[7fa192a5cadff1e06104c2d1af49c6c5]
+link Launcher to Loader--><path codeLine="54" d="M358,236.14 C358,252.29 358,272.72 358,290.48 " fill="none" id="Launcher-to-Loader" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="358,295.9,362,286.9,358,290.9,354,286.9,358,295.9" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[acddb9202b17db0601a5d70b322a3357]
+link Loader to Parser--><path codeLine="56" d="M414.14,368.02 C442.04,385.43 476.03,406.63 505.65,425.11 " fill="none" id="Loader-to-Parser" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="509.98,427.81,504.4754,419.643,505.7424,425.1562,500.2293,426.4232,509.98,427.81" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[1ac1fac28c7062ed32ea6dd4232491e9]
+link Engine to Environment--><path codeLine="58" d="M177.17,499.51 C191.81,519.23 211.49,545.72 227.64,567.47 " fill="none" id="Engine-to-Environment" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="230.82,571.75,228.6805,562.1363,227.8452,567.7312,222.2504,566.896,230.82,571.75" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[a6440a9b4e0e2e2a2aa2b6351013b018]
+link Loader to Environment--><path codeLine="60" d="M355.11,368.2 C351.13,405.21 342.02,464.54 322,512 C313.76,531.52 301.2,551.16 289.31,567.48 " fill="none" id="Loader-to-Environment" style="stroke:#454645;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#454645" points="286.3,571.56,294.8501,566.6718,289.2587,567.5293,288.4011,561.9379,286.3,571.56" style="stroke:#454645;stroke-width:1.0;"/><!--MD5=[2d28c582745481775c583784c5623474]
+link Parser to Boundary--><!--MD5=[699110fd9a56a88d85b95dbfc2ea27f0]
+@startuml
+
+!theme vibrant
+
+interface Boundary <<trait>> {
+  init(): Task[Unit]
+  start(): Task[Unit]
+  events(): Observable[Event]
+  consume(env: Environment): Task[Unit]
+  stop(): Task[Unit]
+}
+
+interface Engine <<trait>> {
+  startSimulationLoop(env: Environment): Task[Unit]
+}
+
+interface Launcher <<trait>> {
+  launch(): Task[Unit]
+}
+
+interface Loader <<trait>> {
+  parseConfiguration(path: Path): Task[Result]
+  startEngine(conf: Configuration): Task[Unit]
+}
+
+
+interface Parser <<trait>> {
+  readFile(path: Path): Task[String]
+  loadConfiguration(program: String): Task[Configuration]
+  checkErrors(conf: Configuration): Task[Result]
+}
+
+
+interface Environment <<trait>> {
+  time(): Time
+  size(): Int
+}
+
+
+interface Virus <<trait>>
+interface Structure <<trait>>
+interface Entity <<trait>>
+
+hide fields
+
+Environment - - Virus
+Environment - - Structure
+Environment - - Entity
+
+Loader ..> Engine
+
+Boundary <.. Engine
+Boundary <.. Launcher
+
+Launcher ..> Loader
+
+Loader ..> Parser
+
+Engine ..> Environment
+
+Loader ..> Environment
+
+'for style reasons
+Parser -[hidden]- Boundary
+
+@enduml
+
+@startuml
+
+skinparam BackgroundColor FFFFFF
+skinparam shadowing false
+skinparam RoundCorner 7
+skinparam ArrowColor 454645
+skinparam FontColor 454645
+skinparam SequenceLifeLineBorderColor 696969
+skinparam SequenceGroupHeaderFontColor 454645
+skinparam SequenceGroupFontColor 696969
+skinparam SequenceGroupBorderColor 696969
+skinparam SequenceGroupBorderThickness 1
+
+skinparam sequenceDivider {
+    BorderColor 454645
+    BorderThickness 1
+    FontColor 454645
+}
+
+skinparam participant {
+    BackgroundColor FF6347
+    BorderColor FF6F61
+    FontColor FFFFFF
+}
+
+skinparam database {
+    BackgroundColor 00FFFF
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam entity {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam note {
+    BackgroundColor 7FFFD4
+    BorderColor 7FFFD4
+    FontColor 454645
+}
+
+skinparam actor {
+    BackgroundColor 454645
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam boundary {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam control {
+    BackgroundColor FFE552
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam collections {
+    BackgroundColor FF6347
+    BorderColor FFFFFF
+    FontColor 454645
+}
+
+skinparam queue {
+    BackgroundColor FF6347
+    BorderColor FFF
+    FontColor FFF
+    BorderThickness 1.5
+}
+
+interface Boundary <<trait>> {
+  init(): Task[Unit]
+  start(): Task[Unit]
+  events(): Observable[Event]
+  consume(env: Environment): Task[Unit]
+  stop(): Task[Unit]
+}
+
+interface Engine <<trait>> {
+  startSimulationLoop(env: Environment): Task[Unit]
+}
+
+interface Launcher <<trait>> {
+  launch(): Task[Unit]
+}
+
+interface Loader <<trait>> {
+  parseConfiguration(path: Path): Task[Result]
+  startEngine(conf: Configuration): Task[Unit]
+}
+
+
+interface Parser <<trait>> {
+  readFile(path: Path): Task[String]
+  loadConfiguration(program: String): Task[Configuration]
+  checkErrors(conf: Configuration): Task[Result]
+}
+
+
+interface Environment <<trait>> {
+  time(): Time
+  size(): Int
+}
+
+
+interface Virus <<trait>>
+interface Structure <<trait>>
+interface Entity <<trait>>
+
+hide fields
+
+Environment - - Virus
+Environment - - Structure
+Environment - - Entity
+
+Loader ..> Engine
+
+Boundary <.. Engine
+Boundary <.. Launcher
+
+Launcher ..> Loader
+
+Loader ..> Parser
+
+Engine ..> Environment
+
+Loader ..> Environment
+
+Parser -[hidden]- Boundary
+
+@enduml
+
+PlantUML version 1.2021.13(Mon Nov 01 12:38:45 CET 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: GB
+--></g></svg>

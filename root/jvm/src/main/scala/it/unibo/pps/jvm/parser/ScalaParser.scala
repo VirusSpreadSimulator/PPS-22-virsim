@@ -22,6 +22,7 @@ import scala.io.Source
   */
 object ScalaParser:
 
+  /** The provider of the Scala parser instance in the context. */
   trait Provider:
     val scalaParser: Parser
 
@@ -36,12 +37,17 @@ object ScalaParser:
       override def loadConfiguration(program: String): Task[Option[Configuration]] =
         for
           engine <- Task(new ScriptEngineManager().getEngineByName("scala"))
+          isDefined = isConfigurationDefined(program)
           configuration <- Task {
-            engine.eval(program) match
-              case configuration: VirsimConfiguration => Some(configuration)
-              case _ => None
+            if isDefined then
+              engine.eval(program) match
+                case configuration: VirsimConfiguration => Some(configuration)
+                case _ => None
+            else None
           }
         yield configuration
+
+      private def isConfigurationDefined(program: String): Boolean = program.contains("VirsimConfiguration(")
 
   trait Interface extends Provider with Component:
     self: Requirements =>

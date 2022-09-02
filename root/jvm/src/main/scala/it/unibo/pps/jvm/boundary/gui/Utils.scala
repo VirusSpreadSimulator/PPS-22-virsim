@@ -14,5 +14,6 @@ object Utils:
   /** Swing Scheduler used to execute ui-related computations. */
   val swingScheduler: Scheduler = Scheduler.apply(new ExecutionContext {
     override def execute(runnable: Runnable): Unit = SwingUtilities.invokeLater(runnable)
+    /** failure, no exception. */
     override def reportFailure(cause: Throwable): Unit = {}
   })

@@ -16,6 +16,7 @@ import org.jfree.data.xy.{DefaultXYDataset, XYBarDataset, XYDataset}
 
 import java.awt.{Color, Font}
 
+/** The chart that display the dead, healthy and sick entities inside the environment. */
 class DeathSickHealthyChart extends Chart:
   private val dataset: DefaultCategoryDataset = new DefaultCategoryDataset()
   private val barChart: JFreeChart =

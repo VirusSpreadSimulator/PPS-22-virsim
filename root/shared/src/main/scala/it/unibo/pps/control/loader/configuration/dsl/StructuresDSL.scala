@@ -7,6 +7,7 @@ import it.unibo.pps.entity.structure.Structures.SimulationStructure
 /** The DSL of the simulation structures for the configuration file. */
 object StructuresDSL:
 
+  /** The Set of structures defined in the configuration. */
   val structures: Set[SimulationStructure] = Set()
 
   extension [A](set: Set[A])

@@ -1,0 +1,101 @@
+@startuml
+!theme vibrant
+
+package shared {
+folder it
+folder unibo
+folder pps
+folder boundary
+folder entity
+folder control
+folder prolog
+folder component
+folder drawable
+folder panel
+folder engine
+folder launcher
+folder loader
+folder parser
+folder config
+folder logics
+folder configuration
+folder extractor
+folder dsl
+folder common
+folder entity as entity2
+folder structure
+folder environment
+folder virus
+folder entrance
+}
+
+package jvm {
+folder jvm as jvm2
+folder parser as parserjvm
+folder boundary as boundaryjvm
+folder exporter as exporterjvm
+folder gui as guijvm
+folder component as componentjvm
+folder frame as framejvm
+folder panel as paneljvm
+folder charts as chartsjvm
+folder drawable as drawablejvm
+}
+
+package js {
+folder js as js2
+folder parser as parserjs
+folder boundary as boundaryjs
+folder gui as guijs
+folder component as componentjs
+folder panel as paneljs
+folder drawable as drawablejs
+}
+
+
+it +-- unibo
+unibo +-- pps
+pps +-- boundary
+pps +-- entity
+pps +-- control
+pps +-- prolog
+boundary +-- component
+component +-- drawable
+component +-- panel
+control +-- engine
+control +-- launcher
+control +-- loader
+control +-- parser
+engine +-- config
+engine +-- logics
+loader +-- configuration
+loader +-- extractor
+configuration +-- dsl
+entity +-- common
+entity +-- entity2
+entity +-- environment
+entity +-- structure
+entity +-- virus
+structure +-- entrance
+
+pps +-- jvm2
+jvm2 +-- boundaryjvm
+jvm2 +-- parserjvm
+boundaryjvm +-- exporterjvm
+boundaryjvm +-- guijvm
+guijvm +-- componentjvm
+guijvm +-- framejvm
+guijvm +-- paneljvm
+componentjvm +-- drawablejvm
+paneljvm +-- chartsjvm
+
+
+pps +-- js2
+js2 +-- boundaryjs
+js2 +-- parserjs
+boundaryjs +-- guijs
+guijs +-- componentjs
+guijs +-- paneljs
+componentjs +-- drawablejs
+
+@enduml

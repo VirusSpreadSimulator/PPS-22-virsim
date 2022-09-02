@@ -1,0 +1,66 @@
+@startuml
+
+!theme vibrant
+
+interface Boundary <<trait>> {
+  init(): Task[Unit]
+  start(): Task[Unit]
+  events(): Observable[Event]
+  consume(env: Environment): Task[Unit]
+  stop(): Task[Unit]
+}
+
+interface Engine <<trait>> {
+  startSimulationLoop(env: Environment): Task[Unit]
+}
+
+interface Launcher <<trait>> {
+  launch(): Task[Unit]
+}
+
+interface Loader <<trait>> {
+  parseConfiguration(path: Path): Task[Result]
+  startEngine(conf: Configuration): Task[Unit]
+}
+
+
+interface Parser <<trait>> {
+  readFile(path: Path): Task[String]
+  loadConfiguration(program: String): Task[Configuration]
+  checkErrors(conf: Configuration): Task[Result]
+}
+
+
+interface Environment <<trait>> {
+  time(): Time
+  size(): Int
+}
+
+
+interface Virus <<trait>>
+interface Structure <<trait>>
+interface Entity <<trait>>
+
+hide fields
+
+Environment -- Virus
+Environment -- Structure
+Environment -- Entity
+
+Loader ..> Engine
+
+Boundary <.. Engine
+Boundary <.. Launcher
+
+Launcher ..> Loader
+
+Loader ..> Parser
+
+Engine ..> Environment
+
+Loader ..> Environment
+
+'for style reasons
+Parser -[hidden]- Boundary
+
+@enduml
