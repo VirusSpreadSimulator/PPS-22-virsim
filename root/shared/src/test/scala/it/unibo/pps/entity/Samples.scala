@@ -9,7 +9,7 @@ import it.unibo.pps.entity.entity.Entities.SimulationEntity
 import it.unibo.pps.entity.environment.EnvironmentModule
 import it.unibo.pps.entity.environment.EnvironmentModule.Environment
 import it.unibo.pps.entity.structure.entrance.Permanence.EntityPermanence
-import scala.concurrent.duration.{DAYS, MINUTES}
+import scala.concurrent.duration.MINUTES
 
 /** Module that contains some simple samples useful during testing. */
 object Samples:
