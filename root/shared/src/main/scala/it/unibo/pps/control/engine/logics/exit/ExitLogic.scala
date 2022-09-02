@@ -1,6 +1,7 @@
 package it.unibo.pps.control.engine.logics.exit
 
 import it.unibo.pps.control.engine.logics.Logic.UpdateLogic
+import it.unibo.pps.control.loader.configuration.SimulationDefaults
 import it.unibo.pps.entity.common.Space.Point2D
 import it.unibo.pps.entity.common.Time.TimeStamp
 import it.unibo.pps.entity.common.Utils.*
@@ -13,6 +14,7 @@ import it.unibo.pps.entity.structure.Structures.SimulationStructure
 import it.unibo.pps.entity.structure.entrance.Permanence.PermanenceStatus
 import monix.eval.Task
 import monocle.syntax.all.*
+
 import scala.util.Random
 
 /* class that contains the logics for the entry of an entity in a structure*/
@@ -55,8 +57,16 @@ class ExitLogic extends UpdateLogic:
   ): Point2D =
     def getAllPossiblePosition(width: Int, height: Int, position: Point2D, visibilityDistance: Double): Set[Point2D] =
       (for
-        x <- List(-visibilityDistance.toInt - 10, 0, visibilityDistance.toInt + 10)
-        y <- List(-visibilityDistance.toInt - 10, 0, visibilityDistance.toInt + 10)
+        x <- List(
+          -visibilityDistance.toInt - SimulationDefaults.StructuresDefault.DEFAULT_ENTITY_EXIT_DISTANCE,
+          0,
+          visibilityDistance.toInt + SimulationDefaults.StructuresDefault.DEFAULT_ENTITY_EXIT_DISTANCE
+        )
+        y <- List(
+          -visibilityDistance.toInt - SimulationDefaults.StructuresDefault.DEFAULT_ENTITY_EXIT_DISTANCE,
+          0,
+          visibilityDistance.toInt + SimulationDefaults.StructuresDefault.DEFAULT_ENTITY_EXIT_DISTANCE
+        )
       yield position + Point2D(x, y))
         .filter(point =>
           point.x >= 0 && point.y >= 0 && point.x < width && point.y <= height && (point.x != position.x || point.y != position.y)
