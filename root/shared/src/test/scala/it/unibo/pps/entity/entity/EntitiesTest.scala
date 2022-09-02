@@ -35,11 +35,11 @@ class EntitiesTest extends AnyFunSuite with Matchers:
   )
 
   test("two entities with the same id are the same entity") {
-    entity0 == entity100 shouldBe true
+    entity0 shouldBe entity100
   }
 
   test("two entities with different ids are different entities") {
-    entity0 == entity80 shouldBe false
+    entity0 should not be entity80
   }
 
   test("an entity with age = 100 has 70 of health") {

@@ -18,10 +18,10 @@ class EnvironmentTest extends AnyFunSuite with Matchers:
     position = Point2D(0, 10)
   )
   test("call to update without parameters does not modify the env") {
-    env.update() == env shouldBe true
+    env.update() shouldBe env
   }
 
   test("call to update with entities as externalEntities parameter, modify the set of external entities") {
     val newExternalEntities = Set(entity)
-    env.update(externalEntities = newExternalEntities).externalEntities == newExternalEntities shouldBe true
+    env.update(externalEntities = newExternalEntities).externalEntities shouldBe newExternalEntities
   }
