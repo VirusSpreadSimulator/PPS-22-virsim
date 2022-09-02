@@ -8,7 +8,7 @@ La schermata di avvio permette all'utente il caricamento del file di configurazi
 
 <img src="imgs/jvm_init.png" alt="jvm_init" style="zoom:90%;" />
 
-In caso ci siano errori all'interno della configurazione vengono visualizzati attraverso una finestra di dialogo apposita (nell'esempio all'interno della configurazione una struttura è stata posizionata al di fuori dell'environment):
+In caso ci siano errori all'interno della configurazione essi vengono visualizzati attraverso una finestra di dialogo apposita:
 
 
 
@@ -16,9 +16,15 @@ In caso ci siano errori all'interno della configurazione vengono visualizzati at
 
 
 
+Nell'esempio all'interno della configurazione una struttura è stata posizionata al di fuori dell'environment.
+
+
+
 Invece, nel caso in cui la configurazione sia valida verrà avviata la simulazione.
 
 ![jvm_simulation](imgs/jvm_simulation.png)
+
+
 
 La schermata di simulazione offre due pannelli che consentono la visualizzazione delle informazioni relative alla simulazione stessa:
 
@@ -44,7 +50,7 @@ Infine, nella directory dei file temporanei del proprio sistema operativo è pos
 
 #### Descrizione API file di configurazione Scala
 
-Iniziare con **VirsimConfiguration()** e definire all'interno le keyword **simulation**, **virus** e **structures** separate da una virgola come nell'esempio seguente: `VirsimConfiguation(simulation, virus, structures)`.
+Iniziare la configurazione in un file `.scala` con **VirsimConfiguration()** e definire all'interno le keyword **simulation**, **virus** e **structures** separate da una virgola come nell'esempio seguente: `VirsimConfiguation(simulation, virus, structures)`.
 
 In questo caso viene istanziata una configurazione di default senza strutture nell'environment.
 
@@ -60,7 +66,7 @@ Per i parametri della simulazione è possibile aggiungere in seguito alla keywor
 Per i parametri del virus è possibile aggiungere alla keyword **virus** i seguenti parametri:
 
   - *name*: nome del virus presente nell'environment.
-  - *spreadRate*: tasso di diffusione del virus.
+  - *spreadRate*: tasso di diffusione del virus. Deve essere compreso tra 0 e 1.
   - *averagePositivityDays*: giorni medi di positività del virus.
   - *stdDevPositivityDays*: deviazione standard dei giorni di positività del virus.
   - *severeDeseaseProbability*: probabilità di sviluppare una forma grave della malattia. Deve essere compreso tra 0 e 1.
@@ -72,7 +78,7 @@ Per quanto riguarda le strutture è possibile aggiungere alla keyword **structur
 
     - *position*: posizione della struttura all'interno della griglia.
     - *infectionProbability*: probabilità di infettarsi entrando nella struttura. Deve essere compreso tra 0 e 1.
-    - *capacity*: numero massimo di persone che possono essere dentro alla struttura.
+    - *capacity*: numero massimo di persone che possono essere dentro alla struttura contemporaneamente.
 
     ed i parametri opzionali:
 
@@ -86,7 +92,7 @@ Per quanto riguarda le strutture è possibile aggiungere alla keyword **structur
 
     - *position*: posizione della struttura all'interno della griglia.
     - *infectionProbability*: probabilità di infettarsi entrando nella struttura. Deve essere compreso tra 0 e 1.
-    - *capacity*: numero massimo di persone che possono essere dentro alla struttura.
+    - *capacity*: numero massimo di persone che possono essere dentro alla struttura contemporaneamente.
 
     ed i parametri opzionali:
 
@@ -111,7 +117,7 @@ Nella configurazione in formato YAML è possibile definire i parametri della sim
 
 Nello specifico, la keyword structures accetta una lista di strutture di tipologia **GenericBuilding** oppure **Hospital**.
 
-A differenza della configurazione in formato Scala, per motivi legati alla difficoltà nell'istanziare delle classi in un formato chiave-valore, non è possibile definire i parametri **permanenceTimeDistribution**, **treatmentQuality**, **isOpen**.
+A differenza della configurazione in formato Scala, per motivi legati alla difficoltà nell'istanziare delle classi in un formato chiave-valore, non è possibile definire i parametri **permanenceTimeDistribution**, **treatmentQuality** e **isOpen**.
 
 Mentre per quanto riguarda la strategia di ingresso è possibile definire le seguenti strategie:
 
