@@ -34,7 +34,7 @@ object Permanence:
       * @param timestampToCheck
       *   the timestamp respect to which perform the check.
       * @return
-      *   a [[PermanceStatus]] that represent the status of the permanence.
+      *   a PermanenceStatus that represent the status of the permanence.
       */
     def status(timestampToCheck: TimeStamp): PermanenceStatus
 
