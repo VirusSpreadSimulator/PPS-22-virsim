@@ -4,21 +4,21 @@ In questo capitolo si prenderanno in considerazione tutti gli episodi di interes
 
 ### Processo di sviluppo
 
-Lo sviluppo del software è stato gestito attraverso la versione del framework **Scrum** descritta nel capitolo del processo di sviluppo. Esso ci ha concesso di sperimentare i vari ruoli presenti all'interno di un team **Scrum** e questo ha permesso di considerare diversi punti di vista che ci hanno aiutato nella comprensione del dominio e nella risoluzione delle problematiche.
+Lo sviluppo del software è stato gestito attraverso la versione del framework **Scrum** descritta nel capitolo del processo di sviluppo. Esso ci ha concesso di sperimentare i vari ruoli presenti all'interno di un team **Scrum** e di considerare diversi punti di vista che ci hanno aiutato nella comprensione del dominio e nella risoluzione delle problematiche.
 
 I diversi incontri previsti da **Scrum** sono risultati molto utili al fine di definire in modo preciso i compiti da svolgere e per mantenere sempre sotto controllo lo stato di avanzamento dello sviluppo. Le riunioni a fine sprint ci hanno permesso di capire il giusto carico di lavoro che mantenesse allo stesso tempo una buona produttività e la giusta motivazione nel team. Inoltre, si è sempre cercato di avere sprint significativi cioè che portassero ad un risultato tangibile per il committente.
 
-Infine, l'utilizzo di tutta la documentazione prodotta, e mantenuta in versione, ed in particolare della Sprint task board è risultata particolarmente utile per l'organizzazione del lavoro e per avere una panoramica sullo stato di avanzamento dello Sprint corrente.
+Infine, l'utilizzo di tutta la documentazione prodotta, e mantenuta in versione, in particolare della Sprint task board è risultata particolarmente utile per l'organizzazione del lavoro e per avere una panoramica sullo stato di avanzamento dello Sprint corrente.
 
 Tutta la documentazione relativa a:
 
-- Product Backlog
-- Sprint Goal
-- Sprint Backlog
-- Screen della Sprint Taskboard svolta su Trello
-- Product Backlog Refinement
-- Sprint Review
-- Sprint Retrospective
+- *Product Backlog*
+- *Sprint Goal*
+- *Sprint Backlog*
+- *Screen della Sprint Taskboard svolta su Trello*
+- *Product Backlog Refinement*
+- *Sprint Review*
+- *Sprint Retrospective*
 
 è stata prodotta e aggiornata per ogni sprint, seguendo i principi del framework **Scrum**, e mantenuta in versione nella repository del progetto sotto forma di file Markdown. In particolare si trova nella directory `doc/process/`.
 
@@ -33,11 +33,11 @@ Durante lo sviluppo dell'applicazione sono emersi i seguenti problemi:
   - Disabilitare il server di compilazione Scala: inizialmente ha permesso di risolvere il problema però con una rinuncia quasi completa ai suggerimenti dell'IDE. Questo workaround può essere compiuto seguendo i seguenti passi: *Setttings -> Compiler -> Scala Compiler Server -> Rimuovere flag "Use compile server"*
   - Forzare Intellij IDEA a produrre i .class in target/classes: successivamente, dopo un incrontro con il prof. Aguzzi, abbiamo adottato il seguente workaround che ci ha permesso di ri-ottenere parte dei suggerimenti dell'IDE. I passi sono: *ProjectSettings -> Modules -> Si crea un nuovo module posizionato nella root del progetto cross platform e con il nome "shared" impostando tutte le versioni in modo corretto (Scala: 3.1.1, SBT: 1.6.2)*.
 
-- *Utilizzo di Prolog all'interno del progetto cross-platform*: inizialmente la volontà era quella di sviluppare una parte delle logiche dell'engine sfruttando i vantaggi offerti dal paradigma logico. Dopo lo sviluppo della logica di movimento però, ci siamo resi conto che la libreria utilizzata durante il corso per l'utilizzo di Prolog da Scala era integrabile con JS e quindi con ScalaJS con uno sforzo che andava ben oltre il monte ore. Stesso discorso per le alternative trovate. Per questo motivo la scelta finale è stata quella di mantenere tutte le logiche in Scala, ma allo stesso tempo mantenere in un package separato il lavoro svolto dal componente del team Giacomo Accursi.
+- *Utilizzo di Prolog all'interno del progetto cross-platform*: inizialmente la volontà era quella di sviluppare una parte delle logiche dell'engine sfruttando i vantaggi offerti dal paradigma logico. Dopo lo sviluppo della logica di movimento però, ci siamo resi conto che la libreria utilizzata durante il corso per l'utilizzo di Prolog da Scala era integrabile con JS, quindi con ScalaJS, con uno sforzo che andava ben oltre il monte ore. Stesso discorso per le alternative trovate. Per questo motivo la scelta finale è stata quella di mantenere tutte le logiche in Scala, ma allo stesso tempo mantenere in un package separato il lavoro svolto dal componente del team Giacomo Accursi.
 
 Nonostante ciò, lo sviluppo e le strategie adottate hanno permesso di ottenere i seguenti aspetti positivi:
 
-- *Automazione offerta dal workflow di Continuous Integration*: la scelta di dedicare uno sforzo iniziale importante nell'impostare i workflow di Continuous Integration ha concesso di portare avanti agilmente tutto il processo di sviluppo. L'analisi statica del codice ci ha permesso di risolvere code smells ed evitare debito tecnico con più facilità. I test eseguiti in automatico hanno evitato notevoli errori di regressione. Infine, tutto il processo di deploy automatico che comprende: release, documentazione e deploy della WebApp del simulatore, ha velocizzato notevolmente la release del prodotto e il suo aggiornamento.
+- *Automazione offerta dal workflow di Continuous Integration e Deployment*: la scelta di dedicare uno sforzo iniziale importante nell'impostare i workflow di Continuous Integration e Deployment ha concesso di portare avanti agilmente tutto il processo di sviluppo. L'analisi statica del codice ci ha permesso di risolvere code smells ed evitare debito tecnico con più facilità. I test eseguiti in automatico hanno evitato notevoli errori di regressione. Infine, tutto il processo di deploy automatico che comprende: release, documentazione e deploy della WebApp del simulatore, ha velocizzato notevolmente la release del prodotto e il suo aggiornamento.
 - *Utilizzo di Scrum come framework di riferimento*: come anticipato nella sezione precedente *Scrum* ci ha permesso di monitorare costantemente l'andamento di sviluppo e di sincronizzarci in maniera più agile.
 - *Flessibilià del design*: il design prodotto ci ha permesso di effettuare cambiamenti ed adattamenti in itinere agilmente e senza introdurre troppo debito tecnico.
 
@@ -48,8 +48,8 @@ La documentazione riguardante l'andamento dello sviluppo è mantenuta in version
 Il progetto ha consentito di approfondire aspetti di design, sviluppo e gestione di un software in un contesto Scrum emulando un contesto reale.
 Inoltre, ha concesso di approfondire gli argomenti trattati nel corso e di esplorare l'approccio funzionale. 
 
-Durante tutto il progetto abbiamo seguito il consiglio di sperimentare nuovi pattern, strumenti, strategie e metodologie come ad esempio: il pattern architetturale ECB, Continuous Integration, lo sviluppo di un progetto cross-platform, l'approccio monadico ...
+Durante tutto il progetto abbiamo seguito il consiglio di sperimentare nuovi pattern, strumenti, strategie e metodologie come ad esempio: il pattern architetturale ECB, Continuous Integration e Deployment, lo sviluppo di un progetto cross-platform, l'approccio monadico ...
 
-Al termine del progetto possiamo ritenerci soddisfatti in quanto abbiamo raggiunto gli obiettivi che ci eravamo imposti in fase di stesura dei requisiti con un buon bilanciamento nella suddivisione degli item e degli obiettivi e un'ottima sinergia tra i vari componenti del team.
+Al termine del progetto possiamo ritenerci soddisfatti in quanto abbiamo raggiunto gli obiettivi che ci eravamo imposti in fase di stesura dei requisiti con un buon bilanciamento nella suddivisione degli item e un'ottima sinergia tra i vari componenti del team.
 
 <div style="page-break-after: always;"></div>
