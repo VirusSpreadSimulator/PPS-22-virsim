@@ -17,7 +17,7 @@ object JSReader:
     val jsReader: Reader
 
   trait Component:
-    /** Return the content of the configuration file inserted by the user. */
+    /** Returns the content of the configuration file inserted by the user. */
     class JSReaderImpl extends Reader:
 
       private val filePS: PublishSubject[String] = PublishSubject[String]()

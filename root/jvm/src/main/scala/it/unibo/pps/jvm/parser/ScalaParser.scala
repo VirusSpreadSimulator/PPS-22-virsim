@@ -22,6 +22,7 @@ import scala.io.Source
   */
 object ScalaParser:
 
+  /** The provider of the Scala parser instance in the context. */
   trait Provider:
     val scalaParser: Parser
 

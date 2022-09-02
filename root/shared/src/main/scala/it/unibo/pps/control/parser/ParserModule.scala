@@ -13,9 +13,11 @@ import monix.eval.Task
 
 object ParserModule:
 
+  /** Method to check if the value inserted by user respect the valid range. */
   extension [A](parameter: Ordered[A])
     def shouldBeWithin(range: (A, A)): Boolean = parameter >= range._1 && parameter <= range._2
 
+  /** Method to manage the errors in configuration parameters. */
   extension (bool: Boolean)
     def andIfNot(message: String): List[ConfigurationError] =
       if !bool then List(ConfigurationError.WRONG_PARAMETER(message)) else List.empty

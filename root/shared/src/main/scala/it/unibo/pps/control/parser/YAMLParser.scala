@@ -26,7 +26,10 @@ import scala.io.Source
 /** The parser of configuration file in YAML format. */
 object YAMLParser:
 
+  /** Method to convert the value of the YAML parsing to configuration values. */
   extension (original: Any) def to[E] = original.asInstanceOf[E]
+
+  /** Method that allows a better clarity in the source code. */
   extension [A, B](parameters: Map[A, B]) def has(key: A) = parameters.isDefinedAt(key)
 
   trait Provider:
