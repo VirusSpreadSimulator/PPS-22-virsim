@@ -25,3 +25,10 @@ class EnvironmentTest extends AnyFunSuite with Matchers:
     val newExternalEntities = Set(entity)
     env.update(externalEntities = newExternalEntities).externalEntities shouldBe newExternalEntities
   }
+
+  test(
+    "the number of allEntities should be equal to the number of external entities plus all entities inside structures"
+  ) {
+    val expectedEntitiesNumber = env.externalEntities.size + env.structures.flatMap(_.entities).size
+    env.allEntities.size shouldBe expectedEntitiesNumber
+  }
