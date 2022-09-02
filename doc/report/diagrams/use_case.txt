@@ -21,8 +21,8 @@ package VirusSpreadSimulator {
 }
 
 RIC_SIM .> CONF_SIM : <<include>>
-CONF_SIM .> CONF_VIR : <<include>>
-CONF_SIM .> CONF_IND : <<include>>
+CONF_SIM <. CONF_VIR : <<extends>>
+CONF_SIM <. CONF_IND : <<extends>>
 CONF_ENV .> CONF_SIM : <<extends>>
 
 INT_SIM <|-- SPEED
