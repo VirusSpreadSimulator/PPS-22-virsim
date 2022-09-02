@@ -102,7 +102,7 @@ Al fine di gestire il disegno dei concetti di simulazione è stata utilizzata la
 
 #### Exporter
 
-L'**Exporter** è un boundary con il compito di esportare alcune statistiche e dati aggregati della simulazione su un file di testo in formato *CSV*. Quest'ultimo viene aggiunto come componente al *launcher* dell'applicazione ed in quanto *boundary* ad ogni step della simulazione riceve *l'environment* aggiornato.
+L'**Exporter** è un boundary con il compito di esportare alcune statistiche e dati aggregati della simulazione su un file di testo in formato *`.csv`*. Quest'ultimo viene aggiunto come componente al *launcher* dell'applicazione ed in quanto *boundary* ad ogni step della simulazione riceve *l'environment* aggiornato.
 
 L'esportazione dei dati su file avviene continuamente ad ogni step in modo da poter analizzare, una volta terminata la simulazione, l'andamento dei parametri principali nel corso del tempo.
 
@@ -130,12 +130,12 @@ Al fine di mantenere l'approccio funzionale, si evitano qualsiasi forma di eccez
 
 Il Loader, appartenente al *Control*, si occupa di caricare la configurazione fornita dall'utente, creare l'environment iniziale ed infine lanciare l'engine della simulazione. Esso è un componente dell'architettura, quindi è modellato tramite il **Cake pattern** come descritto precedentemente.
 
-I componenti di cui necessita a livello architetturale sono l' *Environment*, in quanto una volta caricata la configurazione dovrà essere inizializzato con i paremetri definiti dall'utente, l'*Engine* il quale dovrà iniziare la simulazione con l'environment aggiornato ed infine il *Parser*, necessario per il caricamento della configurazione.
+I componenti di cui necessita a livello architetturale sono l' *Environment*, in quanto una volta caricata la configurazione dovrà essere inizializzato con i parametri definiti dall'utente, l'*Engine* il quale dovrà iniziare la simulazione con l'environment aggiornato ed infine il *Parser*, necessario per il caricamento della configurazione.
 
 Per quanto riguarda la configurazione della simulazione, si è scelto di rimanere coerenti con gli obiettivi di design descritti precedentemente. Infatti, si è scelto di perseguire un approccio estremamente dichiarativo considerando il file di configurazione come un file *Scala* esprimibile tramite un **DSL** implementato attraverso il pattern **Pimp my Library** con l'utilizzo di **extension methods**. 
 
 In questo modo, anche un utente che non conosce il linguaggio Scala può creare e modificare i file di configurazione della simulazione in maniera semplice a seconda delle esigenze.
-A fronte di ciò è stato definito il trait *Configuration* ed una case class *VirsimConfiguration* la quale verrà istanziata direttamente  con i parametri definiti dall'utente.
+A fronte di ciò è stato definito il trait *Configuration* ed una case class *VirsimConfiguration* la quale verrà istanziata direttamente con i parametri definiti dall'utente.
 
 Nella creazione dell'environment viene delegata la creazione delle entità alla classe *EntityFactory*, fornita al loader tramite **given instance**  ed utilizzata come parametro implicito nel metodo *createEnvironment*. Quest'ultima utilizza il pattern **Factory** per creare il Set di entità partendo dai parametri del file di configurazione.
 
@@ -151,7 +151,7 @@ Oltre a fungere da supporto al Loader per il caricamento della configurazione, l
 A fronte di ciò sono state create due tipologie di Parser:
 
 - **ScalaParser**: si occupa di caricare i file di configurazione scritti tramite il DSL in Scala utilizzando la classe *ScriptEngineManager* di Java, fornita tramite **given instance**.
-- **YAMLParser**: si occupa di  caricare i file di configurazione scritti in formato YAML.
+- **YAMLParser**: si occupa di caricare i file di configurazione scritti in formato YAML.
 
 Entrambe le tipologie implementano il trait Parser il quale contiene il metodo *checkErrors* già implementato in quanto è comune a tutti i parser presenti.
 
@@ -163,15 +163,15 @@ Per quanto riguarda la lettura del file di configurazione, la quale in quanto pr
 
 Il Reader, componente appartenente al *Control*, ha il compito di leggere il file di configurazione fornito dall'utente e restituirlo al Parser il quale poi provvederà a caricarlo.
 
-La motivazione dell'aggiunta di questo componente risiede nel fatto che non è possibile trovare una modalità di lettura di un file comune sia ad un' applicazione desktop che ad una web app.
+La motivazione dell'aggiunta di questo componente risiede nel fatto che non è possibile trovare una modalità di lettura di un file comune sia ad un'applicazione desktop che ad una web app.
 Per questo motivo è stato introdotto il trait Reader con due distinte implementazioni:
 
 - **JVMReader**: si occupa di leggere il file utilizzando le tradizionali API di Java per l'IO.
-- **JSReader**: si occupa di leggere il file fornito dal broswer utilizzando un *FileReader* di Javascript.
+- **JSReader**: si occupa di leggere il file fornito dal broswer utilizzando *FileReader* di Javascript.
 
 Nel design del Reader si è cercato comunque di generalizzare un concetto di *Path* del file e ciò è stato possibile sfruttando il **family polimorphism** grazie agli **abstract types** di Scala.
 
-Per quanto riguarda il *JSReader* la lettura del file viene svolta utilizzando un approccio ad eventi per rimanere coerentei con l' Event Loop di JavaScript.
+Per quanto riguarda il *JSReader* la lettura del file viene svolta utilizzando un approccio ad eventi per rimanere coerenti con l'Event Loop di JavaScript.
 
 L'interazione tra Loader, Parser e Reader viene riassunta nel seguente diagramma:
 
@@ -184,8 +184,8 @@ Maggiori dettagli verranno forniti nel capitolo *Implementazione*.
 L'Engine si occupa di gestire il simulation loop aggiornando la simulazione e interagendo con i boundary. Esso è un componente dell'architettura, quindi è modellato tramite il **Cake pattern** come descritto precedentemente.
 
 Nel design dell'engine e quindi nel design del simulation loop è opportuno considerare gli obiettivi di design descritti precedentemente. Infatti, si desidera creare un motore con cui gestire la simulazione che adotti un approccio funzionale e il più possibile dichiarativo. 
-Il simulation loop è stato espresso mediante un approccio monadico basato su Monix che ha consentito di specificarlo attraverso una descrizione lazy della computazione rimanendo altamente dichiarativi.
-Infatti, come spiegato successivamente, la gestione degli eventi, delle logiche e degli aggiornamenti in generale è stato espressa mantenendo un'elevata dichiaratività, senza preoccuparsi del control-flow e senza gestire in modo imperativo i thread di esecuzione.
+Il simulation loop è stato espresso mediante un approccio monadico basato su Monix che ha consentito di specificare il loop attraverso una descrizione lazy della computazione rimanendo altamente dichiarativi.
+Infatti, come spiegato successivamente, la gestione degli eventi, delle logiche e degli aggiornamenti in generale è stata espressa mantenendo un'elevata dichiaratività, senza preoccuparsi del control-flow e senza gestire in modo imperativo i thread di esecuzione.
 
 Il compito dell'Engine, oltre a raccogliere gli eventi provenienti dai boundary, è eseguire le logiche di aggiornamento della simulazione. Esse devono essere eseguite nell'ordine specificato. Inoltre, come da requisito 2.3.2 è necessario poter impostare la velocità di simulazione oltre che gestire lo stato (2.3.1) e gestire le interazioni dinamiche dell'utente (2.3.3).
 Da questo ne deriva la necessità di esprimere una configurazione dell'Engine, la quale sia indipendente dalla particolare istanza di simulazione, e che possa essere impostata a livello di applicazione. A tal fine è stato creato il trait **SimulationConfig** che rappresenta la configurazione da utilizzare nell'Engine. Al fine di iniettare la configurazione nell'engine, esso è stato progettato per utilizzare un **context parameter** di tipo **SimulationConfig** a livello di costruttore.
@@ -224,9 +224,9 @@ Ulteriori dettagli sull'*engine* e sul *simulation loop* saranno riportati nel c
 ### Environment
 
 Appartenente alle **Entity**, è un componente dell'architettura modellato tramite **Cake Pattern** come descritto in precedenza. 
-Si occupa di mantenere le informazioni delle Strutture, delle Entità, del Virus, oltre a quelle relative al tempo corrente, alla durata della simulazione e alla grandezza della griglia. Tutti i campi sono immutabili. 
-Ad ogni iterazione della simulazione viene aggiornato dal componente Engine. In particolare l'aggiornamento è gestito tramite il metodo `Update`. Esso ha tutti i parametri come default, i quali mantengono l'Environment invariato, e restituisce un nuovo Environment, aggiornando le informazioni con i parametri passati. 
-Le strutture vengono mantenute all'interno di un set, così come le entità che si muovono liberamente all'interno della griglia, mentre ogni struttura mantiene una lista delle entità al suo interno. Questo ha evitato problemi legati all'aggiornamento, in quando ogni entità è presente in modo univoco all'interno dell'Environment. É presente anche un metodo `allEntities` il quale restituisce un set contenente tutte le entità interne ed esterne alle strutture della simulazione.  
+Si occupa di mantenere le informazioni delle Strutture, delle Entità, del Virus, oltre a quelle relative al tempo corrente, alla durata della simulazione e alla grandezza della griglia.
+Ad ogni iterazione della simulazione viene aggiornato dal componente Engine. In particolare l'aggiornamento è gestito tramite il metodo `update`. 
+Le strutture vengono mantenute all'interno di un Set, così come le entità che si muovono liberamente all'interno della griglia, mentre ogni struttura mantiene una lista delle entità al suo interno. Questo ha evitato problemi legati all'aggiornamento, in quando ogni entità è presente in modo univoco all'interno dell'Environment. É presente anche un metodo `allEntities` il quale restituisce un Set contenente tutte le entità interne ed esterne alle strutture della simulazione.  
 
 #### Common
 
@@ -252,7 +252,7 @@ In questo modo si riesce ad astrarre tutto ciò che è comune, specificando solo
 
 Le specializzazioni che sono state progettate in quanto utili per il sistema sono:
 
-- *GaussianDurationTime*: è un generatore di "tempi di durata" che segue una distribuzione gaussiana. Essi sono espressi secondo un'unità di misura come ad esempio: minuti, secondi, ..., 
+- *GaussianDurationTime*: è un generatore di "tempi di durata" che segue una distribuzione gaussiana. Essi sono espressi secondo un'unità di misura come ad esempio: minuti, secondi ...
 - *GaussianIntDistribution*: è un generatore di interi che segue una distribuzione guassiana.
 
 ##### Eventi descritti da una probabilità
@@ -260,8 +260,10 @@ Le specializzazioni che sono state progettate in quanto utili per il sistema son
 La simulazione prende in considerazione molti eventi che accadono con una certa probabilità la cui formula per computarla è influenzata da diversi parametri. Un esempio è sicuramente l'evento di contagio la cui probabilità di accadimento dipende da diversi fattori, ad esempio nel contagio all'esterno abbiamo: distanza tra individui, immunità sviluppata dagli individui, presenza di mascherine, ecc... che devono partecipare nel calcolo della probabilità. Dopodiché ovviamente è necessario un "algoritmo" in grado di capire e simulare, data la probabilità, se l'evento è accaduto oppure no.
 
 A tal fine è stata progettata la **type class** *Probable* la quale consente di estendere un tipo generico con la capacità di agire come un evento descritto da una certa probabilità di accadimento.
-L'utilizzatore in questo modo dovrà solamente fornire l'implementazione della formula per poter aderire. 
-A partire dalla **type class** *Probable* è stato definito un algoritmo aggiuntivo il quale specifica il **context-bound** *Probable* sul tipo generico accettato e che permette di simulare se l'evento, data la probabilità computata dalla formula specificata dall'utilizzatore, è avvenuto o meno. Questo metodo permette di raggiungere l'obiettivo definito in precedenza: definire un evento probabile andando a specificare solamente la formula per calcolare la probabilità abilitando un utilizzo altamente dichiarativo del concetto.
+
+Per poter aderire l'utilizzatore in questo modo dovrà solamente fornire l'implementazione della formula.
+
+A partire dalla **type class** *Probable* è stato definito un algoritmo aggiuntivo il quale specifica il **context-bound** *Probable* sul tipo generico accettato e che permette di simulare se l'evento, data la probabilità computata dalla formula specificata dall'utilizzatore, è avvenuto o meno. Questo metodo permette di raggiungere l'obiettivo definito in precedenza ossia definire un evento probabile andando a specificare solamente la formula per calcolare la probabilità abilitando un utilizzo altamente dichiarativo del concetto.
 Il risultato viene espresso attravero il *sum type ProbabilityResult*. 
 Allo stesso tempo, al fine di essere compatibile anche con API che lavorano con tipi *Boolean* si è sfruttato il pattern **Adapter**, grazie alle **given Conversion** offerte da Scala, per poter convertire agilmente il tipo *ProbabilityResult* in *Boolean* e viceversa.
 
@@ -273,7 +275,7 @@ Le strutture devono essere posizionate all'interno dello spazio dell'environment
 
 Il punto all'interno dell'environment è definito dalla **case class**, o record, *Point2D*. Nel suo design si è scelto di separare la dichiarazione della struttura dal comportamento. Infatti *Point2D* è modellata solamente nelle sue componenti e tutte le funzionalità sono state aggiunte successivamente attraverso il pattern **Pimp my library** il quale è pensato anche per situazioni in cui si desidera separare struttura e funzionalità di un concetto in pieno stile funzionale.
 
-Inoltre, è stato definito un **type-alias** *Distance* al fine di rappresentare la distanza con una notazione più *domain-specific*.
+Inoltre, è stato definito il **type-alias** *Distance* al fine di rappresentare la distanza con una notazione più *domain-specific*.
 
 ##### Tempo
 
@@ -283,8 +285,8 @@ Al fine di modellare il tempo corrente all'interno dell'environment è stato cre
 
 #### Entity
 
-Al fine di modellare il concetto di entity all'interno della simulazione si è deciso di rendere più granulare possibile l'acquisizione di ogni singola caratteristica dell'individuo. Il **trait** *Entity* mantiene solo le caratteristiche essenziali che deve avere un entità. Sono stati per questo definiti ulteriori trait, ai quali sono state associate singole o un numero minimale di proprietà. La definizione delle entità si riduce quindi ad una attività di composizione, la quale rende riutilizzabili in futuro astrazioni già definite, permettendo di combinare fra loro le diverse proprietà per definire nuovi tipi di entità. 
-`MovementGoal` definisce il tipo di movimento di un entità in un determinato momento della simulazione. Questo può essere: 
+Al fine di modellare il concetto di entity all'interno della simulazione si è deciso di rendere più granulare possibile l'acquisizione di ogni singola caratteristica dell'individuo. Il **trait** *Entity* mantiene solo le caratteristiche essenziali che deve avere un'entità. Sono stati per questo definiti ulteriori trait, ai quali sono state associate singole o un numero minimale di proprietà. La definizione delle entità si riduce quindi ad una attività di composizione, la quale rende riutilizzabili in futuro astrazioni già definite, permettendo di combinare fra loro le diverse proprietà per definire nuovi tipi di entità. 
+`MovementGoal` definisce il tipo di movimento di un'entità in un determinato momento della simulazione. Questo può essere: 
 
 + *Random Movement*: nel caso in cui l'entità voglia muoversi in maniera casuale
 + *Back To Home*: l'entità deve tornare a casa. Questo significa che il movimento successivo dovrà per forza essere in direzione della casa. 
@@ -292,7 +294,7 @@ Al fine di modellare il concetto di entity all'interno della simulazione si è d
 
 <img src="imgs/detailed_design_entities.svg" alt="entity" style="zoom:90%"/>
 
-L'infezione è stata gestita a parte e contiene le informazioni circa l'infezione che ha contratto un'entità, quali la severità, il momento dell'infezione e la durata.
+L'infezione è stata gestita a parte e contiene le informazioni circa l'infezione che ha contratto un'entità, quali la gravità, il momento dell'infezione e la durata.
 
 <img src="imgs/detailed_design_infection.svg" alt="entity"/>
 
@@ -302,7 +304,7 @@ Le strutture, assieme alle entità e al virus, sono uno dei concetti principali 
 
 Le tipologie di strutture previste da requisiti sono tre: *Casa*, *Struttura generica* ed *Ospedale*. Nonostante ciò, il requisito 4.3 richiede che le tipologie di strutture e le strategie di ingresso siano estendibili, perciò il design di questi concetti ha tenuto in considerazione ciò.
 
-Per questo motivo e per essere, nella modellazione delle Strutture, indipendente dai particolari tipi di dato (considerando che inizialmente non era stati nemmeno progettati, quindi evitando di creare dipendenze sequenziali nella progettazione), si è scelto di seguire l'approccio **abstract modelling** sfruttando il **family polimorphism** grazie agli **abstract types** di Scala permettendo una progettazione graduale da interfaccia ad effettiva implementazione affrontando in miglior modo la complessità del concetto.
+Per questo motivo e per essere, nella modellazione delle Strutture, indipendente dai particolari tipi di dato (considerando che inizialmente non erano stati nemmeno progettati, quindi evitando di creare dipendenze sequenziali nella progettazione), si è scelto di seguire l'approccio **abstract modelling** sfruttando il **family polimorphism** grazie agli **abstract types** di Scala permettendo una progettazione graduale da interfaccia ad effettiva implementazione affrontando in miglior modo la complessità del concetto.
 
 Di seguito uno schema riassuntivo che riporta gli elementi principali (type rappresentati esternamente in quanto non direttamente descrivibili in UML):
 
@@ -310,9 +312,9 @@ Di seguito uno schema riassuntivo che riporta gli elementi principali (type rapp
 
 Il design tiene in considerazione gli obiettivi descritti precedentemente, quindi viene stressata l'immutabilità.
 
-*Structure*, modellato come **trait**, rappresenta la struttura di base definita tramite **astract modelling**, in cui ogni tipo è definito tramite **abstract type**. 
+*Structure*, modellato come **trait**, rappresenta la struttura di base definita tramite **abstract modelling**, in cui ogni tipo è definito tramite **abstract type**. 
 
-Si nota l'utilizzo del pattern **Template Method** per definire i due comportamenti principali:
+I due comportamenti principali sono stati definiti attraverso l'utilizzo del pattern **Template Method**:
 
 - `tryToEnter`: questo template method definisce lo scheletro con cui coordinare l'ingresso di un'entità all'interno della struttura. Esso si appoggia ai seguenti metodi che dovranno essere *overridati* nelle varie implementazioni:
   - `checkEnter`: è il metodo che include i vari controlli da eseguire prima di poter far entrare l'entità. Esso può prendere in considerazione la strategia e/o le caratteristiche della struttura stessa.
@@ -322,7 +324,7 @@ Si nota l'utilizzo del pattern **Template Method** per definire i due comportame
 
 A partire da ciò i **mixins** *Visible* e *Closable* rappresentano due estensioni del concetto che modellano rispettivamente la capacità della struttura di essere vista da un'entità e la capacità di essere chiusa. Quest'ultima agisce proprio da **mixin** in quanto definisce un modo per "impilare" una modifica a `checkEnter`. Essi sono stati definiti come **mixins** in quanto possono avere effetto sulle funzionalità della Struttura stessa, come nel caso di *Closable*.
 
-Al fine di poterle comporre, le altre caratteristiche delle Strutture sono state create attravero **trait** appositi sfruttando il pattern **self-type**. In questo modo si è evitato di rappresentarle come sottotipi dipendendo in maniera più leggera dal principio LSP e rappresentadole come decorazioni componibili.
+Al fine di poterle comporre, le altre caratteristiche delle Strutture sono state create attravero **trait** appositi sfruttando il pattern **self-type**. In questo modo si è evitato di rappresentarle come sottotipi dipendendo in maniera più leggera dal principio *Liskov Substitution Principle* (LSP) e rappresentadole come decorazioni componibili.
 Le tre caratteristiche sviluppate sono:
 
 - *Groupable*: rappresenta la possibilità delle strutture di essere raggruppate. Permette di specificare il nome del gruppo di appartenenza.
@@ -331,9 +333,9 @@ Le tre caratteristiche sviluppate sono:
 
 Per definire i tipi di strutture è stato pensato un ulteriore **trait** *SimulationStructure* che specificasse tutti i *type* necessari alla nostra simulazione e alcuni concetti di base.
 
-Tutto ciò permette di definire le strutture (Casa, Edificio generico, Ospedale, ecc...) semplicemente mettendo assieme, componendo, tutte le componenti e caratteristiche necessarie. In questo modo è semplice creare nuove tipologie di Strutture con nuovi componenti e/o caratteristiche lavorando con una buona flessibilità e soprattutto consentendo di progettare partendo da una definizione indipendente dal design della restante parte del simulatore (grazie all'*abstract-modelling*).
+Tutto ciò permette di definire le strutture (Casa, Edificio generico, Ospedale, ecc...) semplicemente mettendo assieme tutte le componenti e caratteristiche necessarie. In questo modo è semplice creare nuove tipologie di Strutture con nuovi componenti e/o caratteristiche lavorando con una buona flessibilità e soprattutto consentendo di progettare partendo da una definizione indipendente dal design della restante parte del simulatore (grazie all'*abstract-modelling*).
 
-La strategia di ingresso viene gestita all'interno della struttura attraverso pattern **Strategy**, passando la suddetta strategia alla struttura da creare.
+La strategia di ingresso viene gestita all'interno della struttura attraverso il pattern **Strategy**, passando la suddetta strategia alla struttura da creare.
 
 Le strategie di ingresso sono di tre tipi principali:
 
@@ -341,7 +343,7 @@ Le strategie di ingresso sono di tre tipi principali:
 - *Filter-based*: consente di specificare un filtro sulle entità per decidere la loro accettazione.
 - *Probability-based*: consente di specificare una probabilità con cui le entità sono accettate all'interno della struttura.
 
-Come anticipato, il design deve prevedere una buona estensibilità nel tipo di strategie disponibili permettendone, inoltre, la loro composizione (ad esempio *Filter-based* assieme alla *Probability-based*, *"le entità con più di 18 anni sono ammesse con una probabilità del 50%"*). Al fine di modellare tutto ciò è stato scelto di utilizzare i **mixins**.
+Come anticipato, il design deve prevedere una buona estendibilità nel tipo di strategie disponibili permettendone, inoltre, la loro composizione (ad esempio *Filter-based* assieme a *Probability-based*, *"le entità con più di 18 anni sono ammesse con una probabilità del 50%"*). Al fine di modellare tutto ciò è stato scelto di utilizzare i **mixins**.
 È stato modellato un **trait** *EntranceStrategy* che rappresenta l'interfaccia della strategia di ingresso.
 L'unica implementazione del trait è **BaseEntranceStrategy** che rappresenta la strategia *Base*. Dopodiché le altre vengono modellate attraverso i **mixins** *FilterBasedStrategy* e *ProbabilityBasedStrategy*. Questo permette di ottenere una buona estendibilità (nuove strategie possono essere aggiunte con facilità specificando nuovi *mixins*) e la possibilità di comporre tra di loro le diverse strategie.
 
@@ -355,7 +357,7 @@ I parametri principali del virus sono:
 
 - nome
 - tasso di diffusione
-- giorni medi e deviazione standard della positività
+- giorni medi e deviazione standard del periodo di positività
 - probabilità di sviluppare una forma grave della malattia
 -  distanza massima entro la quale è possibile infettarsi.
 
@@ -365,19 +367,19 @@ Per semplicità ognuno di questi parametri contiene un valore di *default* in mo
 
 Durante il design si è cercato di trarre vantaggio dall'utilizzo di vari design pattern tipici della programmazione ad oggetti e funzionale:
 
-- Adapter
-- Factory
-- Strategy
-- Template Method
-- Builder
-- Type class
-- Pimp my library
-- Family polymorphism
-- Self type
+- *Adapter*
+- *Factory*
+- *Strategy*
+- *Template Method*
+- *Builder*
+- *Type class*
+- *Pimp my library*
+- *Family polymorphism*
+- *Self type*
 
 ### Organizzazione del codice
 
-Il codice è stato organizzato considerando l'utilizzo del plugin **sbt-crossproject** il quale nel caso di progetto *full* *jvm-js* richiede la creazione di tre moduli: *shared*, *jvm* e *js*. Dopodiché i package sono stati organizzati seguendo l'architettura **ECB** adottata con i package boundary, entity e control che rappresentano i tre macro-componenti dell'architettura all'interno dei quali vi sono i componenti descritti nel capitolo del design architetturale.
+Il codice è stato organizzato considerando l'utilizzo del plugin **sbt-crossproject** il quale nel caso di progetto *full* *jvm-js* richiede la creazione di tre moduli: *shared*, *jvm* e *js*. Dopodiché i package sono stati organizzati seguendo l'architettura **ECB** adottata con i package *boundary*, *entity* e *control* che rappresentano i tre macro-componenti dell'architettura all'interno dei quali vi sono i componenti descritti nel capitolo del design architetturale.
 
 ![packages](imgs/packages.svg)
 

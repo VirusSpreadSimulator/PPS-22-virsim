@@ -16,13 +16,13 @@ Nell'utilizzo di **case class** abbiamo sfruttato le **lens** (attraverso la lib
 
 Abbiamo preferito l'utilizzo di **Factory** attraverso il metodo `apply` nel companion object dei trait invece che esporre direttamente le implementazioni al fine di dare una modellazione più astratta del concetto, che sia indipendente dalla specifica implementazione, consentendo allo stesso tempo di modificare dettagli implementativi in modo più agevole.
 
-Tutto ciò cercando di utilizzare le proprietà, le funzionalità e i costrutti messi a disposizione da **Scala 3**, come ad esempio: uniform access, extension methods, currying, mixins, given instances, type, function type ...
+Tutto ciò cercando di utilizzare le proprietà, le funzionalità e i costrutti messi a disposizione da **Scala 3**, come ad esempio: uniform access, extension methods, currying, mixins, given instances, type alias, function type ...
 
 ### Boundary
 
 Considerando la necessità di eseguire il rendering della simulazione, sono necessari dei pannelli che contengano le informazioni di simulazione.
 Al fine di evitare di modellare gli stessi concetti sia per il boundary JVM che per il boundary JS, si è deciso di creare il concetto di Pannello a livello shared del Boundary.
-**BasePanel** modella il concetto di pannello di base che può essere inizializzato e stoppato. Esso viene esteso da **UpdatablePanel** il quale permette di aggiornare il pannello con il nuovo stato dell'*Environment*. Infine, è stato modellata anche la capacità di emettere degli eventi attraverso l'**EventablePanel** che sfrutta il pattern **self-type** in quanto rappresenta un'estensione, una capacità, che può essere aggiunta ad un qualsiasi pannello.
+**BasePanel** modella il concetto di pannello di base che può essere inizializzato e stoppato. Esso viene esteso da **UpdatablePanel** il quale permette di aggiornare il pannello con il nuovo stato dell'*Environment*. Infine, è stata modellata anche la capacità di emettere degli eventi attraverso l'**EventablePanel** che sfrutta il pattern **self-type** in quanto rappresenta un'estensione, una capacità, che può essere aggiunta ad un qualsiasi pannello.
 
 Di seguito verranno descritte le scelte implementative più rilevanti prese nello sviluppo dei tre boundary.
 
@@ -44,7 +44,7 @@ Il Boundary necessita di esporre verso l'esterno gli eventi generati da esso. Qu
 
 #### JS
 
-Al fine di gestire il disegno dei concetti di Simulazione è stata utilizzata anche qui la type-class *Drawable* descritta precedentemente. È stata creata l'istanza per JS chiamata **DrawableJS** in cui viene specificato il tipo di grafica utilizzato, *CanvasRenderingContext2D*, e, similmente a prima, è stato eseguito un "pimping" specificando l'operazione aggiuntiva che consente di poter disegnare attraverso un'unica chiamata un *set* di *DrawableJS*. 
+Al fine di gestire il disegno dei concetti di simulazione è stata utilizzata anche qui la type-class *Drawable* descritta precedentemente. È stata creata l'istanza per JS chiamata **DrawableJS** in cui viene specificato il tipo di grafica utilizzato, *CanvasRenderingContext2D*, e, similmente a prima, è stato eseguito un "pimping" specificando l'operazione aggiuntiva che consente di poter disegnare attraverso un'unica chiamata un *set* di *DrawableJS*. 
 
 I concetti estesi con la capacità di disegno sono: *Environment*, *SimulationEntity* e *SimulationStructure*. Ciò ha permesso di isolare il codice necessario per eseguire il disegno degli elementi e quindi di isolare l'approccio a side-effects tipico dell'API di *CanvasRenderingContext2D*.
 
@@ -63,30 +63,30 @@ Le tipologie di estrattori presenti sono:
 - **Time**: si occupa di estrare l'orario corrente della simulazione.
 
 - **Days**: si occupa di estrarre il numero di giorni trascorsi.
-- **Hours**: si occupa di estrarre le ore trascorse nel giorno attuale.
-- **Minutes**: si occupa di estrarre i minuti trascorsi nell'ora attuale.
+- **Hours**: si occupa di estrarre le ore trascorse nel giorno corrente.
+- **Minutes**: si occupa di estrarre i minuti trascorsi nell'ora corrente.
 
 - **Alive**: si occupa di estrarre il numero di entità in vita nell'environment.
 - **Deaths**: si occupa di estrarre il numero di entità morte nell'environment.
-- **Sick**: si occupa di estrarre il numero di entità malate nell'environment.
+- **Sick**: si occupa di estrarre il numero di entità gravemente malate nell'environment.
 - **Infected**: si occupa di estrarre il numero di entità infette nell'environment.
 - **Healthy**: si occupa di estrarre il numero di entità in salute nell'environment.
 - **AtHome**: si occupa di estrarre il numero di entità che si trovano in casa.
 - **HospitalsCapacity**: si occupa di estrarre la capacità degli ospedali presenti.
 - **HospitalFreeSeats**: si occupa di estrarre il totale dei posti liberi negli ospedali presenti.
 - **Hospitalized**: si occupa di estrarre il numero di entità ricoverate negli ospedali.
-- **HospitalPressure**: si occupa di estrarre la pressione ospedaliera ossia il rapporto tra gli ospedalizzati ed i posti liberi rimanenti.
+- **HospitalPressure**: si occupa di estrarre la pressione ospedaliera ossia il rapporto tra gli ospedalizzati ed i posti totali.
 
 ### Parser
 
 Al Parser vengono aggiunti tramite **extension methods** i metodi *shouldBeWithin* e *andIfNot*.
 In questo modo per ciascun parametro è possibile controllare se rientra nel range di valori possibili e in caso negativo generare un errore che verrà comunicato ai Boundary.
 
-Per quanto riguarda invece il *YAMLParser*, esso è arrichito dai metodi *to* e *has* per semplificare le operazioni di look-up e di conversione sulla mappa restituita dal parsing del file YAML.
+Per quanto riguarda invece lo *YAMLParser*, esso è arrichito dai metodi *to* e *has* per semplificare le operazioni di look-up e di conversione sulla mappa restituita dal parsing del file YAML.
 
 ### Reader
 
-Il Reader di JavaScript utilizza un *PublishSubject* di *Monix* per leggere il file caricato dall'utente sul broswer. In questo modo è possibile implementare il metodo utilizzando un approccio ad eventi ed associare ad esso un Task di Monix per rimanere coerenti con il resto del progetto.
+Il Reader di JavaScript utilizza un *PublishSubject* di *Monix* per leggere il file caricato dall'utente sul browser. In questo modo è possibile implementare il metodo utilizzando un approccio ad eventi ed associare ad esso un Task di *Monix* per rimanere coerenti con il resto del progetto.
 
 ### Engine
 
@@ -94,15 +94,15 @@ Per implementare il flow dell'engine descritto nel capitolo del design di dettag
 
 In particolare, il task ritornato dal metodo `startSimulationLoop` è composto dalla descrizione monadica lazy di due task che nel momento dell'esecuzione verranno eseguiti in parallelo attraverso lo scheduler di *Monix* definito:
 
-- Il primo task si occupa di gestire ogni evento proveniente dagli *Observable* restituiti dai Boundary, opportunamente mergiati, inserendoli in una *ConcurrentQueue* di *Monix*.
-- Il secondo task esegue il vero loop di simulazione, eseguendo le logiche e spedendo l'Environment aggiornato ai Boundary. Esso considera solo i primi eventi dalla suddetta coda (il cui numero è definito dal valore associato alla configurazione *maxEventPerIteration* iniettata nell'engine).
+- Il primo task si occupa di gestire ogni evento proveniente dagli *Observable* restituiti dai Boundary,  opportunamente uniti, inserendoli in una *ConcurrentQueue* di *Monix*.
+- Il secondo task esegue il vero loop di simulazione, eseguendo le logiche e comunicando l'Environment aggiornato ai Boundary. Esso considera solo i primi eventi dalla suddetta coda (il cui numero è definito dal valore associato alla configurazione *maxEventPerIteration* iniettata nell'engine).
 
 Nella descrizione del design di dettaglio sono presenti due tipologie di logiche: **UpdateLogic** per le logiche di aggiornamento dell'Environment da eseguire ad ogni tick ed **EventLogic** per le logiche associate agli eventi. In particolare le logiche implementate sono le seguenti:
 
 - *UpdateLogic*: esse sono state inserite nel seguente ordine al fine di eseguirle sequenzialmente
   - **UpdateEntityStateLogic**: è la logica che provvede ad aggiornare lo stato di salute di ogni entità.
   - **HospitalRecoveryLogic**: è la logica che si occupa di curare gli individui all'interno degli ospedali.
-  - **HospitalizeEntityLogic**: è la logica che si occupa di ricoverare gli individui malati a rischio di vita.
+  - **HospitalizeEntityLogic**: è la logica che si occupa di ricoverare gli individui malati a rischio di morte.
   - **EntityGoalUpdateLogic**: è la logica che si occupa di aggiornare l'obiettivo di ogni entità sulla base del periodo della giornata simulata.
   - **MovementLogic**: è la logica che gestisce il movimento delle entità all'interno dell'Environment.
   - **ExitLogic**: è la logica che si occupa di controllare e gestire l'uscita degli individui dalle strutture.
@@ -120,9 +120,12 @@ Nella descrizione del design di dettaglio sono presenti due tipologie di logiche
 
 ### Environment
 
+Per quanto riguarda l'environment tutti i campi presenti sono gestiti in modo immutabile.
+Il metodo `update` ha tutti i parametri come default, i quali mantengono l'Environment invariato e restituisce un nuovo Environment aggiornando le informazioni con i parametri passati. 
+
 #### Common
 
-Come anticipato nel design di dettaglio, la **type class** *Probable* permette di aumentare un tipo con la capacità di rappresentare un evento dotato di una determinata probabilità di accadimento, la quale viene definita da una formula. Infatti è possibile notare che all'interno dell'*object ProbableGivenInstances* sono presenti tutti i *given instances* necessari. In particolare si possono osservare quelli associati agli eventi di contagio. Essi sono modellati andando ad aumentare i tipi *ExternalProbableInfection* e *InternalProbableInfection* che rappresentano un contagio probabile rispettivamente esterno ed interno alle strutture.
+Come anticipato nel design di dettaglio, la **type class** *Probable* permette di aumentare un tipo con la capacità di rappresentare un evento dotato di una determinata probabilità di accadimento, la quale viene definita da una formula. Infatti è possibile notare che all'interno dell'*object ProbableGivenInstances* sono presenti tutte le *given instances* necessarie. In particolare si possono osservare quelle associate agli eventi di contagio. Esse sono modellate andando ad aumentare i tipi *ExternalProbableInfection* e *InternalProbableInfection* che rappresentano un contagio probabile rispettivamente esterno ed interno alle strutture.
 
 Le formule implementate, le quali sono semplici e non hanno alcuna volontà di essere significative in un contesto reale, sono le seguenti:
 
@@ -156,11 +159,11 @@ Grazie alla type class è stato possibile isolare la rappresentazione delle form
 
 Al fine di poter confrontare due Entity anche in tick della simulazione differenti è stato ridefinito il metodo `equals`, definendo che due Entity sono uguali se hanno lo stesso id. 
 Le Entity vengono create tramite una **Factory**, implementata utilizzando il metodo `apply` nel companion object, evitando quindi di esporne l'implementazione. 
-Ad ogni Entity al momento della creazione viene attribuita un valore MaxHealth il quale rappresenta il massimo della vita che essa potrà avere per tutta la durata della simulazione. Questo valore dipende dall'età e siccome presumubilmente molte Entity avranno la stessa età, è stata utilizzata la libreria **Scalaz**, la quale fornisce una immutableHashMapMemo, per salvare le nuove maxHealth calcolate ed evitare di ricalcolarle successivamente. Il campo health assume maxhealth al momento della creazione. 
+Ad ogni Entity al momento della creazione viene attribuito un valore `maxHealth` il quale rappresenta il massimo della vita che essa potrà avere per tutta la durata della simulazione. Questo valore dipende dall'età e siccome presumubilmente molte Entity avranno la stessa età, è stata utilizzata la libreria **Scalaz**, la quale fornisce una immutableHashMapMemo, per salvare le nuove maxHealth calcolate ed evitare di ricalcolarle successivamente. Il campo health assume maxHealth al momento della creazione. 
 
 #### Structure
 
-Le Strutture sono state effettivamente create partendo dal trait *SimulationStructure*, il quale definisce tutti gli **abstract types** dichiarati nel trait *Structure*, e componendolo con i trait rappresentanti le caratteristiche desiderate. Questo approccio rende flessibile e agile l'estensione e l'aggiunta di nuove strutture e l'aggiunta di nuove tipologie.
+Le Strutture sono state effettivamente create partendo dal trait *SimulationStructure*, il quale definisce tutti gli **abstract types** dichiarati nel trait *Structure*, e componendolo con i trait rappresentanti le caratteristiche desiderate. Questo approccio rende flessibile e agile l'estensione e l'aggiunta di nuove strutture e tipologie.
 Seguendo i requisiti sono state implementate le seguenti strutture:
 
 - *House*: rappresenta la casa per le entità
@@ -171,7 +174,7 @@ Seguendo i requisiti sono state implementate le seguenti strutture:
 
 Al fine di garantire la correttezza e la qualità del codice il team ha sfruttato il modello di sviluppo **TDD** (*Test Driven Development*) durante lo sviluppo di tutte le parti del sistema ad eccezione delle parti di interfaccia utente. Inoltre, allo scopo di prevenire situazioni di regressione, come anticipato nella descrizione del processo di sviluppo, i test vengono eseguiti come parte della pipeline di Build del workflow di Continuous Integration.
 
-Abbiamo ottenuto una coverage di linea di circa 50% ed una coverage totale di circa 30%.
+Si è ottenuta una coverage di linea di circa 50% ed una coverage totale di circa 30%.
 
 ### Suddivisione del lavoro
 
