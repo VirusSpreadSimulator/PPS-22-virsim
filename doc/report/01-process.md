@@ -10,13 +10,13 @@ Al fine di simulare un contesto reale, i componenti del team interpretano i vari
 
 Considerando la cardinalità ridotta del team, si è adottata una versione semplificata di Scrum cercando di rimanere coerenti con la filosofia originale. Come anticipato, Andrea Acampora in veste di committente ed esperto del dominio si è occupato di garantire l'usabilità e la qualità del risultato interagendo direttamente con il Product Owner interpretato da Andrea Giulianelli.
 
-### Meeting/interazioni pianificate
+### Meeting e interazioni pianificate
 
 I meeting tra i membri del team si sono tenuti online con frequenza regolare sfruttando la piattaforma Microsoft Teams. Il meeting iniziale è stato caratterizzato dall'incontro tra il team, in particolare il Product Owner, e il committente con lo scopo di comprendere il dominio applicativo e gli obiettivi del progetto.
 Durante questo incontro è stata eseguita un'intervista che ha portato alla stesura dei requisiti e alla creazione del **Product Backlog**. Quest'ultimo documento è stato fondamentale per mantenere una lista con priorità delle feature customer-centric accompagnando lo sviluppo per tutta la durata del progetto. A livello operativo il documento è stato gestito mediante una tabella in un file in linguaggio Markdown mantenuta in versione all'interno della repository del progetto in modo da permetterne l'evoluzione.
 A seguito di questo incontro sono stati eseguiti Sprint con cadenza settimanale, in particolare ciascuno Sprint è stato caratterizzato dalle seguenti attività:
 
-- **Sprint Planning**: cercando di rispettare la natura di Scrum, lo Sprint Planning è stato diviso in due parti. Nella prima parte, dedicata alla preparazione dello sprint, si delineano i principali task ad alta priorità da svolgere all'interno dello sprint stesso. Essi sono estratti dal Product Backlog e approfonditi. Il risultato di questa prima parte è lo **Sprint Goal**, un riassunto con gli obiettivi dello sprint mantenuto in versione in un file in linguaggio Markdown all'interno della repository del progetto. Lo Sprint Goal prodotto lascia flessibilità nella quantità e nella selezione degli elementi in preparazione della seconda parte dello Sprint Planning. Durante la seconda parte il team di sviluppo si occupa di decidere in modo effettivo, considerando i tempi a disposizione, quali item dovranno essere completati nello sprint corrente. Il risultato di questa fase è lo **Sprint Backlog**, un approfondimento della porzione di Product Backlog designata nella fase precedente. Anche questo documento, rappresentato da una tabella in un file in linguaggio Markdown, è mantenuto in versione. 
+- **Sprint Planning**: cercando di rispettare la natura di Scrum, lo Sprint Planning è stato diviso in due parti. Nella prima parte, dedicata alla preparazione dello sprint, si delineano i principali task ad alta priorità da svolgere all'interno dello sprint stesso. Essi sono estratti dal Product Backlog ed approfonditi. Il risultato di questa prima parte è lo **Sprint Goal**, un riassunto con gli obiettivi dello sprint mantenuto in versione in un file in linguaggio Markdown all'interno della repository del progetto. Lo Sprint Goal prodotto lascia flessibilità nella quantità e nella selezione degli elementi in preparazione della seconda parte dello Sprint Planning. Durante la seconda parte il team di sviluppo si occupa di decidere in modo effettivo, considerando i tempi a disposizione, quali item dovranno essere completati nello sprint corrente. Il risultato di questa fase è lo **Sprint Backlog**, un approfondimento della porzione di Product Backlog designata nella fase precedente. Anche questo documento, rappresentato mediante una tabella in un file in linguaggio Markdown, è mantenuto in versione. 
 - **Daily Scrum**: durante lo sprint, con cadenza giornaliera e della durata di 15 minuti, sono stati eseguiti i Daily Scrum al fine di sincronizzare il lavoro e riportare eventuali ostacoli incontrati.
 - **Product Backlog Refinement**: alla fine dello sprint viene eseguito il Product Backlog Refinement, un meeting con l'obiettivo di analizzare, ri-stimare e rivedere le priorità del Product Backlog al fine di semplificare i futuri Sprint Planning.
 - **Sprint Review**: consiste in un meeting da svolgere alla fine dello sprint ed ha l'obiettivo di analizzarne e ispezionarne il risultato al fine di comprendere, con il Product Owner e il committente, se i task dello sprint sono stati svolti correttamente.
@@ -32,7 +32,7 @@ Per ogni task assegnato è stata considerata la seguente *definition of done*: u
 
 ### Modalità di revisione in itinere dei task
 
-Durante lo sprint non è possibile effettuare cambiamenti agli obiettivi di esso. Ciascuna modifica, la quale viene discussa in uno dei meeting finali quali Product Backlog Refinement, Sprint Review e Sprint Retrospective, è da includere necessariamente all'interno dello sprint successivo.
+Durante lo sprint non è possibile effettuare cambiamenti agli obiettivi di esso. Ciascuna modifica, la quale viene ulteriormente discussa in uno dei meeting finali quali Product Backlog Refinement, Sprint Review e Sprint Retrospective, è da includere necessariamente all'interno dello sprint successivo.
 L'unica revisione consentita è relativa alla modifica della stima del carico di lavoro residuo di ogni task all'interno dello Sprint Backlog. Invece, nel caso di cambi drammatici e/o critici è possibile interrompere lo Sprint in corso.
 
 ### Scelta degli strumenti di test 
@@ -61,8 +61,8 @@ I branch previsti dal workflow sono i seguenti:
 - *release*: branch di supporto, dedicato alla preparazione di una nuova release.
 - *hotfix*: branch di supporto, utilizzato per la correzione di errori nel codice di produzione rilasciato.
 
-Inoltre, al fine di esplicitare maggiormente il significato dei commit si è scelto di utilizzare la specifica **[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)**, che ha semplificato l'utilizzo di tool automatici per il versionamento dell'applicazione. In particolare è stato adottata la specifica del **[Semantic Versioning](https://semver.org/)**.
-Al fine di controllare il rispetto della specifica *Conventional Commits* è stato utilizzato un *hook* per git con lo scopo di analizzare il messaggio di commit ed eventualmente farlo fallire in caso di errore. Inoltre, è stato utilizzato un ulteriore hook pre-commit per eseguire automaticamente il pull dalla repository prima di poter effettuare qualsiasi commit in modo tale da limitare il più possibile la divergenza tra le linee di sviluppo. Per poter condividere e configurare automaticamente gli hook è stato utilizzato il plugin sbt **sbt-git-hooks** il quale al caricamento del progetto inserisce quest'ultimi all'interno della cartella *.git*.
+Inoltre, al fine di esplicitare maggiormente il significato dei commit si è scelto di utilizzare la specifica **[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)**, che ha semplificato l'utilizzo di tool automatici per il versionamento dell'applicazione. In particolare è stata adottata la specifica del **[Semantic Versioning](https://semver.org/)**.
+Al fine di controllare il corretto utilizzo della specifica *Conventional Commits* è stato utilizzato un *hook* per git con lo scopo di analizzare il messaggio di commit ed eventualmente farlo fallire in caso non la rispetti. Inoltre, è stato utilizzato un ulteriore hook pre-commit per eseguire automaticamente il pull dalla repository prima di poter effettuare qualsiasi commit in modo tale da limitare il più possibile la divergenza tra le linee di sviluppo. Per poter condividere e configurare automaticamente gli hook è stato utilizzato il plugin sbt **sbt-git-hooks** il quale al caricamento del progetto inserisce quest'ultimi all'interno della cartella `.git`.
 
 #### Build Automation
 
@@ -96,19 +96,19 @@ Inoltre, per la gestione automatica degli aggiornamenti delle dipendenze è stat
 
 In aggiunta alla Continuous Integration è stato utilizzato anche un meccanismo di Continuous Deployment, il quale permette di rilasciare le *major versions* del software in maniera automatica.
 Il delivery target scelto è **Github Release**. 
-Considerando, come anticipato, l'utilizzo di Git-Flow come branching model, ad ogni commit sul branch Main viene attivata la pipeline di deploy. Essa ha un duplice obiettivo: 
+Considerando, come anticipato, l'utilizzo di Git-Flow come branching model, ad ogni commit sul branch *main* viene attivata la pipeline di deploy. Essa ha un duplice obiettivo: 
 
 + Release: al fine di ottenere una gestione automatica della versione la quale sfrutti i Conventional Commit e della pubblicazione degli artefatti è stato utilizzato il tool [Semantic Release](https://github.com/semantic-release/semantic-release). La release include:
 
   + Il file jar dell'applicativo JVM: generato attraverso il plugin **sbt-assembly**. 
-  + Il file pdf del report, ottenuto dal merging automatico dei file in formato Markdown presenti in versione. Per la conversione dei file è stata sviluppata una [action](https://github.com/andrea-acampora/action-md2pdf) ad hoc che sfrutta il converter [mdpdf](https://github.com/BlueHatbRit/mdpdf).
+  + Il file pdf del report ottenuto dal merging automatico dei file in formato Markdown presenti in versione. Per la conversione dei file è stata sviluppata una [action](https://github.com/andrea-acampora/action-md2pdf) ad hoc che sfrutta il converter [mdpdf](https://github.com/BlueHatbRit/mdpdf).
   + I sample di configurazione della simulazione in formato scala e yaml. 
 
-+ Deploy: è stato utilizzato il servizio di hosting Github Pages al fine di creare un sito che permetta di accedere a: 
++ Deploy: è stato utilizzato il servizio di hosting **Github Pages** al fine di creare un sito che permetta di accedere a: 
 
   + Scaladoc: generata automaticamente mediante il plugin **sbt-unidoc** ed **sbt-site** e pubblicata al seguente [link](https://virusspreadsimulator.github.io/PPS-22-virsim/latest/api/).
-  + Web App: il codice del simulatore viene transcompilato attraverso il plugin sbt-crossproject descritto precedentemente e ne viene eseguito il deploy all'interno del sito del simulatore al seguente [link](https://virusspreadsimulator.github.io/PPS-22-virsim/simulator/).
+  + Web App: il codice del simulatore viene transcompilato attraverso il plugin **sbt-crossproject** descritto precedentemente e ne viene eseguito il deploy all'interno del sito del simulatore al seguente [link](https://virusspreadsimulator.github.io/PPS-22-virsim/simulator/).
 
-  Il deploy del sito avviene automaticamente al seguente [link](https://virusspreadsimulator.github.io/PPS-22-virsim/) grazie all'azione **[action-gh-pages](https://github.com/peaceiris/actions-gh-pages)** in modo tale da aggiornare la scaladoc e la webapp ad ogni release senza interventi umani. 
+  Il deploy del sito avviene automaticamente al seguente [link](https://virusspreadsimulator.github.io/PPS-22-virsim/) grazie all'azione **[action-gh-pages](https://github.com/peaceiris/actions-gh-pages)** in modo tale da aggiornare la Scaladoc e la webapp ad ogni release senza interventi umani. 
 
 <div style="page-break-after: always;"></div>
