@@ -25,7 +25,7 @@ lazy val root = crossProject(JSPlatform, JVMPlatform)
       "io.monix" %%% "monix" % "3.4.1",
       "dev.optics" %%% "monocle-core" % "3.2.0",
       "it.unibo.alice.tuprolog" % "tuprolog" % "3.3.0",
-      "dev.optics" %%% "monocle-macro" % "3.1.0",
+      "dev.optics" %%% "monocle-macro" % "3.2.0",
       "org.scala-lang" %% "scala3-staging" % scalaVersion.value,
       "org.virtuslab" %%% "scala-yaml" % "0.0.6",
       "org.jfree" % "jfreechart" % "1.5.4",
