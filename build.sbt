@@ -1,4 +1,4 @@
-ThisBuild / scalaVersion := "3.1.1"
+ThisBuild / scalaVersion := "3.1.3"
 
 lazy val startupTransition: State => State = "writeHooks" :: _
 
