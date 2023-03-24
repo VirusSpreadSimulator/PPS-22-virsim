@@ -51,7 +51,7 @@ jobs:
         with:
           node-version: 'lts/*'
       - name: Build PDF
-        uses: andrea-acampora/action-md2pdf@1.0.4
+        uses: andrea-acampora/action-md2pdf@1.0.5
         with:
           file_dir: doc/report
           output_dir: doc
