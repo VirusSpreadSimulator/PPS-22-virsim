@@ -1,5 +1,5 @@
 //scalafmt plugin
-addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.1")
+addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.2")
 
 //sbt-jacoco plugin
 addSbtPlugin("com.github.sbt" % "sbt-jacoco" % "3.4.0")
