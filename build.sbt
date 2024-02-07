@@ -20,7 +20,7 @@ lazy val root = crossProject(JSPlatform, JVMPlatform)
       "utf-8"
     ),
     libraryDependencies ++= Seq(
-      "org.scalatest" %% "scalatest" % "3.2.17" % Test,
+      "org.scalatest" %% "scalatest" % "3.2.18" % Test,
       "com.disneystreaming" %% "weaver-monix" % "0.6.15" % Test,
       "io.monix" %%% "monix" % "3.4.1",
       "dev.optics" %%% "monocle-core" % "3.2.0",
