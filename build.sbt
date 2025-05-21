@@ -28,7 +28,7 @@ lazy val root = crossProject(JSPlatform, JVMPlatform)
       "dev.optics" %%% "monocle-macro" % "3.2.0",
       "org.scala-lang" %% "scala3-staging" % scalaVersion.value,
       "org.virtuslab" %%% "scala-yaml" % "0.0.8",
-      "org.jfree" % "jfreechart" % "1.5.4",
+      "org.jfree" % "jfreechart" % "1.5.6",
       "org.scalaz" %%% "scalaz-core" % "7.3.8"
     ),
     testFrameworks += new TestFramework("weaver.framework.Monix")
