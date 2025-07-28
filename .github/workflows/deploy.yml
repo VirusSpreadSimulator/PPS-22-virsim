@@ -29,7 +29,7 @@ jobs:
           cp root/style.css target/site/simulator/
           cp root/js/target/scala-3.1.1/pps-22-virsim-fastopt.js target/site/simulator/js/target/scala-3.1.1/
       - name: Publish Site
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site
