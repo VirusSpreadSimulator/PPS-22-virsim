@@ -9,7 +9,7 @@ addSbtPlugin("uk.co.randomcoding" % "sbt-git-hooks" % "0.2.0")
 
 //site generator
 addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "1.4.1")
-addSbtPlugin("com.github.sbt" % "sbt-unidoc" % "0.5.0")
+addSbtPlugin("com.github.sbt" % "sbt-unidoc" % "0.6.1")
 
 //generate FAT Jar
 addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "1.2.0")
